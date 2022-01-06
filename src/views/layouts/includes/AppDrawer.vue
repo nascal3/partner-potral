@@ -118,8 +118,12 @@ export default {
         //     ] 
         //   },
         // ],
-        
+
         'APPLICATION': [
+          { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'roles.index' },
+        ],
+        
+        'ACCESS CONTROL': [
           { name: 'Roles', icon: 'lock', to: '/roles', permission: 'roles.index' },
           { name: 'Users', icon: 'account-group', to: '/users', permission: 'users.index' },
         ],

@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div v-if="initialised">
     <v-row 
       v-for="(groupName, index) in Object.keys(groupedPermissions)"
       :key="groupName"
     >
       <v-col 
-        v-if="groupName !== 'undefined'"
+        v-if="group == 'Resourceful'"
         class="py-0"
         cols="12"
       >
@@ -34,9 +34,6 @@
               :label="permission.display_name.replace('-', ' ')"
             ></v-checkbox>
           </v-col>
-          <!-- <v-col 
-            cols="8"
-          ><span class="body-2">{{ permission.description }}</span></v-col> -->
         </v-row>
       </v-col>
       <v-col 
@@ -73,13 +70,17 @@ export default {
 
     group () {
       this.groupPermissions()
-    }
+    },
   },
 
   computed: {
     ...mapGetters({
       allPermissions: 'getPermissions'
     }),
+
+    initialised () {
+      return this.groupedPermissions
+    }
   },
 
   methods: {
@@ -98,18 +99,17 @@ export default {
         const rolePerm = this.role.permissions.find(({name}) => name == permission.name)
         this.switches[permission.name] = rolePerm ? true : false
       })
-      this.groupedPermissions = _.groupBy(permissions, 'resource_item')
-      
+      this.groupedPermissions = _.groupBy(permissions, 'resource')
     },
 
     synchronisePermission (permission) {
-  //     this.roleObj.sycnPermissions(this.role.id, permission.id)
-  //       .then(response => {
-  //         flash({ message: 'Permission updated successfully' })
-  //       })
-  //       .catch(error => {
-  //         flash({ message: 'Sorry! Something went wrong' })
-  //       })
+      this.roleObj.syncPermissions(this.role.id, permission.id)
+        .then(response => {
+          flash({ message: 'Permission updated successfully' })
+        })
+        .catch(error => {
+          flash({ message: 'Sorry! Something went wrong' })
+        })
     }
   },
 

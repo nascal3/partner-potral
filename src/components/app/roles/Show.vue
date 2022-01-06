@@ -10,7 +10,7 @@
       <v-radio-group v-model="group" row>
         <v-spacer></v-spacer>
         <v-radio 
-          v-for="(ofType, index) in ['General', 'Resourceful']"
+          v-for="(ofType, index) in ['Resourceful', 'General']"
           :key="`permission-${index}`"
           :label="ofType" 
           :value="ofType"
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       role: null,
-      group: 'General',
+      group: 'Resourceful',
       roleObj: new Role(),
     }
   },

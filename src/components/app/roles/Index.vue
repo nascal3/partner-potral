@@ -43,10 +43,20 @@
               dark
               small
               color="secondary"
-              class="ttn caption"
+              class="ttn caption mr-2"
               @click="role = item"
             >
               Edit
+            </v-btn>
+
+            <v-btn 
+              dark
+              small
+              color="#e74c3c"
+              class="ttn caption"
+              @click="role = item"
+            >
+              Deactivate
             </v-btn>
           </template>
         </v-data-table>
@@ -75,7 +85,7 @@ export default {
       headers: [
         { text: 'Display name', value: 'display_name' },
         { text: 'Description', value: 'description' },
-        { text: 'Permissions', value: 'permissions' },
+        { text: 'Access control', value: 'permissions' },
         { text: 'Actions', value: 'actions' },
       ],
     }

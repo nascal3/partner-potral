@@ -44,5 +44,19 @@ export default class Role extends Base {
       }
     })
   }
+
+  syncPermissions (roleId, permissionId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("post", url(`partners/${this.partner.id}/sync-permissions`), { 
+          role_id: roleId, 
+          permission_id: permissionId,
+        })
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

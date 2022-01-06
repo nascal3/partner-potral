@@ -19,10 +19,11 @@
 
     <v-spacer></v-spacer>
 
-    <div class="mr-5">
-      <!-- <profile-switcher
-        class="mr-4"
-      ></profile-switcher> -->
+    <div class="mr-3">
+      <profile-switcher
+      ></profile-switcher>
+
+      <!-- <app-switcher></app-switcher> -->
     </div>
   </v-app-bar>
 </template>
@@ -31,7 +32,7 @@
 export default {
   components: {
     // 'app-switcher': () => import('./app_bar/AppSwitcher'),
-    // 'profile-switcher': () => import('./app_bar/ProfileSwitcher.vue')
+    'profile-switcher': () => import('./app_bar/ProfileSwitcher.vue')
   },
 
   computed: {
