@@ -1,0 +1,24 @@
+@import 'variables';
+
+html body #app {
+  font-family: $body-font-family !important;
+  color: #333;
+
+  .display-1, .display-2, .display-3, .display-4, .headline, .title, .subtitle-1, .subtitle-2, .body-2, .body-1, .caption, .text-caption, .text-h1, .text-h6{
+    font-family: $body-font-family;
+  }
+
+  .error--text{
+    .v-messages__message{
+      color: #e74c3c !important;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .ttn { 
+    text-transform: none !important
+  }
+}

@@ -1,15 +1,27 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import Apix from './Apix';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-export default new Vuex.Store({
+let apix = new Apix();
+
+const store = new Vuex.Store({
   state: {
+    ...apix.getState(),
   },
+
+  getters: {
+    ...apix.getGetters(),
+  },
+
   mutations: {
+    ...apix.getMutations(),
   },
+
   actions: {
+    ...apix.getActions(),
   },
-  modules: {
-  }
-})
+});
+
+export default store
