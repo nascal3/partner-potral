@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Users
+            Roles
           </h1>
         </div>
         <v-spacer></v-spacer>
