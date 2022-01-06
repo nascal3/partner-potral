@@ -64,6 +64,19 @@ const routes = [
         name: 'roles.index',
         component: () => import('@/components/app/roles/Index.vue'),
       },
+
+      {
+        path: 'roles/:roleId',
+        name: 'roles-show',
+        component: () => import('@/components/app/roles/Show.vue'),
+        children: [
+          {
+            path: 'permissions',
+            name: 'roles-permissions',
+            component: () => import('@/components/app/roles/show/Permissions.vue')
+          }
+        ]
+      },
     ],
   },
 ]

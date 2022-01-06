@@ -11,12 +11,13 @@ export const resources = [
   // { name: 'rolesReport', url: 'reports/roles' },
 
   // { name: 'products', url: 'products' },
-  // { name: 'permissions', url: 'permissions' },
+  
   // { name: 'productGroups', url: 'product-groups' },
   // { name: 'productGroupUuids', url: 'product-group-uuids' },
 
   { name: 'roles', url: `${partnerPrefix}/roles` },
   { name: 'users', url: `${partnerPrefix}/users` },
+  { name: 'permissions', url: `${partnerPrefix}/permissions`},
   // { name: 'groupPermissions', url: 'identity/internal/permissions' },
 ];
 

@@ -26,6 +26,18 @@
           :items="users.data"
           style="overflow-x: scroll; width: 100%"
         >
+          <template v-slot:item.permissions="{ item }">
+            <v-btn 
+              dark
+              text
+              small
+              color="deep-orange"
+              class="ttn body-2"
+              :to="`roles/${item.id}/permissions`"
+            >
+              Manage permissions
+            </v-btn>
+          </template>
           <template v-slot:item.actions="{ item }">
             <v-btn 
               dark
