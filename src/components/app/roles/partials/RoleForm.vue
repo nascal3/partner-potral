@@ -77,6 +77,17 @@ export default {
     }
   },
 
+
+  watch: {
+    role (value) {
+      if (value) {
+        this.roleObj.name = value.name;
+        this.roleObj.display_name = value.display_name;
+        this.roleObj.description = value.description;
+      }
+    }
+  },
+
   computed: {
     errors () {
       return this.roleObj.form.errors
@@ -102,9 +113,16 @@ export default {
         })
     },
 
-    // update () {
-
-    // }
+    update () {
+      this.roleObj.update(this.role.id)
+        .then(response => {
+          flash(response)
+          this.$emit('updated')
+        })
+        .finally(error => {
+          this.reset()
+        })
+    }
   },
 }
 </script>

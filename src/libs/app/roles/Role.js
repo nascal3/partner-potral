@@ -22,16 +22,16 @@ export default class Role extends Base {
     })
   }
 
-  // update (roleId) {
-  //   const data = this.getFields();
-  //   return new Promise(async (resolve, reject) => {
-  //     try {
-  //       let response = await this.form.submit("patch", url(`api/v1/markets/${this.group.id}/users/${roleId}`), data)
-  //       resolve(response)
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
+  update (roleId) {
+    const data = this.getFields();
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("patch", url(`partners/${this.group.id}/roles/${roleId}`), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
         <roles-create
-          @reload="setRoles()"
+          @reload="setRoles"
         ></roles-create>
       </v-card-title>
 
@@ -32,7 +32,7 @@
               small
               color="secondary"
               class="ttn caption"
-              @click="user = item"
+              @click="role = item"
             >
               Edit
             </v-btn>
@@ -40,12 +40,10 @@
         </v-data-table>
       </v-card-text>
 
-      <!-- <users-edit
-        :user="user"
-        @updated="updated()"
-      ></users-edit> -->
-
-      
+      <roles-edit
+        :role="role"
+        @updated="setRoles"
+      ></roles-edit>
     </v-card>
   </div>
 </template>
@@ -55,14 +53,17 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    'roles-create': () => import('./Create.vue')
+    'roles-create': () => import('./Create.vue'),
+    'roles-edit': () => import('./Edit.vue')
   },
 
   data () {
     return {
+      role: null,
       headers: [
         { text: 'Display name', value: 'display_name' },
         { text: 'Description', value: 'description' },
+        { text: 'Permissions', value: 'permissions' },
         { text: 'Actions', value: 'actions' },
       ],
     }
