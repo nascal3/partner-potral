@@ -15,7 +15,7 @@ export const resources = [
   // { name: 'productGroups', url: 'product-groups' },
   // { name: 'productGroupUuids', url: 'product-group-uuids' },
 
-  // { name: 'roles', url: 'identity/internal/roles' },
+  { name: 'roles', url: `${partnerPrefix}/roles` },
   { name: 'users', url: `${partnerPrefix}/users` },
   // { name: 'groupPermissions', url: 'identity/internal/permissions' },
 ];

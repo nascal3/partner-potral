@@ -22,9 +22,9 @@ export default class Form {
         // if (status === 403) {
         //   location = '/unauthorised'
         // }
-        if (status && status === 404) {
-          location = '/unavailable'
-        }
+        // if (status && status === 404) {
+        //   location = '/unavailable'
+        // }
         this.errors.record(data)
         reject(response)
       })

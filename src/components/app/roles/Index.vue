@@ -8,6 +8,9 @@
           </h1>
         </div>
         <v-spacer></v-spacer>
+        <roles-create
+          @reload="setRoles()"
+        ></roles-create>
       </v-card-title>
 
       <v-divider></v-divider>
@@ -25,8 +28,9 @@
         >
           <template v-slot:item.actions="{ item }">
             <v-btn 
+              dark
               small
-              color="primary"
+              color="secondary"
               class="ttn caption"
               @click="user = item"
             >
@@ -34,11 +38,6 @@
             </v-btn>
           </template>
         </v-data-table>
-
-        <!-- <app-pagination
-          :meta="users.meta"
-          @pageChanged="pageChanged"
-        ></app-pagination> -->
       </v-card-text>
 
       <!-- <users-edit
@@ -48,10 +47,6 @@
 
       
     </v-card>
-
-    <!-- <users-create
-      @reload="loadTable()"
-    ></users-create> -->
   </div>
 </template>
 
@@ -59,17 +54,15 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-  // components: {
-  //   'users-create': () => import('./Create.vue')
-  // },
+  components: {
+    'roles-create': () => import('./Create.vue')
+  },
 
   data () {
     return {
       headers: [
-        { text: 'Name', value: 'name' },
-        { text: 'Email', value: 'email' },
-        { text: 'Phone', value: 'phone' },
-        { text: 'Roles', value: 'roles' },
+        { text: 'Display name', value: 'display_name' },
+        { text: 'Description', value: 'description' },
         { text: 'Actions', value: 'actions' },
       ],
     }
@@ -77,19 +70,18 @@ export default {
 
   computed: {
     ...mapGetters({
-      users: 'getUsers'
+      users: 'getRoles'
     })
   },
   
   methods: {
     ...mapActions([
-      'setUsers'
-    ])
+      'setRoles'
+    ]),
   },
-
   
   mounted () {
-    this.setUsers()
+    this.setRoles()
   }
 }
 </script>
