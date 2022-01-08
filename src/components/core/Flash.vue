@@ -1,8 +1,5 @@
 <template>
   <v-snackbar
-    bottom
-    right
-    multi-line
     elevation="24"
     :value="show"
     :color="color"
@@ -10,6 +7,19 @@
     class="body-1 white--text"
   >
     {{ body }}
+    <template v-slot:action="{ attrs }">
+      <v-btn
+        icon
+        text
+        color="#e74c3c"
+        v-bind="attrs"
+        @click="show = false"
+      >
+        <v-icon>
+          mdi-close
+        </v-icon>
+      </v-btn>
+    </template>
   </v-snackbar>
 </template>
 
@@ -31,7 +41,7 @@ export default {
     flash(details) {
       this.body = details.message;
       this.alert = details.alert;
-      this.timeout = details.timeout || 8000;
+      this.timeout = details.timeout || 6000;
       this.color = details.color || 'grey darken-3'
 
       this.show = true;

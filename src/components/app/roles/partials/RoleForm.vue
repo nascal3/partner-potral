@@ -119,8 +119,8 @@ export default {
           flash(response)
           this.$emit('updated')
         })
-        .finally(error => {
-          this.reset()
+        .finally(() => {
+          this.loading = false
         })
     }
   },

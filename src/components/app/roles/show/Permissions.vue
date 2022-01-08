@@ -114,7 +114,11 @@ export default {
   },
 
   mounted () {
-    this.setPermissions()
+    this.setPermissions({
+      routes: {
+        partner: (auth.retrieve('partner')).id
+      }
+    })
   }
 }
 </script>

@@ -3,17 +3,19 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          {{ role.display_name }} Role Access Control
+          {{ role.display_name }} Role
         </h1>
       </div>
-      <v-spacer></v-spacer>
+    </v-card-title>
+
+    <v-card-title class="pt-0 mt-0">
       <v-radio-group v-model="group" row>
-        <v-spacer></v-spacer>
         <v-radio 
           v-for="(ofType, index) in ['Resourceful', 'General']"
           :key="`permission-${index}`"
           :label="ofType" 
           :value="ofType"
+          class="body-1"
         ></v-radio>
       </v-radio-group> 
     </v-card-title>
@@ -34,7 +36,7 @@ export default {
   data () {
     return {
       role: null,
-      group: 'Resourceful',
+      group: 'General',
       roleObj: new Role(),
     }
   },

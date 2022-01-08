@@ -60,7 +60,7 @@ export default {
     logout () {
       auth.logout()
       this.$router.push({
-        name: "login"
+        name: "generate"
       })
     }
   }

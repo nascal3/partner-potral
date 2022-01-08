@@ -6,25 +6,19 @@
   >
     <template v-slot:activator="{ on, attrs }">
       <v-btn
-        fab
-        dark
-        small
-        right
-        bottom
-        absolute
         v-on="on"
         v-bind="attrs"
-        color="pink"
-        style="margin-bottom: 35px"
+        color="primary"
+        class="caption ttn"
       >
-        <v-icon>mdi-plus</v-icon>
+        Add User
       </v-btn>
     </template>
 
     <user-form
       :dialogLaunch="dialogLaunch"
-      @close="closeDialog()"
-      @userStored="userStored()"
+      @close="dialogLaunch = false"
+      @stored="userStored()"
     ></user-form>
   </v-dialog>
 </template>
@@ -45,23 +39,10 @@ export default {
   },
 
   methods: {
-    closeDialog () {
+    userStored () {
       this.dialogLaunch = false
-    },
-
-  //   userStored () {
-  //     this.dialogLaunch = false
-  //     this.$emit('reload')
-  //   }
+      this.$emit('stored')
+    }
   }
 }
 </script>
-
-<style lang="scss">
-.condensed {
-  .v-input--selection-controls {
-    margin-top: 0;
-    padding-top: 0;
-  }
-}
-</style>

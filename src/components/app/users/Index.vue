@@ -1,58 +1,56 @@
 <template>
-  <div>
-    <v-card flat class="ma-0 pa-0">
-      <v-card-title>
-        <div>
-          <h1 class="title font-weight-bold">
-            Users
-          </h1>
-        </div>
-        <v-spacer></v-spacer>
-      </v-card-title>
+  <v-card flat class="ma-0 pa-0">
+    <v-card-title>
+      <div>
+        <h1 class="title font-weight-bold">
+          Users
+        </h1>
+      </div>
+      <v-spacer></v-spacer>
+      <users-create
+        @stored="loadUsers()"
+      ></users-create>
+    </v-card-title>
 
-      <v-divider></v-divider>
+    <v-divider></v-divider>
 
-      <v-card-text class="px-0">
-        <v-data-table
-          fixed-header
-          disable-sort
-          class="title" 
-          hide-default-footer
-          disable-pagination
-          :headers="headers" 
-          :items="users.data"
-          style="overflow-x: scroll; width: 100%"
-        >
-          <template v-slot:item.actions="{ item }">
-            <v-btn 
-              small
-              color="primary"
-              class="ttn caption"
-              @click="user = item"
-            >
-              Edit
-            </v-btn>
-          </template>
-        </v-data-table>
+    <v-card-text class="px-0">
+      <v-data-table
+        fixed-header
+        disable-sort
+        class="title" 
+        hide-default-footer
+        disable-pagination
+        :headers="headers" 
+        :items="users.data"
+        style="overflow-x: scroll; width: 100%"
+      >
+        <template v-slot:item.roles="{ item }">
+          {{ item.roles.map(({display_name}) => display_name).join(", ") }}
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-btn 
+            small
+            color="secondary"
+            class="ttn caption"
+            @click="user = item"
+          >
+            Edit
+          </v-btn>
+        </template>
+      </v-data-table>
 
-        <!-- <app-pagination
-          :meta="users.meta"
-          @pageChanged="pageChanged"
-        ></app-pagination> -->
-      </v-card-text>
+      <!-- <app-pagination
+        :meta="users.meta"
+        @pageChanged="pageChanged"
+      ></app-pagination> -->
+    </v-card-text>
 
-      <!-- <users-edit
-        :user="user"
-        @updated="updated()"
-      ></users-edit> -->
-
-      
-    </v-card>
-
-    <users-create
-      @reload="loadTable()"
-    ></users-create>
-  </div>
+    <!-- <users-edit
+      :user="user"
+      @updated="updated()"
+    ></users-edit> -->
+  </v-card>
 </template>
 
 <script>
@@ -84,12 +82,20 @@ export default {
   methods: {
     ...mapActions([
       'setUsers'
-    ])
+    ]),
+
+    loadUsers () {
+      this.setUsers({
+        routes: {
+          partner: (auth.retrieve('partner')).id
+        }
+      })
+    }
   },
 
   
   mounted () {
-    this.setUsers()
+    this.loadUsers()
   }
 }
 </script>

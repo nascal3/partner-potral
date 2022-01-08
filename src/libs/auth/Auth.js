@@ -9,11 +9,31 @@ export default class Auth extends Base {
     this.app = process.env.VUE_APP_PORTAL
   }
 
+  register () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'name', 'legal_entity_type', 'country_id', 'administrator'
+        ])
+        const response = await this.form.submit('post', url('sign-up'), data)
+        localStorage.setItem('email', this.administrator.email)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   generate () {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields(['email', 'authenticator'])
         const response = await this.form.submit('post', url('otp/generate'), data)
+        const identifier = this.identifier.toLowerCase()
+        localStorage.setItem('sendy:identification', JSON.stringify({
+          identifier,
+          value:this[identifier],
+        }))
         flash(response)     
         resolve(response)
       } catch (err) {
@@ -24,6 +44,7 @@ export default class Auth extends Base {
 
   verify () {
     return new Promise(async (resolve, reject) => {
+      // 1969
       try {
         const data = this.getFields(['email', 'authenticator', 'code'])
         const response = await this.form.submit('post', url('sign-in'), data)
@@ -50,8 +71,11 @@ export default class Auth extends Base {
   //   })
   // }
 
-  // logout () {
-  //   /** @todo - add call to API to expire the token */
-  //   localStorage.removeItem(this.app)
-  // }
+  logout () {
+    /** @todo - add call to API to expire the token */
+    localStorage.removeItem(this.app)
+    flash({
+      message: 'You have been logged out successfully'
+    })
+  }
 }

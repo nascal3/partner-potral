@@ -5,17 +5,46 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/auth/login',
-    name: 'login',
-    component: () => import('@/components/auth/Login.vue'),
+    path: '/auth',
+    component: () => import('@/views/layouts/Authentication.vue'),
     beforeEnter: (to, from, next) => {
       if (!auth.retrieve('user')) {
-        if (to.name == 'login') next()
-        else next('/auth/login')
+        const authRoutes = ['register', 'generate', 'verify']
+        if (authRoutes.includes(to.name)) {
+          next()
+        } else {
+          next('/auth/generate')
+        }
       } else {
         next('/')
       }
-    }
+    },
+    children: [
+      {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/components/auth/Register.vue'),
+      },
+      {
+        path: 'generate',
+        name: 'generate',
+        component: () => import('@/components/auth/Generate.vue'),
+      },
+      {
+        path: 'verify',
+        name: 'verify',
+        component: () => import('@/components/auth/Verify.vue'),
+        beforeEnter: (to, from, next) => {
+          const identification = localStorage.getItem('sendy:identification')
+          if (!identification) {
+            next('/auth/generate')
+          }
+          else {
+            next()
+          }
+        }
+      },
+    ]
   },
 
   {
@@ -40,7 +69,7 @@ const routes = [
       //   auth.logout()
       // }
       if (!auth.retrieve('user')) {
-        next('/auth/login')
+        next('/auth/generate')
       }
       else {
         next()
@@ -54,13 +83,13 @@ const routes = [
       },
 
       {
-        path: '/users',
+        path: 'users',
         name: 'users.index',
         component: () => import('@/components/app/users/Index.vue'),
       },
 
       {
-        path: '/roles',
+        path: 'roles',
         name: 'roles.index',
         component: () => import('@/components/app/roles/Index.vue'),
       },

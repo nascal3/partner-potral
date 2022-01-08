@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
         <roles-create
-          @reload="setRoles"
+          @reload="loadRoles"
         ></roles-create>
       </v-card-title>
 
@@ -49,7 +49,7 @@
               Edit
             </v-btn>
 
-            <v-btn 
+            <!-- <v-btn 
               dark
               small
               color="#e74c3c"
@@ -57,14 +57,15 @@
               @click="role = item"
             >
               Deactivate
-            </v-btn>
+            </v-btn> -->
           </template>
         </v-data-table>
       </v-card-text>
 
       <roles-edit
         :role="role"
-        @updated="setRoles"
+        @close="role = null"
+        @updated="loadRoles()"
       ></roles-edit>
     </v-card>
   </div>
@@ -101,10 +102,18 @@ export default {
     ...mapActions([
       'setRoles'
     ]),
+
+    loadRoles () {
+      this.setRoles({
+        routes: {
+          partner: (auth.retrieve('partner')).id
+        }
+      })
+    }
   },
   
   mounted () {
-    this.setRoles()
+    this.loadRoles()
   }
 }
 </script>

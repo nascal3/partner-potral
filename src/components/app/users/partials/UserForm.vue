@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    v-if="roles.data"
     v-model="dialogLaunch"
     width="400"
     persistent
@@ -65,12 +66,12 @@
             persistent-hint
             item-value="id"
             item-text="display_name"
-            :items="roles"
+            :items="roles.data"
             label="Select user role(s) *"
-            v-model="userObj.roles"
-            :hint="errors.get('roles')"
-            :error="errors.has('roles')"
-            @input="errors.clear('roles')"
+            v-model="userObj.role_ids"
+            :hint="errors.get('role_ids')"
+            :error="errors.has('role_ids')"
+            @input="errors.clear('role_ids')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -103,19 +104,26 @@ export default {
 
   data () {
     return {
-      roles: [],
       loading: false,
       userObj: new User(),
     }
   },
 
   computed: {
+    ...mapGetters({
+      roles: 'getRoles'
+    }),
+
     errors () {
       return this.userObj.form.errors
     },
   },
 
   methods: {
+    ...mapActions([
+      'setRoles'
+    ]),
+
     submit () {
       if (!this.loading) {
         this.loading = true
@@ -138,5 +146,13 @@ export default {
 
     }
   },
+
+  mounted () {
+    this.setRoles({
+      routes: {
+        partner: (auth.retrieve('partner')).id
+      }
+    })
+  }
 }
 </script>

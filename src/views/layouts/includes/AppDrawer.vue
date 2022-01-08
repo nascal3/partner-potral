@@ -5,6 +5,7 @@
     width="250"
     color="#fff"
     :value="showDrawer"
+    @input="input"
   >
     <template v-slot:prepend>
       <v-toolbar-title>
@@ -137,6 +138,11 @@ export default {
   },
 
   methods: {
+    input (input) {
+      if (input == false) {
+        this.$emit('closed')
+      }
+    }
     // show (link) {
     //   return auth.can(link.permission)
     // }

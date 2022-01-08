@@ -13,7 +13,7 @@ export default class User extends Base {
     const data = this.getFields();
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit('post', url(`api/v1/partners/${this.group.id}/users`), data)
+        let response = await this.form.submit('post', url(`partners/${this.group.id}/users`), data)
         this.setFields(fields)
         resolve(response)
       } catch (err) {
