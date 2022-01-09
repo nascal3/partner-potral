@@ -1,29 +1,52 @@
 <template>
-  <div>
-    <h1 class="title font-weight-bold text-center">
-      Select Partner Account
-    </h1>
-
-    <v-divider class="my-3"></v-divider>
-    
-    <div
+  <v-row class="py-5">
+    <v-col
+      cols="12"
       v-for="(partner, index) in partners"
       :key="`partner-${index}`"
     >
-      <v-btn
-        class="body-2 ttn"
-        @click="selectPartner(partner)"
-        text
+      <v-list
+        class="mx-auto"
+        loading
+        outlined
       >
-        {{ partner.name }}
-      </v-btn>
-    </div>
-    
-  </div>
+        <v-list-item @click="setPartner(partner)">
+          <v-list-item-avatar 
+            color="primary" 
+            size="40"
+            class="body-1 white--text font-weight-bold"
+          >
+            {{ partner.name.charAt(0) }}
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="subtitle-1">
+              {{ partner.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="deep-orange--text body-2">
+              {{ partner.legal_entity_type }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-progress-circular
+              v-if="loading == partner.id"
+              indeterminate
+              color="primary"
+            ></v-progress-circular>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      loading: null,
+    }
+  },
+
   computed: {
     partners () {
       return auth.retrieve('partners')
@@ -31,13 +54,18 @@ export default {
   },
 
   methods: {
-    selectPartner (partner) {
-      auth.encrypt({
-        partner,
-        ...auth.decrypt(),
-      })
-
-      this.$router.push({ name: 'app-dashboard' })
+    setPartner (partner) {
+      if (!this.loading) {
+        auth.permit(partner).then(({data}) => {
+          auth.encrypt({
+            partner,
+            abilities: data,
+            ...auth.decrypt(),
+          })
+          this.loading = null
+          this.$router.push({ name: 'dashboard' })
+        })
+      }
     }
   },
 }

@@ -33,7 +33,7 @@
         outlined
         persistent-hint
         class="body-1"
-        placeholder="johndoe@unknown.com"
+        placeholder="johndoe@knowhere.com"
         v-model="authObj.email"
         :hint="errors.get('email')"
         :error="errors.has('email')"

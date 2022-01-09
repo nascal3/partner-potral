@@ -8,7 +8,8 @@ const routes = [
     path: '/auth',
     component: () => import('@/views/layouts/Authentication.vue'),
     beforeEnter: (to, from, next) => {
-      if (!auth.retrieve('user')) {
+      const { partner, user } = auth.decrypt()
+      if (!user) {
         const authRoutes = ['register', 'generate', 'verify']
         if (authRoutes.includes(to.name)) {
           next()
@@ -16,9 +17,18 @@ const routes = [
           next('/auth/generate')
         }
       } else {
-        next('/')
+        if (!partner) {
+          if (to.name == 'accounts') {
+            next()
+          } else {
+            next('/auth/accounts')
+          }
+        } else {
+          next('/')
+        }
       }
     },
+
     children: [
       {
         path: 'register',
@@ -36,49 +46,37 @@ const routes = [
         component: () => import('@/components/auth/Verify.vue'),
         beforeEnter: (to, from, next) => {
           const identification = localStorage.getItem('sendy:identification')
-          if (!identification) {
-            next('/auth/generate')
-          }
-          else {
-            next()
-          }
+          if (!identification) next('/auth/generate')
+          else next()
         }
       },
+      {
+        path: 'accounts',
+        name: 'accounts',
+        component: () => import('@/components/auth/Accounts.vue'),
+      },
     ]
-  },
-
-  {
-    path: '/auth/accounts',
-    name: 'accounts',
-    component: () => import('@/components/auth/Accounts.vue'),
-    // beforeEnter: (to, from, next) => {
-      // if (!auth.retrieve('user')) {
-      //   if (to.name == 'login') next()
-      //   else next('/auth/login')
-      // } else {
-      //   next('/')
-      // }
-    // }
   },
 
   {
     path: '',
     component: () => import('@/views/layouts/Application.vue'),
     beforeEnter: (to, from, next) => {
-      // if (!auth.retrieve('permissions')) {
-      //   auth.logout()
-      // }
-      if (!auth.retrieve('user')) {
+      const { partner, user } = auth.decrypt()
+      if (!user) {
         next('/auth/generate')
-      }
-      else {
-        next()
+      } else {
+        if (!partner) {
+          next('/auth/accounts')
+        } else {
+          next()
+        }
       }
     },
     children: [
       {
         path: '/',
-        name: 'app-dashboard',
+        name: 'dashboard',
         component: () => import('@/components/app/dashboard/Index.vue'),
       },
 

@@ -16,7 +16,11 @@ export default class Auth extends Base {
           'name', 'legal_entity_type', 'country_id', 'administrator'
         ])
         const response = await this.form.submit('post', url('sign-up'), data)
-        localStorage.setItem('email', this.administrator.email)
+        flash({
+          message: 'Registration successful. Redirecting ...',
+          color: 'green'
+        })  
+        this.email = data.administrator.email
         resolve(response)
       } catch (err) {
         reject(err)

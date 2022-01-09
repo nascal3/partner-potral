@@ -10,12 +10,12 @@ export const fields = {
   identifier: 'Email',
 
   //Register
-  name: null,
+  name: 'Knowhere Logistics',
   legal_entity_type: 'Company',
-  country_id: null,
+  country_id: 1,
   administrator: {
-    name: null,
-    email: null,
+    name: 'Francis Kisiara',
+    email: 'franciskisiara@gmail.com',
     phone: null,
   },
 

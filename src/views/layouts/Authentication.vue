@@ -33,6 +33,8 @@ export default {
           return 'Login to the portal'
         case 'verify':
           return 'Enter your passcode'
+        case 'accounts':
+          return 'Choose a partner account '
         default:
           return 'Welcome to the partner portal'
       }
