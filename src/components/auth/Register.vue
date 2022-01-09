@@ -1,9 +1,14 @@
 <template>
   <v-row>
-    <v-col 
-      cols="12"
-    >
-      <v-radio-group v-model="authObj.legal_entity_type" row>
+    <v-col cols="12">
+      <p class="mb-n4 mt-5 body-1">
+        Business model *
+      </p>
+      <v-radio-group 
+        row
+        hide-details="auto"
+        v-model="authObj.legal_entity_type"
+      >
         <v-radio 
           v-for="(ofType, index) in ['Company', 'Individual']"
           :key="`entity-${index}`"
@@ -12,58 +17,81 @@
           class="body-1"
         ></v-radio>
       </v-radio-group> 
+    </v-col>
 
+    <v-col 
+      v-if="authObj.legal_entity_type == 'Company'"
+      cols="12"
+    >
+      <p class="mb-1 body-1">
+        Business name *
+      </p>
       <v-text-field
-        v-if="authObj.legal_entity_type == 'Company'"
-        dense
         outlined
         persistent-hint
-        class="body-2"
-        label="Business name *"
+        class="body-1"
+        hide-details="auto"
+        placeholder="Knowhere logistics"
         v-model="authObj.name"
         :hint="errors.get('name')"
         :error="errors.has('name')"
         @input="errors.clear('name')"
       ></v-text-field>
-
+    </v-col>
+      
+    <v-col cols="12">
+      <p class="mb-1 body-1">
+        Country of operation *
+      </p>
       <v-select
-        dense
         outlined
+        class="body-1"
         persistent-hint
         item-value="id"
         item-text="name"
+        hide-details="auto"
         :items="countries.data"
-        label="Select country *"
         v-model="authObj.country_id"
         :hint="errors.get('country_id')"
         :error="errors.has('country_id')"
         @input="errors.clear('country_id')"
       ></v-select>
-
+    </v-col>
+      
+    <v-col cols="12">
+      <p class="mb-1 body-1">
+        Your full name *
+      </p>
       <v-text-field
-        dense
         outlined
         persistent-hint
         class="body-2"
-        label="Your full name *"
+        hide-details="auto"
+        placeholder="John Doe"
         v-model="authObj.administrator.name"
         :hint="errors.get('administrator.name')"
         :error="errors.has('administrator.name')"
         @input="errors.clear('administrator.name')"
       ></v-text-field>
-
+    </v-col>
+      
+    <v-col cols="12">
+      <p class="mb-1 body-1">
+        Email address *
+      </p>
       <v-text-field
-        dense
         outlined
         persistent-hint
         class="body-2"
-        label="Email address *"
+        placeholder="johndoe@knowhere.com"
         v-model="authObj.administrator.email"
         :hint="errors.get('administrator.email')"
         :error="errors.has('administrator.email')"
         @input="errors.clear('administrator.email')"
       ></v-text-field>
+    </v-col>
 
+    <!-- <v-col cols="12">
       <v-text-field
         dense
         outlined
@@ -75,9 +103,9 @@
         :error="errors.has('administrator.phone')"
         @input="errors.clear('administrator.phone')"
       ></v-text-field>
-    </v-col>
+    </v-col> -->
 
-    <v-col>
+    <v-col cols="12">
       <v-btn 
         block
         x-large
@@ -114,8 +142,16 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      country: null,
       loading: false,
       authObj: new Auth()
+    }
+  },
+
+  watch: {
+    countries ({ data }) {
+      this.country = data[0] || null
+      this.authObj.country_id = this.country?.id
     }
   },
 
@@ -126,7 +162,7 @@ export default {
 
     errors () {
       return this.authObj.form.errors
-    }
+    },
   },
 
    methods: {
