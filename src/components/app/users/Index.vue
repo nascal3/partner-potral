@@ -8,6 +8,7 @@
       </div>
       <v-spacer></v-spacer>
       <users-create
+        v-if="auth.can('users.store')"
         @stored="loadUsers()"
       ></users-create>
     </v-card-title>
@@ -25,6 +26,9 @@
         :items="users.data"
         style="overflow-x: scroll; width: 100%"
       >
+        <template v-slot:item.phone="{ item }">
+          {{ item.phone || 'n/a' }}
+        </template>
         <template v-slot:item.roles="{ item }">
           {{ item.roles.map(({display_name}) => display_name).join(", ") }}
         </template>
@@ -34,6 +38,7 @@
             color="secondary"
             class="ttn caption"
             @click="user = item"
+            v-if="auth.can('users.update')"
           >
             Edit
           </v-btn>
@@ -46,10 +51,12 @@
       ></app-pagination> -->
     </v-card-text>
 
-    <!-- <users-edit
+    <users-edit
+      v-if="auth.can('users.update')"
       :user="user"
+      @close="user = null"
       @updated="updated()"
-    ></users-edit> -->
+    ></users-edit>
   </v-card>
 </template>
 
@@ -58,11 +65,13 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
-    'users-create': () => import('./Create.vue')
+    'users-create': () => import('./Create.vue'),
+    'users-edit': () => import('./Edit.vue')
   },
 
   data () {
     return {
+      user: null,
       headers: [
         { text: 'Name', value: 'name' },
         { text: 'Email', value: 'email' },
@@ -76,7 +85,9 @@ export default {
   computed: {
     ...mapGetters({
       users: 'getUsers'
-    })
+    }),
+
+    auth: () => auth
   },
   
   methods: {

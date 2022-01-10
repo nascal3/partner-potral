@@ -24,9 +24,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-// import User from "@/libs/app/access/users/User"
-
 export default {
   components: {
     'role-form': () => import('./partials/RoleForm'),
@@ -41,17 +38,8 @@ export default {
   methods: {
     stored () {
       this.dialogLaunch = false
-      this.$emit('reload')
+      this.$emit('stored')
     }
   }
 }
 </script>
-
-<style lang="scss">
-.condensed {
-  .v-input--selection-controls {
-    margin-top: 0;
-    padding-top: 0;
-  }
-}
-</style>

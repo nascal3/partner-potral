@@ -28,7 +28,7 @@
               inset
               dense
               hide-details
-              class="caption"
+              class="body-2"
               v-model="switches[permission.name]"
               @change="synchronisePermission(permission)"
               :label="permission.display_name.replace('-', ' ')"

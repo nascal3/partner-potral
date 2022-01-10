@@ -36,7 +36,7 @@ export default {
   data () {
     return {
       role: null,
-      group: 'General',
+      group: 'Resourceful',
       roleObj: new Role(),
     }
   },

@@ -8,8 +8,7 @@ const routes = [
     path: '/auth',
     component: () => import('@/views/layouts/Authentication.vue'),
     beforeEnter: (to, from, next) => {
-      const { partner, user } = auth.decrypt()
-      if (!user) {
+      if (!auth.retrieve('user')) {
         const authRoutes = ['register', 'generate', 'verify']
         if (authRoutes.includes(to.name)) {
           next()
@@ -17,7 +16,7 @@ const routes = [
           next('/auth/generate')
         }
       } else {
-        if (!partner) {
+        if (!auth.retrieve('partner')) {
           if (to.name == 'accounts') {
             next()
           } else {
@@ -62,11 +61,10 @@ const routes = [
     path: '',
     component: () => import('@/views/layouts/Application.vue'),
     beforeEnter: (to, from, next) => {
-      const { partner, user } = auth.decrypt()
-      if (!user) {
+      if (!auth.retrieve('user')) {
         next('/auth/generate')
       } else {
-        if (!partner) {
+        if (!auth.retrieve('abilities')) {
           next('/auth/accounts')
         } else {
           next()
@@ -94,15 +92,21 @@ const routes = [
 
       {
         path: 'roles/:roleId',
-        name: 'roles-show',
+        name: 'roles.show',
         component: () => import('@/components/app/roles/Show.vue'),
         children: [
           {
             path: 'permissions',
-            name: 'roles-permissions',
+            name: 'roles.permissions',
             component: () => import('@/components/app/roles/show/Permissions.vue')
           }
         ]
+      },
+
+      {
+        path: 'vehicles',
+        name: 'vehicles.index',
+        component: () => import('@/components/app/vehicles/Index.vue'),
       },
     ],
   },

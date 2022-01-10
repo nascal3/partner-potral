@@ -34,7 +34,7 @@
           v-for="(item) in group"
         >
           <v-list-item
-            v-if="!item.children"
+            v-if="!item.children && permitted(item)"
             :key="item.name"
             :to="item.to"
             active-class="active-route"
@@ -121,7 +121,7 @@ export default {
         // ],
 
         'APPLICATION': [
-          { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'roles.index' },
+          { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
         ],
         
         'ACCESS CONTROL': [
@@ -130,7 +130,7 @@ export default {
         ],
 
         // 'CONFIGURATIONS': [
-        //   { name: 'Product Groups', icon: 'apps', to: '/product-groups', permission: 'product-groups.index' },
+        // //   { name: 'Product Groups', icon: 'apps', to: '/product-groups', permission: 'product-groups.index' },
         //   { name: 'Settings', icon: 'cogs', to: 'settings', },
         // ],
       }
@@ -142,10 +142,11 @@ export default {
       if (input == false) {
         this.$emit('closed')
       }
+    },
+    
+    permitted (link) {
+      return auth.can(link.permission)
     }
-    // show (link) {
-    //   return auth.can(link.permission)
-    // }
   },
 }
 </script>

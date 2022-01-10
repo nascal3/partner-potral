@@ -11,15 +11,15 @@
         color="primary"
         class="caption ttn"
       >
-        Add User
+        Add Vehicle
       </v-btn>
     </template>
 
-    <user-form
+    <vehicle-form
       :dialogLaunch="dialogLaunch"
       @close="dialogLaunch = false"
       @stored="stored()"
-    ></user-form>
+    ></vehicle-form>
   </v-dialog>
 </template>
 
@@ -28,7 +28,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   components: {
-    'user-form': () => import('./partials/UserForm.vue'),
+    'vehicle-form': () => import('./partials/VehicleForm.vue'),
   },
 
   data () {

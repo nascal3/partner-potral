@@ -35,13 +35,16 @@
 
       <v-list-item>
         <v-list-item-content>
-          <v-btn 
-            text
-            block
-            outlined  
-            class="caption"
+          <v-btn
+            dark
+            block 
+            outlined
+            color="#e74c3c"
+            class="caption font-weight-bold"
             @click="logout()"
-          >Logout</v-btn>
+          >
+            Logout
+          </v-btn>
         </v-list-item-content>
       </v-list-item>
     </v-list>
