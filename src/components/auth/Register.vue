@@ -48,10 +48,10 @@
           persistent-hint
           class="body-1"
           placeholder="Knowhere logistics"
-          v-model="authObj.name"
-          :hint="errors.get('name')"
-          :error="errors.has('name')"
-          @input="errors.clear('name')"
+          v-model="authObj.business_name"
+          :hint="errors.get('business_name')"
+          :error="errors.has('business_name')"
+          @input="errors.clear('business_name')"
         ></v-text-field>
       </div>
 

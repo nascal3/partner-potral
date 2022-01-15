@@ -68,7 +68,7 @@ export default {
             partner: data.partners[0]
           })
         })
-        const redirectTo = isSolo ? 'app-dashboard' : 'accounts'
+        const redirectTo = isSolo ? 'dashboard' : 'accounts'
         this.$router.push({ name: redirectTo })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]

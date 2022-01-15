@@ -16,11 +16,11 @@
             size="40"
             class="body-1 white--text font-weight-bold"
           >
-            {{ partner.name.charAt(0) }}
+            {{ partner.business_name.charAt(0) }}
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title class="subtitle-1">
-              {{ partner.name }}
+              {{ partner.business_name }}
             </v-list-item-title>
             <v-list-item-subtitle class="deep-orange--text body-2">
               {{ partner.legal_entity_type }}

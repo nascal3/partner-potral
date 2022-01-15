@@ -10,7 +10,7 @@ export const fields = {
   identifier: 'Email',
 
   //Register
-  name: null,
+  business_name: null,
   legal_entity_type: 'Company',
   country_id: 1,
   administrator: {

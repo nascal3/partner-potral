@@ -6,16 +6,17 @@
         cols="12"
         md="4"
       >
-        <v-img 
-          class="ml-n1"
-          max-width="160"
-          src="https://assets.website-files.com/5be92ce6e4a547dcc61b976c/60253f92874eabf1a8ecf88f_Logo_SendyMain_Colored_Normal_SVG.svg"
-        ></v-img>
+        <div>
+          <v-img 
+            class="ml-n1"
+            max-width="100"
+            src="https://assets.website-files.com/5be92ce6e4a547dcc61b976c/60253f92874eabf1a8ecf88f_Logo_SendyMain_Colored_Normal_SVG.svg"
+          ></v-img>
 
-        <h1 class="headline font-weight-black mt-n3">
-          {{ headline }}
-        </h1>
-
+          <h1 class="subtitle-1 font-weight-black mt-n3">
+            {{ headline }}
+          </h1>
+        </div>
         <router-view />
       </v-col>
     </v-row>
