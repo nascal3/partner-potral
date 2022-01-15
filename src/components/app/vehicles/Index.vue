@@ -9,6 +9,7 @@
         </div>
         <v-spacer></v-spacer>
         <vehicles-create
+          v-if="auth.can('vehicles.store')"
           @stored="loadVehicles"
         ></vehicles-create>
       </v-card-title>
@@ -26,16 +27,21 @@
           :items="vehicles.data"
           style="overflow-x: scroll; width: 100%"
         >
-          <!-- <template v-slot:item.permissions="{ item }">
+          <template v-slot:item.vendor_type="{ item }">
+            {{ item.vendor_type.name }}
+          </template>
+          <template v-slot:item.is_valid="{ item }">
+            {{ item.is_valid ? 'Yes' : 'No' }}
+          </template>
+          <template v-slot:item.documents="{ item }">
             <v-btn 
               dark
-              text
               small
-              color="deep-orange"
-              class="ttn body-2"
-              :to="`roles/${item.id}/permissions`"
+              color="secondary"
+              class="ttn caption"
+              @click="forDocument = item"
             >
-              Manage permissions
+              Provide document
             </v-btn>
           </template>
           <template v-slot:item.actions="{ item }">
@@ -56,9 +62,9 @@
               class="ttn caption"
               @click="role = item"
             >
-              Deactivate
+              Delete
             </v-btn>
-          </template> -->
+          </template>
         </v-data-table>
       </v-card-text>
 
@@ -83,10 +89,12 @@ export default {
   data () {
     return {
       vehicle: null,
+      forDocument: null,
       headers: [
-        { text: 'Display name', value: 'display_name' },
-        { text: 'Description', value: 'description' },
-        { text: 'Access control', value: 'permissions' },
+        { text: 'Registration number', value: 'registration_number' },
+        { text: 'Vendor type', value: 'vendor_type' },
+        { text: 'Documents', value: 'documents' },
+        { text: 'Verified', value: 'is_valid' },
         { text: 'Actions', value: 'actions' },
       ],
     }
@@ -95,7 +103,9 @@ export default {
   computed: {
     ...mapGetters({
       vehicles: 'getVehicles'
-    })
+    }),
+
+    auth: () => auth
   },
   
   methods: {

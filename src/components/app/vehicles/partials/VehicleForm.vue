@@ -24,39 +24,16 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
-          <!-- <v-text-field
-            dense
-            outlined
-            persistent-hint
-            label="Full name *"
-            v-model="userObj.name"
-            :hint="errors.get('name')"
-            :error="errors.has('name')"
-            @input="errors.clear('name')"
-          ></v-text-field>
-
-          <v-text-field
-            dense
-            outlined
-            type="email"
-            persistent-hint
-            label="Email address *"
-            v-model="userObj.email"
-            :hint="errors.get('email')"
-            :error="errors.has('email')"
-            @input="errors.clear('email')"
-          ></v-text-field>
-
           <v-text-field
             dense
             outlined
             persistent-hint
-            label="Phone number *"
-            v-model="userObj.phone"
-            :hint="errors.get('phone')"
-            :error="errors.has('phone')"
-            @input="errors.clear('phone')"
-          ></v-text-field> -->
+            label="Vehicle registration number *"
+            v-model="vehicleObj.registration_number"
+            :hint="errors.get('registration_number')"
+            :error="errors.has('registration_number')"
+            @input="errors.clear('registration_number')"
+          ></v-text-field>
 
           <v-select
             dense
@@ -66,10 +43,10 @@
             item-text="name"
             :items="vendorTypes.data"
             label="Select a vendor type *"
-            v-model="vehicleObj.role_ids"
-            :hint="errors.get('role_ids')"
-            :error="errors.has('role_ids')"
-            @input="errors.clear('role_ids')"
+            v-model="vehicleObj.vendor_type_id"
+            :hint="errors.get('vendor_type_id')"
+            :error="errors.has('vendor_type_id')"
+            @input="errors.clear('vendor_type_id')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -122,23 +99,23 @@ export default {
       'setVendorTypes'
     ]),
 
-  //   submit () {
-  //     if (!this.loading) {
-  //       this.loading = true
-  //       !this.user ? this.store() : this.update()
-  //     }
-  //   },
+    submit () {
+      if (!this.loading) {
+        this.loading = true
+        !this.vehicle ? this.store() : this.update()
+      }
+    },
 
-  //   store () {
-  //     this.userObj.store()
-  //       .then(response => {
-  //         flash(response)
-  //         this.$emit('stored')
-  //       })
-  //       .finally(() => {
-  //         this.loading = false
-  //       })
-  //   },
+    store () {
+      this.vehicleObj.store()
+        .then(response => {
+          flash(response)
+          this.$emit('stored')
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
 
   //   update () {
 

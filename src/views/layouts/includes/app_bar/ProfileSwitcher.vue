@@ -19,7 +19,7 @@
         v-else
         size="32"
         v-on="on"
-        color="secondary"
+        color="primary"
         class="white--text"
       >
         {{ user.name.charAt(0) }}

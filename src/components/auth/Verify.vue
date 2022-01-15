@@ -62,14 +62,21 @@ export default {
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
         const isSolo = data.partners.length == 1
+
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
           ...(isSolo && { 
             partner: data.partners[0]
           })
         })
-        const redirectTo = isSolo ? 'dashboard' : 'accounts'
-        this.$router.push({ name: redirectTo })
+
+        if (isSolo) {
+          this.authObj.abilities().then(() => {
+            this.$router.push({ name: 'dashboard' })
+          })
+        } else {
+          this.$router.push({ name: 'accounts' })
+        }
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
         if (codes.includes(status)) {

@@ -48,7 +48,6 @@ export default class Auth extends Base {
 
   verify () {
     return new Promise(async (resolve, reject) => {
-      // 1969
       try {
         const data = this.getFields(['email', 'authenticator', 'code'])
         const response = await this.form.submit('post', url('sign-in'), data)
@@ -60,20 +59,21 @@ export default class Auth extends Base {
     })
   }
 
-  // abilities () {
-  //   return new Promise(async (resolve, reject) => {
-  //     try {
-  //       const response = await this.form.submit('get', url('identity/internal/abilities'))
-  //       this.encrypt({
-  //         ...this.decrypt(),
-  //         permissions: response.data
-  //       })
-  //       resolve(response)
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
+  abilities () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const partner = auth.retrieve('partner')
+        const response = await this.form.submit('get', url(`partners/${partner.id}/abilities`))
+        this.encrypt({
+          ...this.decrypt(),
+          abilities: response.data
+        })
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 
   logout () {
     /** @todo - add call to API to expire the token */

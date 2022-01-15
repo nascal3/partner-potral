@@ -14,7 +14,7 @@
       >
         <v-icon small>mdi-menu</v-icon>
       </v-btn>
-      <span class="subtitle-1 mt-3 ml-3 pr-3">{{ group.name }}</span>
+      <span class="subtitle-1 mt-3 ml-3 pr-3">{{ partner.business_name }}</span>
     </v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -36,7 +36,7 @@ export default {
   },
 
   computed: {
-    group () {
+    partner () {
       return auth.retrieve('partner')
     }
   }
