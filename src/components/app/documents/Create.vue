@@ -27,17 +27,17 @@
         <v-card-text class="pt-4">
           <v-expansion-panels>
             <v-expansion-panel
-              v-for="(document, index) in documents.data"
+              v-for="(vehicleDocument, index) in vehicleDocuments.data"
               :key="`document-${index}`"
             >
               <v-expansion-panel-header class="body-1 font-weight-bold">
                 <div>
-                  {{ document.label }}
+                  {{ vehicleDocument.document.label }}
                 </div>
                 <template v-slot:actions>
-                  <v-icon class="mr-2">
+                  <!-- <v-icon class="mr-2">
                     mdi-{{ isProvided(document) ? 'text-box-check' : 'text-box-remove' }}
-                  </v-icon>
+                  </v-icon> -->
 
                   <v-icon color="error">
                     mdi-alert-circle
@@ -86,19 +86,13 @@ export default {
     vehicle (value) {
       this.dialogLaunch = Boolean(value)
       if (value) {
-        this.loadDocuments()
         this.loadVehicleDocuments()
       }
     },
-
-    vehicleDocuments ({ data }) {
-      console.log(data)
-    }
   },
 
   computed: {
     ...mapGetters({
-      documents: 'getDocuments',
       vehicleDocuments: 'getVehicleDocuments'
     }),
     
@@ -107,24 +101,14 @@ export default {
     },
 
     initialised () {
-      return this.documents.data
+      return this.vehicleDocuments.data
     }
   },
 
   methods: {
     ...mapActions([
-      'setDocuments',
       'setVehicleDocuments'
     ]),
-
-    loadDocuments () {
-      this.setDocuments({
-        params: {
-          country_id: this.partner.country_id,
-          vendor_type_ids: this.vehicle.vendor_type_id,
-        }
-      })
-    },
 
     loadVehicleDocuments () {
       this.setVehicleDocuments({
@@ -140,10 +124,6 @@ export default {
     isProvided (document) {
       console.log(document)
     }
-  },
-
-  mounted () {
-    
   }
 }
 </script>

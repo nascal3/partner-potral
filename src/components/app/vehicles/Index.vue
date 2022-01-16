@@ -41,7 +41,7 @@
               class="ttn caption"
               @click="forDocument = item"
             >
-              Provide document
+              Manage documents
             </v-btn>
           </template>
           <template v-slot:item.actions="{ item }">
@@ -97,8 +97,10 @@ export default {
       headers: [
         { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
-        { text: 'Documents', value: 'documents' },
         { text: 'Verified', value: 'is_valid' },
+        { text: 'Operational documents', value: 'documents' },
+        // { text: 'Jurisdictions', value: 'documents' },
+        { text: 'Assigned driver', value: 'driver' },
         { text: 'Actions', value: 'actions' },
       ],
     }
