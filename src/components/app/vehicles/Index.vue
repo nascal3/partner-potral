@@ -41,28 +41,7 @@
               class="ttn caption"
               @click="forDocument = item"
             >
-              Manage documents
-            </v-btn>
-          </template>
-          <template v-slot:item.actions="{ item }">
-            <v-btn 
-              dark
-              small
-              color="secondary"
-              class="ttn caption mr-2"
-              @click="role = item"
-            >
-              Edit
-            </v-btn>
-
-            <v-btn 
-              dark
-              small
-              color="#e74c3c"
-              class="ttn caption"
-              @click="role = item"
-            >
-              Delete
+              Documents
             </v-btn>
           </template>
         </v-data-table>
@@ -70,13 +49,9 @@
 
       <documents-create
         :vehicle="forDocument"
+        @close="forDocument = null"
+        @stored="stored"
       ></documents-create>
-
-      <!-- <roles-edit
-        :role="role"
-        @close="role = null"
-        @updated="loadRoles()"
-      ></roles-edit> -->
     </v-card>
   </div>
 </template>
@@ -100,8 +75,7 @@ export default {
         { text: 'Verified', value: 'is_valid' },
         { text: 'Operational documents', value: 'documents' },
         // { text: 'Jurisdictions', value: 'documents' },
-        { text: 'Assigned driver', value: 'driver' },
-        { text: 'Actions', value: 'actions' },
+        // { text: 'Assigned driver', value: 'driver' },
       ],
     }
   },
@@ -125,6 +99,11 @@ export default {
           partner: (auth.retrieve('partner')).id
         }
       })
+    },
+
+    stored () {
+      this.forDocument = null
+      this.loadVehicles()
     }
   },
   

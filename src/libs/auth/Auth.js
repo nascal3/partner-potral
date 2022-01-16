@@ -68,6 +68,14 @@ export default class Auth extends Base {
           ...this.decrypt(),
           abilities: response.data
         })
+
+        //Fetch and cache the country data
+        const { data } = await this.form.submit('get', url(`countries/${partner.country_id}`))
+        this.encrypt({
+          ...this.decrypt(),
+          country: data,
+        })
+
         resolve(response)
       } catch (err) {
         reject(err)
