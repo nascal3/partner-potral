@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    v-if="initialised"
     v-model="dialogLaunch"
     width="400"
     persistent
@@ -24,6 +25,22 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
+          <v-select
+            v-if="country.jurisdictions.length != 0"
+            dense
+            outlined
+            multiple
+            persistent-hint
+            item-value="id"
+            item-text="name"
+            :items="country.jurisdictions"
+            label="Select jurisdiction(s) of operation *"
+            v-model="vehicleObj.jurisdiction_ids"
+            :hint="errors.get('jurisdiction_ids')"
+            :error="errors.has('jurisdiction_ids')"
+            @input="errors.clear('jurisdiction_ids')"
+          ></v-select>
+
           <v-text-field
             dense
             outlined
@@ -80,22 +97,35 @@ export default {
   data () {
     return {
       loading: false,
+      country: null,
       vehicleObj: new Vehicle(),
+    }
+  },
+
+  watch: {
+    countries ({ data }) {
+      this.country = data[0]
     }
   },
 
   computed: {
     ...mapGetters({
+      countries: 'getCountries',
       vendorTypes: 'getVendorTypes'
     }),
 
     errors () {
       return this.vehicleObj.form.errors
     },
+
+    initialised () {
+      return this.country
+    }
   },
 
   methods: {
     ...mapActions([
+      'setCountries',
       'setVendorTypes'
     ]),
 
@@ -116,14 +146,11 @@ export default {
           this.loading = false
         })
     },
-
-  //   update () {
-
-  //   }
   },
 
   mounted () {
     const partner = auth.retrieve('partner')
+
     this.setVendorTypes({
       routes: {
         partner: partner.id
@@ -131,6 +158,13 @@ export default {
       params: {
         country_id: partner.country_id
       },
+    })
+
+    this.setCountries({
+      params: {
+        id: partner.country_id,
+        relationships: 'jurisdictions'
+      }
     })
   }
 }

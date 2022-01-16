@@ -68,6 +68,10 @@
         </v-data-table>
       </v-card-text>
 
+      <documents-create
+        :vehicle="forDocument"
+      ></documents-create>
+
       <!-- <roles-edit
         :role="role"
         @close="role = null"
@@ -83,7 +87,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     'vehicles-create': () => import('./Create.vue'),
-    // 'roles-edit': () => import('./Edit.vue')
+    'documents-create': () => import('@/components/app/documents/Create.vue')
   },
 
   data () {

@@ -10,7 +10,11 @@ export default class User extends Base {
   }
 
   store () {
-    const data = this.getFields([])
+    const data = this.getFields([
+      'vendor_type_id',
+      'jurisdiction_ids',
+      'registration_number',
+    ])
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit('post', url(`partners/${this.group.id}/vehicles`), data)
