@@ -1,0 +1,17 @@
+image: node:10.24.0-alpine
+
+variables:
+  STAGING_IMAGE_NAME: sendy-docker-local.jfrog.io/vue-partner-portal:latest_$CI_COMMIT_SHORT_SHA
+stages:
+  - buildpush
+
+buildpush:staging:
+  stage: buildpush
+  tags:
+    - shell
+  script:
+    - docker build -t $STAGING_IMAGE_NAME -f Dockerfile .
+    - docker push $STAGING_IMAGE_NAME
+  only:
+    - staging
+   
