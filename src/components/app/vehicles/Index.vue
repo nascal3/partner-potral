@@ -47,11 +47,11 @@
         </v-data-table>
       </v-card-text>
 
-      <documents-create
+      <documents-edit
         :vehicle="forDocument"
         @close="forDocument = null"
         @stored="stored"
-      ></documents-create>
+      ></documents-edit>
     </v-card>
   </div>
 </template>
@@ -62,7 +62,7 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     'vehicles-create': () => import('./Create.vue'),
-    'documents-create': () => import('@/components/app/documents/Create.vue')
+    'documents-edit': () => import('@/components/app/documents/Edit.vue')
   },
 
   data () {
@@ -73,9 +73,9 @@ export default {
         { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
+        { text: 'Assigned driver', value: 'driver' },
         { text: 'Operational documents', value: 'documents' },
         // { text: 'Jurisdictions', value: 'documents' },
-        // { text: 'Assigned driver', value: 'driver' },
       ],
     }
   },

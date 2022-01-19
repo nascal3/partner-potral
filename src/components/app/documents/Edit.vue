@@ -2,7 +2,7 @@
   <v-dialog
     v-if="initialised"
     v-model="dialogLaunch"
-    width="650"
+    width="500"
     persistent
   >
     <v-card>
@@ -32,7 +32,7 @@
             >
               <v-expansion-panel-header class="body-1 font-weight-bold">
                 {{ vehicleDocument.document.label }}
-                <!-- <span>
+                <span>
                   <v-chip
                     small
                     class="ml-2"
@@ -40,7 +40,7 @@
                   >
                     {{ vehicleDocument.status }}
                   </v-chip>
-                </span> -->
+                </span>
               </v-expansion-panel-header>
               <v-divider></v-divider>
               <v-expansion-panel-content>

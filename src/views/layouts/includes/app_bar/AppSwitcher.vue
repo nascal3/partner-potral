@@ -66,7 +66,7 @@ export default {
 
 	methods: {
     switchToApp (app) {
-      alert('Not implemented yet')
+      // alert('Not implemented yet')
     }
 	},
 }

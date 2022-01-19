@@ -74,6 +74,23 @@
 
       <div>
         <p class="mb-1 body-1">
+          Phone number *
+        </p>
+        <v-text-field
+          dense
+          outlined
+          persistent-hint
+          class="body-2"
+          label="Phone number *"
+          v-model="authObj.administrator.phone"
+          :hint="errors.get('administrator.phone')"
+          :error="errors.has('administrator.phone')"
+          @input="errors.clear('administrator.phone')"
+        ></v-text-field>
+      </div>
+
+      <div>
+        <p class="mb-1 body-1">
           Email address *
         </p>
         <v-text-field
@@ -88,6 +105,8 @@
           @input="errors.clear('administrator.email')"
         ></v-text-field>
       </div>
+
+      
     </v-card-text>
 
     <v-card-actions class="px-0">
@@ -108,19 +127,7 @@
   </v-card>
   <!-- 
 
-    <v-col cols="12">
-      <v-text-field
-        dense
-        outlined
-        persistent-hint
-        class="body-2"
-        label="Phone number *"
-        v-model="authObj.administrator.phone"
-        :hint="errors.get('administrator.phone')"
-        :error="errors.has('administrator.phone')"
-        @input="errors.clear('administrator.phone')"
-      ></v-text-field>
-    </v-col>
+    
 
     <v-col cols="12">
       
