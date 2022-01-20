@@ -33,6 +33,17 @@
           <template v-slot:item.is_valid="{ item }">
             {{ item.is_valid ? 'Yes' : 'No' }}
           </template>
+          <template v-slot:item.driver="{ item }">
+            <v-btn 
+              dark
+              small
+              color="secondary"
+              class="ttn caption"
+              @click="forAllocation = item"
+            >
+              Allocate
+            </v-btn>
+          </template>
           <template v-slot:item.documents="{ item }">
             <v-btn 
               dark
@@ -52,6 +63,12 @@
         @close="forDocument = null"
         @stored="stored"
       ></documents-edit>
+
+      <vehicle-allocations-create
+        :vehicle="forAllocation"
+        @close="forAllocation = null"
+        @allocated="allocated"
+      ></vehicle-allocations-create>
     </v-card>
   </div>
 </template>
@@ -62,19 +79,21 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     'vehicles-create': () => import('./Create.vue'),
-    'documents-edit': () => import('@/components/app/documents/Edit.vue')
+    'documents-edit': () => import('@/components/app/documents/Edit.vue'),
+    'vehicle-allocations-create': () => import('@/components/app/vehicle_allocations/Create.vue'),
   },
 
   data () {
     return {
       vehicle: null,
       forDocument: null,
+      forAllocation: null,
       headers: [
         { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
-        { text: 'Assigned driver', value: 'driver' },
         { text: 'Operational documents', value: 'documents' },
+        { text: 'Assigned driver', value: 'driver' },
         // { text: 'Jurisdictions', value: 'documents' },
       ],
     }
@@ -104,6 +123,10 @@ export default {
     stored () {
       this.forDocument = null
       this.loadVehicles()
+    },
+
+    allocated () {
+      
     }
   },
   

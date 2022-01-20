@@ -15,7 +15,7 @@
       </v-btn>
     </template>
 
-    <v-card>
+    <v-card v-if="initialised">
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
@@ -57,7 +57,7 @@
             @input="errors.clear('registration_number')"
           ></v-text-field>
 
-          <v-select
+          <!-- <v-select
             v-if="country.jurisdictions.length != 0"
             dense
             outlined
@@ -106,7 +106,7 @@
                 </v-card>
               </v-menu>
             </template>
-          </v-select>
+          </v-select> -->
           
           <v-select
             dense
@@ -121,7 +121,7 @@
             :error="errors.has('vendor_type_id')"
             @input="errors.clear('vendor_type_id')"
           >
-            <template 
+            <!-- <template 
               v-if="country.jurisdictions.length != 0"
               v-slot:append-outer
             >
@@ -156,7 +156,7 @@
                   </v-card-text>
                 </v-card>
               </v-menu>
-            </template>
+            </template> -->
           </v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -184,7 +184,7 @@ import Vehicle from '@/libs/app/vehicles/Vehicle'
 
 export default {
   components: {
-    'vehicle-form': () => import('./partials/VehicleForm.vue'),
+    // 'vehicle-form': () => import('./partials/VehicleForm.vue'),
   },
 
   data () {
@@ -196,24 +196,28 @@ export default {
   },
 
   watch: {
-    selectedJurisdictions () {
-      this.loadVendorTypes()
+    country ({ data }) {
+      if (data.jurisdictions.length == 0) {
+        this.loadVendorTypes()
+      }
     }
+    // selectedJurisdictions () {
+    //   this.loadVendorTypes()
+    // }
   },
 
   computed: {
     ...mapGetters({
+      country: 'getCountry',
       vendorTypes: 'getVendorTypes',
     }),
 
-    auth: () => auth,
-
-    country () {
-      return this.auth.retrieve('country')
+    partner () {
+      return auth.retrieve('partner')
     },
 
-    partner () {
-      return this.auth.retrieve('partner')
+    initialised () {
+      return this.vendorTypes.data
     },
 
     errors () {
@@ -227,6 +231,7 @@ export default {
 
   methods: {
     ...mapActions([
+      'setCountry',
       'setVendorTypes'
     ]),
 
@@ -237,7 +242,7 @@ export default {
           partner: this.partner.id
         },
         params: {
-          country_id: this.country.id,
+          country_id: this.partner.country_id,
           ...(jurisdictionIds && {
             jurisdiction_ids: jurisdictionIds
           })
@@ -261,9 +266,11 @@ export default {
   },
 
   mounted () {
-    if (this.country.jurisdictions.length == 0) {
-      this.loadVendorTypes()
-    }
+    this.setCountry({
+      routes: {
+        id: this.partner.country_id
+      },
+    })
   }
 }
 </script>
