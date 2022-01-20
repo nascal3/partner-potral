@@ -108,6 +108,12 @@ const routes = [
         name: 'vehicles.index',
         component: () => import('@/components/app/vehicles/Index.vue'),
       },
+
+      {
+        path: 'vehicles/:vehicleId',
+        name: 'vehicles.show',
+        component: () => import('@/components/app/vehicles/Show.vue')
+      },
     ],
   },
 ]

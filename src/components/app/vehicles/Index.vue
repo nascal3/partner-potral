@@ -55,6 +55,18 @@
               Documents
             </v-btn>
           </template>
+          <template v-slot:item.manage="{ item }">
+            <v-btn 
+              dark
+              text
+              small
+              color="deep-orange"
+              class="ttn body-2"
+              :to="`vehicles/${item.id}`"
+            >
+              Manage vehicle
+            </v-btn>
+          </template>
         </v-data-table>
       </v-card-text>
 
@@ -64,11 +76,11 @@
         @stored="stored"
       ></documents-edit>
 
-      <vehicle-allocations-create
+      <!-- <vehicle-allocations-create
         :vehicle="forAllocation"
         @close="forAllocation = null"
         @allocated="allocated"
-      ></vehicle-allocations-create>
+      ></vehicle-allocations-create> -->
     </v-card>
   </div>
 </template>
@@ -80,7 +92,7 @@ export default {
   components: {
     'vehicles-create': () => import('./Create.vue'),
     'documents-edit': () => import('@/components/app/documents/Edit.vue'),
-    'vehicle-allocations-create': () => import('@/components/app/vehicle_allocations/Create.vue'),
+    // 'transporters-create': () => import('@/components/app/transporters/Create.vue'),
   },
 
   data () {
@@ -93,8 +105,8 @@ export default {
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
         { text: 'Operational documents', value: 'documents' },
-        { text: 'Assigned driver', value: 'driver' },
-        // { text: 'Jurisdictions', value: 'documents' },
+        // { text: 'Assigned driver', value: 'driver' },
+        { text: 'Fleet management', value: 'manage' },
       ],
     }
   },
@@ -126,7 +138,7 @@ export default {
     },
 
     allocated () {
-      
+
     }
   },
   

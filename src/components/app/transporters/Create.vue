@@ -24,23 +24,19 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
-          <!-- <v-text-field
+          <v-select
             dense
             outlined
             persistent-hint
-            label="Name *"
-            v-model="roleObj.display_name"
-            :hint="errors.get('display_name')"
-            :error="errors.has('display_name')"
-            @input="errors.clear('display_name')"
-          ></v-text-field>
-
-          <v-textarea
-            outlined
-            no-resize
-            label="Description"
-            v-model="roleObj.description"
-          ></v-textarea> -->
+            label="Select driver *"
+            item-text="name"
+            item-value="id"
+            :items="users.data"
+            v-model="transporterObj.driver_id"
+            :hint="errors.get('driver_id')"
+            :error="errors.has('driver_id')"
+            @input="errors.clear('driver_id')"
+          ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
           <v-btn
@@ -62,29 +58,58 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+import Transporter from "@/libs/app/transporters/Transporter"
+
 export default {
   props: [
-    'vehicle'
+    'allocate',
+    'vehicle',
   ],
 
   data () {
     return {
       loading: false,
-      dialogLaunch: false
+      dialogLaunch: false,
+      transporterObj: new Transporter()
     }
   },
 
   watch: {
-    vehicle (value) {
+    allocate (value) {
       this.dialogLaunch = Boolean(value)
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      users: 'getUsers'
+    }),
+
+    errors () {
+      return this.transporterObj.form.errors
     }
   },
 
   methods: {
     ...mapActions([
       'setUsers'
-    ])
+    ]),
+
+    submit () {
+      if (!this.loading) {
+        this.transporterObj.vehicle_id = this.vehicle.id
+
+        this.loading = true
+        this.transporterObj.store()
+          .then(response => {
+            flash(response)
+          })
+          .finally(() => {
+            this.loading = false
+          })
+      }
+    }
   },
 
   mounted () {
