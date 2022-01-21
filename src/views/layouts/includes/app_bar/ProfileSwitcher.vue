@@ -22,7 +22,7 @@
         color="primary"
         class="white--text"
       >
-        {{ user.name.charAt(0) }}
+        {{ user.name?.charAt(0) }}
       </v-avatar>
     </template>
     <v-list>

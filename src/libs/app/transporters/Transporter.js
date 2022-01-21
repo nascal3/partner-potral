@@ -10,7 +10,10 @@ export default class Transporter extends Base {
   }
 
   store () {
-    const data = this.getFields(['driver_id', 'vehicle_id'])
+    const data = {
+      driver_id: `${this.driver_id}`, 
+      vehicle_id: this.vehicle_id, 
+    }
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit("post", url(`partners/${this.group.id}/transporters`), data)
