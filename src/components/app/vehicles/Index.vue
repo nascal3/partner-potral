@@ -104,9 +104,9 @@ export default {
         { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
-        { text: 'Operational documents', value: 'documents' },
+        // { text: 'Operational documents', value: 'documents' },
         // { text: 'Assigned driver', value: 'driver' },
-        { text: 'Fleet management', value: 'manage' },
+        { text: 'Vehicle management', value: 'manage' },
       ],
     }
   },
