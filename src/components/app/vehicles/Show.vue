@@ -3,47 +3,35 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          {{ vehicle.registration_number }}
-          <p class="body-2">
-            {{ vehicle.vendor_type.name }}
-          </p>
+          Vehicle Management
         </h1>
-        <v-spacer></v-spacer>
-
+        <app-crumbs
+          :crumbs="crumbs"
+        ></app-crumbs>
       </div>
+      <v-spacer></v-spacer>
     </v-card-title>
     <v-card-text>
-      <v-list
-        class="mx-auto"
-        loading
-        outlined
-        
-      >
-        <v-list-item @click="allocateDriver()">
-          <v-list-item-content>
-            <v-list-item-title class="subtitle-1">
-              Allocate Driver
-            </v-list-item-title>
-            <!-- <v-list-item-subtitle class="deep-orange--text body-2">
-              {{ partner.legal_entity_type }}
-            </v-list-item-subtitle> -->
-          </v-list-item-content>
-          <!-- <v-list-item-action>
-            <v-progress-circular
-              indeterminate
-              color="primary"
-            ></v-progress-circular>
-          </v-list-item-action> -->
-        </v-list-item>
-      </v-list>
-    </v-card-text>
+      <v-row>
+        <v-col 
+          md="3"
+          class="hidden-sm-and-down"
+        >
+          Sumn
+        </v-col>
 
-    <transporters-create
-      :vehicle="vehicle"
-      :allocate="allocate"
-      @allocated="allocated"
-      @close="allocate = false"
-    ></transporters-create>
+        <v-col
+          sm="12"
+          md="9"
+        >
+          <v-container fluid>
+            <router-view
+              :vehicle="vehicle"
+            ></router-view>
+          </v-container>
+        </v-col>
+      </v-row>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -52,14 +40,16 @@ import Vehicle from '@/libs/app/vehicles/Vehicle'
 
 export default {
   components: {
-    'transporters-create': () => import('@/components/app/transporters/Create.vue'),
+    // 'transporters-create': () => import('@/components/app/transporters/Create.vue'),
   },
 
   data () {
     return {
       vehicle: null,
-      allocate: false,
-      vehicleObj: new Vehicle()
+      vehicleObj: new Vehicle(),
+      crumbs: [
+        { text: 'Vehicles', to: 'vehicles' },
+      ],
     }
   },
 
@@ -70,19 +60,17 @@ export default {
   },
 
   methods: {
-    allocateDriver () {
-      this.allocate = true
-    },
 
-    allocated () {
-
-    }
   },
 
   mounted () {
     const vehicleId = this.$route.params.vehicleId
     this.vehicleObj.show(vehicleId)
       .then(({ data }) => {
+        this.crumbs.push({
+          text: data.registration_number,
+          disabled: true,
+        })
         this.vehicle = data
       })
   }
