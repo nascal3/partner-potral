@@ -46,11 +46,11 @@
         <v-icon>mdi-card-account-details</v-icon>
       </v-btn>
 
-      <!-- <v-btn value="favorites">
+      <v-btn value="favorites">
         <span>Drivers</span>
 
         <v-icon>mdi-car</v-icon>
-      </v-btn> -->
+      </v-btn>
 <!-- 
       <v-btn value="nearby">
         <span>Orders</span>
