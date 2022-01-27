@@ -10,7 +10,7 @@
           v-model="authObj.legal_entity_type"
         >
           <v-radio 
-            v-for="(ofType, index) in ['Company', 'Individual']"
+            v-for="(ofType, index) in ['Individual', 'Company']"
             :key="`entity-${index}`"
             :label="ofType" 
             :value="ofType"
@@ -124,27 +124,19 @@
         Register Account
       </v-btn>
     </v-card-actions>
-  </v-card>
-  <!-- 
 
-    
-
-    <v-col cols="12">
-      
-    </v-col>
-
-    <v-col cols="12">
-      <p class="body-1">
-        Already have an account? 
+    <div>
+      <p class="body-1 mt-4 text-center">
+        Already registered? 
         <router-link
           class="deep-orange--text"
           to="/auth/generate"
         >
-          Login
+          Sign in
         </router-link>
       </p>
-    </v-col>
-  </v-row> -->
+    </div>
+  </v-card>
 </template>
 
 <script>

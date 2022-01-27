@@ -13,7 +13,7 @@ export default class Auth extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'business_name', 'legal_entity_type', 'country_id', 'administrator'
+          'business_name', 'legal_entity_type', 'country_id', 'administrator', 'product_group'
         ])
         const response = await this.form.submit('post', url('sign-up'), data)
         flash({
@@ -31,7 +31,7 @@ export default class Auth extends Base {
   generate () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'authenticator'])
+        const data = this.getFields(['email', 'authenticator', 'product_group'])
         const response = await this.form.submit('post', url('otp/generate'), data)
         const identifier = this.identifier.toLowerCase()
         localStorage.setItem('sendy:identification', JSON.stringify({
@@ -49,7 +49,7 @@ export default class Auth extends Base {
   verify () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'authenticator', 'code'])
+        const data = this.getFields(['email', 'authenticator', 'code', 'product_group'])
         const response = await this.form.submit('post', url('sign-in'), data)
         this.encrypt(response.data)
         resolve(response)

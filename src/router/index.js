@@ -115,9 +115,9 @@ const routes = [
         component: () => import('@/components/app/vehicles/Show.vue'),
         children: [
           {
-            path: 'permissions',
-            name: 'roles.permissions',
-            component: () => import('@/components/app/roles/show/Permissions.vue')
+            path: 'docuemnts',
+            name: 'vehicle-documents.index',
+            component: () => import('@/components/app/documents/Index.vue')
           }
         ]
       },

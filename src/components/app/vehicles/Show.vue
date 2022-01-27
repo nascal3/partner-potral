@@ -1,38 +1,70 @@
 <template>
-  <v-card v-if="initialised" flat class="ma-0 pa-0">
-    <v-card-title>
-      <div>
-        <h1 class="title font-weight-bold">
-          Vehicle Management
-        </h1>
-        <app-crumbs
-          :crumbs="crumbs"
-        ></app-crumbs>
-      </div>
-      <v-spacer></v-spacer>
-    </v-card-title>
-    <v-card-text>
-      <v-row>
-        <v-col 
-          md="3"
-          class="hidden-sm-and-down"
-        >
-          Sumn
-        </v-col>
+  <div>
+    <v-card v-if="initialised" flat class="ma-0 pa-0">
+      <v-card-title>
+        <div>
+          <h1 class="title font-weight-bold">
+            Vehicle Management
+          </h1>
+          <app-crumbs
+            :crumbs="crumbs"
+          ></app-crumbs>
+        </div>
+        <v-spacer></v-spacer>
+      </v-card-title>
+      <v-card-text>
+        <v-row>
+          <v-col 
+            md="3"
+            class="hidden-sm-and-down"
+          >
+            Sumn
+          </v-col>
 
-        <v-col
-          sm="12"
-          md="9"
-        >
-          <v-container fluid>
-            <router-view
-              :vehicle="vehicle"
-            ></router-view>
-          </v-container>
-        </v-col>
-      </v-row>
-    </v-card-text>
-  </v-card>
+          <v-col
+            sm="12"
+            md="9"
+          >
+            <v-container fluid>
+              <router-view
+                :vehicle="vehicle"
+              ></router-view>
+            </v-container>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <v-bottom-navigation 
+      absolute
+      class="body-2"
+      v-model="value"
+    >
+      <v-btn value="recent">
+        <span>Documents</span>
+
+        <v-icon>mdi-card-account-details</v-icon>
+      </v-btn>
+
+      <!-- <v-btn value="favorites">
+        <span>Drivers</span>
+
+        <v-icon>mdi-car</v-icon>
+      </v-btn> -->
+<!-- 
+      <v-btn value="nearby">
+        <span>Orders</span>
+
+        <v-icon>mdi-package-variant</v-icon>
+      </v-btn>
+
+      <v-btn value="nearby">
+        <span>Mileage</span>
+
+        <v-icon>mdi-speedometer</v-icon>
+      </v-btn> -->
+    </v-bottom-navigation>
+  </div>
 </template>
 
 <script>
@@ -45,6 +77,7 @@ export default {
 
   data () {
     return {
+      value: true,
       vehicle: null,
       vehicleObj: new Vehicle(),
       crumbs: [

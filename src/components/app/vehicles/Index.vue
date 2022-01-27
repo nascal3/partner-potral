@@ -75,12 +75,6 @@
         @close="forDocument = null"
         @stored="stored"
       ></documents-edit>
-
-      <!-- <vehicle-allocations-create
-        :vehicle="forAllocation"
-        @close="forAllocation = null"
-        @allocated="allocated"
-      ></vehicle-allocations-create> -->
     </v-card>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <v-dialog
+    
     v-model="dialogLaunch"
     width="400"
     persistent
@@ -42,7 +43,7 @@
             color="warning"
             class="body-2 mb-6"
           >
-            <b>WARNING!!!</b> Once saved, vehicle details cannot be changed later
+            <b>WARNING!</b> Once saved, vehicle details cannot be changed
           </v-alert>
 
           <v-text-field
@@ -57,8 +58,8 @@
             @input="errors.clear('registration_number')"
           ></v-text-field>
 
-          <!-- <v-select
-            v-if="country.jurisdictions.length != 0"
+          <v-select
+            v-if="country.data.jurisdictions.length != 0"
             dense
             outlined
             multiple
@@ -66,7 +67,7 @@
             class="body-2"
             item-value="id"
             item-text="name"
-            :items="country.jurisdictions"
+            :items="country.data.jurisdictions"
             label="Select jurisdiction(s) *"
             v-model="vehicleObj.jurisdiction_ids"
             :hint="errors.get('jurisdiction_ids')"
@@ -106,7 +107,7 @@
                 </v-card>
               </v-menu>
             </template>
-          </v-select> -->
+          </v-select>
           
           <v-select
             dense
@@ -120,44 +121,7 @@
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"
             @input="errors.clear('vendor_type_id')"
-          >
-            <!-- <template 
-              v-if="country.jurisdictions.length != 0"
-              v-slot:append-outer
-            >
-              <v-menu
-                dark
-                left
-                max-width="250"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
-                    icon
-                    small
-                    class="mt-n1"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon>
-                      mdi-information
-                    </v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-text>
-                    <p class="secondary--text body-2 font-weight-bold">
-                      Jurisdiction Vendor Types
-                    </p>
-                    <p class="white--text body-2 mb-1">
-                      Only vendor types configured under the selected operational jurisdictions above are shown
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-menu>
-            </template> -->
-          </v-select>
+          ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
           <v-btn
@@ -183,10 +147,6 @@ import { mapActions, mapGetters } from 'vuex'
 import Vehicle from '@/libs/app/vehicles/Vehicle'
 
 export default {
-  components: {
-    // 'vehicle-form': () => import('./partials/VehicleForm.vue'),
-  },
-
   data () {
     return {
       loading: false,
@@ -197,13 +157,8 @@ export default {
 
   watch: {
     country ({ data }) {
-      if (data.jurisdictions.length == 0) {
-        this.loadVendorTypes()
-      }
+      this.loadVendorTypes()
     }
-    // selectedJurisdictions () {
-    //   this.loadVendorTypes()
-    // }
   },
 
   computed: {
@@ -217,7 +172,7 @@ export default {
     },
 
     initialised () {
-      return this.vendorTypes.data
+      return this.vendorTypes.data && this.country
     },
 
     errors () {
@@ -257,6 +212,7 @@ export default {
           .then(response => {
             flash(response)
             this.$emit('stored')
+            this.dialogLaunch = false
           })
           .finally(() => {
             this.loading = false

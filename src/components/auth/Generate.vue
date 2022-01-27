@@ -69,7 +69,7 @@
     </v-col>
 
     <v-col cols="12">
-      <p class="body-1">
+      <p class="body-1 text-center">
         Dont have an account? 
         <router-link
           class="deep-orange--text"
