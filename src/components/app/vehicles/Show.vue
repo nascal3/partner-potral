@@ -101,7 +101,7 @@ export default {
     this.vehicleObj.show(vehicleId)
       .then(({ data }) => {
         this.crumbs.push({
-          text: data.registration_number,
+          text: data.vendor_type.display_name,
           disabled: true,
         })
         this.vehicle = data
