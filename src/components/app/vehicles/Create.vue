@@ -36,87 +36,15 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
-          <v-alert
-            text
-            dense
-            border="left"
-            color="warning"
-            class="body-2 mb-6"
-          >
-            <b>WARNING!</b> Once saved, vehicle details cannot be changed
-          </v-alert>
-
-          <v-text-field
-            dense
-            outlined
-            persistent-hint
-            class="body-2"
-            label="Vehicle registration number *"
-            v-model="vehicleObj.registration_number"
-            :hint="errors.get('registration_number')"
-            :error="errors.has('registration_number')"
-            @input="errors.clear('registration_number')"
-          ></v-text-field>
-
-          <v-select
-            v-if="country.data.jurisdictions.length != 0"
-            dense
-            outlined
-            multiple
-            persistent-hint
-            class="body-2"
-            item-value="id"
-            item-text="name"
-            :items="country.data.jurisdictions"
-            label="Select jurisdiction(s) *"
-            v-model="vehicleObj.jurisdiction_ids"
-            :hint="errors.get('jurisdiction_ids')"
-            :error="errors.has('jurisdiction_ids')"
-            @input="errors.clear('jurisdiction_ids')"
-          >
-            <template v-slot:append-outer>
-              <v-menu
-                dark
-                left
-                max-width="250"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
-                    icon
-                    small
-                    class="mt-n1"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon>
-                      mdi-information
-                    </v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-text>
-                    <p class="secondary--text body-2 font-weight-bold">
-                      Operational Jurisdiction
-                    </p>
-                    <p class="white--text body-2 mb-1">
-                      Please select all jurisdictions in which you will be operating in order to ensure quick verification
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-menu>
-            </template>
-          </v-select>
-          
           <v-select
             dense
             outlined
+            class="body-2"
             persistent-hint
             item-value="id"
-            item-text="name"
+            item-text="display_name"
             :items="vendorTypes.data"
-            label="Select a vendor type *"
+            label="Select your vehicle type *"
             v-model="vehicleObj.vendor_type_id"
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"

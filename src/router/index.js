@@ -115,7 +115,7 @@ const routes = [
         component: () => import('@/components/app/vehicles/Show.vue'),
         children: [
           {
-            path: 'docuemnts',
+            path: 'documents',
             name: 'vehicle-documents.index',
             component: () => import('@/components/app/documents/Index.vue')
           }
