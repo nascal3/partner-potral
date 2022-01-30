@@ -1,11 +1,13 @@
 <template>
   <v-row 
     justify="center"
+    v-if="initialised"
   >
     <v-expansion-panels>
       <v-expansion-panel
         v-for="(vehicleDocument, i) in vehicleDocuments.data"
         :key="i"
+        @change="accord(i)"
       >
         <v-expansion-panel-header class="body-1">
           <v-row>
@@ -53,15 +55,17 @@
               outlined
               persistent-hint
               class="body-2"
+              :disabled="Boolean(vehicleDocument.value)"
               :label="vehicleDocument.document.label"
               :placeholder="vehicleDocument.document.placeholder"
-              v-model="vehicleDocumentObj.value"
+              v-model="submissions[i].value"
               :hint="errors.get('value')"
-              :error="errors.has('value')"
+              :error="errors.has('value') && activeIndex == i"
               @input="errors.clear('value')"
             ></v-text-field>
 
             <v-dialog
+              v-if="vehicleDocument.document.expires_at"
               ref="dialog"
               v-model="expiryModal"
               :return-value.sync="vehicleDocumentObj.expires_at"
@@ -70,7 +74,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="vehicleDocumentObj.expires_at"
+                  v-model="submissions[i].expires_at"
                   label="Expiry date"
                   readonly
                   v-bind="attrs"
@@ -86,7 +90,7 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="vehicleDocumentObj.expires_at"
+                v-model="submissions[i].expires_at"
                 scrollable
                 no-title
               >
@@ -94,7 +98,7 @@
                   block
                   color="secondary"
                   class="caption mb-2 font-weight-bold"
-                  @click="$refs.dialog[0].save(vehicleDocumentObj.expires_at)"
+                  @click="$refs.dialog[0].save(submissions[i].expires_at)"
                 >
                   Select Expiration Date
                 </v-btn>
@@ -109,7 +113,7 @@
               :loading="loading"
               :disabled="loading"
               class="caption font-weight-bold"
-              @click="submit(vehicleDocument)"
+              @click="submit(i)"
             >
               Submit document details
             </v-btn>
@@ -128,8 +132,22 @@ export default {
   data () {
     return {
       loading: false,
+      activeIndex: null,
+      submissions: null,
       expiryModal: false,
       vehicleDocumentObj: new VehicleDocument()
+    }
+  },
+
+  watch: {
+    vehicleDocuments ({ data }) {
+      this.submissions = data.map(vd => {
+        return {
+          id: vd.id,
+          value: vd.value, 
+          expires_at: vd.expires_at
+        }
+      })
     }
   },
 
@@ -137,6 +155,10 @@ export default {
     ...mapGetters({
       vehicleDocuments: 'getVehicleDocuments'
     }),
+
+    initialised () {
+      return this.submissions
+    },
 
     errors () {
       return this.vehicleDocumentObj.form.errors
@@ -156,10 +178,20 @@ export default {
       })
     },
 
-    submit (vehicleDocument) {
+    accord (i) {
+      this.activeIndex = i
+      this.errors.clear('value')
+      this.errors.clear('expires_at')
+    },
+
+    submit (index) {
       if (!this.loading) {
         this.loading = true
-        this.vehicleDocumentObj.update(vehicleDocument.id)
+        const submission = this.submissions[index]
+        for (const key in submission) {
+          this.vehicleDocumentObj[key] = submission[key]
+        }
+        this.vehicleDocumentObj.update(submission.id)
           .then(response => {
             flash(response)
             this.loadVehicleDocuments()
@@ -168,7 +200,6 @@ export default {
             this.loading = false
           })
       }
-      console.log(vehicleDocument)
     }
   },
 
