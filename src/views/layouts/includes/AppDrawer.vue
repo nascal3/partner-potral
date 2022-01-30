@@ -120,9 +120,9 @@ export default {
         //   },
         // ],
 
-        // 'APPLICATION': [
-        //   // { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-        // ],
+        'APPLICATION': [
+          { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
+        ],
         
         'ACCESS CONTROL': [
           { name: 'Roles', icon: 'lock', to: '/roles', permission: 'roles.index' },

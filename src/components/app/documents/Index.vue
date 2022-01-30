@@ -12,7 +12,7 @@
         <v-expansion-panel-header class="body-1">
           <v-row>
             <v-col cols="8">
-              <span class="font-weight-bold primary--text">
+              <span class="font-weight-bold">
                 {{ vehicleDocument.document.label }}
               </span>
             </v-col>

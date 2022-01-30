@@ -68,6 +68,7 @@ export default {
       ],
       navigation: [
         { name: 'Personal', icon: 'account', to: 'personal' },
+        { name: 'Preferences', icon: 'cog', to: 'preferences' },
         { name: 'Security', icon: 'lock', to: 'security' },
       ]
     }
