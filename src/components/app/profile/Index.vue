@@ -1,5 +1,5 @@
 <template>
-  <div v-if="initialised">
+  <div>
     <v-card 
       flat 
       class="ma-0 pa-0"
@@ -7,7 +7,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Vehicle Management
+            {{ doe.name }}
           </h1>
           <app-crumbs
             :crumbs="crumbs"
@@ -30,7 +30,7 @@
           >
             <v-container fluid>
               <router-view
-                :vehicle="vehicle"
+                :doe="doe"
               ></router-view>
             </v-container>
           </v-col>
@@ -41,12 +41,11 @@
     <v-bottom-navigation 
       absolute
       class="body-2"
-      v-model="value"
     >
       <v-btn
         v-for="(link, index) in navigation"
         :key="`link-${index}`"
-        :to="`/vehicles/${vehicle.id}/${link.to}`"
+        :to="`/profile/${link.to}`"
         active-class="active"
       >
         <span>{{ link.name }}</span>
@@ -56,55 +55,28 @@
   </div>
 </template>
 
-<script>
-import Vehicle from '@/libs/app/vehicles/Vehicle'
+<script>import Auth from "../../../libs/auth/Auth"
 
 export default {
-  components: {
-    // 'transporters-create': () => import('@/components/app/transporters/Create.vue'),
-  },
-
   data () {
     return {
-      value: true,
-      vehicle: null,
-      vehicleObj: new Vehicle(),
+      // value: true,
+      // vehicle: null,
+      // vehicleObj: new Vehicle(),
       crumbs: [
-        { text: 'Vehicles', to: 'vehicles' },
+        { text: 'Profile', to: 'vehicles' },
       ],
       navigation: [
-        { name: 'Documents', icon: 'card-account-details', to: 'documents' },
-        { name: 'Drivers', icon: 'car', to: 'drivers' },
+        { name: 'Personal', icon: 'account', to: 'personal' },
+        { name: 'Security', icon: 'lock', to: 'security' },
       ]
     }
   },
 
   computed: {
-    initialised () {
-      return this.vehicle
+    doe () {
+      return auth.retrieve('user')
     }
-  },
-
-  methods: {
-
-  },
-
-  mounted () {
-    const vehicleId = this.$route.params.vehicleId
-    this.vehicleObj.show(vehicleId)
-      .then(({ data }) => {
-        this.crumbs.push({
-          text: data.vendor_type.display_name,
-          disabled: true,
-        })
-        this.vehicle = data
-      })
   }
 }
 </script>
-
-<style lang="scss">
-  a.active {
-    color: #4136A9 !important
-  }
-</style>

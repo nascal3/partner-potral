@@ -17,7 +17,12 @@
       <v-divider></v-divider>
 
       <v-card-text class="px-0">
+        <app-loading
+          v-if="processing"
+        ></app-loading>
+
         <v-data-table
+          v-if="!processing"
           fixed-header
           disable-sort
           class="title" 
@@ -49,16 +54,6 @@
             >
               Edit
             </v-btn>
-
-            <!-- <v-btn 
-              dark
-              small
-              color="#e74c3c"
-              class="ttn caption"
-              @click="role = item"
-            >
-              Deactivate
-            </v-btn> -->
           </template>
         </v-data-table>
       </v-card-text>
@@ -84,6 +79,7 @@ export default {
   data () {
     return {
       role: null,
+      processing: true,
       headers: [
         { text: 'Display name', value: 'display_name' },
         // { text: 'Description', value: 'description' },
@@ -112,6 +108,8 @@ export default {
         routes: {
           partner: id
         }
+      }).then(() => {
+        this.processing = false
       })
     }
   },
