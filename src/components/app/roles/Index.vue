@@ -6,6 +6,9 @@
           <h1 class="title font-weight-bold">
             Roles
           </h1>
+          <app-crumbs
+            :crumbs="crumbs"
+          ></app-crumbs>
         </div>
         <v-spacer></v-spacer>
         <roles-create
@@ -80,9 +83,11 @@ export default {
     return {
       role: null,
       processing: true,
+      crumbs: [
+        { text: 'Roles', disabled: true },
+      ],
       headers: [
         { text: 'Display name', value: 'display_name' },
-        // { text: 'Description', value: 'description' },
         { text: 'Access control', value: 'permissions' },
         { text: 'Actions', value: 'actions' },
       ],
