@@ -2,7 +2,7 @@
   <v-row v-if="initialised">
     <v-list>
       <template
-        v-for="(user, index) in users.data"
+        v-for="(user, index) in drivers"
       >
         <v-list-item 
           :key="`driver-${index}`"
@@ -51,9 +51,12 @@ export default {
 
   watch: {
     users ({ data }) {
-      console.log(data)
-      this.drivers = data.filter(user => {
-        
+      this.drivers = data.filter(({ roles }) => {
+        let roleNames = _.map(roles, 'name')
+        for (let index=0; index<roleNames.length; index++) {
+          roleNames[index] = roleNames[index].split('::').pop()
+        }
+        return roleNames.includes('driver')
       })
     }
   },
