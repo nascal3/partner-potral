@@ -1,35 +1,34 @@
 <template>
-  <v-row>
-    <v-list dense>
-      <v-list-item 
-
+  <v-row v-if="initialised">
+    <v-list>
+      <template
         v-for="(user, index) in users.data"
-        :key="`driver-${index}`"
-        class="px-0"
       >
-        <v-list-item-avatar 
-          color="primary" 
-          size="40"
-          class="body-1 white--text font-weight-bold"
+        <v-list-item 
+          :key="`driver-${index}`"
+          class="px-0"
         >
-          {{ user.name.charAt(0) }}
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title class="subtitle-1">
-            {{ user.name }}
-          </v-list-item-title>
-          <v-list-item-subtitle class="deep-orange--text body-2">
-            {{ user.email || 'n/a' }}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-        <!-- <v-list-item-action>
-          <v-progress-circular
-            v-if="loading == partner.id"
-            indeterminate
-            color="primary"
-          ></v-progress-circular>
-        </v-list-item-action> -->
-      </v-list-item>
+          <v-list-item-avatar 
+            color="primary" 
+            size="40"
+            class="body-1 white--text font-weight-bold"
+          >
+            {{ user.name.charAt(0) }}
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title class="subtitle-1">
+              {{ user.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle class="deep-orange--text body-2">
+              {{ user.email || 'n/a' }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-divider
+          :key="`divider-${index}`"
+          v-if="index < users.data.length - 1"
+        ></v-divider>
+      </template>
     </v-list>
   </v-row>
 </template>
@@ -43,9 +42,19 @@ export default {
 
   data () {
     return {
+      drivers: null,
       metadata: {
         title: 'Driver Allocation',
       }
+    }
+  },
+
+  watch: {
+    users ({ data }) {
+      console.log(data)
+      this.drivers = data.filter(user => {
+        
+      })
     }
   },
 
@@ -53,12 +62,16 @@ export default {
     ...mapGetters({
       users: 'getUsers'
     }),
+
+    initialised () {
+      return this.drivers
+    }
   },
 
   methods: {
     ...mapActions([
       'setUsers'
-    ])
+    ]),
   },
 
   mounted () {

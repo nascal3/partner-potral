@@ -16,17 +16,16 @@
         <v-spacer></v-spacer>
       </v-card-title>
       <v-card-text>
-        <v-row>
+        <v-row v-if="!vehicle.is_valid">
           <v-col cols="12">
             <v-alert
-              v-if="!vehicle.is_valid"
               text
               dense
               type="error"
               border="left"
               class="body-2 mb-0"
             >
-              The vehicle is unverified. Ensure you provide all the required documents
+              The vehicle is unverified. Ensure the required documents are verified
             </v-alert>
           </v-col>
         </v-row>
