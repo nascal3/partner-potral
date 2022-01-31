@@ -87,6 +87,7 @@ export default {
       forDocument: null,
       forAllocation: null,
       headers: [
+        { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
         { text: 'Vehicle management', value: 'manage' },

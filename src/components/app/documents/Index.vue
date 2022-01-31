@@ -139,7 +139,14 @@ export default {
       activeIndex: null,
       submissions: null,
       expiryModal: false,
-      vehicleDocumentObj: new VehicleDocument()
+      vehicleDocumentObj: new VehicleDocument(),
+      metadata: {
+        title: 'Legal Documents',
+        crumbs: { 
+          text: this.vehicle.registration_number, 
+          disabled: true 
+        }
+      }
     }
   },
 
@@ -212,6 +219,7 @@ export default {
 
   mounted () {
     this.loadVehicleDocuments()
+    this.$emit('meta', this.metadata)
   }
 }
 </script>
