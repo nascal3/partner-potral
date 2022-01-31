@@ -103,7 +103,6 @@ export default {
   methods: {
     meta (info) {
       this.title = info.title
-      this.crumbs.push(info.crumbs)
     }
   },
 
@@ -111,6 +110,10 @@ export default {
     const vehicleId = this.$route.params.vehicleId
     this.vehicleObj.show(vehicleId).then(({ data }) => {
       this.vehicle = data
+      this.crumbs.push({
+        text: this.vehicle.registration_number,
+        disabled: true,
+      })
     })
   }
 }

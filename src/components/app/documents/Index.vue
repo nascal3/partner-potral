@@ -141,11 +141,7 @@ export default {
       expiryModal: false,
       vehicleDocumentObj: new VehicleDocument(),
       metadata: {
-        title: 'Legal Documents',
-        crumbs: { 
-          text: this.vehicle.registration_number, 
-          disabled: true 
-        }
+        title: 'Legal Documents'
       }
     }
   },

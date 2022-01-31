@@ -43,6 +43,9 @@ export default {
 
   data () {
     return {
+      metadata: {
+        title: 'Driver Allocation',
+      }
     }
   },
 
@@ -59,6 +62,7 @@ export default {
   },
 
   mounted () {
+    this.$emit('meta', this.metadata)
     this.setUsers({
       routes: {
         partner: (auth.retrieve('partner')).id
