@@ -3,7 +3,7 @@
     justify="center"
     v-if="initialised"
   >
-    <v-expansion-panels>
+    <v-expansion-panels class="elevation-1">
       <v-expansion-panel
         v-for="(vehicleDocument, i) in vehicleDocuments.data"
         :key="i"
@@ -129,6 +129,10 @@ import { mapActions, mapGetters } from 'vuex'
 import VehicleDocument from '@/libs/app/vehicle_documents/VehicleDocument'
 
 export default {
+  props: [
+    'vehicle'
+  ],
+
   data () {
     return {
       loading: false,
@@ -174,6 +178,9 @@ export default {
       this.setVehicleDocuments({
         routes: {
           partner: auth.retrieve('partner').id
+        },
+        params: {
+          vehicle_id: this.vehicle.id
         }
       })
     },

@@ -36,6 +36,18 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
+          <v-text-field
+            dense
+            outlined
+            persistent-hint
+            class="body-2"
+            label="Registration number"
+            v-model="vehicleObj.registration_number"
+            :hint="errors.get('registration_number')"
+            :error="errors.has('registration_number')"
+            @input="errors.clear('registration_number')"
+          ></v-text-field>
+
           <v-select
             dense
             outlined
@@ -119,16 +131,12 @@ export default {
     ]),
 
     loadVendorTypes () {
-      const jurisdictionIds = this.selectedJurisdictions.join("|")
       this.setVendorTypes({
         routes: {
           partner: this.partner.id
         },
         params: {
           country_id: this.partner.country_id,
-          ...(jurisdictionIds && {
-            jurisdiction_ids: jurisdictionIds
-          })
         },
       })
     },

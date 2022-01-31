@@ -7,7 +7,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ doe.name }}
+            {{ title }}
           </h1>
           <app-crumbs
             :crumbs="crumbs"
@@ -31,6 +31,7 @@
             <v-container fluid>
               <router-view
                 :doe="doe"
+                @meta="meta"
               ></router-view>
             </v-container>
           </v-col>
@@ -63,8 +64,9 @@ export default {
       // value: true,
       // vehicle: null,
       // vehicleObj: new Vehicle(),
+      title: '',
       crumbs: [
-        { text: 'Profile', to: 'vehicles' },
+        { text: 'Profile', disabled: true, }
       ],
       navigation: [
         { name: 'Personal', icon: 'account', to: 'personal' },
@@ -77,6 +79,13 @@ export default {
   computed: {
     doe () {
       return auth.retrieve('user')
+    }
+  },
+
+  methods: {
+    meta (info) {
+      this.title = info.title
+      this.crumbs.push(info.crumbs)
     }
   }
 }

@@ -140,6 +140,12 @@ const routes = [
         component: () => import('@/components/app/profile/Index.vue'),
         children: [
           {
+            path: 'personal',
+            name: 'doe-personal',
+            component: () => import('@/components/app/profile/Personal.vue')
+          },
+
+          {
             path: 'security',
             name: 'doe-security',
             component: () => import('@/components/app/profile/Security.vue')

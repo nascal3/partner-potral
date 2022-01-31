@@ -17,16 +17,16 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col 
+          <!-- <v-col 
             md="3"
             class="hidden-sm-and-down"
           >
-            Sumn
-          </v-col>
+            
+          </v-col> -->
 
           <v-col
             sm="12"
-            md="9"
+            md="4"
           >
             <v-container fluid>
               <router-view
@@ -40,8 +40,7 @@
 
     <v-bottom-navigation 
       absolute
-      class="body-2"
-      v-model="value"
+      class="body-2 d-md-none"
     >
       <v-btn
         v-for="(link, index) in navigation"
@@ -66,7 +65,6 @@ export default {
 
   data () {
     return {
-      value: true,
       vehicle: null,
       vehicleObj: new Vehicle(),
       crumbs: [
