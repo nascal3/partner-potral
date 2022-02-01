@@ -1,0 +1,71 @@
+{
+  "identity": {
+    "title": "Identité personnelle",
+    "hint": "Personnelle <span class='highlight'>identification<span> & données biométriques",
+    "subtitle": "Veuillez fournir les informations personnelles de votre compte"
+  },
+  "location": {
+    "title": " Déterminez votre zone d'opération",
+    "hint": "Identifier&<span class='highlight'>avec précision </span>harmoniser les demandes de commande ",
+    "subtitle": "Cela nous permettra de trouver rapidement les commandes dans votre zone géographique et de les jumeler avec vous."
+  },
+  "business": {
+    "title": "Parlez-nous de votre entreprise",
+    "hint": "Nous permet de mieux <span class='highlight'>servir</span>votre clientèle",
+    "subtitle": "Cela nous permettra de vous proposer une expérience adaptée à vos besoins spécifiques."
+  },
+  "vehicle": {
+    "title": "Configurons rapidement un véhicule",
+    "hint": "Activer <span class='highlight'>expédition et attribution rapide des commandes</span>",
+    "subtitle": "Les détails de votre véhicule aideront à la prestation de services et à la conformité."
+  },
+  "verify": {
+    "title": "Vérifier les informations fournies",
+    "hint": "S’assurer que les renseignements fournis sont précises.",
+    "subtitle": "S’assurer que les renseignements fournis sont précises."
+  },
+  "terms": {
+    "title": "Conditions générales",
+    "hint": "Accepter nos <span class='highlight'>conditions générales</span>.",
+    "subtitle": "En soumettant votre candidature, vous confirmez que vous avez lu, compris et accepté nos conditions de partenariat et notre politique de confidentialité."
+  },
+  "welcome": {
+    "title": "Inscription réussie",
+    "hint": "Bienvenue à bord et <span class='highlight'>merci d'avoir choisi Sendy</span>.",
+    "subtitle": "FR_Thank you very much for choosing Sendy as your trusted logistics partner.<br><br> Feel free to look around as we review your application"
+  },
+  "fields": {
+    "name": "Nom + Prénom ",
+    "email": "Adresse e-mail",
+    "phone": "Numéro de Téléphone",
+    "password": "Mot de passe",
+    "confirm": "Confirmer le mot de passe",
+    "business_type": "Type d’entreprise ",
+    "country": "Pays",
+    "city_of_operation": "Ville d’opération ",
+    "area_of_operation": "Zone d’opération ",
+    "business_name": "Nom de l'entreprise",
+    "reg_no": "Numéro d'enregistrement de l'entreprise",
+    "log_book_number": "Numéro de journal de bord",
+    "id_no": "Numéro d'identité nationale",
+    "company": "Société",
+    "individual": "Individu",
+    "vendor_type": "Sélectionnez le type de véhicule ",
+    "insurance_name": "Nom de l'assurance",
+    "reference_number": "Numéro de référence",
+    "policy_number": "Numéro de la police d'assurance",
+    "transporter_card_number": "Numéro de la carte de transporteur"
+  },
+  "messages": {
+    "required": "Ce champ est obligatoire.",
+    "email": "L'adresse-mail fourni n'est pas valide. ",
+    "confirmed": "Erreur de confirmation du mot de passe.",
+    "company_hint": "Je suis propriétaire ou je travaille dans une entreprise qui gère les véhicules.",
+    "individual_hint": "Je possède, gère et exploite personnellement mon propre véhicule"
+  },
+  "labels": {
+    "next": "Suivant",
+    "previous": "Précédent ",
+    "submit": "Soumettre la candidature"
+  }
+}

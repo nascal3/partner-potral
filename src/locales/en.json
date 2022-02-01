@@ -1,0 +1,71 @@
+{
+  "identity": {
+    "title": "Personal identity",
+    "hint": "Personal <span class='highlight'>identification</span> & bio data",
+    "subtitle": "Please provide your personal account information"
+  },
+  "location": {
+    "title": " Define your area of operation",
+    "hint": "Pinpoint & <span class='highlight'>accurately</span> match order requests",
+    "subtitle": "This will enable us to quickly find orders in your region and match them to you"
+  },
+  "business": {
+    "title": "Tell us about your business",
+    "hint": "Allows us to better <span class='highlight'>serve</span> your clientelle",
+    "subtitle": "This will help us tailor an experience that suits your specific needs"
+  },
+  "vehicle": {
+    "title": "Let's quickly set up a vehicle",
+    "hint": "Enable <span class='highlight'>prompt</span> order dispatch & assignment",
+    "subtitle": "Your vehicle details will help with service delivery & compliance"
+  },
+  "verify": {
+    "title": "Verify information provided",
+    "hint": "Ensure the information provided is accurate",
+    "subtitle": "Ensure the information provided is correct"
+  },
+  "terms": {
+    "title": "Terms and conditions",
+    "hint": "Agree to our <span class='highlight'>terms and conditions</span>",
+    "subtitle": "By submitting your application, you acknowledge that you have read, understood and agree to our partnering terms and conditions & privacy policy"
+  },
+  "welcome": {
+    "title": "Registration successful",
+    "hint": "Welcome aboard & <span class='highlight'>thank you for choosing Sendy</span>",
+    "subtitle": "Thank you very much for choosing Sendy as your trusted logistics partner.<br><br> Feel free to look around as we review your application"
+  },
+  "fields": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "confirm": "Confirm password",
+    "business_type": "Business type",
+    "country": "Country",
+    "city_of_operation": "City of operation",
+    "area_of_operation": "Region of operation",
+    "business_name": "Business name",
+    "reg_no": "Business registration number",
+    "log_book_number": "Log book number",
+    "id_no": "National identity number",
+    "company": "Company",
+    "individual": "Individual",
+    "vendor_type": "Select a vehicle type",
+    "insurance_name": "Insurance name",
+    "reference_number": "Reference number",
+    "policy_number": "Insurance policy number",
+    "transporter_card_number": "Transporter card number"
+  },
+  "messages": {
+    "required": "This field is required.",
+    "email": "The email provided is invalid.",
+    "confirmed": "Password confirmation mismatch.",
+    "company_hint": "I own or work in a company that manages the vehicles",
+    "individual_hint": "I personally own, manage and operate my own vehicle"
+  },
+  "labels": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit Application"
+  }
+}
