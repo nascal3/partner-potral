@@ -3,21 +3,21 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          {{ role.display_name }} Role
+          {{ role.display_name }} {{ $t('role.role') }}
         </h1>
       </div>
     </v-card-title>
 
     <v-card-title class="pt-0 mt-0">
       <v-radio-group v-model="group" row>
-        <v-radio 
+        <v-radio
           v-for="(ofType, index) in ['Resourceful', 'General']"
           :key="`permission-${index}`"
-          :label="ofType" 
+          :label="ofType"
           :value="ofType"
           class="body-1"
         ></v-radio>
-      </v-radio-group> 
+      </v-radio-group>
     </v-card-title>
 
     <v-card-text>

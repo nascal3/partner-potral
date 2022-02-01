@@ -1,13 +1,13 @@
 <template>
   <v-container>
     <v-row>
-      <v-col 
+      <v-col
         offset-md="4"
         cols="12"
         md="4"
       >
         <div>
-          <v-img 
+          <v-img
             class="ml-n1"
             max-width="100"
             src="https://assets.website-files.com/5be92ce6e4a547dcc61b976c/60253f92874eabf1a8ecf88f_Logo_SendyMain_Colored_Normal_SVG.svg"
@@ -29,15 +29,15 @@ export default {
     headline () {
       switch (this.$route.name) {
         case 'register':
-          return 'Register partner account'
+          return this.$t('auth.register_partner_account')
         case 'generate':
-          return 'Login to the portal'
+          return this.$t('auth.login_to_the_portal')
         case 'verify':
-          return 'Enter your passcode'
+          return this.$t('auth.enter_your_passcode')
         case 'accounts':
-          return 'Choose a partner account '
+          return this.$t('auth.choose_a_partner_account')
         default:
-          return 'Welcome to the partner portal'
+          return this.$t('welcome_to_the_partner_portal')
       }
     }
   }

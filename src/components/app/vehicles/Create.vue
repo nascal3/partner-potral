@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    
+
     v-model="dialogLaunch"
     width="400"
     persistent
@@ -12,7 +12,7 @@
         color="primary"
         class="caption ttn"
       >
-        Add Vehicle
+        {{ $t('vehicles.title') }}
       </v-btn>
     </template>
 
@@ -20,7 +20,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            Record vehicle details
+            {{ $t('vehicles.subtitle') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -43,7 +43,7 @@
             color="warning"
             class="body-2 mb-6"
           >
-            <b>WARNING!</b> Once saved, vehicle details cannot be changed
+            {{ $t('vehicles.warning') }}
           </v-alert>
 
           <v-text-field
@@ -51,7 +51,7 @@
             outlined
             persistent-hint
             class="body-2"
-            label="Vehicle registration number *"
+            :label="$t('vehicles.registration_number')"
             v-model="vehicleObj.registration_number"
             :hint="errors.get('registration_number')"
             :error="errors.has('registration_number')"
@@ -68,7 +68,7 @@
             item-value="id"
             item-text="name"
             :items="country.data.jurisdictions"
-            label="Select jurisdiction(s) *"
+            :label="$t('vehicles.jurisdiction')"
             v-model="vehicleObj.jurisdiction_ids"
             :hint="errors.get('jurisdiction_ids')"
             :error="errors.has('jurisdiction_ids')"
@@ -81,7 +81,7 @@
                 max-width="250"
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
+                  <v-btn
                     icon
                     small
                     class="mt-n1"
@@ -98,17 +98,17 @@
                 <v-card>
                   <v-card-text>
                     <p class="secondary--text body-2 font-weight-bold">
-                      Operational Jurisdiction
+                      {{ $t('vehicles.operational_jurisdiction') }}
                     </p>
                     <p class="white--text body-2 mb-1">
-                      Please select all jurisdictions in which you will be operating in order to ensure quick verification
+                      {{ $t('vehicles.jurisdiction_message') }}
                     </p>
                   </v-card-text>
                 </v-card>
               </v-menu>
             </template>
           </v-select>
-          
+
           <v-select
             dense
             outlined
@@ -116,7 +116,7 @@
             item-value="id"
             item-text="name"
             :items="vendorTypes.data"
-            label="Select a vendor type *"
+            :label="$t('vehicles.select_vendor_type')"
             v-model="vehicleObj.vendor_type_id"
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"
@@ -134,7 +134,7 @@
             :loading="loading"
             :disabled="loading"
           >
-            Save Details
+            {{ $t('vehicles.save_details') }}
           </v-btn>
         </v-card-actions>
       </form>

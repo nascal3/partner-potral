@@ -3,7 +3,7 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          Users
+          {{ $t('users.users') }}
         </h1>
       </div>
       <v-spacer></v-spacer>
@@ -19,10 +19,10 @@
       <v-data-table
         fixed-header
         disable-sort
-        class="title" 
+        class="title"
         hide-default-footer
         disable-pagination
-        :headers="headers" 
+        :headers="headers"
         :items="users.data"
         style="overflow-x: scroll; width: 100%"
       >
@@ -33,7 +33,7 @@
           {{ item.roles.map(({display_name}) => display_name).join(", ") }}
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-btn 
+          <v-btn
             small
             color="secondary"
             class="ttn caption"
@@ -89,7 +89,7 @@ export default {
 
     auth: () => auth
   },
-  
+
   methods: {
     ...mapActions([
       'setUsers'
@@ -104,7 +104,7 @@ export default {
     }
   },
 
-  
+
   mounted () {
     this.loadUsers()
   }

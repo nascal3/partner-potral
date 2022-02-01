@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Vehicles
+            {{ $t('vehicles.vehicles') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
@@ -20,10 +20,10 @@
         <v-data-table
           fixed-header
           disable-sort
-          class="title" 
+          class="title"
           hide-default-footer
           disable-pagination
-          :headers="headers" 
+          :headers="headers"
           :items="vehicles.data"
           style="overflow-x: scroll; width: 100%"
         >
@@ -31,32 +31,32 @@
             {{ item.vendor_type.name }}
           </template>
           <template v-slot:item.is_valid="{ item }">
-            {{ item.is_valid ? 'Yes' : 'No' }}
+            {{ item.is_valid ? $t('vehicles.yes') : $t('vehicles.no') }}
           </template>
           <template v-slot:item.driver="{ item }">
-            <v-btn 
+            <v-btn
               dark
               small
               color="secondary"
               class="ttn caption"
               @click="forAllocation = item"
             >
-              Allocate
+              {{ $t('vehicles.allocate') }}
             </v-btn>
           </template>
           <template v-slot:item.documents="{ item }">
-            <v-btn 
+            <v-btn
               dark
               small
               color="secondary"
               class="ttn caption"
               @click="forDocument = item"
             >
-              Documents
+              {{ $t('vehicles.documents') }}
             </v-btn>
           </template>
           <template v-slot:item.manage="{ item }">
-            <v-btn 
+            <v-btn
               dark
               text
               small
@@ -64,7 +64,7 @@
               class="ttn body-2"
               :to="`vehicles/${item.id}`"
             >
-              Manage vehicle
+              {{ $t('vehicles.manage_vehicle') }}
             </v-btn>
           </template>
         </v-data-table>
@@ -112,7 +112,7 @@ export default {
 
     auth: () => auth
   },
-  
+
   methods: {
     ...mapActions([
       'setVehicles'
@@ -135,7 +135,7 @@ export default {
 
     }
   },
-  
+
   mounted () {
     this.loadVehicles()
   }

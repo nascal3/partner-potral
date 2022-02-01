@@ -11,7 +11,7 @@
         color="primary"
         class="caption ttn"
       >
-        Add User
+        {{ $t('users.add_user') }}
       </v-btn>
     </template>
 

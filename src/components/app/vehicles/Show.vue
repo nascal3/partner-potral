@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Vehicle Management
+            {{ $t('vehicles.vehicle_management') }}
           </h1>
           <app-crumbs
             :crumbs="crumbs"
@@ -14,11 +14,11 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col 
+          <v-col
             md="3"
             class="hidden-sm-and-down"
           >
-            Sumn
+            {{ $t('vehicles.sum') }}
           </v-col>
 
           <v-col
@@ -35,23 +35,23 @@
       </v-card-text>
     </v-card>
 
-    <v-bottom-navigation 
+    <v-bottom-navigation
       absolute
       class="body-2"
       v-model="value"
     >
       <v-btn value="recent">
-        <span>Documents</span>
+        <span>{{ $t('vehicles.documents') }}</span>
 
         <v-icon>mdi-card-account-details</v-icon>
       </v-btn>
 
       <v-btn value="favorites">
-        <span>Drivers</span>
+        <span>{{ $t('vehicles.drivers') }}</span>
 
         <v-icon>mdi-car</v-icon>
       </v-btn>
-<!-- 
+<!--
       <v-btn value="nearby">
         <span>Orders</span>
 

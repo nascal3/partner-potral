@@ -9,7 +9,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            {{ user ? `Update` :`Record` }} user details
+            {{ user ? $t('users.update') : $t('users.record') }} {{ $t('users.user_details') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -29,7 +29,7 @@
             dense
             outlined
             persistent-hint
-            label="Full name *"
+            :label="$t('users.name')"
             v-model="userObj.name"
             :hint="errors.get('name')"
             :error="errors.has('name')"
@@ -41,7 +41,7 @@
             outlined
             type="email"
             persistent-hint
-            label="Email address *"
+            :label="$t('users.email')"
             v-model="userObj.email"
             :hint="errors.get('email')"
             :error="errors.has('email')"
@@ -52,7 +52,7 @@
             dense
             outlined
             persistent-hint
-            label="Phone number *"
+            :label="$t('users.phone')"
             v-model="userObj.phone"
             :hint="errors.get('phone')"
             :error="errors.has('phone')"
@@ -67,7 +67,7 @@
             item-value="id"
             item-text="display_name"
             :items="roles.data"
-            label="Select user role(s) *"
+            :label="$t('users.roles')"
             v-model="userObj.role_ids"
             :hint="errors.get('role_ids')"
             :error="errors.has('role_ids')"
@@ -85,7 +85,7 @@
             :loading="loading"
             :disabled="loading"
           >
-            {{ user ? 'Update' : 'Save' }} Details
+            {{ user ? $t('users.update') : $t('users.save') }} Details
           </v-btn>
         </v-card-actions>
       </form>

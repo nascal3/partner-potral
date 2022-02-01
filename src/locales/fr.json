@@ -1,71 +1,89 @@
 {
-  "identity": {
-    "title": "Identité personnelle",
-    "hint": "Personnelle <span class='highlight'>identification<span> & données biométriques",
-    "subtitle": "Veuillez fournir les informations personnelles de votre compte"
+  "auth": {
+    "register_partner_account": "FR_Register partner account",
+    "login_to_the_portal": "FR_Login to the portal",
+    "enter_your_passcode": "FR_Enter your passcode",
+    "choose_a_partner_account": "FR_Choose a partner account",
+    "welcome_to_the_partner_portal": "FR_Welcome to the partner portal"
   },
-  "location": {
-    "title": " Déterminez votre zone d'opération",
-    "hint": "Identifier&<span class='highlight'>avec précision </span>harmoniser les demandes de commande ",
-    "subtitle": "Cela nous permettra de trouver rapidement les commandes dans votre zone géographique et de les jumeler avec vous."
+  "register": {
+    "business_model": "FR_Business model *",
+    "country_of_operation": "FR_Country of operation *",
+    "business_name": "FR_Business name *",
+    "your_full_name": "FR_Your full name *",
+    "phone_number": "FR_Phone number *",
+    "email_address": "FR_Email address *",
+    "register_account": "FR_Register Account",
+    "already_registered": "FR_Already registered?",
+    "sign_in": "FR_Sign in"
   },
-  "business": {
-    "title": "Parlez-nous de votre entreprise",
-    "hint": "Nous permet de mieux <span class='highlight'>servir</span>votre clientèle",
-    "subtitle": "Cela nous permettra de vous proposer une expérience adaptée à vos besoins spécifiques."
-  },
-  "vehicle": {
-    "title": "Configurons rapidement un véhicule",
-    "hint": "Activer <span class='highlight'>expédition et attribution rapide des commandes</span>",
-    "subtitle": "Les détails de votre véhicule aideront à la prestation de services et à la conformité."
+  "generate": {
+    "enter_your_email_address": "FR_Enter your email address *",
+    "request_verification_code": "FR_Request Verification Code",
+    "dont_have_an_account": "FR_Don't have an account?",
+    "become_a_partner": "FR_Become a partner"
   },
   "verify": {
-    "title": "Vérifier les informations fournies",
-    "hint": "S’assurer que les renseignements fournis sont précises.",
-    "subtitle": "S’assurer que les renseignements fournis sont précises."
+    "title": "FR_For secure authentication, please enter the verification code we have sent to your",
+    "passcode_expired": "FR_Passcode expired?",
+    "request_another_one": "FR_Request another one"
   },
-  "terms": {
-    "title": "Conditions générales",
-    "hint": "Accepter nos <span class='highlight'>conditions générales</span>.",
-    "subtitle": "En soumettant votre candidature, vous confirmez que vous avez lu, compris et accepté nos conditions de partenariat et notre politique de confidentialité."
+  "documents": {
+    "title": "FR_Provide documents for verification",
+    "cancel": "FR_Cancel",
+    "ok": "FR_Ok",
+    "save": "FR_Save",
+    "provided_value": "FR_Provided value:",
+    "renewal_date": "FR_Renewal date:",
+    "subtitle": "FR_By submitting your application, you acknowledge that you have read, understood and agree to our partnering terms and conditions & privacy policy"
   },
-  "welcome": {
-    "title": "Inscription réussie",
-    "hint": "Bienvenue à bord et <span class='highlight'>merci d'avoir choisi Sendy</span>.",
-    "subtitle": "FR_Thank you very much for choosing Sendy as your trusted logistics partner.<br><br> Feel free to look around as we review your application"
+  "role": {
+    "title": "FR_Registration successful",
+    "update": "FR_Update",
+    "role": "FR_Role",
+    "roles": "FR_Roles",
+    "role_details": "FR_role details",
+    "save": "FR_Save",
+    "add_role": "FR_Add Role",
+    "edit": "FR_Edit",
+    "manage_permissions": "FR_Manage permissions"
   },
-  "fields": {
-    "name": "Nom + Prénom ",
-    "email": "Adresse e-mail",
-    "phone": "Numéro de Téléphone",
-    "password": "Mot de passe",
-    "confirm": "Confirmer le mot de passe",
-    "business_type": "Type d’entreprise ",
-    "country": "Pays",
-    "city_of_operation": "Ville d’opération ",
-    "area_of_operation": "Zone d’opération ",
-    "business_name": "Nom de l'entreprise",
-    "reg_no": "Numéro d'enregistrement de l'entreprise",
-    "log_book_number": "Numéro de journal de bord",
-    "id_no": "Numéro d'identité nationale",
-    "company": "Société",
-    "individual": "Individu",
-    "vendor_type": "Sélectionnez le type de véhicule ",
-    "insurance_name": "Nom de l'assurance",
-    "reference_number": "Numéro de référence",
-    "policy_number": "Numéro de la police d'assurance",
-    "transporter_card_number": "Numéro de la carte de transporteur"
+  "transporters": {
+    "title": "FR_Allocate vehicle",
+    "allocate_vehicle_to_driver": "FR_Allocate Vehicle to Driver",
+    "select_driver": "FR_Select driver *"
   },
-  "messages": {
-    "required": "Ce champ est obligatoire.",
-    "email": "L'adresse-mail fourni n'est pas valide. ",
-    "confirmed": "Erreur de confirmation du mot de passe.",
-    "company_hint": "Je suis propriétaire ou je travaille dans une entreprise qui gère les véhicules.",
-    "individual_hint": "Je possède, gère et exploite personnellement mon propre véhicule"
+  "users": {
+    "title": "FR_Add User",
+    "users": "FR_Users",
+    "update": "FR_Update",
+    "record": "FR_Record",
+    "user_details": "FR_user details",
+    "roles": "FR_Select user role(s) *",
+    "name": "FR_Full name *",
+    "email": "FR_Email address *",
+    "phone": "FR_Phone number *",
+    "save": "FR_Save"
   },
-  "labels": {
-    "next": "Suivant",
-    "previous": "Précédent ",
-    "submit": "Soumettre la candidature"
+  "vehicles": {
+    "title": "FR_Add Vehicle",
+    "subtitle": "FR_Record vehicle details",
+    "registration_number": "FR_Vehicle registration number *",
+    "jurisdiction": "FR_Select jurisdiction(s) *",
+    "operational_jurisdiction": "FR_Operational Jurisdiction",
+    "jurisdiction_message": "FR_Please select all jurisdictions in which you will be operating in order to ensure quick verification",
+    "select_vendor_type": "FR_Select a vendor type *",
+    "save_details": "FR_Save Details",
+    "vehicles": "FR_Vehicles",
+    "yes": "FR_Yes",
+    "no": "FR_No",
+    "allocate": "FR_Allocate",
+    "documents": "FR_Documents",
+    "manage_vehicle": "FR_Manage vehicle",
+    "vehicle_management": "FR_Vehicle Management",
+    "back_to_farmers": "FR_Back to farmers",
+    "sum": "FR_Sum",
+    "drivers": "FR_Drivers",
+    "warning": "<b>FR_WARNING!</b> FR_Once saved, vehicle details cannot be changed"
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div v-if="initialised"
-  
+
   style="background-color: red">
     <v-card
       outlined
@@ -17,15 +17,15 @@
             <div class="flex-grow-1 pl-2">
               <v-row>
                 <v-col cols="8">
-                  <h1 class="title mt-n1">Vehicle Management</h1>
+                  <h1 class="title mt-n1">{{ $t('vehicles.vehicle_management') }}</h1>
                   <h2 class="subtitle-2 deep-orange--text">
-                    <v-icon 
+                    <v-icon
                       small
                       class="mt-n1"
                       color="deep-orange"
                     >
                       <!-- mdi-{{ farmer.organisation_type == 'Individual' ? 'account' : 'account-group' }} -->
-                    </v-icon> 
+                    </v-icon>
                     {{ vehicle.registration_number }}
                   </h2>
                 </v-col>
@@ -34,7 +34,7 @@
                     class="body-1 deep-orange--text"
                     :to="`/farmers`"
                   >
-                    <v-icon color="deep-orange">mdi-arrow-left</v-icon> Back to farmers
+                    <v-icon color="deep-orange">mdi-arrow-left</v-icon> {{ $t('vehicles.back_to_farmers') }}
                   </router-link>
                 </v-col>
               </v-row>
@@ -52,9 +52,9 @@
             :key="link.name"
             style="text-transform: none"
           >
-            <v-menu 
+            <v-menu
               bottom
-              offset-y 
+              offset-y
               open-on-hover
             >
               <template v-slot:activator="{ on, attrs }">
@@ -100,7 +100,7 @@ export default {
       vehicle: null,
       vehicleObj: new Vehicle(),
       links: [
-        { 
+        {
           name: 'Documents',
           children: [
             { name: 'Primary Information', to: 'primary-information' },
@@ -109,7 +109,7 @@ export default {
           ]
         },
 
-        { 
+        {
           name: 'Drivers',
           children: [
             { name: 'Farms', to: 'farms' },
@@ -118,7 +118,7 @@ export default {
           ]
         },
 
-        { 
+        {
           name: 'External services',
           children: [
             { name: 'Orders', to: 'orders' },
@@ -126,7 +126,7 @@ export default {
           ]
         },
 
-        { 
+        {
           name: 'Finance & banking',
           children: [
             // { name: 'Input Financing', to: 'financing' },
@@ -135,7 +135,7 @@ export default {
             { name: 'Bank accounts', to: 'bank-accounts' },
           ]
         },
-      ], 
+      ],
     }
   },
 
@@ -144,7 +144,7 @@ export default {
       return this.vehicle;
     }
   },
-  
+
   mounted () {
     const vehicleId = this.$route.params.vehicleId
     this.vehicleObj.show(vehicleId)
