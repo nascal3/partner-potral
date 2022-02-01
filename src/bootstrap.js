@@ -24,6 +24,7 @@ window.visa = function () {
     'headers': {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
+      'Accept-Language': localStorage.getItem('setLanguage') || 'en',
       ...(token) && {
         'Authorization': `Bearer ${token}`
       },
