@@ -79,6 +79,9 @@
         </router-link>
       </p>
     </v-col>
+    <v-col cols="12">
+      <language-selector />
+    </v-col>
   </v-row>
 </template>
 
@@ -91,6 +94,10 @@ export default {
       loading: false,
       authObj: new Auth()
     }
+  },
+
+  components: {
+    'language-selector': () => import('@/views/layouts/LanguageSelector.vue')
   },
 
   computed: {
