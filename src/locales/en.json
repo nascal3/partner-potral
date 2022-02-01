@@ -1,0 +1,91 @@
+{
+  "auth": {
+    "register_partner_account": "Register partner account",
+    "login_to_the_portal": "Login to the portal",
+    "enter_your_passcode": "Enter your passcode",
+    "choose_a_partner_account": "Choose a partner account",
+    "welcome_to_the_partner_portal": "Welcome to the partner portal"
+  },
+  "register": {
+    "business_model": "Business model *",
+    "country_of_operation": "Country of operation *",
+    "business_name": "Business name *",
+    "your_full_name": "Your full name *",
+    "phone_number": "Phone number *",
+    "email_address": "Email address *",
+    "register_account": "Register Account",
+    "already_registered": "Already registered?",
+    "sign_in": "Sign in"
+  },
+  "generate": {
+    "enter_your_email_address": "Enter your email address *",
+    "request_verification_code": "Request Verification Code",
+    "dont_have_an_account": "Don't have an account?",
+    "become_a_partner": "Become a partner"
+  },
+  "verify": {
+    "title": "For secure authentication, please enter the verification code we have sent to your",
+    "passcode_expired": "Passcode expired?",
+    "request_another_one": "Request another one"
+  },
+  "documents": {
+    "title": "Provide documents for verification",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "save": "Save",
+    "provided_value": "Provided value:",
+    "renewal_date": "Renewal date:",
+    "subtitle": "By submitting your application, you acknowledge that you have read, understood and agree to our partnering terms and conditions & privacy policy"
+  },
+  "role": {
+    "title": "Registration successful",
+    "update": "Update",
+    "role": "Role",
+    "roles": "Roles",
+    "role_details": "role details",
+    "save": "Save",
+    "add_role": "Add Role",
+    "edit": "Edit",
+    "manage_permissions": "Manage permissions",
+    "oops": "Oops! System managed role.",
+    "access_control": "Access control functionality has been disabled for this role.",
+    "back_to_roles": "Go back to roles"
+  },
+  "transporters": {
+    "title": "Allocate vehicle",
+    "allocate_vehicle_to_driver": "Allocate Vehicle to Driver",
+    "select_driver": "Select driver *"
+  },
+  "users": {
+    "title": "Add User",
+    "users": "Users",
+    "update": "Update",
+    "record": "Record",
+    "user_details": "User Details",
+    "roles": "Select user role(s) *",
+    "name": "Full name *",
+    "email": "Email address *",
+    "phone": "Phone number *",
+    "save": "Save"
+  },
+  "vehicles": {
+    "title": "Add Vehicle",
+    "subtitle": "Record vehicle details",
+    "registration_number": "Vehicle registration number *",
+    "jurisdiction": "Select jurisdiction(s) *",
+    "operational_jurisdiction": "Operational Jurisdiction",
+    "jurisdiction_message": "Please select all jurisdictions in which you will be operating in order to ensure quick verification",
+    "select_vendor_type": "Select a vendor type *",
+    "save_details": "Save Details",
+    "vehicles": "Vehicles",
+    "yes": "Yes",
+    "no": "No",
+    "allocate": "Allocate",
+    "documents": "Documents",
+    "manage_vehicle": "Manage vehicle",
+    "vehicle_management": "Vehicle Management",
+    "vehicle_is_unverified": "The vehicle is unverified. Ensure the required documents are verified",
+    "drivers": "Drivers",
+    "warning": "<b>WARNING!</b> Once saved, vehicle details cannot be changed"
+  }
+}

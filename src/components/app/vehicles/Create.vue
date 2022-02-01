@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    
+
     v-model="dialogLaunch"
     width="400"
     persistent
@@ -12,7 +12,7 @@
         color="primary"
         class="caption ttn"
       >
-        Add Vehicle
+        {{ $t('vehicles.title') }}
       </v-btn>
     </template>
 
@@ -20,7 +20,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            Record vehicle details
+            {{ $t('vehicles.subtitle') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -41,7 +41,7 @@
             outlined
             persistent-hint
             class="body-2"
-            label="Registration number"
+            :label="$t('vehicles.registration_number')"
             v-model="vehicleObj.registration_number"
             :hint="errors.get('registration_number')"
             :error="errors.has('registration_number')"
@@ -56,7 +56,7 @@
             item-value="id"
             item-text="display_name"
             :items="vendorTypes.data"
-            label="Select your vehicle type *"
+            :label="$t('vehicles.select_vendor_type')"
             v-model="vehicleObj.vendor_type_id"
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"
@@ -74,7 +74,7 @@
             :loading="loading"
             :disabled="loading"
           >
-            Save Details
+            {{ $t('vehicles.save_details') }}
           </v-btn>
         </v-card-actions>
       </form>

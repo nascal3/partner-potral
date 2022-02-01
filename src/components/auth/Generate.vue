@@ -1,6 +1,6 @@
 <template>
   <v-row class="mt-5">
-    <!-- <v-col 
+    <!-- <v-col
       cols="12"
       class="mb-n4"
     >
@@ -8,25 +8,25 @@
         Send authentication code to
       </p>
 
-      <v-radio-group 
+      <v-radio-group
         row
         mandatory
         persistent-hint
         v-model="authObj.identifier"
       >
-        <v-radio 
+        <v-radio
           v-for="(identifier, index) in ['Email', 'Phone']"
           :key="`identifier-${index}`"
-          :label="identifier" 
+          :label="identifier"
           :value="identifier"
           class="body-1"
         ></v-radio>
-      </v-radio-group> 
+      </v-radio-group>
     </v-col> -->
 
     <v-col cols="12">
       <p class="mb-1 body-1">
-        Enter your email address *
+        {{ $t('generate.enter_your_email_address') }}
       </p>
       <v-text-field
         v-if="authObj.identifier == 'Email'"
@@ -54,7 +54,7 @@
     </v-col>
 
     <v-col cols="12">
-      <v-btn 
+      <v-btn
         block
         x-large
         color="primary"
@@ -64,20 +64,23 @@
         :disabled="loading"
         @click="generateCode()"
       >
-        Request Verification Code
+        {{ $t('generate.request_verification_code') }}
       </v-btn>
     </v-col>
 
     <v-col cols="12">
       <p class="body-1 text-center">
-        Dont have an account? 
+        {{ $t('generate.dont_have_an_account') }}
         <router-link
           class="deep-orange--text"
           to="/auth/register"
         >
-          Become a partner
+          {{ $t('generate.become_a_partner') }}
         </router-link>
       </p>
+    </v-col>
+    <v-col cols="12">
+      <language-selector />
     </v-col>
   </v-row>
 </template>
@@ -91,6 +94,10 @@ export default {
       loading: false,
       authObj: new Auth()
     }
+  },
+
+  components: {
+    'language-selector': () => import('@/views/layouts/LanguageSelector.vue')
   },
 
   computed: {
@@ -118,6 +125,6 @@ export default {
       const { value } = JSON.parse(identification)
       this.authObj.email = value
     }
-  } 
+  }
 }
 </script>

@@ -25,7 +25,7 @@
               border="left"
               class="body-2 mb-0"
             >
-              The vehicle is unverified. Ensure the required documents are verified
+              {{ $t('vehicles.vehicle_is_unverified') }}
             </v-alert>
           </v-col>
         </v-row>
@@ -53,7 +53,7 @@
       </v-card-text>
     </v-card>
 
-    <v-bottom-navigation 
+    <v-bottom-navigation
       absolute
       class="body-2 d-md-none"
     >

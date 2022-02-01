@@ -8,7 +8,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            Allocate vehicle
+            {{ $t('transporters.title') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -28,7 +28,7 @@
             dense
             outlined
             persistent-hint
-            label="Select driver *"
+            :label="$t('transporters.select_driver')"
             item-text="name"
             item-value="id"
             :items="users.data"
@@ -49,7 +49,7 @@
             :loading="loading"
             :disabled="loading"
           >
-            Allocate Vehicle to Driver
+            {{ $t('transporters.allocate_vehicle_to_driver') }}
           </v-btn>
         </v-card-actions>
       </form>
