@@ -6,6 +6,9 @@
           <h1 class="title font-weight-bold">
             Roles
           </h1>
+          <app-crumbs
+            :crumbs="crumbs"
+          ></app-crumbs>
         </div>
         <v-spacer></v-spacer>
         <roles-create
@@ -17,7 +20,12 @@
       <v-divider></v-divider>
 
       <v-card-text class="px-0">
+        <app-loading
+          v-if="processing"
+        ></app-loading>
+
         <v-data-table
+          v-if="!processing"
           fixed-header
           disable-sort
           class="title" 
@@ -49,16 +57,6 @@
             >
               Edit
             </v-btn>
-
-            <!-- <v-btn 
-              dark
-              small
-              color="#e74c3c"
-              class="ttn caption"
-              @click="role = item"
-            >
-              Deactivate
-            </v-btn> -->
           </template>
         </v-data-table>
       </v-card-text>
@@ -84,9 +82,12 @@ export default {
   data () {
     return {
       role: null,
+      processing: true,
+      crumbs: [
+        { text: 'Roles', disabled: true },
+      ],
       headers: [
         { text: 'Display name', value: 'display_name' },
-        // { text: 'Description', value: 'description' },
         { text: 'Access control', value: 'permissions' },
         { text: 'Actions', value: 'actions' },
       ],
@@ -112,6 +113,8 @@ export default {
         routes: {
           partner: id
         }
+      }).then(() => {
+        this.processing = false
       })
     }
   },

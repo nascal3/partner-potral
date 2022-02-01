@@ -25,13 +25,11 @@ export default {
     }
   },
 
-  // watch: {
-  //   role (role) {
-  //     if (role) {
-  //       this.dialogLaunch = true
-  //     }
-  //   }
-  // },
+  watch: {
+    user (user) {
+      this.dialogLaunch = Boolean(user)
+    }
+  },
 
   methods: {
     close () {

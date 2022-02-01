@@ -80,12 +80,12 @@
             large
             type="submit"
             color="primary"
-            class="caption"
+            class="caption font-weight-bold"
             :dark="!loading"
             :loading="loading"
             :disabled="loading"
           >
-            {{ user ? 'Update' : 'Save' }} Details
+            {{ user ? 'Update' : 'Save' }} User Details
           </v-btn>
         </v-card-actions>
       </form>
@@ -106,6 +106,17 @@ export default {
     return {
       loading: false,
       userObj: new User(),
+    }
+  },
+
+  watch: {
+    user (user) {
+      if (user) {
+        this.userObj.role_ids = _.map(user.roles, 'id')
+        Object.keys(user).forEach(key => {
+          this.userObj[key] = user[key]
+        })
+      }
     }
   },
 

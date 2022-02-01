@@ -28,7 +28,7 @@
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.vendor_type="{ item }">
-            {{ item.vendor_type.name }}
+            {{ item.vendor_type.display_name }}
           </template>
           <template v-slot:item.is_valid="{ item }">
             {{ item.is_valid ? 'Yes' : 'No' }}
@@ -62,19 +62,13 @@
               small
               color="deep-orange"
               class="ttn body-2"
-              :to="`vehicles/${item.id}`"
+              :to="`vehicles/${item.id}/documents`"
             >
               Manage vehicle
             </v-btn>
           </template>
         </v-data-table>
       </v-card-text>
-
-      <documents-edit
-        :vehicle="forDocument"
-        @close="forDocument = null"
-        @stored="stored"
-      ></documents-edit>
     </v-card>
   </div>
 </template>
@@ -85,8 +79,6 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   components: {
     'vehicles-create': () => import('./Create.vue'),
-    'documents-edit': () => import('@/components/app/documents/Edit.vue'),
-    // 'transporters-create': () => import('@/components/app/transporters/Create.vue'),
   },
 
   data () {
@@ -98,8 +90,6 @@ export default {
         { text: 'Registration number', value: 'registration_number' },
         { text: 'Vendor type', value: 'vendor_type' },
         { text: 'Verified', value: 'is_valid' },
-        // { text: 'Operational documents', value: 'documents' },
-        // { text: 'Assigned driver', value: 'driver' },
         { text: 'Vehicle management', value: 'manage' },
       ],
     }
