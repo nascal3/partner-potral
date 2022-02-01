@@ -46,7 +46,10 @@
     "save": "FR_Save",
     "add_role": "FR_Add Role",
     "edit": "FR_Edit",
-    "manage_permissions": "FR_Manage permissions"
+    "manage_permissions": "FR_Manage permissions",
+    "oops": "FR_Oops! System managed role.",
+    "access_control": "FR_Access control functionality has been disabled for this role.",
+    "back_to_roles": "FR_Go back to roles"
   },
   "transporters": {
     "title": "FR_Allocate vehicle",
@@ -58,7 +61,7 @@
     "users": "FR_Users",
     "update": "FR_Update",
     "record": "FR_Record",
-    "user_details": "FR_user details",
+    "user_details": "FR_User Details",
     "roles": "FR_Select user role(s) *",
     "name": "FR_Full name *",
     "email": "FR_Email address *",
@@ -81,8 +84,7 @@
     "documents": "FR_Documents",
     "manage_vehicle": "FR_Manage vehicle",
     "vehicle_management": "FR_Vehicle Management",
-    "back_to_farmers": "FR_Back to farmers",
-    "sum": "FR_Sum",
+    "vehicle_is_unverified": "FR_The vehicle is unverified. Ensure the required documents are verified",
     "drivers": "FR_Drivers",
     "warning": "<b>FR_WARNING!</b> FR_Once saved, vehicle details cannot be changed"
   }

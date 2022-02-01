@@ -153,9 +153,8 @@ export default {
   },
 
   watch: {
-    countries ({ data }) {
-      this.country = data[0] || null
-      this.authObj.country_id = this.country?.id
+    country (country) {
+      this.authObj.country_id = country.id
     }
   },
 

@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <v-card v-if="initialised" flat class="ma-0 pa-0">
+  <div v-if="initialised">
+    <v-card 
+      flat 
+      class="ma-0 pa-0"
+    >
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('vehicles.vehicle_management') }}
+            {{ title }}
           </h1>
           <app-crumbs
             :crumbs="crumbs"
@@ -13,21 +16,36 @@
         <v-spacer></v-spacer>
       </v-card-title>
       <v-card-text>
+        <v-row v-if="!vehicle.is_valid">
+          <v-col cols="12">
+            <v-alert
+              text
+              dense
+              type="error"
+              border="left"
+              class="body-2 mb-0"
+            >
+              {{ $t('vehicles.vehicle_is_unverified') }}
+            </v-alert>
+          </v-col>
+        </v-row>
+
         <v-row>
-          <v-col
+          <!-- <v-col 
             md="3"
             class="hidden-sm-and-down"
           >
-            {{ $t('vehicles.sum') }}
-          </v-col>
+            
+          </v-col> -->
 
           <v-col
             sm="12"
-            md="9"
+            md="4"
           >
             <v-container fluid>
               <router-view
                 :vehicle="vehicle"
+                @meta="meta"
               ></router-view>
             </v-container>
           </v-col>
@@ -37,32 +55,17 @@
 
     <v-bottom-navigation
       absolute
-      class="body-2"
-      v-model="value"
+      class="body-2 d-md-none"
     >
-      <v-btn value="recent">
-        <span>{{ $t('vehicles.documents') }}</span>
-
-        <v-icon>mdi-card-account-details</v-icon>
+      <v-btn
+        v-for="(link, index) in navigation"
+        :key="`link-${index}`"
+        :to="`/vehicles/${vehicle.id}/${link.to}`"
+        active-class="active"
+      >
+        <span>{{ link.name }}</span>
+        <v-icon>mdi-{{ link.icon }}</v-icon>
       </v-btn>
-
-      <v-btn value="favorites">
-        <span>{{ $t('vehicles.drivers') }}</span>
-
-        <v-icon>mdi-car</v-icon>
-      </v-btn>
-<!--
-      <v-btn value="nearby">
-        <span>Orders</span>
-
-        <v-icon>mdi-package-variant</v-icon>
-      </v-btn>
-
-      <v-btn value="nearby">
-        <span>Mileage</span>
-
-        <v-icon>mdi-speedometer</v-icon>
-      </v-btn> -->
     </v-bottom-navigation>
   </div>
 </template>
@@ -77,12 +80,16 @@ export default {
 
   data () {
     return {
-      value: true,
+      title: '',
       vehicle: null,
       vehicleObj: new Vehicle(),
       crumbs: [
         { text: 'Vehicles', to: 'vehicles' },
       ],
+      navigation: [
+        { name: 'Documents', icon: 'card-account-details', to: 'documents' },
+        { name: 'Drivers', icon: 'car', to: 'drivers' },
+      ]
     }
   },
 
@@ -93,19 +100,26 @@ export default {
   },
 
   methods: {
-
+    meta (info) {
+      this.title = info.title
+    }
   },
 
   mounted () {
     const vehicleId = this.$route.params.vehicleId
-    this.vehicleObj.show(vehicleId)
-      .then(({ data }) => {
-        this.crumbs.push({
-          text: data.registration_number,
-          disabled: true,
-        })
-        this.vehicle = data
+    this.vehicleObj.show(vehicleId).then(({ data }) => {
+      this.vehicle = data
+      this.crumbs.push({
+        text: this.vehicle.registration_number,
+        disabled: true,
       })
+    })
   }
 }
 </script>
+
+<style lang="scss">
+  a.active {
+    color: #4136A9 !important
+  }
+</style>

@@ -36,16 +36,6 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
-          <v-alert
-            text
-            dense
-            border="left"
-            color="warning"
-            class="body-2 mb-6"
-          >
-            {{ $t('vehicles.warning') }}
-          </v-alert>
-
           <v-text-field
             dense
             outlined
@@ -59,62 +49,12 @@
           ></v-text-field>
 
           <v-select
-            v-if="country.data.jurisdictions.length != 0"
             dense
             outlined
-            multiple
-            persistent-hint
             class="body-2"
-            item-value="id"
-            item-text="name"
-            :items="country.data.jurisdictions"
-            :label="$t('vehicles.jurisdiction')"
-            v-model="vehicleObj.jurisdiction_ids"
-            :hint="errors.get('jurisdiction_ids')"
-            :error="errors.has('jurisdiction_ids')"
-            @input="errors.clear('jurisdiction_ids')"
-          >
-            <template v-slot:append-outer>
-              <v-menu
-                dark
-                left
-                max-width="250"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    icon
-                    small
-                    class="mt-n1"
-                    color="primary"
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon>
-                      mdi-information
-                    </v-icon>
-                  </v-btn>
-                </template>
-
-                <v-card>
-                  <v-card-text>
-                    <p class="secondary--text body-2 font-weight-bold">
-                      {{ $t('vehicles.operational_jurisdiction') }}
-                    </p>
-                    <p class="white--text body-2 mb-1">
-                      {{ $t('vehicles.jurisdiction_message') }}
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-menu>
-            </template>
-          </v-select>
-
-          <v-select
-            dense
-            outlined
             persistent-hint
             item-value="id"
-            item-text="name"
+            item-text="display_name"
             :items="vendorTypes.data"
             :label="$t('vehicles.select_vendor_type')"
             v-model="vehicleObj.vendor_type_id"
@@ -191,16 +131,12 @@ export default {
     ]),
 
     loadVendorTypes () {
-      const jurisdictionIds = this.selectedJurisdictions.join("|")
       this.setVendorTypes({
         routes: {
           partner: this.partner.id
         },
         params: {
           country_id: this.partner.country_id,
-          ...(jurisdictionIds && {
-            jurisdiction_ids: jurisdictionIds
-          })
         },
       })
     },

@@ -79,6 +79,12 @@ const routes = [
       },
 
       {
+        path: 'dashboard',
+        name: 'app-dashboard',
+        component: () => import('@/components/app/dashboard/Index.vue'),
+      },
+
+      {
         path: 'users',
         name: 'users.index',
         component: () => import('@/components/app/users/Index.vue'),
@@ -115,10 +121,35 @@ const routes = [
         component: () => import('@/components/app/vehicles/Show.vue'),
         children: [
           {
-            path: 'docuemnts',
+            path: 'documents',
             name: 'vehicle-documents.index',
             component: () => import('@/components/app/documents/Index.vue')
+          },
+
+          {
+            path: 'drivers',
+            name: 'drivers.index',
+            component: () => import('@/components/app/drivers/Index.vue')
           }
+        ]
+      },
+
+      {
+        path: 'profile',
+        name: 'doe-profile',
+        component: () => import('@/components/app/profile/Index.vue'),
+        children: [
+          {
+            path: 'personal',
+            name: 'doe-personal',
+            component: () => import('@/components/app/profile/Personal.vue')
+          },
+
+          {
+            path: 'security',
+            name: 'doe-security',
+            component: () => import('@/components/app/profile/Security.vue')
+          },
         ]
       },
     ],

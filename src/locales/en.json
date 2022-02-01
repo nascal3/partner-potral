@@ -46,7 +46,10 @@
     "save": "Save",
     "add_role": "Add Role",
     "edit": "Edit",
-    "manage_permissions": "Manage permissions"
+    "manage_permissions": "Manage permissions",
+    "oops": "Oops! System managed role.",
+    "access_control": "Access control functionality has been disabled for this role.",
+    "back_to_roles": "Go back to roles"
   },
   "transporters": {
     "title": "Allocate vehicle",
@@ -58,7 +61,7 @@
     "users": "Users",
     "update": "Update",
     "record": "Record",
-    "user_details": "user details",
+    "user_details": "User Details",
     "roles": "Select user role(s) *",
     "name": "Full name *",
     "email": "Email address *",
@@ -81,8 +84,7 @@
     "documents": "Documents",
     "manage_vehicle": "Manage vehicle",
     "vehicle_management": "Vehicle Management",
-    "back_to_farmers": "Back to farmers",
-    "sum": "Sum",
+    "vehicle_is_unverified": "The vehicle is unverified. Ensure the required documents are verified",
     "drivers": "Drivers",
     "warning": "<b>WARNING!</b> Once saved, vehicle details cannot be changed"
   }

@@ -10,13 +10,12 @@ export default class Vehicle extends Base {
   }
 
   store () {
-    const data = this.getFields([
-      'vendor_type_id',
-      'jurisdiction_ids',
-      'registration_number',
-    ])
     return new Promise(async (resolve, reject) => {
       try {
+        const data = this.getFields([
+          'vendor_type_id',
+          'registration_number',
+        ])
         let response = await this.form.submit('post', url(`partners/${this.group.id}/vehicles`), data)
         this.setFields(fields)
         resolve(response)

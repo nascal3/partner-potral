@@ -16,7 +16,12 @@
     <v-divider></v-divider>
 
     <v-card-text class="px-0">
+      <app-loading
+        v-if="processing"
+      ></app-loading>
+
       <v-data-table
+        v-if="!processing"
         fixed-header
         disable-sort
         class="title"
@@ -72,6 +77,7 @@ export default {
   data () {
     return {
       user: null,
+      processing: true,
       headers: [
         { text: 'Name', value: 'name' },
         { text: 'Email', value: 'email' },
@@ -100,6 +106,8 @@ export default {
         routes: {
           partner: (auth.retrieve('partner')).id
         }
+      }).then(() => {
+        this.processing = false
       })
     }
   },
