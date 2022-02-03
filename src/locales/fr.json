@@ -40,6 +40,7 @@
   "role": {
     "title": "FR_Registration successful",
     "update": "FR_Update",
+    "record": "FR_Record",
     "role": "FR_Role",
     "roles": "FR_Roles",
     "role_details": "FR_role details",
@@ -58,6 +59,7 @@
   },
   "users": {
     "title": "FR_Add User",
+    "add_user": "FR_Add User",
     "users": "FR_Users",
     "update": "FR_Update",
     "record": "FR_Record",
