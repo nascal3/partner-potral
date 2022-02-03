@@ -7,22 +7,26 @@ import i18n from './i18n'
 import router from './router'
 import store from './store'
 import * as Sentry from "@sentry/vue";
-import { BrowserTracing } from "@sentry/tracing";
+import { BrowserTracing } from "@sentry/tracing"
 import vuetify from './plugins/vuetify'
 import './assets/sass/app.scss'
 
 Vue.config.productionTip = false
+const environment = process.env.DOCKER_ENV
+const dns = environment === 'production'
+    ? "https://2a1ed506f7124aaba8d015b8e0e4b9a6@o32379.ingest.sentry.io/6179395"
+    : null
 
 Sentry.init({
   Vue,
-  dsn: "https://2a1ed506f7124aaba8d015b8e0e4b9a6@o32379.ingest.sentry.io/6179395",
+  dsn: dns,
   integrations: [
     new BrowserTracing({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracingOrigins: ["localhost", "https://partner.sendyit.com/login", /^\//],
+      tracingOrigins: ["localhost", "https://partner.sendyit.com/", /^\//],
     }),
   ],
-  environment: process.env.DOCKER_ENV,
+  environment: environment,
   tracesSampleRate: 1.0,
   logErrors: true
 });
