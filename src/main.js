@@ -10,6 +10,8 @@ import * as Sentry from "@sentry/vue";
 import { BrowserTracing } from "@sentry/tracing"
 import vuetify from './plugins/vuetify'
 import './assets/sass/app.scss'
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
 Vue.config.productionTip = false
 const environment = process.env.DOCKER_ENV
@@ -30,6 +32,16 @@ Sentry.init({
   tracesSampleRate: 1.0,
   logErrors: true
 });
+
+const options = {
+  defaultCountry: 'ke',
+  onlyCountries: ['KE', 'CI', 'NG', 'UG'],
+  inputOptions: {
+    placeholder: 'Phone number*',
+  },
+  styleClasses: 'phoneInput',
+}
+Vue.use(VueTelInput, options);
 
 new Vue({
   router,
