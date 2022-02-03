@@ -72,21 +72,24 @@
         ></v-text-field>
       </div>
 
-      <div>
+      <div class="mb-7">
         <p class="mb-1 body-1">
           {{ $t('register.phone_number') }}
         </p>
-        <v-text-field
-          dense
-          outlined
-          persistent-hint
-          class="body-2"
-          label="Phone number *"
-          v-model="authObj.administrator.phone"
-          :hint="errors.get('administrator.phone')"
-          :error="errors.has('administrator.phone')"
-          @input="errors.clear('administrator.phone')"
-        ></v-text-field>
+        <vue-tel-input
+            v-model="authObj.administrator.phone"
+        ></vue-tel-input>
+<!--        <v-text-field-->
+<!--          dense-->
+<!--          outlined-->
+<!--          persistent-hint-->
+<!--          class="body-2"-->
+<!--          label="Phone number *"-->
+<!--          v-model="authObj.administrator.phone"-->
+<!--          :hint="errors.get('administrator.phone')"-->
+<!--          :error="errors.has('administrator.phone')"-->
+<!--          @input="errors.clear('administrator.phone')"-->
+<!--        ></v-text-field>-->
       </div>
 
       <div>
@@ -194,3 +197,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.phoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 3px 0;
+}
+</style>

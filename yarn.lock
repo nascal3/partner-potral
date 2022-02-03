@@ -2843,7 +2843,7 @@
     "browserslist" "^4.19.1"
     "semver" "7.0.0"
 
-"core-js@^3.6.5":
+"core-js@^3.14.0", "core-js@^3.6.5":
   "integrity" "sha512-nuqhq11DcOAbFBV4zCbKeGbKQsUDRqTX0oqx7AttUBuqe3h20ixsE039QHelbL6P4h+9kytVqyEtyZ6gsiwEYw=="
   "resolved" "https://registry.npmjs.org/core-js/-/core-js-3.20.2.tgz"
   "version" "3.20.2"
@@ -5232,6 +5232,11 @@
   dependencies:
     "picocolors" "^1.0.0"
     "shell-quote" "^1.6.1"
+
+"libphonenumber-js@^1.9.6":
+  "integrity" "sha512-FIWFLJ2jUJi8SCztgd2k/isQHZedh7xuxOVifqFLwG/ogZtdH9TXFK92w/KWFj1lwoadqVedtLO3Jqp0q67PZw=="
+  "resolved" "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.9.47.tgz"
+  "version" "1.9.47"
 
 "lines-and-columns@^1.1.6":
   "integrity" "sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg=="
@@ -8463,6 +8468,15 @@
     "hash-sum" "^1.0.2"
     "loader-utils" "^1.0.2"
 
+"vue-tel-input@^5.10.0":
+  "integrity" "sha512-NPzT6dqxcWGP2pLB5cvot6QJXKg72/6RgA8Pi7yBZuL3RRt3+l55OWSwHwlWvvt5M4sm8PTvaPbIY/Aob8y5rA=="
+  "resolved" "https://registry.npmjs.org/vue-tel-input/-/vue-tel-input-5.10.0.tgz"
+  "version" "5.10.0"
+  dependencies:
+    "core-js" "^3.14.0"
+    "libphonenumber-js" "^1.9.6"
+    "vue" "^2.6.14"
+
 "vue-template-compiler@^2.0.0", "vue-template-compiler@^2.6.10", "vue-template-compiler@^2.6.11":
   "integrity" "sha512-ODQS1SyMbjKoO1JBJZojSw6FE4qnh9rIpUZn2EUT86FKizx9uH5z6uXiIrm4/Nb/gwxTi/o17ZDEGWAXHvtC7g=="
   "resolved" "https://registry.npmjs.org/vue-template-compiler/-/vue-template-compiler-2.6.14.tgz"
@@ -8476,7 +8490,7 @@
   "resolved" "https://registry.npmjs.org/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   "version" "1.9.1"
 
-"vue@^2 || ^3.0.0-0", "vue@^2.0.0", "vue@^2.6.11", "vue@^2.6.4", "vue@2.x || 3.x":
+"vue@^2 || ^3.0.0-0", "vue@^2.0.0", "vue@^2.6.11", "vue@^2.6.14", "vue@^2.6.4", "vue@2.x || 3.x":
   "integrity" "sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ=="
   "resolved" "https://registry.npmjs.org/vue/-/vue-2.6.14.tgz"
   "version" "2.6.14"
