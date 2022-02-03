@@ -40,6 +40,7 @@
   "role": {
     "title": "Registration successful",
     "update": "Update",
+    "record": "Record",
     "role": "Role",
     "roles": "Roles",
     "role_details": "role details",
@@ -58,6 +59,7 @@
   },
   "users": {
     "title": "Add User",
+    "add_user": "Add User",
     "users": "Users",
     "update": "Update",
     "record": "Record",
