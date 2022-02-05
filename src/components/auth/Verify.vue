@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <p class="body-1 pb-0">
-        For secure authentication, please enter the verification code we have sent to your {{ identification.identifier }}
+        {{ $t('verify.title') }} {{ identification.identifier }}
       </p>
     </v-col>
 
@@ -23,12 +23,12 @@
 
     <v-col cols="12">
       <p class="body-1">
-        Passcode expired? 
+        {{ $t('verify.passcode_expired') }}
         <router-link
           class="deep-orange--text"
           to="/auth/generate"
         >
-          Request another one
+          {{ $t('verify.request_another_one') }}
         </router-link>
       </p>
     </v-col>
@@ -65,7 +65,7 @@ export default {
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
-          ...(isSolo && { 
+          ...(isSolo && {
             partner: data.partners[0]
           })
         })

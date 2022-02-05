@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Roles
+            {{ $t('role.roles') }}
           </h1>
           <app-crumbs
             :crumbs="crumbs"
@@ -28,15 +28,15 @@
           v-if="!processing"
           fixed-header
           disable-sort
-          class="title" 
+          class="title"
           hide-default-footer
           disable-pagination
-          :headers="headers" 
+          :headers="headers"
           :items="roles.data"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.permissions="{ item }">
-            <v-btn 
+            <v-btn
               dark
               text
               small
@@ -44,18 +44,18 @@
               class="ttn body-2"
               :to="`roles/${item.id}/permissions`"
             >
-              Manage permissions
+              {{ $t('role.manage_permissions') }}
             </v-btn>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn 
+            <v-btn
               dark
               small
               color="secondary"
               class="ttn caption mr-2"
               @click="role = item"
             >
-              Edit
+              {{ $t('role.edit') }}
             </v-btn>
           </template>
         </v-data-table>
@@ -101,7 +101,7 @@ export default {
 
     auth: () => auth,
   },
-  
+
   methods: {
     ...mapActions([
       'setRoles'
@@ -118,7 +118,7 @@ export default {
       })
     }
   },
-  
+
   mounted () {
     this.loadRoles()
   }

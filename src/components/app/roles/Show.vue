@@ -3,7 +3,7 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          {{ role.display_name }} Role
+          {{ role.display_name }} {{ $t('role.role') }}
         </h1>
         <app-crumbs
           :crumbs="crumbs"
@@ -18,16 +18,16 @@
       <div class="d-flex align-center justify-center" style="height: 60vh;">
         <v-card flat>
           <v-card-text class="text-center headline">
-            <p class="font-weight-bold">Oops! System managed role.</p>
+            <p class="font-weight-bold">{{ $t('role.oops') }}</p>
             <p class="body-1">
-              Access control functionality has been disabled for this role.
+              {{ $t('role.access_control') }}
             </p>
             <p class="body-1 mt-4 text-center">
               <router-link
                 class="deep-orange--text"
                 to="/roles"
               >
-                Go back to roles
+                {{ $t('role.back_to_roles') }}
               </router-link>
             </p>
           </v-card-text>

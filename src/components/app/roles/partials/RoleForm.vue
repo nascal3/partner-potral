@@ -8,7 +8,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            {{ role ? `Update` :`Record` }} role details
+            {{ role ? `${$t('role.update')}` : `${$t('role.record')}` }} {{ $t('role.role_details') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -53,7 +53,7 @@
             :loading="loading"
             :disabled="loading"
           >
-            {{ role ? 'Update' : 'Save' }} Role Details
+            {{ role ? $t('role.update') : $t('role.save') }} Role Details
           </v-btn>
         </v-card-actions>
       </form>

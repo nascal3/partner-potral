@@ -3,25 +3,25 @@
     <v-card-text class="px-0">
       <div>
         <p class="mb-n4 mt-5 body-1">
-          Business model *
+          {{ $t('register.business_model') }}
         </p>
-        <v-radio-group 
+        <v-radio-group
           row
           v-model="authObj.legal_entity_type"
         >
-          <v-radio 
+          <v-radio
             v-for="(ofType, index) in ['Individual', 'Company']"
             :key="`entity-${index}`"
-            :label="ofType" 
+            :label="ofType"
             :value="ofType"
             class="body-1"
           ></v-radio>
-        </v-radio-group> 
+        </v-radio-group>
       </div>
 
       <div>
         <p class="mb-1 body-1">
-          Country of operation *
+          {{ $t('register.country_of_operation') }}
         </p>
         <v-select
           dense
@@ -40,7 +40,7 @@
 
       <div v-if="authObj.legal_entity_type == 'Company'">
         <p class="mb-1 body-1">
-          Business name *
+          {{ $t('register.business_name') }}
         </p>
         <v-text-field
           dense
@@ -57,7 +57,7 @@
 
       <div>
         <p class="mb-1 body-1">
-          Your full name *
+          {{ $t('register.your_full_name') }}
         </p>
         <v-text-field
           dense
@@ -72,26 +72,22 @@
         ></v-text-field>
       </div>
 
-      <div>
+      <div class="mb-7">
         <p class="mb-1 body-1">
-          Phone number *
+          {{ $t('register.phone_number') }}
         </p>
-        <v-text-field
-          dense
-          outlined
-          persistent-hint
-          class="body-2"
-          label="Phone number *"
-          v-model="authObj.administrator.phone"
-          :hint="errors.get('administrator.phone')"
-          :error="errors.has('administrator.phone')"
-          @input="errors.clear('administrator.phone')"
-        ></v-text-field>
+        <vue-tel-input
+            v-model="authObj.administrator.phone"
+            @input="errors.clear('administrator.phone')"
+        ></vue-tel-input>
+        <span class="error-message" v-if="errors.has('administrator.phone')">
+          {{errors.get('administrator.phone')}}
+        </span>
       </div>
 
       <div>
         <p class="mb-1 body-1">
-          Email address *
+          {{ $t('register.email_address') }}
         </p>
         <v-text-field
           dense
@@ -106,11 +102,11 @@
         ></v-text-field>
       </div>
 
-      
+
     </v-card-text>
 
     <v-card-actions class="px-0">
-      <v-btn 
+      <v-btn
         block
         x-large
         color="primary"
@@ -121,18 +117,18 @@
         :disabled="loading"
         @click="submit"
       >
-        Register Account
+        {{ $t('register.register_account') }}
       </v-btn>
     </v-card-actions>
 
     <div>
       <p class="body-1 mt-4 text-center">
-        Already registered? 
+        {{ $t('register.already_registered') }}
         <router-link
           class="deep-orange--text"
           to="/auth/generate"
         >
-          Sign in
+          {{ $t('register.sign_in') }}
         </router-link>
       </p>
     </div>
@@ -194,3 +190,13 @@ export default {
   }
 }
 </script>
+
+<style>
+.phoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 3px 0;
+}
+.error-message {
+  color: #EE551A;
+}
+</style>

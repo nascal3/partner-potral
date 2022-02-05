@@ -9,7 +9,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            Provide documents for verification
+            {{ $t('documents.title') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -106,20 +106,20 @@
                           color="primary"
                           @click="dateModal = false"
                         >
-                          Cancel
+                          {{ $t('documents.cancel') }}
                         </v-btn>
                         <v-btn
                           text
                           color="primary"
                           @click="$refs.dialog[0].save(vehicleDocumentObj.expires_at)"
                         >
-                          OK
+                          {{ $t('documents.ok') }}
                         </v-btn>
                       </v-date-picker>
                     </v-dialog>
                   </v-col>
 
-                  <v-col 
+                  <v-col
                     cols="12"
                     class="mb-5"
                   >
@@ -131,20 +131,20 @@
                       class="ttn caption font-weight-bold"
                       @click="update(vehicleDocument)"
                     >
-                      Save
+                      {{ $t('documents.save') }}
                     </v-btn>
                   </v-col>
                 </v-row>
                 <v-row v-else>
                   <v-col cols="12">
                     <p class="body-2">
-                      <b>Provided value:</b> {{ vehicleDocument.value }}
+                      <b>{{ $t('documents.provided_value') }}</b> {{ vehicleDocument.value }}
                     </p>
-                    <p 
+                    <p
                       v-if="vehicleDocument.document.is_expirable"
                       class="body-2"
                     >
-                      <b>Renewal date:</b> {{ vehicleDocument.expires_at }}
+                      <b>{{ $t('documents.renewal_date') }}</b> {{ vehicleDocument.expires_at }}
                     </p>
                   </v-col>
                 </v-row>
@@ -188,7 +188,7 @@ export default {
     ...mapGetters({
       vehicleDocuments: 'getVehicleDocuments'
     }),
-    
+
     partner () {
       return auth.retrieve('partner')
     },
