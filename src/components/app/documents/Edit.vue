@@ -67,9 +67,10 @@
                       :error="errors.has('value')"
                       @input="errors.clear('value')"
                     ></v-text-field>
+                  </v-col>
 
+                  <v-col cols="12">
                     <v-dialog
-                      v-if="vehicleDocument.document.is_expirable"
                       ref="dialog"
                       v-model="dateModal"
                       :return-value.sync="vehicleDocumentObj.expires_at"
@@ -78,6 +79,7 @@
                     >
                       <template v-slot:activator="{ on, attrs }">
                         <v-text-field
+                          v-if="vehicleDocument.document.is_expirable"
                           v-model="vehicleDocumentObj.expires_at"
                           label="Expiration date"
                           readonly

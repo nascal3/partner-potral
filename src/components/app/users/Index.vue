@@ -83,7 +83,7 @@ export default {
         { text: 'Email', value: 'email' },
         { text: 'Phone', value: 'phone' },
         { text: 'Roles', value: 'roles' },
-        { text: 'Actions', value: 'actions' },
+        // { text: 'Actions', value: 'actions' },
       ],
     }
   },

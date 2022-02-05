@@ -82,6 +82,7 @@ export default {
         if (codes.includes(status)) {
           flash({
             message: data.message,
+            timeout: 100000,
             color: '#e74c3c',
           })
         }

@@ -3,7 +3,22 @@
     justify="center"
     v-if="initialised"
   >
-    <v-expansion-panels class="elevation-1">
+    <v-col 
+      cols="12"
+      class="px-0 pt-0"
+    >
+      <v-subheader class="pa-0 body-2">
+        {{ progressBar.submitted }}/{{ progressBar.total }} documents submitted
+      </v-subheader>
+      <v-progress-linear
+        rounded
+        height="6"
+        color="primary"
+        :value="progressBar.value"
+      ></v-progress-linear>
+    </v-col>
+
+    <v-expansion-panels class="elevation-1 mt-3">
       <v-expansion-panel
         v-for="(vehicleDocument, i) in vehicleDocuments.data"
         :key="i"
@@ -26,26 +41,34 @@
         <v-divider></v-divider>
         <v-expansion-panel-content class="px-0">
           <v-card-title class="px-0 pb-0">
-            <span class="body-2">
-              Upload documents
-            </span>
-            <v-spacer></v-spacer>
-            <span>
-              <v-btn 
-                small
-                depressed
-                color="secondary"
-                class="caption ttn"
-              >
-                <v-icon
-                  left
-                  dark
-                >
+            <v-file-input
+              flat
+              solo
+              dense
+              hide-details
+              persistent-hint
+              ref="upload"
+              class="body-2"
+              :prepend-icon="null"
+              placeholder="Upload document"
+              v-model="submissions[i].upload"
+              style="background-color: #4DB6AC"
+              @change="uploadDocument(vehicleDocument, i)"
+            >
+              <template v-slot:prepend-inner>
+                <v-icon v-if="submissions[i].upload">
                   mdi-cloud-upload
                 </v-icon>
-                Upload
-              </v-btn>
-            </span>
+                <v-progress-circular
+                  v-else
+                  :size="23"
+                  :width="2"
+                  indeterminate
+                  class="mr-2"
+                  color="primary"
+                ></v-progress-circular>
+              </template>
+            </v-file-input>
           </v-card-title>
           
           <v-card-text class="px-0">
@@ -65,7 +88,6 @@
             ></v-text-field>
 
             <v-dialog
-              v-if="vehicleDocument.document.expires_at"
               ref="dialog"
               v-model="expiryModal"
               :return-value.sync="vehicleDocumentObj.expires_at"
@@ -74,6 +96,7 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
+                  v-if="vehicleDocument.document.is_expirable"
                   v-model="submissions[i].expires_at"
                   label="Expiry date"
                   readonly
@@ -104,6 +127,8 @@
                 </v-btn>
               </v-date-picker>
             </v-dialog>
+
+            
           </v-card-text>
           <v-card-actions class="px-0">
             <v-btn
@@ -139,6 +164,11 @@ export default {
       activeIndex: null,
       submissions: null,
       expiryModal: false,
+      progressBar: {
+        total: 0,
+        submitted: 0,
+        value: 0,
+      },
       vehicleDocumentObj: new VehicleDocument(),
       metadata: {
         title: 'Legal Documents'
@@ -148,11 +178,18 @@ export default {
 
   watch: {
     vehicleDocuments ({ data }) {
+      this.progressBar.total = data.length
+      this.progressBar.submitted = data.filter(({ status }) => {
+        return ['submitted', 'approved'].includes(status)
+      }).length
+      this.progressBar.value = (this.progressBar.submitted / this.progressBar.total) * 100
+
       this.submissions = data.map(vd => {
         return {
           id: vd.id,
           value: vd.value, 
-          expires_at: vd.expires_at
+          expires_at: vd.expires_at,
+          upload: null,
         }
       })
     }
@@ -210,6 +247,13 @@ export default {
             this.loading = false
           })
       }
+    },
+
+    uploadDocument (vehicleDocument, index) {
+      this.vehicleDocumentObj.upload(vehicleDocument, this.submissions[index].upload)
+        .then(() => {
+          this.submissions[index].upload = null
+        })
     }
   },
 
