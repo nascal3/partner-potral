@@ -26,10 +26,10 @@
       </v-avatar>
     </template>
     <v-list>
-      <v-list-item :to="`/profile/personal`">
+      <!-- <v-list-item :to="`/profile/personal`">
         <v-icon small>mdi-account</v-icon>
         <span class="ml-2 body-2">Account settings</span>
-      </v-list-item>
+      </v-list-item> -->
 
       <v-divider></v-divider>
 
