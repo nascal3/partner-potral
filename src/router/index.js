@@ -123,7 +123,7 @@ const routes = [
           {
             path: 'documents',
             name: 'vehicle-documents.index',
-            component: () => import('@/components/app/documents/Index.vue')
+            component: () => import('@/components/app/vehicle_documents/Index.vue')
           },
 
           {

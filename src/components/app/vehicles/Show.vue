@@ -31,18 +31,14 @@
         </v-row>
 
         <v-row>
-          <!-- <v-col 
-            md="3"
-            class="hidden-sm-and-down"
-          >
-            
-          </v-col> -->
-
           <v-col
             sm="12"
             md="4"
           >
-            <v-container fluid>
+            <v-container 
+              fluid
+              class="px-0"
+            >
               <router-view
                 :vehicle="vehicle"
                 @meta="meta"

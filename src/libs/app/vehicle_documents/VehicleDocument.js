@@ -20,5 +20,24 @@ export default class VehicleDocument extends Base {
       }
     })
   }
+
+  upload () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let formData = new FormData()
+        formData.append('file_upload', this.file_upload)
+        formData.append('upload_type', 'vehicle_document')
+        formData.append('vehicle_document_id', parseInt(this.vehicle_document_id))
+        const response = await this.form.submit('post', url(`partners/${this.group.id}/uploads`), formData, {
+          'Content-Type': 'multipart/form-data'
+        })
+        this.setFields(fields)
+        flash(response)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 
