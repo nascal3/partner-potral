@@ -89,7 +89,6 @@ export default {
   },
 
   created() {
-    console.log('>>>', this.userDetails)
     const { id, name, phone, email  } = this.userDetails
     this.userId = id
     this.userObj.name = name
