@@ -21,7 +21,6 @@
             md="3"
             class="hidden-sm-and-down"
           >
-            {{ doe }}
           </v-col>
 
           <v-col
@@ -30,7 +29,7 @@
           >
             <v-container fluid>
               <router-view
-                :doe="doe"
+                :doe="user"
                 @meta="meta"
               ></router-view>
             </v-container>
@@ -78,7 +77,7 @@ export default {
   },
 
   computed: {
-    doe () {
+    user () {
       return auth.retrieve('user')
     }
   },

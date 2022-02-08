@@ -22,16 +22,16 @@ export default class User extends Base {
     })
   }
 
-  // update (userId) {
-  //   const data = this.getFields();
-  //   return new Promise(async (resolve, reject) => {
-  //     try {
-  //       let response = await this.form.submit("patch", url(`api/v1/markets/${this.group}/users/${userId}`), data)
-  //       resolve(response)
-  //     } catch (err) {
-  //       reject(err)
-  //     }
-  //   })
-  // }
+  update (userId) {
+    const data = this.getFields();
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit('patch', url(`users/${userId}/users`), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

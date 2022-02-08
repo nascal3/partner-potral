@@ -61,6 +61,8 @@
     "title": "FR_Add User",
     "add_user": "FR_Add User",
     "users": "FR_Users",
+    "personal_information": "FR_Personal Information",
+    "save_details": "FR_SAVE DETAILS",
     "update": "FR_Update",
     "record": "FR_Record",
     "user_details": "FR_User Details",
