@@ -25,7 +25,7 @@ Sentry.init({
   integrations: [
     new BrowserTracing({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracingOrigins: ["localhost", "https://partner.sendyit.com/", /^\//],
+      tracingOrigins: ["https://partner.sendyit.com/", /^\//],
     }),
   ],
   environment: environment,
