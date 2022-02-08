@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-card 
-      flat 
+    <v-card
+      flat
       class="ma-0 pa-0"
     >
       <v-card-title>
@@ -17,11 +17,10 @@
       </v-card-title>
       <v-card-text>
         <v-row>
-          <v-col 
+          <v-col
             md="3"
             class="hidden-sm-and-down"
           >
-            Sumn
           </v-col>
 
           <v-col
@@ -30,7 +29,7 @@
           >
             <v-container fluid>
               <router-view
-                :doe="doe"
+                :doe="user"
                 @meta="meta"
               ></router-view>
             </v-container>
@@ -39,7 +38,7 @@
       </v-card-text>
     </v-card>
 
-    <v-bottom-navigation 
+    <v-bottom-navigation
       absolute
       class="body-2"
     >
@@ -56,7 +55,8 @@
   </div>
 </template>
 
-<script>import Auth from "../../../libs/auth/Auth"
+<script>
+import Auth from "../../../libs/auth/Auth"
 
 export default {
   data () {
@@ -77,7 +77,7 @@ export default {
   },
 
   computed: {
-    doe () {
+    user () {
       return auth.retrieve('user')
     }
   },

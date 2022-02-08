@@ -191,10 +191,15 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .phoneInput {
   border: solid 1px rgba(0, 0, 0, 0.38);
   padding: 3px 0;
+
+  ::placeholder {
+    font-size: 16px;
+    opacity: .5;
+  }
 }
 .error-message {
   color: #EE551A;

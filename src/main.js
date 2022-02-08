@@ -25,7 +25,7 @@ Sentry.init({
   integrations: [
     new BrowserTracing({
       routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracingOrigins: ["localhost", "https://partner.sendyit.com/", /^\//],
+      tracingOrigins: ["https://partner.sendyit.com/", /^\//],
     }),
   ],
   environment: environment,
@@ -37,7 +37,7 @@ const options = {
   defaultCountry: 'ke',
   onlyCountries: ['KE', 'CI', 'NG', 'UG'],
   inputOptions: {
-    placeholder: 'Phone number*',
+    placeholder: 'Phone number *',
   },
   styleClasses: 'phoneInput',
 }
