@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pb-10">
     <v-card-title class="body-1 font-weight-bold px-0 pb-0 pt-0 mt-n2">
       Current driver
     </v-card-title>
