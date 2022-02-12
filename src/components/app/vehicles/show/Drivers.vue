@@ -10,7 +10,7 @@
         :transporter="transporter"
       ></vehicle-transporter>
 
-      <v-card-title class="body-1 font-weight-bold px-0 pb-0">
+      <v-card-title class="body-1 font-weight-bold px-0 py-0">
         Available drivers
       </v-card-title>
       <v-list>
