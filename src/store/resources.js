@@ -9,6 +9,7 @@ export const resources = [
   { name: 'permissions', url: `partners/:partner/permissions`},
   { name: 'vehicles', url: `partners/:partner/vehicles` },
   { name: 'vehicleDocuments', url: `partners/:partner/vehicle-documents` },
+  { name: 'transporters', url: `partners/:partner/transporters` },
 ];
 
 export const helpers = {

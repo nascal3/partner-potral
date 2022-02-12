@@ -6,6 +6,9 @@
     "choose_a_partner_account": "Choose a partner account",
     "welcome_to_the_partner_portal": "Welcome to the partner portal"
   },
+  "core": {
+    "to_dashboard": "Go to dashboard"
+  },
   "register": {
     "business_model": "Business model *",
     "country_of_operation": "Country of operation *",
@@ -91,5 +94,13 @@
     "vehicle_is_unverified": "The vehicle is unverified. Ensure the required documents are verified",
     "drivers": "Drivers",
     "warning": "<b>WARNING!</b> Once saved, vehicle details cannot be changed"
+  },
+  "driver": {
+    "not_active": "Oops! Not an active driver",
+    "not_active_message": "Sorry, the specified driver doesn't have an active vehicle",
+    "offline_title": "You're offline",
+    "offline_subtitle": "Go online and start making money",
+    "online_call_to_action": "Go online",
+    "offline_call_to_action": "Go offline"
   }
 }

@@ -25,7 +25,23 @@
         {{ user.name ? user.name.charAt(0) : 'Co' }}
       </v-avatar>
     </template>
-    <v-list>
+    <v-list class="pt-0">
+      <v-list-item 
+        v-for="(link, index) in links"
+        :key="`app-bar-link-${index}`"
+        :to="link.to"
+      >
+        <v-list-item-content class="body-2">
+          {{ link.title }}
+        </v-list-item-content>
+      </v-list-item>
+
+      <!-- <v-list-item>
+        <v-list-item-content class="body-2">
+          Account Information
+        </v-list-item-content>
+      </v-list-item> -->
+
       <v-divider></v-divider>
 
       <v-list-item>
@@ -33,7 +49,6 @@
           <v-btn
             dark
             block 
-            outlined
             color="#e74c3c"
             class="caption font-weight-bold"
             @click="logout()"
@@ -48,6 +63,14 @@
 
 <script>
 export default {
+  data () {
+    return {
+      links: [
+        { title: 'Driver profile', icon: 'driver', to: 'driver/home' }
+      ]
+    }
+  },
+
   computed: {
     user () {
       return auth.retrieve('user')

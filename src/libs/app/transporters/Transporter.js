@@ -23,5 +23,16 @@ export default class Transporter extends Base {
       }
     })
   }
+
+  show (transporterId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit('get', url(`partners/${this.group.id}/transporters/${transporterId}`))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

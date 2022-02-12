@@ -70,10 +70,6 @@
 import Vehicle from '@/libs/app/vehicles/Vehicle'
 
 export default {
-  components: {
-    // 'transporters-create': () => import('@/components/app/transporters/Create.vue'),
-  },
-
   data () {
     return {
       title: '',

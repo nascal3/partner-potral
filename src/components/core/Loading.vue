@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-center justify-center" style="height: 60vh;">
+  <div class="d-flex align-center">
     <v-card flat>
       <v-card-text class="text-center title">
         <p>System is loading! Please wait.</p>
@@ -15,7 +15,5 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>

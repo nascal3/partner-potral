@@ -128,9 +128,22 @@ const routes = [
 
           {
             path: 'drivers',
-            name: 'drivers.index',
-            component: () => import('@/components/app/drivers/Index.vue')
+            name: 'vehicle-drivers.index',
+            component: () => import('@/components/app/vehicles/show/Drivers.vue')
           }
+        ]
+      },
+
+      {
+        path: 'driver',
+        name: 'driver-profile',
+        component: () => import('@/components/app/driver/Index.vue'),
+        children: [
+          {
+            path: 'home',
+            name: 'driver-home',
+            component: () => import('@/components/app/driver/Home.vue')
+          },
         ]
       },
 
