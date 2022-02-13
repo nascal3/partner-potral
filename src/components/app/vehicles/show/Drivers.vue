@@ -5,44 +5,17 @@
     ></app-loading>
   
     <div v-if="initialised">
-      <vehicle-transporter
+      <driver-deallocate
         v-if="transporter"
         :transporter="transporter"
-      ></vehicle-transporter>
+        @deallocated="loadTransporters()"
+      ></driver-deallocate>
 
-      <v-card-title class="body-1 font-weight-bold px-0 py-0">
-        Available drivers
-      </v-card-title>
-      <v-list>
-        <template
-          v-for="(user, index) in users.data"
-        >
-          <v-list-item 
-            :key="`driver-${index}`"
-            class="px-0"
-          >
-            <v-list-item-avatar 
-              color="primary" 
-              size="40"
-              class="body-1 white--text font-weight-bold"
-            >
-              {{ user.name.charAt(0) }}
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="subtitle-1">
-                {{ user.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="deep-orange--text body-2">
-                {{ user.email || 'n/a' }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider
-            :key="`divider-${index}`"
-            v-if="index < users.data.length - 1"
-          ></v-divider>
-        </template>
-      </v-list>
+      <driver-allocate
+        :users="users"
+        :vehicle="vehicle"
+        @allocated="loadTransporters()"
+      ></driver-allocate>
     </div>
   </div>
 </template>
@@ -57,11 +30,13 @@ export default {
   ],
 
   components: {
-    'vehicle-transporter': () => import('./drivers/Transporter.vue')
+    'driver-allocate': () => import('./drivers/Allocate.vue'),
+    'driver-deallocate': () => import('./drivers/Deallocate.vue'),
   },
 
   data () {
     return {
+      driver: null,
       transporter: null,
       transporterObj: new Transporter(),
     }
@@ -74,6 +49,8 @@ export default {
         this.transporterObj.show(transporter.id).then(({ data }) => {
           this.transporter = data
         })
+      } else {
+        this.transporter = null
       }
     }
   },
@@ -116,7 +93,7 @@ export default {
           vehicle_id: this.vehicle.id,
         }
       })
-    }
+    },
   },
 
   mounted () {

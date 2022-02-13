@@ -34,5 +34,16 @@ export default class Transporter extends Base {
       }
     })
   }
+
+  destroy (transporterId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit('delete', url(`partners/${this.group.id}/transporters/${transporterId}`))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

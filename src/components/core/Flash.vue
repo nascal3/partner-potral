@@ -41,7 +41,7 @@ export default {
     flash(details) {
       this.body = details.message;
       this.alert = details.alert;
-      this.timeout = details.timeout || 6000;
+      this.timeout = details.timeout || 10000;
       this.color = details.color || 'grey darken-3'
 
       this.show = true;
