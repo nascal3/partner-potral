@@ -1,0 +1,15 @@
+{
+  "access_control": "FR_Access control functionality has been disabled for this role.",
+  "add_role": "FR_Add Role",
+  "back_to_roles": "FR_Go back to roles",
+  "edit": "FR_Edit",
+  "manage_permissions": "FR_Manage permissions",
+  "oops": "FR_Oops! System managed role.",
+  "record": "FR_Record",
+  "role": "FR_Role",
+  "role_details": "FR_role details",
+  "roles": "FR_Select user role(s) *",
+  "save": "FR_Save",
+  "title": "FR_For secure authentication, please enter the verification code we have sent to your",
+  "update": "FR_Update"
+}

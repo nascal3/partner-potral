@@ -1,0 +1,20 @@
+{
+  "allocate": "FR_Allocate",
+  "documents": "FR_Documents",
+  "drivers": "FR_Drivers",
+  "jurisdiction": "FR_Select jurisdiction(s) *",
+  "jurisdiction_message": "FR_Please select all jurisdictions in which you will be operating in order to ensure quick verification",
+  "manage_vehicle": "FR_Manage vehicle",
+  "no": "FR_No",
+  "operational_jurisdiction": "FR_Operational Jurisdiction",
+  "registration_number": "FR_Vehicle registration number *",
+  "save_details": "FR_Save Details",
+  "select_vendor_type": "FR_Select a vendor type *",
+  "subtitle": "FR_Record vehicle details",
+  "title": "FR_For secure authentication, please enter the verification code we have sent to your",
+  "vehicle_is_unverified": "FR_The vehicle is unverified. Ensure the required documents are verified",
+  "vehicle_management": "FR_Vehicle Management",
+  "vehicles": "FR_Vehicles",
+  "warning": "<b>FR_WARNING!</b> FR_Once saved, vehicle details cannot be changed",
+  "yes": "FR_Yes"
+}

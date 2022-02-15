@@ -1,0 +1,11 @@
+{
+  "already_registered": "Already registered?",
+  "business_model": "Business model *",
+  "business_name": "Business name *",
+  "country_of_operation": "Country of operation *",
+  "email_address": "Email address *",
+  "phone_number": "Phone number *",
+  "register_account": "Register Account",
+  "sign_in": "Sign in",
+  "your_full_name": "Your full name *"
+}
