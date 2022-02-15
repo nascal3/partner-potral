@@ -1,0 +1,15 @@
+{
+  "add_user": "FR_Add User",
+  "email": "FR_Email address *",
+  "name": "FR_Full name *",
+  "personal_information": "FR_Personal Information",
+  "phone": "FR_Phone number *",
+  "record": "FR_Record",
+  "roles": "FR_Select user role(s) *",
+  "save": "FR_Save",
+  "save_details": "FR_Save Details",
+  "title": "FR_For secure authentication, please enter the verification code we have sent to your",
+  "update": "FR_Update",
+  "user_details": "FR_User Details",
+  "users": "FR_Users"
+}

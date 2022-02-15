@@ -1,0 +1,270 @@
+phrase:
+  access_token: 6072b5ed0c58f96f5479078b9ddf2a2ec1604d09445e70a5b86b90b6d5c33f16
+  project_id: e3d937fd4ff0f3e3e1b16e9c07ad154d
+  push:
+    sources:
+    - file: ./src/locales/en/auth.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: auth
+    - file: ./src/locales/fr/auth.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: auth
+
+    - file: ./src/locales/en/core.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: core
+    - file: ./src/locales/fr/core.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: core
+
+    - file: ./src/locales/en/documents.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: documents
+    - file: ./src/locales/fr/documents.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: documents
+
+    - file: ./src/locales/en/driver.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: driver
+    - file: ./src/locales/fr/driver.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: driver
+
+    - file: ./src/locales/en/generate.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: generate
+    - file: ./src/locales/fr/generate.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: generate
+
+    - file: ./src/locales/en/register.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: register
+    - file: ./src/locales/fr/register.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: register
+
+    - file: ./src/locales/en/role.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: role
+    - file: ./src/locales/fr/role.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: role
+
+    - file: ./src/locales/en/transporters.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: transporters
+    - file: ./src/locales/fr/transporters.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: transporters
+
+    - file: ./src/locales/en/users.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: users
+    - file: ./src/locales/fr/users.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: users
+
+    - file: ./src/locales/en/vehicles.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: vehicles
+    - file: ./src/locales/fr/vehicles.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: vehicles
+
+    - file: ./src/locales/en/verify.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: verify
+    - file: ./src/locales/fr/verify.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: verify
+  pull:
+    targets:
+    - file: ./src/locales/en/auth.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: auth
+    - file: ./src/locales/fr/auth.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: auth
+
+    - file: ./src/locales/en/core.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: core
+    - file: ./src/locales/fr/core.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: core
+
+    - file: ./src/locales/en/documents.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: documents
+    - file: ./src/locales/fr/documents.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: documents
+
+    - file: ./src/locales/en/driver.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: driver
+    - file: ./src/locales/fr/driver.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: driver
+
+    - file: ./src/locales/en/generate.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: generate
+    - file: ./src/locales/fr/generate.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: generate
+
+    - file: ./src/locales/en/register.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: register
+    - file: ./src/locales/fr/register.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: register
+
+    - file: ./src/locales/en/role.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: role
+    - file: ./src/locales/fr/role.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: role
+
+    - file: ./src/locales/en/transporters.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: transporters
+    - file: ./src/locales/fr/transporters.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: transporters
+
+    - file: ./src/locales/en/users.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: users
+    - file: ./src/locales/fr/users.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: users
+
+    - file: ./src/locales/en/vehicles.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: vehicles
+    - file: ./src/locales/fr/vehicles.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: vehicles
+
+    - file: ./src/locales/en/verify.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: verify
+    - file: ./src/locales/fr/verify.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: verify
+
