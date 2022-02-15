@@ -32,10 +32,11 @@ export default {
   },
   methods: {
     changeLanguage(languageCode) {
+      localStorage.setItem('setLanguage', languageCode)
       this.$nextTick(() => {
-        this.$i18n.locale = languageCode
-        this.activeLanguage = languageCode
-        localStorage.setItem('setLanguage', languageCode)
+        this.$i18n.locale = languageCode || localStorage.getItem('setLanguage')
+        this.activeLanguage = languageCode || localStorage.getItem('setLanguage')
+
       })
     }
   },
