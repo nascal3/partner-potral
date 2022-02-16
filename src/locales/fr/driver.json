@@ -4,9 +4,5 @@
   "offline_call_to_action": "FR_Go offline",
   "offline_subtitle": "FR_Go online and start making money",
   "offline_title": "FR_You're offline",
-  "online_call_to_action": "FR_Go online",
-  "home": "FR_Home",
-  "orders": "FR_Orders",
-  "payments": "FR_Payments",
-  "more": "FR_More"
+  "online_call_to_action": "FR_Go online"
 }
