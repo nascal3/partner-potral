@@ -84,12 +84,12 @@ export default {
       role: null,
       processing: true,
       crumbs: [
-        { text: 'Roles', disabled: true },
+        { text: this.$t('role.crumb_roles'), disabled: true },
       ],
       headers: [
-        { text: 'Display name', value: 'display_name' },
-        { text: 'Access control', value: 'permissions' },
-        { text: 'Actions', value: 'actions' },
+        { text: this.$t('role.table_display_name'), value: 'display_name' },
+        { text: this.$t('role.table_access_control'), value: 'permissions' },
+        { text: this.$t('role.actions'), value: 'actions' },
       ],
     }
   },

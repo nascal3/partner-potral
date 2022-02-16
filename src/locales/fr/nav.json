@@ -1,0 +1,9 @@
+{
+  "application": "FR_APPLICATION",
+  "access_control": "FR_ACCESS CONTROL",
+  "vehicles": "FR_Vehicles",
+  "roles": "FR_Roles",
+  "users": "FR_Users",
+  "driver_profile": "FR_Driver profile",
+  "logout": "FR_Logout"
+}

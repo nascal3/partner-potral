@@ -2,7 +2,7 @@
   <div class="d-flex align-center">
     <v-card flat>
       <v-card-text class="text-center title">
-        <p>System is loading! Please wait.</p>
+        <p>{{ $t('core.system_loading') }}.</p>
         <v-progress-circular
           :size="40"
           :width="5"

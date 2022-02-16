@@ -68,6 +68,19 @@ phrase:
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: generate
 
+    - file: ./src/locales/en/nav.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: nav
+    - file: ./src/locales/fr/nav.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: nav
+
     - file: ./src/locales/en/register.json
       params:
         file_format: simple_json
@@ -201,6 +214,17 @@ phrase:
         file_format: simple_json
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: generate
+
+    - file: ./src/locales/en/nav.json
+      params:
+        file_format: simple_json
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: nav
+    - file: ./src/locales/fr/nav.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: nav
 
     - file: ./src/locales/en/register.json
       params:

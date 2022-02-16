@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-list 
+    <v-list
       v-if="initialised"
       two-line
     >
@@ -22,7 +22,7 @@
                     {{ vd.document.label }}
                   </span>
                 </v-col>
-                <v-col 
+                <v-col
                   cols="4"
                   class="text-right"
                 >
@@ -62,7 +62,7 @@ export default {
     return {
       vehicleDocument: null,
       metadata: {
-        title: 'Legal Documents',
+        title: this.$t('vehicles.legal_Documents'),
       }
     }
   },
@@ -102,6 +102,6 @@ export default {
   mounted () {
     this.loadVehicleDocuments()
     this.$emit('meta', this.metadata)
-  } 
+  }
 }
 </script>

@@ -12,7 +12,7 @@
         color="primary"
         class="caption ttn"
       >
-        {{ $t('vehicles.title') }}
+        {{ $t('vehicles.add_vehicle') }}
       </v-btn>
     </template>
 
