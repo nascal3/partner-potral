@@ -1,8 +1,12 @@
 {
+  "home": "Home",
+  "more": "More",
   "not_active": "Oops! Not an active driver",
   "not_active_message": "Sorry, the specified driver doesn't have an active vehicle",
   "offline_call_to_action": "Go offline",
   "offline_subtitle": "Go online and start making money",
   "offline_title": "You're offline",
-  "online_call_to_action": "Go online"
+  "online_call_to_action": "Go online",
+  "orders": "Orders",
+  "payments": "Payments"
 }
