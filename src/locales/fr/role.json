@@ -1,19 +1,19 @@
 {
   "access_control": "FR_Access control functionality has been disabled for this role.",
+  "actions": "FR_Actions",
   "add_role": "FR_Add Role",
   "back_to_roles": "FR_Go back to roles",
+  "crumb_roles": "FR_Roles",
   "edit": "FR_Edit",
   "manage_permissions": "FR_Manage permissions",
   "oops": "FR_Oops! System managed role.",
   "record": "FR_Record",
   "role": "FR_Role",
-  "crumb_roles": "FR_Roles",
-  "actions": "FR_Actions",
-  "table_access_control": "FR_Access control",
-  "table_display_name": "FR_Display name",
   "role_details": "FR_role details",
   "roles": "FR_Select user role(s) *",
   "save": "FR_Save",
+  "table_access_control": "FR_Access control",
+  "table_display_name": "FR_Display name",
   "title": "FR_For secure authentication, please enter the verification code we have sent to your",
   "update": "FR_Update"
 }
