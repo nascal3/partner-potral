@@ -34,8 +34,8 @@ export default {
     changeLanguage(languageCode) {
       localStorage.setItem('setLanguage', languageCode)
       this.$nextTick(() => {
-        this.$i18n.locale = languageCode || localStorage.getItem('setLanguage')
-        this.activeLanguage = languageCode || localStorage.getItem('setLanguage')
+        this.$i18n.locale = languageCode
+        this.activeLanguage = languageCode
 
       })
     }

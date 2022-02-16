@@ -1,5 +1,5 @@
 <template>
-  <v-menu 
+  <v-menu
     offset-y
     min-width="220"
   >
@@ -26,7 +26,7 @@
       </v-avatar>
     </template>
     <v-list class="pt-0">
-      <v-list-item 
+      <v-list-item
         v-for="(link, index) in links"
         :key="`app-bar-link-${index}`"
         :to="link.to"
@@ -48,12 +48,12 @@
         <v-list-item-content>
           <v-btn
             dark
-            block 
+            block
             color="#e74c3c"
             class="caption font-weight-bold"
             @click="logout()"
           >
-            Logout
+            {{ $t('navigation.logout') }}
           </v-btn>
         </v-list-item-content>
       </v-list-item>
@@ -66,7 +66,7 @@ export default {
   data () {
     return {
       links: [
-        { title: 'Driver profile', icon: 'driver', to: 'driver/home' }
+        { title: this.$t('navigation.driver_profile'), icon: 'driver', to: 'driver/home' }
       ]
     }
   },

@@ -79,10 +79,10 @@ export default {
       user: null,
       processing: true,
       headers: [
-        { text: 'Name', value: 'name' },
-        { text: 'Email', value: 'email' },
-        { text: 'Phone', value: 'phone' },
-        { text: 'Roles', value: 'roles' },
+        { text: this.$t('users.table_name'), value: 'name' },
+        { text: this.$t('users.table_email'), value: 'email' },
+        { text: this.$t('users.table_phone'), value: 'phone' },
+        { text: this.$t('users.table_role'), value: 'roles' },
         // { text: 'Actions', value: 'actions' },
       ],
     }

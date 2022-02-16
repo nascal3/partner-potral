@@ -4,7 +4,7 @@
         dense
         outlined
         persistent-hint
-        label="Name *"
+        :label="$t('users.name')"
         v-model="userObj.name"
         :hint="errors.get('name')"
         :error="errors.has('name')"
@@ -15,7 +15,7 @@
         dense
         outlined
         persistent-hint
-        label="Email *"
+        :label="$t('users.email')"
         v-model="userObj.email"
         :hint="errors.get('email')"
         :error="errors.has('email')"
@@ -26,7 +26,7 @@
         dense
         outlined
         persistent-hint
-        label="Phone *"
+        :label="$t('users.phone')"
         v-model="userObj.phone"
         :hint="errors.get('phone')"
         :error="errors.has('phone')"

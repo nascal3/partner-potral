@@ -1,22 +1,22 @@
 <template>
   <div>
-    <v-card-title 
+    <v-card-title
       class="body-1 font-weight-bold px-0 py-0"
     >
-      Available drivers
+      {{ $t('available_drivers') }}
     </v-card-title>
     <v-list>
       <template v-for="(user, index) in users.data">
-        <v-list-item 
+        <v-list-item
           class="px-0"
-          :key="`driver-${index}`"  
+          :key="`driver-${index}`"
           @click="allocate(user)"
         >
           <v-list-item-avatar
             color="primary"
             size="40"
             class="body-1 white--text font-weight-bold"
-          > 
+          >
             {{ user.name.charAt(0) }}
           </v-list-item-avatar>
           <v-list-item-content>
@@ -30,7 +30,7 @@
 
           <v-list-item-action>
             <v-btn icon>
-              <v-icon 
+              <v-icon
                 color="success"
               >
                 mdi-steering
@@ -38,8 +38,8 @@
             </v-btn>
           </v-list-item-action>
         </v-list-item>
-        <v-divider 
-          :key="`divider-${index}`" 
+        <v-divider
+          :key="`divider-${index}`"
           v-if="index < users.data.length - 1"
         ></v-divider>
       </template>

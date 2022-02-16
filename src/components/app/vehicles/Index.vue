@@ -87,10 +87,10 @@ export default {
       forDocument: null,
       forAllocation: null,
       headers: [
-        { text: 'Registration number', value: 'registration_number' },
-        { text: 'Vendor type', value: 'vendor_type' },
-        { text: 'Verified', value: 'is_valid' },
-        { text: 'Vehicle management', value: 'manage' },
+        { text: this.$t('vehicles.table_registration_number'), value: 'registration_number' },
+        { text: this.$t('vehicles.vendor_type'), value: 'vendor_type' },
+        { text: this.$t('vehicles.verified'), value: 'is_valid' },
+        { text: this.$t('vehicles.vehicle_management'), value: 'manage' },
       ],
     }
   },

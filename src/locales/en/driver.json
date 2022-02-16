@@ -4,5 +4,9 @@
   "offline_call_to_action": "Go offline",
   "offline_subtitle": "Go online and start making money",
   "offline_title": "You're offline",
-  "online_call_to_action": "Go online"
+  "online_call_to_action": "Go online",
+  "home": "Home",
+  "orders": "Orders",
+  "payments": "Payments",
+  "more": "More"
 }
