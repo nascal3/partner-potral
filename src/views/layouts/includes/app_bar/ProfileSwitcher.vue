@@ -1,7 +1,7 @@
 <template>
   <v-menu 
     offset-y
-    min-width="220"
+    min-width="230"
   >
     <template v-slot:activator="{ on }">
       <v-avatar
@@ -25,7 +25,10 @@
         {{ user.name ? user.name.charAt(0) : 'Co' }}
       </v-avatar>
     </template>
-    <v-list class="pt-0">
+    <v-list 
+      class="pt-0"
+      dense
+    >
       <v-list-item 
         v-for="(link, index) in links"
         :key="`app-bar-link-${index}`"
@@ -66,7 +69,8 @@ export default {
   data () {
     return {
       links: [
-        { title: 'Driver profile', icon: 'driver', to: 'driver/home' }
+        { title: 'Driver profile', icon: 'driver', to: '/driver/home' },
+        // { title: 'Preferences', icon: 'driver', to: 'preferences' },
       ]
     }
   },

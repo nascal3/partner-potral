@@ -43,10 +43,20 @@
 
 <script>
 export default {
+  props: [
+    'driver'
+  ],
+
   data () {
     return {
       sheet: true
     }
   },
+
+  computed: {
+    broadcaster () {
+      return this.process.env.VUE_APP_BROADCASTER
+    }
+  }
 }
 </script>
