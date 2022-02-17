@@ -1,0 +1,19 @@
+{
+  "add_user": "Add User",
+  "email": "Email address *",
+  "name": "Full name *",
+  "personal_information": "Personal Information",
+  "phone": "Phone number *",
+  "record": "Record",
+  "roles": "Select user role(s) *",
+  "save": "Save",
+  "save_details": "Save Details",
+  "table_email": "Email",
+  "table_name": "Name",
+  "table_phone": "Phone",
+  "table_role": "Roles",
+  "title": "For secure authentication, please enter the verification code we have sent to your",
+  "update": "Update",
+  "user_details": "User Details",
+  "users": "Users"
+}

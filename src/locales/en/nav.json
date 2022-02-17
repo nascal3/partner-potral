@@ -1,0 +1,9 @@
+{
+  "access_control": "Access control functionality has been disabled for this role.",
+  "application": "APPLICATION",
+  "driver_profile": "Driver profile",
+  "logout": "Logout",
+  "roles": "Select user role(s) *",
+  "users": "Users",
+  "vehicles": "Vehicles"
+}

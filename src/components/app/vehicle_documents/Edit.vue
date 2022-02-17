@@ -31,7 +31,7 @@
             ref="upload"
             class="body-2"
             :prepend-icon="null"
-            placeholder="Upload document"
+            :placeholder="$t('vehicles.upload_document')"
             v-model="vehicleDocumentObj.file_upload"
             @change="uploadDocument()"
           >
@@ -102,7 +102,7 @@
                 class="caption mb-2 font-weight-bold"
                 @click="$refs.dialog.save(vehicleDocumentObj.expires_at)"
               >
-                Select Expiration Date
+                {{ $t('vehicles.select_expiration_date') }}
               </v-btn>
             </v-date-picker>
           </v-dialog>
@@ -118,7 +118,7 @@
             class="caption font-weight-bold"
             @click="submit()"
           >
-            Submit document details
+            {{ $t('vehicles.submit_document_details') }}
           </v-btn>
         </v-card-actions>
     </v-card>
@@ -162,9 +162,9 @@ export default {
     uploadDocument () {
       this.vehicleDocumentObj.upload()
         .then(() => {
-          
+
         })
-        
+
     },
 
     submit () {

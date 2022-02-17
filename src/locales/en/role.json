@@ -1,0 +1,19 @@
+{
+  "access_control": "Access control functionality has been disabled for this role.",
+  "actions": "Actions",
+  "add_role": "Add Role",
+  "back_to_roles": "Go back to roles",
+  "crumb_roles": "Roles",
+  "edit": "Edit",
+  "manage_permissions": "Manage permissions",
+  "oops": "Oops! System managed role.",
+  "record": "Record",
+  "role": "Role",
+  "role_details": "role details",
+  "roles": "Select user role(s) *",
+  "save": "Save",
+  "table_access_control": "Access control",
+  "table_display_name": "Display name",
+  "title": "For secure authentication, please enter the verification code we have sent to your",
+  "update": "Update"
+}

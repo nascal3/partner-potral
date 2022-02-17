@@ -35,7 +35,7 @@
         </v-row>
       </v-card-text>
     </v-card>
-    
+
     <v-bottom-navigation
       absolute
       class="body-2 links"
@@ -60,10 +60,10 @@ export default {
       title: '',
       breadcrumbs: [],
       navigation: [
-        { name: 'Home', icon: 'home-variant', to: 'home' },
-        { name: 'Orders', icon: 'package-variant', to: 'orders' },
-        { name: 'Payments', icon: 'hand-coin', to: 'payments' },
-        { name: 'More', icon: 'apps', to: 'payments' },
+        { name: this.$t('driver.home'), icon: 'home-variant', to: 'home' },
+        { name: this.$t('driver.orders'), icon: 'package-variant', to: 'orders' },
+        { name: this.$t('driver.payments'), icon: 'hand-coin', to: 'payments' },
+        { name: this.$t('driver.more'), icon: 'apps', to: 'payments' },
       ]
     }
   },

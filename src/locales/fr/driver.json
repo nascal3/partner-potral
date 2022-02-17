@@ -1,0 +1,12 @@
+{
+  "home": "FR_Home",
+  "more": "FR_More",
+  "not_active": "FR_Oops! Not an active driver",
+  "not_active_message": "FR_Sorry, the specified driver doesn't have an active vehicle",
+  "offline_call_to_action": "FR_Go offline",
+  "offline_subtitle": "FR_Go online and start making money",
+  "offline_title": "FR_You're offline",
+  "online_call_to_action": "FR_Go online",
+  "orders": "FR_Orders",
+  "payments": "FR_Payments"
+}
