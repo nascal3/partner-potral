@@ -1,6 +1,7 @@
 {
   "access_control": "Access control functionality has been disabled for this role.",
-  "application": "APPLICATION",
+  "nav_application": "APPLICATION",
+  "nav_access_control": "ACCESS CONTROL",
   "driver_profile": "Driver profile",
   "logout": "Logout",
   "roles": "Select user role(s) *",
