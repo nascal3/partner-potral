@@ -26,7 +26,7 @@
         <v-subheader
           class="caption font-weight-bold"
           :key="name"
-          v-text="name"
+          v-text="translateText(name)"
           :class="name !== 'ANALYTICS' ? 'mt-5' : ''"
         ></v-subheader>
 
@@ -120,7 +120,7 @@ export default {
         //   },
         // ],
 
-          'APPLICATION': [
+        'APPLICATION': [
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
         ],
 
@@ -142,6 +142,11 @@ export default {
       if (input == false) {
         this.$emit('closed')
       }
+    },
+
+    translateText(text) {
+      if (text === 'APPLICATION') return this.$t('navigation.nav_application')
+      if (text === 'ACCESS CONTROL') return this.$t('navigation.nav_access_control')
     },
 
     permitted (link) {
