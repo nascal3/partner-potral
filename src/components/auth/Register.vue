@@ -10,7 +10,7 @@
           v-model="authObj.legal_entity_type"
         >
           <v-radio
-            v-for="(ofType, index) in ['Individual', 'Company']"
+            v-for="(ofType, index) in [ `${$t('register.individual')}`, `${$t('register.company')}` ]"
             :key="`entity-${index}`"
             :label="ofType"
             :value="ofType"

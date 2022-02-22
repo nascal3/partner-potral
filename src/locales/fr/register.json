@@ -7,5 +7,7 @@
   "phone_number": "FR_Phone number *",
   "register_account": "FR_Register Account",
   "sign_in": "FR_Sign in",
-  "your_full_name": "FR_Your full name *"
+  "your_full_name": "FR_Your full name *",
+  "individual": "FR_Individual",
+  "company": "FR_Company"
 }
