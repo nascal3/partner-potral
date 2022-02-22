@@ -79,6 +79,7 @@
         <vue-tel-input
             v-model="authObj.administrator.phone"
             @input="errors.clear('administrator.phone')"
+            :onlyCountries="validCountries"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('administrator.phone')">
           {{errors.get('administrator.phone')}}
@@ -132,6 +133,10 @@
         </router-link>
       </p>
     </div>
+
+    <v-col cols="12">
+      <language-selector />
+    </v-col>
   </v-card>
 </template>
 
@@ -143,15 +148,24 @@ export default {
   data () {
     return {
       country: null,
+      validCountries: [],
       loading: false,
       authObj: new Auth()
     }
   },
 
+  components: {
+    'language-selector': () => import('@/views/layouts/LanguageSelector.vue')
+  },
+
   watch: {
     country (country) {
       this.authObj.country_id = country.id
-    }
+    },
+
+    countries() {
+      this.setValidCountries()
+    },
   },
 
   computed: {
@@ -168,6 +182,12 @@ export default {
      ...mapActions([
        'setCountries'
      ]),
+
+     setValidCountries() {
+       this.countries.data.map(country => {
+         this.validCountries.push(country.code)
+       })
+     },
 
     submit () {
       if (!this.loading) {
