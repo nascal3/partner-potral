@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-center align-center language">
     <span
-        v-for="(language, index) in languageOptions"
+        v-for="(language, index) in languages.data"
         :key="index"
         :class="{ 'active': activeLanguage === language.code }"
         @click="changeLanguage(language.code)"
@@ -13,24 +13,27 @@
 
 <script>
 
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "LanguageSelector",
   data() {
     return {
-      activeLanguage: 'en',
-      languageOptions: [
-        {
-          code: "en",
-          name: "English"
-        },
-        {
-          code: "fr",
-          name: "Français"
-        },
-      ],
+      activeLanguage: localStorage.getItem('setLanguage') || 'en',
     }
   },
+
+  computed: {
+    ...mapGetters({
+      languages: 'getLanguages'
+    }),
+  },
+
   methods: {
+    ...mapActions([
+      'setLanguages'
+    ]),
+
     changeLanguage(languageCode) {
       localStorage.setItem('setLanguage', languageCode)
       this.$nextTick(() => {
@@ -40,6 +43,10 @@ export default {
       })
     }
   },
+
+  mounted () {
+    this.setLanguages()
+  }
 }
 </script>
 
