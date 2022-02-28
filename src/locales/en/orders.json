@@ -1,0 +1,21 @@
+{
+  "title": "Orders",
+  "table_order_num": "ORDER NO.",
+  "table_pickup_location": "PICKUP LOCATION",
+  "table_destination": "DESTINATION",
+  "table_distance": "DISTANCE",
+  "table_pickup_date": "PICKUP DATE",
+  "table_price": "PRICE",
+  "table_action": "ACTION",
+  "price_per_order": "Price per order",
+  "summary": "Summary",
+  "orders": "Orders",
+  "total_orders": "Total amount made for all orders",
+  "order_status": "Orders status",
+  "vehicle_assigned": "Vehicle assigned",
+  "weight_of_order": "Weight of order",
+  "name_of_driver": "Name of driver assigned",
+  "pick_up_location": "Pick up location",
+  "other_pickups": "other Pickups",
+  "destination": "Destination"
+}

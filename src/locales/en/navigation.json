@@ -6,5 +6,6 @@
   "logout": "Logout",
   "roles": "Select user role(s) *",
   "users": "Users",
-  "vehicles": "Vehicles"
+  "vehicles": "Vehicles",
+  "orders": "Orders"
 }

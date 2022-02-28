@@ -116,6 +116,12 @@ const routes = [
       },
 
       {
+        path: 'orders',
+        name: 'orders.index',
+        component: () => import('@/components/app/orders/Index.vue'),
+      },
+
+      {
         path: 'vehicles/:vehicleId',
         name: 'vehicles.show',
         component: () => import('@/components/app/vehicles/Show.vue'),

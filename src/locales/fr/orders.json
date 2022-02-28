@@ -1,0 +1,21 @@
+{
+  "title": "FR_Orders",
+  "table_order_num": "FR_ORDER NO.",
+  "table_pickup_location": "FR_PICKUP LOCATION",
+  "table_destination": "FR_DESTINATION",
+  "table_distance": "FR_DISTANCE",
+  "table_pickup_date": "FR_PICKUP DATE",
+  "table_price": "FR_PRICE",
+  "table_action": "FR_ACTION",
+  "price_per_order": "FR_Price per order",
+  "summary": "FR_Summary",
+  "orders": "FR_Orders",
+  "total_orders": "FR_Total amount made for all orders",
+  "order_status": "FR_Orders status",
+  "vehicle_assigned": "FR_Vehicle assigned",
+  "weight_of_order": "FR_Weight of order",
+  "name_of_driver": "FR_Name of driver assigned",
+  "pick_up_location": "FR_Pick up location",
+  "other_pickups": "FR_other Pickups",
+  "destination": "FR_Destination"
+}

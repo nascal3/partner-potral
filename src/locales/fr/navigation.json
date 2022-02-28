@@ -1,10 +1,12 @@
 {
   "access_control": "FR_Access control functionality has been disabled for this role.",
-  "nav_application": "FR_APPLICATION",
-  "nav_access_control": "FR_ACCESS CONTROL",
+  "application": "FR_APPLICATION",
   "driver_profile": "FR_Driver profile",
   "logout": "FR_Logout",
+  "nav_access_control": "FR_ACCESS CONTROL",
+  "nav_application": "FR_APPLICATION",
   "roles": "FR_Select user role(s) *",
   "users": "FR_Users",
-  "vehicles": "FR_Vehicles"
+  "vehicles": "FR_Vehicles",
+  "orders": "FR_Orders"
 }
