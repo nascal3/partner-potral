@@ -8,10 +8,6 @@
           </h1>
         </div>
         <v-spacer></v-spacer>
-<!--        <vehicles-create-->
-<!--          v-if="auth.can('vehicles.store')"-->
-<!--          @stored="loadVehicles"-->
-<!--        ></vehicles-create>-->
       </v-card-title>
 
       <v-divider></v-divider>

@@ -11,11 +11,8 @@
       <v-tab-item>
         <v-container fluid>
           <v-row>
-            <v-col
-                cols="12"
-                md="3"
-            >
-              one
+            <v-col cols="12" md="3" class="pl-0">
+              <location-map class="map"></location-map>
             </v-col>
             <v-col cols="12" md="3" class="pl-0">
               <section
@@ -89,11 +86,11 @@
           <v-row>
             <v-col cols="12" md="2">
               <div class="grey-text bold-text">{{ $t('orders.price_per_order') }}</div>
-              <div class="bold-text">KES 139</div>
+              <div class="bold-text dark-grey-text">KES 139</div>
             </v-col>
             <v-col cols="12" md="10">
               <div class="grey-text bold-text">{{ $t('orders.total_orders') }}</div>
-              <div class="bold-text">KES 13,609</div>
+              <div class="bold-text dark-grey-text">KES 13,609</div>
             </v-col>
           </v-row>
         </v-container>
@@ -103,8 +100,14 @@
 </template>
 
 <script>
+import LocationsMap from "./LocationsMap";
 export default {
   name: "OrderDetails",
+  components: {
+    LocationsMap,
+    'location-map': () => import('@/views/layouts/Map'),
+  },
+
   data() {
     return {
       locations: [
@@ -283,5 +286,7 @@ export default {
     position: relative;
     left: -21px;
   }
-
+  .map {
+    height: 245px !important;
+  }
 </style>
