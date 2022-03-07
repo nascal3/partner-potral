@@ -10,6 +10,7 @@
         :position="coordinate"
         :clickable="true"
         @click="toggleInfoWindow(coordinate, index)"
+        :icon="setMarkerType(index)"
     />
     <gmap-info-window
         :options="infoOptions"
@@ -17,7 +18,7 @@
         :opened="infoWinOpen"
         @closeclick="infoWinOpen=false"
     >
-      <map-info-window :location-name="locationName" />
+      <map-info-window :location-details="locationDetails" />
     </gmap-info-window>
   </GmapMap>
 </template>
@@ -44,7 +45,7 @@ export default {
     center: mapCoordinates.nairobi,
     zoom: 15,
     coordinates: null,
-    locationName: '',
+    locationDetails: {},
     infoContent: '',
     infoWindowPos: { lat: 0, lng: 0 },
     infoWinOpen: false,
@@ -64,7 +65,8 @@ export default {
       'rotateControl': false,
       'fullscreenControl': false,
       'disableDefaultUi': true
-    }
+    },
+    iconURL: require('@/assets/map-pin-fill.svg')
   }),
 
   watch: {
@@ -74,6 +76,21 @@ export default {
   },
 
   methods: {
+    setMarkerType (index) {
+      const firstDestination = index === 0
+      const lastDestination = this.locations.length - 1 === index
+
+      const markers = {
+        firstDestination: 'map-pin-fill.svg',
+        lastDestination: 'map-pin-fill2.svg',
+        midDestination: 'map-pin-stroke.svg'
+      }
+
+      if (firstDestination) return require(`@/assets/${markers['firstDestination']}`)
+      if (lastDestination) return require(`@/assets/${markers['lastDestination']}`)
+      return require(`@/assets/${markers['midDestination']}`)
+    },
+
     toggleInfoWindow (marker, index) {
       this.center = marker
       this.infoWindowPos = marker
@@ -84,9 +101,9 @@ export default {
 
     getLocationName (index) {
       if (!this.locations.length) return
-      this.locationName = this.locations[index].name
-      this.$emit('locationName', this.locationName)
-
+      const { name, waypoint_type } = this.locations[index]
+      this.locationDetails = { name, waypoint_type }
+      this.$emit('locationName', this.locationDetails)
     },
 
     getAllCoordinates () {
@@ -98,16 +115,14 @@ export default {
 
     mapInit () {
       const coords = this.getAllCoordinates()
-      console.log('MMM', coords)
       this.coordinates = coords || [this.center]
       this.$refs.mapRef.$mapPromise.then(map => {
-        // map.panTo(this.propertyLocation)
         const bounds = new google.maps.LatLngBounds()
         coords.forEach(coord => {
           map.fitBounds(bounds.extend(coord))
         })
       }).catch(error => {
-        console.log(error)
+        console.error(error)
       })
 
     }

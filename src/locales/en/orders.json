@@ -15,7 +15,7 @@
   "vehicle_assigned": "Vehicle assigned",
   "weight_of_order": "Weight of order",
   "name_of_driver": "Name of driver assigned",
-  "pick_up_location": "Pick up location",
-  "other_pickups": "other Pickups",
-  "destination": "Destination"
+  "first_destination": "FR_First destination",
+  "other_destinations": "FR_other destinations",
+  "last_destination": "FR_Last destination"
 }

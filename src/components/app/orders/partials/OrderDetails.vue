@@ -34,10 +34,10 @@
                 </div>
                 <div>
                   <div v-if="firstLocation(index)" class="grey-text bold-text">
-                    {{ $t('orders.pick_up_location') }}
+                    {{ $t('orders.first_destination') }}
                   </div>
                   <div v-if="lastLocation(index)" class="grey-text bold-text">
-                    {{ $t('orders.destination') }}
+                    {{ $t('orders.last_destination') }}
                   </div>
                   <div
                       class="destination-text grey-text"
@@ -46,7 +46,7 @@
                     {{ location.name }}
                   </div>
                   <div v-if="showMoreLocations(index)" class="show-pickups">
-                    + {{ hiddenLocationsCount }} {{ $t('orders.other_pickups') }}
+                    + {{ hiddenLocationsCount }} {{ $t('orders.other_destinations') }}
                     <v-icon color="#324BA8">chevron_right</v-icon>
                   </div>
                 </div>
@@ -157,20 +157,19 @@ export default {
 
     setLocationsDisplay () {
       if (!Object.keys(this.orderDetails).length) return
-      const details = this.orderDetails.result[0]
-      details.path.map(detail => {
+      this.orderDetails.path.map(detail => {
         const coordinates = detail.coordinates.split(',')
         const location = {
           coordinates: {
             lat: parseFloat(coordinates[0]),
             lng: parseFloat(coordinates[1])
           },
+          waypoint_type: detail.waypoint_type,
           name: detail.name
         }
         this.locations.push(location)
       })
       this.showDetails = true
-      console.log('CCC', this.locations)
     }
   }
 }

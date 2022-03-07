@@ -1,7 +1,9 @@
 <template>
     <div class="info-window">
-        <div class="info-window-title">{{ $t('map.location_name') }}:</div>
-        <div class="info-window-text">{{locationName}}</div>
+      <div class="info-window-title">{{ $t('map.location_name') }}:</div>
+      <div class="info-window-text">{{locationDetails.name}}</div>
+      <div class="info-window-title">{{ $t('map.waypoint-type') }}:</div>
+      <div class="info-window-text">{{locationDetails.waypoint_type}}</div>
     </div>
 </template>
 
@@ -9,8 +11,9 @@
 export default {
   name: 'MapInfoWindow',
   props: {
-    locationName: {
-      type: String,
+    locationDetails: {
+      type: Object,
+      default: () => {},
       required: true
     }
   }
@@ -22,10 +25,11 @@ export default {
     &-title {
       color: green;
       font-weight: 500;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
     &-text {
       color: orange;
+      margin-bottom: 10px;
     }
   }
 </style>
