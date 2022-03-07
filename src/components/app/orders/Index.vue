@@ -25,6 +25,7 @@
           item-key="order_num"
           :expanded.sync="expanded"
           show-expand
+          @item-expanded="getOrderDetails"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.table_action="{ item }">
@@ -34,7 +35,7 @@
           </template>
           <template v-slot:expanded-item="{ headers, item }">
             <td :colspan="headers.length">
-              <order-details/>
+              <order-details :order-details="orderDetails"/>
             </td>
           </template>
         </v-data-table>
@@ -45,6 +46,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import Order from '@/libs/app/orders/Order'
+import OrderDetails from '@/libs/app/order_details/OrderDetails'
 
 export default {
   components: {
@@ -54,9 +57,10 @@ export default {
   data () {
     return {
       expanded: [],
-      vehicle: null,
-      forDocument: null,
-      forAllocation: null,
+      orderObj: new Order(),
+      orderDetailsObj: new OrderDetails(),
+      orders: {},
+      orderDetails: {},
       headers: [
         { text: this.$t('orders.table_order_num'), value: 'order_num' },
         { text: this.$t('orders.table_pickup_location'), value: 'pickup_location' },
@@ -103,8 +107,6 @@ export default {
     ...mapGetters({
       vehicles: 'getVehicles'
     }),
-
-    auth: () => auth
   },
 
   methods: {
@@ -120,19 +122,38 @@ export default {
       })
     },
 
-    stored () {
-      this.forDocument = null
-      this.loadVehicles()
+    getOrderDetails ({item, value}) {
+      if (!value) return
+      const { order_num } = item
+      this.orderDetailsObj.show('AG86HX347-BA5').then( data => {
+        this.orderDetails = data
+      }).catch(error => {
+        console.error(error.data)
+      })
     },
 
-    allocated () {
+    getDriverIds () {
+      const drivers = auth.retrieve('partners')
+      return drivers.map(driver => {
+        return driver.id
+      })
+    },
 
-    }
+    loadOrders () {
+      const driverIds = this.getDriverIds()
+      this.orderObj.show(driverIds).then(({ data }) => {
+        this.orders = data
+      }).catch(error => {
+        console.error(error.data)
+      })
+    },
+
   },
 
   mounted () {
-    this.loadVehicles()
+    this.loadOrders()
   }
+
 }
 </script>
 

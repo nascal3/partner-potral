@@ -1,12 +1,12 @@
 {
-  "access_control": "FR_Access control functionality has been disabled for this role.",
-  "application": "FR_APPLICATION",
-  "driver_profile": "FR_Driver profile",
-  "logout": "FR_Logout",
+  "access_control": "La fonctionnalité de contrôle d'accès a été désactivée pour ce rôle.",
+  "application": "APPLICATION ",
+  "driver_profile": "Profil conducteur ",
+  "logout": "Se déconnecter",
   "nav_access_control": "FR_ACCESS CONTROL",
-  "nav_application": "FR_APPLICATION",
-  "roles": "FR_Select user role(s) *",
-  "users": "FR_Users",
-  "vehicles": "FR_Vehicles",
-  "orders": "FR_Orders"
+  "nav_application": "APPLICATION ",
+  "orders": "Commandes ",
+  "roles": "Sélectionnez le(s) rôle(s) d'utilisateur *",
+  "users": "Utilisateurs ",
+  "vehicles": "Véhicules "
 }

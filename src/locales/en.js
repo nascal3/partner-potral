@@ -3,6 +3,7 @@ import core from './en/core.json'
 import documents from './en/documents.json'
 import driver from './en/driver.json'
 import generate from './en/generate.json'
+import map from './en/map.json'
 import navigation from './en/navigation.json'
 import orders from './en/orders.json'
 import register from './en/register.json'
@@ -19,6 +20,7 @@ const translation = {
     documents,
     driver,
     generate,
+    map,
     navigation,
     orders,
     register,

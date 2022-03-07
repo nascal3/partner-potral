@@ -1,5 +1,5 @@
 {
-  "allocate_vehicle_to_driver": "FR_Allocate Vehicle to Driver",
-  "select_driver": "FR_Select driver *",
-  "title": "FR_For secure authentication, please enter the verification code we have sent to your"
+  "allocate_vehicle_to_driver": "Attribuer le véhicule au conducteur",
+  "select_driver": "Sélectionnez le conducteur",
+  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre "
 }

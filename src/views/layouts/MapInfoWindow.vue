@@ -1,6 +1,6 @@
 <template>
     <div class="info-window">
-        <div class="info-window-title">Property location:</div>
+        <div class="info-window-title">{{ $t('map.location_name') }}:</div>
         <div class="info-window-text">{{locationName}}</div>
     </div>
 </template>

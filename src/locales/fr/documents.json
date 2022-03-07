@@ -1,9 +1,9 @@
 {
-  "cancel": "FR_Cancel",
-  "ok": "FR_Ok",
-  "provided_value": "FR_Provided value:",
-  "renewal_date": "FR_Renewal date:",
-  "save": "FR_Save",
-  "subtitle": "FR_Record vehicle details",
-  "title": "FR_For secure authentication, please enter the verification code we have sent to your"
+  "cancel": "Annuler ",
+  "ok": "Ok",
+  "provided_value": "Valeur fournie :",
+  "renewal_date": "Date de renouvellement:",
+  "save": "Enregistrer ",
+  "subtitle": "Enregistrer les détails du véhicule",
+  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre "
 }

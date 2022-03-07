@@ -1,18 +1,19 @@
 <template>
-  <v-card flat>
+  <v-card :loading="!showDetails" flat>
     <v-tabs
+        v-if="showDetails"
         id="order-tabs"
         color="#324BA8"
         left
     >
       <v-tab>{{ $t('orders.summary') }}</v-tab>
       <v-tab>{{ $t('orders.orders') }}</v-tab>
-<!--      summary tab-->
+<!--      order summary tab-->
       <v-tab-item>
         <v-container fluid>
           <v-row>
             <v-col cols="12" md="3" class="pl-0">
-              <location-map class="map"></location-map>
+              <location-map :locations="locations" class="map"></location-map>
             </v-col>
             <v-col cols="12" md="3" class="pl-0">
               <section
@@ -42,9 +43,9 @@
                       class="destination-text grey-text"
                       :class="{ 'main-location-text': isTitle(index) }"
                   >
-                    {{ location }}
+                    {{ location.name }}
                   </div>
-                  <div v-if="moreLocations(index)" class="show-pickups">
+                  <div v-if="showMoreLocations(index)" class="show-pickups">
                     + {{ hiddenLocationsCount }} {{ $t('orders.other_pickups') }}
                     <v-icon color="#324BA8">chevron_right</v-icon>
                   </div>
@@ -100,32 +101,36 @@
 </template>
 
 <script>
-import LocationsMap from "./LocationsMap";
 export default {
   name: "OrderDetails",
+  props: {
+    orderDetails: {
+      type: Object,
+      default: () => {}
+    }
+  },
   components: {
-    LocationsMap,
-    'location-map': () => import('@/views/layouts/Map'),
+    'location-map': () => import('@/views/layouts/LocationMap'),
   },
 
   data() {
     return {
-      locations: [
-        'Marsabit Plaza, Ngong Road',
-        'Home apartments',
-        'Winsor Heights',
-        'Mandev Plaza',
-        'Gitanaga Place',
-        'Legend Valley',
-        'Brook Center',
-        'Rosslyn Ridge, Nairobi, Kenya'
-      ]
+      showDetails: false,
+      locations: []
     }
   },
 
   computed: {
     hiddenLocationsCount () {
       return this.locations.length - 5
+    }
+  },
+
+  watch: {
+    orderDetails() {
+      console.log('>>>', this.showDetails)
+      this.setLocationsDisplay()
+      console.log('XXX', this.showDetails)
     }
   },
 
@@ -146,10 +151,28 @@ export default {
       return index === 0 || index === this.locations.length - 1
     },
 
-    moreLocations(index) {
+    showMoreLocations(index) {
       return this.locations.length > 5 && index === 0
+    },
+
+    setLocationsDisplay () {
+      if (!Object.keys(this.orderDetails).length) return
+      const details = this.orderDetails.result[0]
+      details.path.map(detail => {
+        const coordinates = detail.coordinates.split(',')
+        const location = {
+          coordinates: {
+            lat: parseFloat(coordinates[0]),
+            lng: parseFloat(coordinates[1])
+          },
+          name: detail.name
+        }
+        this.locations.push(location)
+      })
+      this.showDetails = true
+      console.log('CCC', this.locations)
     }
-  },
+  }
 }
 </script>
 

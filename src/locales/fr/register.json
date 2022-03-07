@@ -1,13 +1,13 @@
 {
-  "already_registered": "FR_Already registered?",
-  "business_model": "FR_Business model *",
-  "business_name": "FR_Business name *",
-  "company": "FR_Company",
-  "country_of_operation": "FR_Country of operation *",
-  "email_address": "FR_Email address *",
+  "already_registered": "enregistré déjà ?",
+  "business_model": "Modèle d'affaires *",
+  "business_name": "Nom de l'entreprise *",
+  "company": "Entreprise",
+  "country_of_operation": "Pays d’opération ",
+  "email_address": "Adresse e-mail ",
   "individual": "FR_Individual",
-  "phone_number": "FR_Phone number *",
-  "register_account": "FR_Register Account",
-  "sign_in": "FR_Sign in",
-  "your_full_name": "FR_Your full name *"
+  "phone_number": "Numéro de téléphone ",
+  "register_account": "Créer un Compte ",
+  "sign_in": "S'identifier",
+  "your_full_name": "Votre nom complet "
 }
