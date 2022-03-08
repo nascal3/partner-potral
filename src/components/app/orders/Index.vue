@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 
@@ -101,12 +100,6 @@ export default {
         }
       ]
     }
-  },
-
-  computed: {
-    ...mapGetters({
-      vehicles: 'getVehicles'
-    }),
   },
 
   methods: {
