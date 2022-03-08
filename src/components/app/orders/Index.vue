@@ -110,25 +110,14 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'setVehicles'
-    ]),
-
-    loadVehicles () {
-      this.setVehicles({
-        routes: {
-          partner: (auth.retrieve('partner')).id
-        }
-      })
-    },
-
     getOrderDetails ({item, value}) {
       if (!value) return
+      // TODO user order_num and remove hard coded value
       const { order_num } = item
       this.orderDetailsObj.show('AG93A7418-FQD').then( data => {
         this.orderDetails = data.data
       }).catch(error => {
-        console.error(error.data)
+        throw error.data
       })
     },
 
@@ -144,7 +133,7 @@ export default {
       this.orderObj.show(driverIds).then(({ data }) => {
         this.orders = data
       }).catch(error => {
-        console.error(error.data)
+        throw error.data
       })
     },
 
