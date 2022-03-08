@@ -33,10 +33,10 @@
                   </div>
                 </div>
                 <div>
-                  <div v-if="firstLocation(index)" class="grey-text bold-text">
+                  <div v-if="firstLocation(index)" class="grey-text bold-text line-height">
                     {{ $t('orders.first_destination') }}
                   </div>
-                  <div v-if="lastLocation(index)" class="grey-text bold-text">
+                  <div v-if="lastLocation(index)" class="grey-text bold-text line-height">
                     {{ $t('orders.last_destination') }}
                   </div>
                   <div
@@ -54,16 +54,18 @@
             </v-col>
             <v-col cols="12" md="3" class="pl-md-10">
               <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.price_per_order') }}</div>
-                <div class="bold-text dark-grey-text">KES 139</div>
+                <div class="grey-text bold-text">{{ $t('orders.price_for_order') }}</div>
+                <div class="bold-text dark-grey-text">
+                  {{ orderDetails.order_currency }} {{ orderDetails.partner_amount }}
+                </div>
               </section>
               <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.weight_of_order') }}</div>
-                <div class="bold-text dark-grey-text">5kgs</div>
+                <div class="grey-text bold-text">{{ $t('orders.distance_covered') }}</div>
+                <div class="bold-text dark-grey-text">{{ orderDetails.distance }} KM</div>
               </section>
               <section class="info-section">
                 <div class="grey-text bold-text">{{ $t('orders.name_of_driver') }}</div>
-                <div class="bold-text blue-text">Christopher Mutua</div>
+                <div class="bold-text blue-text">{{ orderDetails.rider_details.name }}</div>
               </section>
             </v-col>
             <v-col cols="12" md="3">
@@ -75,7 +77,9 @@
               </section>
               <section class="info-section">
                 <div class="grey-text bold-text">{{ $t('orders.vehicle_assigned') }}</div>
-                <div class="bold-text dark-grey-text">KCS 609N</div>
+                <div class="bold-text dark-grey-text upper-case">
+                  {{ orderDetails.vehicle_details.registration_no }}
+                </div>
               </section>
             </v-col>
           </v-row>
@@ -248,8 +252,14 @@ export default {
   .main-location-text {
     font-size: 15px;
     color: #606266;
-    line-height: 10px;
+    line-height: 14px;
     margin-bottom: 8px;
+  }
+  .line-height {
+    line-height: 20px;
+  }
+  .upper-case {
+    text-transform: uppercase;
   }
   .destination-text {
     font-weight: 700;

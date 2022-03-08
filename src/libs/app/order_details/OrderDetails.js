@@ -12,7 +12,7 @@ export default class OrderDetails extends Base {
   show (orderNumber) {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit("get", url(`partners/${this.group.id}/orders/query/${orderNumber}`))
+        let response = await this.form.submit("get", url(`partners/${this.group.id}/orders/${orderNumber}`))
         resolve(response)
       } catch (err) {
         reject(err)

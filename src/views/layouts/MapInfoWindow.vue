@@ -20,16 +20,21 @@ export default {
 }
 </script>
 
+<style>
+.gm-style-iw {
+  max-width: 190px !important;
+}
+</style>
 <style lang="scss" scoped>
-  .info-window {
-    &-title {
-      color: green;
-      font-weight: 500;
-      margin-bottom: 2px;
-    }
-    &-text {
-      color: orange;
-      margin-bottom: 10px;
-    }
+.info-window {
+  &-title {
+    color: green;
+    font-weight: 500;
+    margin-bottom: 2px;
   }
+  &-text {
+    color: orange;
+    margin-bottom: 10px;
+  }
+}
 </style>

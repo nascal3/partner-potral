@@ -1,14 +1,15 @@
 {
   "destination": "FR_Destination",
-  "first_destination": "FR_First destination",
-  "last_destination": "FR_Last destination",
+  "first_destination": "FR_Pick up location",
+  "last_destination": "FR_Last stop",
   "name_of_driver": "FR_Name of driver assigned",
   "order_status": "FR_Orders status",
   "orders": "FR_Orders",
-  "other_destinations": "FR_other destinations",
+  "other_destinations": "FR_other stops",
   "other_pickups": "FR_other Pickups",
   "pick_up_location": "FR_Pick up location",
   "price_per_order": "FR_Price per order",
+  "price_for_order": "FR_Price for order",
   "summary": "FR_Summary",
   "table_action": "FR_ACTION",
   "table_destination": "FR_DESTINATION",
@@ -20,5 +21,5 @@
   "title": "Ordres",
   "total_orders": "FR_Total amount made for all orders",
   "vehicle_assigned": "FR_Vehicle assigned",
-  "weight_of_order": "FR_Weight of order"
+  "distance_covered": "FR_Distance covered"
 }

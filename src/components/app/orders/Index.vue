@@ -125,7 +125,7 @@ export default {
     getOrderDetails ({item, value}) {
       if (!value) return
       const { order_num } = item
-      this.orderDetailsObj.show('AG86HX347-BA5').then( data => {
+      this.orderDetailsObj.show('AG93A7418-FQD').then( data => {
         this.orderDetails = data.data
       }).catch(error => {
         console.error(error.data)
