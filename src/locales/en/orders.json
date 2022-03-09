@@ -1,5 +1,5 @@
 {
-  "title": "Orders",
+  "page_title": "Orders",
   "table_order_num": "ORDER NO.",
   "table_pickup_location": "PICKUP LOCATION",
   "table_destination": "DESTINATION",

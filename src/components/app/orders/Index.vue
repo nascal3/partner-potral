@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('orders.title') }}
+            {{ $t('orders.page_title') }}
           </h1>
         </div>
         <v-spacer></v-spacer>

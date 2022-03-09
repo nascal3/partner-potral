@@ -18,7 +18,7 @@
   "table_pickup_date": "FR_PICKUP DATE",
   "table_pickup_location": "FR_PICKUP LOCATION",
   "table_price": "FR_PRICE",
-  "title": "Ordres",
+  "page_title": "Ordres",
   "total_orders": "FR_Total amount made for all orders",
   "vehicle_assigned": "FR_Vehicle assigned",
   "distance_covered": "FR_Distance covered"
