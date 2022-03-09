@@ -12,6 +12,88 @@
 
       <v-divider></v-divider>
 
+      <v-row class="mt-5 mb-1">
+        <v-col md="6" cols="12">
+          <v-text-field
+              class="search-tenant-table"
+              v-model="search"
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+              outlined
+              dense
+          ></v-text-field>
+        </v-col>
+        <v-col md="6" cols="12">
+          <v-row>
+            <v-col cols="12" md="4" class="pt-0">
+              <v-menu
+                  ref="menu"
+                  v-model="menu"
+                  :close-on-content-click="false"
+                  :return-value.sync="dateFrom"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                      v-model="dateFrom"
+                      label="From Date"
+                      prepend-icon="event"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="dateFrom" :max="maximumDate">
+                  <v-spacer></v-spacer>
+                  <v-btn class="btn-text" text color="primary" @click="menu = false">Cancel</v-btn>
+                  <v-btn class="btn-text" color="primary" @click="$refs.menu.save(dateFrom)">OK</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="12" md="4" class="pt-0">
+              <v-menu
+                  ref="menu2"
+                  v-model="menu2"
+                  :close-on-content-click="false"
+                  :return-value.sync="dateTo"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field
+                      v-model="dateTo"
+                      label="To Date"
+                      prepend-icon="event"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="dateTo" :min="minimumDate">
+                  <v-spacer></v-spacer>
+                  <v-btn class="btn-text" text color="primary" @click="menu2 = false">Cancel</v-btn>
+                  <v-btn class="btn-text" color="primary" @click="$refs.menu2.save(dateTo)">OK</v-btn>
+                </v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col class="d-flex align-center pt-0" cols="12" md="1">
+              <v-btn icon color="primary" @click="loadOrders">
+                <v-icon>mdi-magnify</v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+      <v-spacer></v-spacer>
+
       <v-card-text class="px-0">
         <v-data-table
           id="orders-table"
@@ -22,6 +104,7 @@
           disable-pagination
           :headers="headers"
           :items="data"
+          :search="search"
           item-key="order_num"
           :expanded.sync="expanded"
           show-expand
@@ -68,7 +151,14 @@ export default {
       orderDetails: {},
       chipColor: 'error',
       chipTextColor: '#FFFFFF',
+      menu: false,
+      menu2: false,
+      dateFrom: new Date().toISOString().substr(0, 10),
+      dateTo: new Date().toISOString().substr(0, 10),
+      minimumDate: '',
+      maximumDate: '',
       page: 1,
+      search: '',
       headers: [
         { text: this.$t('orders.table_order_num'), value: 'order_num' },
         { text: this.$t('orders.table_pickup_location'), value: 'pickup_location' },
@@ -121,6 +211,15 @@ export default {
       }
     }
   },
+  watch: {
+    dateFrom (newDate) {
+      this.minimumDate = newDate
+    },
+
+    dateTo (newDate) {
+      this.maximumDate = newDate
+    }
+  },
 
   methods: {
     getOrderDetails ({item, value}) {
@@ -167,10 +266,10 @@ export default {
 
     loadOrders () {
       const driverIds = this.getDriverIds()
-      const currentDate = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
-      const dateFrom = currentDate
-      const dateTo = currentDate
-      this.orderObj.show(dateFrom, dateTo, this.page, driverIds).then(({ data }) => {
+      // const currentDate = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+      // const dateFrom = currentDate
+      // const dateTo = currentDate
+      this.orderObj.show(this.dateFrom, this.dateTo, this.page, driverIds).then(({ data }) => {
         this.orders = data
       }).catch(error => {
         throw error.data
