@@ -11,7 +11,7 @@
   "price_per_order": "FR_Price per order",
   "price_for_order": "FR_Price for order",
   "summary": "FR_Summary",
-  "table_action": "FR_ACTION",
+  "table_status": "FR_STATUS",
   "table_destination": "FR_DESTINATION",
   "table_distance": "FR_DISTANCE",
   "table_order_num": "FR_ORDER NO.",

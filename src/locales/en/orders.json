@@ -6,7 +6,7 @@
   "table_distance": "DISTANCE",
   "table_pickup_date": "PICKUP DATE",
   "table_price": "PRICE",
-  "table_action": "ACTION",
+  "table_status": "STATUS",
   "price_per_order": "Price per order",
   "price_for_order": "Price for order",
   "summary": "Summary",

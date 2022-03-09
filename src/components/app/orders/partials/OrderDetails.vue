@@ -1,5 +1,6 @@
 <template>
-  <v-card :loading="!showDetails" flat>
+  <v-card flat>
+    <app-loading v-if="!showDetails"/>
     <v-tabs
         v-if="showDetails"
         id="order-tabs"
@@ -13,7 +14,7 @@
         <v-container fluid>
           <v-row>
             <v-col cols="12" md="3" class="pl-0">
-              <location-map :locations="locations" class="map"></location-map>
+              <location-map :selected-location="selectedLocationIndex" :locations="locations" class="map" />
             </v-col>
             <v-col cols="12" md="3" class="pl-0">
               <section
@@ -42,6 +43,7 @@
                   <div
                       class="destination-text grey-text"
                       :class="{ 'main-location-text': isTitle(index) }"
+                      @click="showDetailsLocations(index)"
                   >
                     {{ location.name }}
                   </div>
@@ -71,8 +73,8 @@
             <v-col cols="12" md="3">
               <section class="info-section">
                 <div class="grey-text bold-text">{{ $t('orders.order_status') }}</div>
-                <v-chip color="#DEFAD2" text-color="#116F28" light small>
-                  Delivered
+                <v-chip :color="chipColor" :text-color="chipTextColor" light small>
+                  {{ orderDetails.status }}
                 </v-chip>
               </section>
               <section class="info-section">
@@ -120,7 +122,10 @@ export default {
   data() {
     return {
       showDetails: false,
-      locations: []
+      chipColor: 'error',
+      chipTextColor: '#FFFFFF',
+      locations: [],
+      selectedLocationIndex: null
     }
   },
 
@@ -132,13 +137,30 @@ export default {
 
   watch: {
     orderDetails() {
-      console.log('>>>', this.showDetails)
       this.setLocationsDisplay()
-      console.log('XXX', this.showDetails)
     }
   },
 
   methods: {
+    setChipColor (orderStatus) {
+      if (orderStatus === 'pending') {
+        this.chipColor = 'error'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'confirmed') {
+        this.chipColor = 'warning'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'delivered') {
+        this.chipColor = 'info'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'in transit') {
+        this.chipColor = '#DEFAD2'
+        this.chipTextColor= '#116F28'
+      }
+    },
+
     firstLocation(index) {
       return index === 0
     },
@@ -159,8 +181,13 @@ export default {
       return this.locations.length > 5 && index === 0
     },
 
+    showDetailsLocations(index) {
+      this.selectedLocationIndex = index
+    },
+
     setLocationsDisplay () {
       if (!Object.keys(this.orderDetails).length) return
+      this.setChipColor(this.orderDetails.status)
       this.orderDetails.path.map(detail => {
         const coordinates = detail.coordinates.split(',')
         const location = {
@@ -195,6 +222,15 @@ export default {
     }
     .v-item-group {
       margin-bottom: 30px;
+    }
+    .v-chip {
+      .v-chip__content {
+        padding-top: 2px;
+        display: inline-block !important;
+        &:first-letter {
+          text-transform: uppercase;
+        }
+      }
     }
   }
 </style>
@@ -231,6 +267,10 @@ export default {
   }
   .destination {
     position: relative;
+    &-text {
+      font-weight: 700;
+      cursor: pointer;
+    }
   }
   .start-icon {
     position: relative;
@@ -260,9 +300,6 @@ export default {
   }
   .upper-case {
     text-transform: uppercase;
-  }
-  .destination-text {
-    font-weight: 700;
   }
   .location-icon {
     position: relative;

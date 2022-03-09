@@ -29,7 +29,8 @@
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.table_action="{ item }">
-            <v-chip color="#DEFAD2" text-color="#116F28" light small>
+            {{ setChipColor(item.table_action) }}
+            <v-chip :color="chipColor" :text-color="chipTextColor" light small>
               {{ item.table_action }}
             </v-chip>
           </template>
@@ -39,6 +40,11 @@
             </td>
           </template>
         </v-data-table>
+
+        <app-pagination
+          :meta="meta"
+          @pageChanged="pageChanged"
+        />
       </v-card-text>
     </v-card>
   </div>
@@ -60,6 +66,9 @@ export default {
       orderDetailsObj: new OrderDetails(),
       orders: {},
       orderDetails: {},
+      chipColor: 'error',
+      chipTextColor: '#FFFFFF',
+      page: 1,
       headers: [
         { text: this.$t('orders.table_order_num'), value: 'order_num' },
         { text: this.$t('orders.table_pickup_location'), value: 'pickup_location' },
@@ -67,7 +76,7 @@ export default {
         { text: this.$t('orders.table_distance'), value: 'table_distance' },
         { text: this.$t('orders.table_pickup_date'), value: 'pickup_date' },
         { text: this.$t('orders.table_price'), value: 'table_price' },
-        { text: this.$t('orders.table_action'), value: 'table_action' },
+        { text: this.$t('orders.table_status'), value: 'table_action' },
         { text: '', value: 'data-table-expand' },
       ],
       data: [
@@ -78,7 +87,7 @@ export default {
           table_distance: '19 KM',
           pickup_date: 'Wed, 17th Nov',
           table_price: 'KES 139',
-          table_action: 'Delivered'
+          table_action: 'delivered'
         },
         {
           order_num: 'ET68W9725-3PQ',
@@ -98,7 +107,18 @@ export default {
           table_price: 'KES 139',
           table_action: 'Delivered'
         }
-      ]
+      ],
+      meta: {
+        current_page: 1,
+        first_page: 1,
+        first_page_url: "/?page=1",
+        last_page: 1,
+        last_page_url: "/?page=1",
+        next_page_url: null,
+        per_page: 30,
+        previous_page_url: null,
+        total: 30
+      }
     }
   },
 
@@ -121,9 +141,36 @@ export default {
       })
     },
 
+    setChipColor (orderStatus) {
+      if (orderStatus === 'pending') {
+        this.chipColor = 'error'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'confirmed') {
+        this.chipColor = 'warning'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'delivered') {
+        this.chipColor = 'info'
+        this.chipTextColor= '#FFFFFF'
+      }
+      if (orderStatus === 'in transit') {
+        this.chipColor = '#DEFAD2'
+        this.chipTextColor= '#116F28'
+      }
+    },
+
+    pageChanged (page) {
+      this.page = page
+      this.loadOrders()
+    },
+
     loadOrders () {
       const driverIds = this.getDriverIds()
-      this.orderObj.show(driverIds).then(({ data }) => {
+      const currentDate = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`
+      const dateFrom = currentDate
+      const dateTo = currentDate
+      this.orderObj.show(dateFrom, dateTo, this.page, driverIds).then(({ data }) => {
         this.orders = data
       }).catch(error => {
         throw error.data
@@ -156,6 +203,15 @@ export default {
             color: #606266;
             font-weight: 700;
           }
+        }
+      }
+    }
+    .v-chip {
+      .v-chip__content {
+        padding-top: 2px;
+        display: inline-block !important;
+        &:first-letter {
+          text-transform: uppercase;
         }
       }
     }

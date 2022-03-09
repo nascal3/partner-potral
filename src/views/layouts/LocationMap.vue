@@ -34,6 +34,10 @@ export default {
       type: Array,
       default: () => [],
       required: false
+    },
+    selectedLocation: {
+      type: Number,
+      required: false
     }
   },
 
@@ -72,6 +76,10 @@ export default {
   watch: {
     async locations (newCoordinates) {
       await this.mapInit()
+    },
+
+    selectedLocation(index) {
+      this.fetchLocationDetails(index)
     }
   },
 
@@ -89,6 +97,12 @@ export default {
       if (firstDestination) return require(`@/assets/${markers['firstDestination']}`)
       if (lastDestination) return require(`@/assets/${markers['lastDestination']}`)
       return require(`@/assets/${markers['midDestination']}`)
+    },
+
+    fetchLocationDetails(index) {
+      const { coordinates } = this.locations[index]
+      this.toggleInfoWindow(coordinates, index)
+      this.infoWinOpen = true
     },
 
     toggleInfoWindow (marker, index) {
@@ -122,9 +136,8 @@ export default {
           map.fitBounds(bounds.extend(coord))
         })
       }).catch(error => {
-        console.error(error)
+        throw error
       })
-
     }
   },
 

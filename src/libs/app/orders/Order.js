@@ -25,10 +25,12 @@ export default class Order extends Base {
     })
   }
 
-  show (driversIds) {
+  show (from, to, page, driversIds) {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit("get", url(`partners/${this.group.id}/orders?drivers=${driversIds}`))
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/orders?from=${from}&to=${to}&drivers=${driversIds}&page=${page}`
+        ))
         resolve(response)
       } catch (err) {
         reject(err)
