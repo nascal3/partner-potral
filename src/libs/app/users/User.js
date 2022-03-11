@@ -22,6 +22,17 @@ export default class User extends Base {
     })
   }
 
+  show (query = '') {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("get", url(`partners/${this.group.id}/users${query}`))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   update (userId) {
     const data = this.getFields();
     return new Promise(async (resolve, reject) => {

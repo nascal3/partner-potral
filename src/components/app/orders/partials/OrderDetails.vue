@@ -1,8 +1,11 @@
 <template>
   <v-card flat>
     <app-loading v-if="!showDetails"/>
+    <div v-if="showError">
+      {{ orderDetailsError.data.message }}
+    </div>
     <v-tabs
-        v-if="showDetails"
+        v-if="showDetails && !showError"
         id="order-tabs"
         color="#324BA8"
         left
@@ -113,6 +116,10 @@ export default {
     orderDetails: {
       type: Object,
       default: () => {}
+    },
+    orderDetailsError: {
+      type: Object,
+      default: () => {}
     }
   },
   components: {
@@ -122,6 +129,7 @@ export default {
   data() {
     return {
       showDetails: false,
+      showError: false,
       chipColor: 'error',
       chipTextColor: '#FFFFFF',
       locations: [],
@@ -132,12 +140,17 @@ export default {
   computed: {
     hiddenLocationsCount () {
       return this.locations.length - 5
-    }
+    },
   },
 
   watch: {
     orderDetails() {
       this.setLocationsDisplay()
+    },
+
+    orderDetailsError(error) {
+      this.showError = Object.keys(error).length > 0
+      this.showDetails = true
     }
   },
 

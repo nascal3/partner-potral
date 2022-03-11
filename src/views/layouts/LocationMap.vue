@@ -7,6 +7,7 @@
   >
     <GmapMarker
         v-for="(coordinate, index) in coordinates"
+        :key="index"
         :position="coordinate"
         :clickable="true"
         @click="toggleInfoWindow(coordinate, index)"
