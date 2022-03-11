@@ -44,7 +44,7 @@
                     {{ $t('orders.last_destination') }}
                   </div>
                   <div
-                      class="destination-text grey-text"
+                      class="destination-text grey-text mb-4"
                       :class="{ 'main-location-text': isTitle(index) }"
                       @click="showDetailsLocations(index)"
                   >
