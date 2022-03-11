@@ -68,18 +68,44 @@ phrase:
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: generate
 
-    - file: ./src/locales/en/nav.json
+    - file: ./src/locales/en/map.json
       params:
         file_format: simple_json
         update_translations: true
         locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
-        tags: nav
-    - file: ./src/locales/fr/nav.json
+        tags: map
+    - file: ./src/locales/fr/map.json
       params:
         file_format: simple_json
         update_translations: true
         locale_id: 264225cb781cb97047a758e27e9152f1
-        tags: nav
+        tags: map
+
+    - file: ./src/locales/en/navigation.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: navigation
+    - file: ./src/locales/fr/navigation.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: navigation
+
+    - file: ./src/locales/en/orders.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: orders
+    - file: ./src/locales/fr/orders.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: orders
 
     - file: ./src/locales/en/register.json
       params:
@@ -190,11 +216,23 @@ phrase:
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: generate
 
-    - file: ./src/locales/fr/nav.json
+    - file: ./src/locales/fr/map.json
       params:
         file_format: simple_json
         locale_id: 264225cb781cb97047a758e27e9152f1
-        tags: nav
+        tags: map
+
+    - file: ./src/locales/fr/navigation.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: navigation
+
+    - file: ./src/locales/fr/orders.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: orders
 
     - file: ./src/locales/fr/register.json
       params:

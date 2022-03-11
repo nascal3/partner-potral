@@ -1,6 +1,6 @@
 {
-  "become_a_partner": "FR_Become a partner",
-  "dont_have_an_account": "FR_Don't have an account?",
-  "enter_your_email_address": "FR_Enter your email address *",
-  "request_verification_code": "FR_Request Verification Code"
+  "become_a_partner": "Devenir partenaire ",
+  "dont_have_an_account": "Vous n'avez pas de compte?",
+  "enter_your_email_address": "Saisir votre adresse e-mail ",
+  "request_verification_code": "Demander code de vérification "
 }

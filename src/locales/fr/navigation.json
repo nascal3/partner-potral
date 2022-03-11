@@ -1,0 +1,12 @@
+{
+  "access_control": "La fonctionnalité de contrôle d'accès a été désactivée pour ce rôle.",
+  "application": "APPLICATION ",
+  "driver_profile": "Profil conducteur ",
+  "logout": "Se déconnecter",
+  "nav_access_control": "CONTRÔLE D'ACCÈS",
+  "nav_application": "APPLICATION ",
+  "orders": "Ordres",
+  "roles": "Sélectionnez le(s) rôle(s) d'utilisateur *",
+  "users": "Utilisateurs ",
+  "vehicles": "Véhicules "
+}

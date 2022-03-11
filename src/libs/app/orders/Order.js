@@ -1,8 +1,8 @@
 import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
-import { fields } from './UserRepository'
+import { fields } from './OrderRepository'
 
-export default class User extends Base {
+export default class Order extends Base {
   constructor () {
     super(fields)
     this.form = new Form(fields)
@@ -10,10 +10,13 @@ export default class User extends Base {
   }
 
   store () {
-    const data = this.getFields();
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit('post', url(`partners/${this.group.id}/users`), data)
+        const data = this.getFields([
+          'vendor_type_id',
+          'registration_number',
+        ])
+        let response = await this.form.submit('post', url(`partners/${this.group.id}/orders`), data)
         this.setFields(fields)
         resolve(response)
       } catch (err) {
@@ -22,10 +25,12 @@ export default class User extends Base {
     })
   }
 
-  show (query = '') {
+  show (from, to, page, driversIds) {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit("get", url(`partners/${this.group.id}/users${query}`))
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/orders?from=${from}&to=${to}&drivers=${driversIds}&page=${page}`
+        ))
         resolve(response)
       } catch (err) {
         reject(err)
@@ -37,7 +42,7 @@ export default class User extends Base {
     const data = this.getFields();
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit('patch', url(`users/${userId}/users`), data)
+        let response = await this.form.submit("patch", url(`partners/${this.group}/users/${userId}`), data)
         resolve(response)
       } catch (err) {
         reject(err)
