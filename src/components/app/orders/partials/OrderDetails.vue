@@ -10,8 +10,8 @@
         color="#324BA8"
         left
     >
-      <v-tab>{{ $t('orders.summary') }}</v-tab>
-      <v-tab>{{ $t('orders.orders') }}</v-tab>
+      <v-tab>{{ $t('orders.tab_summary') }}</v-tab>
+      <v-tab>{{ $t('orders.tab_order') }}</v-tab>
 <!--      order summary tab-->
       <v-tab-item>
         <v-container fluid>
@@ -76,7 +76,12 @@
             <v-col cols="12" md="3">
               <section class="info-section">
                 <div class="grey-text bold-text">{{ $t('orders.order_status') }}</div>
-                <v-chip :color="chipColor" :text-color="chipTextColor" light small>
+                <v-chip
+                    :color="setChipColor(orderDetails.status)"
+                    :text-color="setChipTextColor (orderDetails.status)"
+                    light
+                    small
+                >
                   {{ orderDetails.status }}
                 </v-chip>
               </section>
@@ -130,8 +135,6 @@ export default {
     return {
       showDetails: false,
       showError: false,
-      chipColor: 'error',
-      chipTextColor: '#FFFFFF',
       locations: [],
       selectedLocationIndex: null
     }
@@ -157,20 +160,31 @@ export default {
   methods: {
     setChipColor (orderStatus) {
       if (orderStatus === 'pending') {
-        this.chipColor = 'error'
-        this.chipTextColor= '#FFFFFF'
+        return '#FDDB97'
       }
       if (orderStatus === 'confirmed') {
-        this.chipColor = 'warning'
-        this.chipTextColor= '#FFFFFF'
+        return '#CCEFFF'
       }
       if (orderStatus === 'delivered') {
-        this.chipColor = 'info'
-        this.chipTextColor= '#FFFFFF'
+        return '#DEFAD2'
       }
       if (orderStatus === 'in transit') {
-        this.chipColor = '#DEFAD2'
-        this.chipTextColor= '#116F28'
+        return '#FDDB97'
+      }
+    },
+
+    setChipTextColor (orderStatus) {
+      if (orderStatus === 'pending') {
+        return  '#9B101C'
+      }
+      if (orderStatus === 'confirmed') {
+        return '#006492'
+      }
+      if (orderStatus === 'delivered') {
+        return '#116F28'
+      }
+      if (orderStatus === 'in transit') {
+        return '#9D5004'
       }
     },
 
@@ -200,7 +214,6 @@ export default {
 
     setLocationsDisplay () {
       if (!Object.keys(this.orderDetails).length) return
-      this.setChipColor(this.orderDetails.status)
       this.orderDetails.path.map(detail => {
         const coordinates = detail.coordinates.split(',')
         const location = {
@@ -294,7 +307,7 @@ export default {
       position: absolute;
       border-left: 3px dashed #EE7D00;
       left: 7px;
-      bottom: -11px;
+      bottom: -18px;
       height: 21px;
     }
     .v-icon{
@@ -322,7 +335,7 @@ export default {
       position: absolute;
       border-left: 3px solid #EE7D00;
       left: 7px;
-      top: 24px;
+      top: 19px;
       height: 5px;
     }
     &::before {
@@ -330,7 +343,7 @@ export default {
       position: absolute;
       border-left: 3px solid #EE7D00;
       left: 7px;
-      top: 3px;
+      top: -3px;
       height: 7px;
     }
     .v-icon{
@@ -350,7 +363,7 @@ export default {
       position: absolute;
       border-left: 3px dashed #324BA8;
       left: 7px;
-      top: -5px;
+      top: -10px;
       height: 26px;
     }
     .v-icon{

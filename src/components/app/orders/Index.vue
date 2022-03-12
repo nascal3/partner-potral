@@ -121,6 +121,9 @@
           <template v-slot:item.destinations="{ item }">
             {{ getLastStop(item.destinations) }}
           </template>
+          <template v-slot:item.updated_at="{ item }">
+            {{ formatDate(item.updated_at) }}
+          </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
               {{ item.status }}
@@ -143,6 +146,7 @@
 </template>
 
 <script>
+import { format } from 'date-fns'
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
@@ -227,6 +231,7 @@ export default {
           return driver.id
         })
       }).catch(error => {
+        this.loading = false
         throw error.data
       })
     },
@@ -234,6 +239,11 @@ export default {
     getLastStop(destinations) {
       if (!destinations.length) return
       return destinations[destinations.length - 1]
+    },
+
+    formatDate(date) {
+      if (!date) return
+       return format(new Date(date), 'iii, do LLL')
     },
 
     setChipColor (orderStatus) {
@@ -272,7 +282,6 @@ export default {
     // },
 
     formatOrders(ordersData) {
-      console.log('raw', ordersData)
       if (!ordersData.length) return []
       let allOrders = []
       ordersData.forEach(order => {
