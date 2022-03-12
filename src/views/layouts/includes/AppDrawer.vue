@@ -122,7 +122,7 @@ export default {
 
         'APPLICATION': [
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-          { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'vehicles.index' },
+          { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
         ],
 
         'ACCESS CONTROL': [
@@ -148,6 +148,8 @@ export default {
     translateText(text) {
       if (text === 'APPLICATION') return this.$t('navigation.nav_application')
       if (text === 'ACCESS CONTROL') return this.$t('navigation.nav_access_control')
+      if (text === 'ANALYTICS') return this.$t('navigation.nav_analytics')
+      if (text === 'CONFIGURATIONS') return this.$t('navigation.nav_configurations')
     },
 
     permitted (link) {
