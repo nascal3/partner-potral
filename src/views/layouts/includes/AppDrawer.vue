@@ -148,6 +148,8 @@ export default {
     translateText(text) {
       if (text === 'APPLICATION') return this.$t('navigation.nav_application')
       if (text === 'ACCESS CONTROL') return this.$t('navigation.nav_access_control')
+      if (text === 'ANALYTICS') return this.$t('navigation.nav_analytics')
+      if (text === 'CONFIGURATIONS') return this.$t('navigation.nav_configurations')
     },
 
     permitted (link) {
