@@ -124,6 +124,9 @@
           <template v-slot:item.updated_at="{ item }">
             {{ formatDate(item.updated_at) }}
           </template>
+          <template v-slot:item.cost="{ item }">
+            {{ item.currency }} {{ item.cost }}
+          </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
               {{ item.status }}
@@ -136,10 +139,12 @@
           </template>
         </v-data-table>
 
-<!--        <app-pagination-->
-<!--          :meta="meta"-->
-<!--          @pageChanged="pageChanged"-->
-<!--        />-->
+        <app-pagination
+          v-if="orders.length"
+          id="orders-pagination"
+          :meta="meta"
+          @pageChanged="pageChanged"
+        />
       </v-card-text>
     </v-card>
   </div>
@@ -197,7 +202,7 @@ export default {
         next_page_url: null,
         per_page: 30,
         previous_page_url: null,
-        total: 30
+        total: 0
       }
     }
   },
@@ -276,10 +281,10 @@ export default {
       }
     },
 
-    // pageChanged (page) {
-    //   this.page = page
-    //   this.loadOrders()
-    // },
+    pageChanged (page) {
+      this.page = page
+      this.loadOrders()
+    },
 
     formatOrders(ordersData) {
       if (!ordersData.length) return []
@@ -298,8 +303,8 @@ export default {
       this.getDriverIds().then(driverIds => {
         this.orderObj.show(this.dateFrom, this.dateTo, this.page, driverIds).then(({ data }) => {
           this.orders = this.formatOrders(data)
+          this.meta.total = this.orders.length
           this.loading = false
-          console.log('VBV', this.orders)
         }).catch(error => {
           this.loading = false
           throw error
@@ -351,6 +356,24 @@ export default {
         &:first-letter {
           text-transform: uppercase;
         }
+      }
+    }
+  }
+  #orders-pagination {
+    .v-pagination {
+      justify-content: flex-end;
+      padding-right: 20px;
+      .v-pagination__navigation {
+        box-shadow: none;
+      }
+      .v-pagination__item--active {
+        color: #324BA8;
+        background-color: transparent !important;
+      }
+      .v-pagination__item {
+        background: transparent;
+        font-weight: 700;
+        box-shadow: none;
       }
     }
   }
