@@ -8,7 +8,7 @@
             color="primary"
             indeterminate
         ></v-progress-circular>
-        <p class="ml-2">{{ $t('core.system_loading') }}.</p>
+        <p class="ml-2 mb-0">{{ $t('core.system_loading') }}.</p>
       </v-card-text>
     </v-card>
   </div>
