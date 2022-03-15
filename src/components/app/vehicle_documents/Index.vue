@@ -9,7 +9,7 @@
           :key="`document-${index}`"
           class="elevation-1 mb-5"
           ripple
-          @click="vehicleDocument = vd"
+          @click="vehicleDocument = vd, setSegmentEvent(`Select ${vd.document.label}`)"
         >
           <!-- <v-list-item-avatar>
             <v-img :src="item.avatar"></v-img>
@@ -48,6 +48,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
   props: [
@@ -57,6 +58,8 @@ export default {
   components: {
     'vehicle-documents-edit': () => import('./Edit.vue')
   },
+
+  mixins: [segmentMixin],
 
   data () {
     return {

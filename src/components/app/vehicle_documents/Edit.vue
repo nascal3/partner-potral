@@ -64,6 +64,7 @@
             :hint="errors.get('value')"
             :error="errors.has('value')"
             @input="errors.clear('value')"
+            @change="setSegmentEvent(`Enter ${vehicleDocument.document.label}`)"
           ></v-text-field>
 
           <v-dialog
@@ -89,6 +90,7 @@
                 :hint="errors.get('expires_at')"
                 :error="errors.has('expires_at')"
                 @input="errors.clear('expires_at')"
+                @change="setSegmentEvent('Select expiry date')"
               ></v-text-field>
             </template>
             <v-date-picker
@@ -127,12 +129,15 @@
 
 <script>
 import VehicleDocument from '@/libs/app/vehicle_documents/VehicleDocument'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
   props: [
     'vehicle',
     'vehicleDocument'
   ],
+
+  mixins: [segmentMixin],
 
   data () {
     return {
@@ -160,6 +165,7 @@ export default {
 
   methods: {
     uploadDocument () {
+      this.setSegmentEvent('Select upload')
       this.vehicleDocumentObj.upload()
         .then(() => {
 
@@ -168,6 +174,7 @@ export default {
     },
 
     submit () {
+      this.setSegmentEvent(`Submit ${vehicleDocument.document.label}`)
       if (!this.loading) {
         this.loading = true
         this.vehicleDocumentObj.update(this.vehicleDocument.id)

@@ -62,7 +62,11 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents";
+
 export default {
+  mixins: [segmentMixin],
+
   data () {
     return {
       links: [
@@ -79,6 +83,7 @@ export default {
 
   methods: {
     logout () {
+      this.setSegmentEvent(`Select logout`)
       auth.logout()
       this.$router.push({
         name: "generate"

@@ -8,6 +8,7 @@
         <v-radio-group
           row
           v-model="authObj.legal_entity_type"
+          @change="entityTypeChangedEvent"
         >
           <v-radio
             v-for="(ofType, index) in [ `${$t('register.individual')}`, `${$t('register.company')}` ]"
@@ -35,6 +36,7 @@
           :hint="errors.get('country_id')"
           :error="errors.has('country_id')"
           @input="errors.clear('country_id')"
+          @change="setSegmentEvent('Select Country of Operation')"
         ></v-select>
       </div>
 
@@ -52,6 +54,7 @@
           :hint="errors.get('business_name')"
           :error="errors.has('business_name')"
           @input="errors.clear('business_name')"
+          @change="setSegmentEvent('Enter Business Name')"
         ></v-text-field>
       </div>
 
@@ -69,6 +72,7 @@
           :hint="errors.get('administrator.name')"
           :error="errors.has('administrator.name')"
           @input="errors.clear('administrator.name')"
+          @change="setSegmentEvent('Enter Full Name')"
         ></v-text-field>
       </div>
 
@@ -79,6 +83,7 @@
         <vue-tel-input
             v-model="authObj.administrator.phone"
             @input="errors.clear('administrator.phone')"
+            @blur="setSegmentEvent('Enter Phone Number')"
             :onlyCountries="validCountries"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('administrator.phone')">
@@ -100,6 +105,7 @@
           :hint="errors.get('administrator.email')"
           :error="errors.has('administrator.email')"
           @input="errors.clear('administrator.email')"
+          @change="setSegmentEvent('Enter Email Address')"
         ></v-text-field>
       </div>
 
@@ -143,8 +149,10 @@
 <script>
 import Auth from "@/libs/auth/Auth"
 import { mapActions, mapGetters } from 'vuex'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       country: null,
@@ -183,6 +191,15 @@ export default {
        'setCountries'
      ]),
 
+     entityTypeChangedEvent() {
+       const entity =  this.authObj.legal_entity_type
+       if (entity === 'Company') {
+         this.setSegmentEvent('Select Company')
+       } else {
+         this.setSegmentEvent('Select Individual')
+       }
+     },
+
      setValidCountries() {
        this.countries.data.map(country => {
          this.validCountries.push(country.code)
@@ -190,6 +207,7 @@ export default {
      },
 
     submit () {
+      this.setSegmentEvent('Submit Registration Information')
       if (!this.loading) {
         this.loading = true
         this.authObj.register()
