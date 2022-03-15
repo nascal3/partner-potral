@@ -63,6 +63,7 @@
               color="deep-orange"
               class="ttn body-2"
               :to="`vehicles/${item.id}/documents`"
+              @click="setSegmentEvent('Select Manage vehicle')"
             >
               {{ $t('vehicles.manage_vehicle') }}
             </v-btn>
@@ -75,8 +76,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   components: {
     'vehicles-create': () => import('./Create.vue'),
   },

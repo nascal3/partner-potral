@@ -11,7 +11,7 @@
         left
     >
       <v-tab>{{ $t('orders.tab_summary') }}</v-tab>
-      <v-tab>{{ $t('orders.tab_order') }}</v-tab>
+<!--      <v-tab>{{ $t('orders.tab_order') }}</v-tab>-->
 <!--      order summary tab-->
       <v-tab-item>
         <v-container fluid>
@@ -152,7 +152,7 @@ export default {
     },
 
     orderDetailsError(error) {
-      this.showError = Object.keys(error).length > 0
+      this.showError = Object.keys(error).length
       this.showDetails = true
     }
   },

@@ -1,9 +1,9 @@
 {
   "add_vehicle": "Ajouter véhicule ",
   "allocate": "Attribuer",
-  "available_drivers": "Conducteurs disponibles ",
+  "available_drivers": "Chauffeurs disponibles ",
   "documents": "Documents ",
-  "drivers": "Conducteurs",
+  "drivers": "Chauffeurs",
   "jurisdiction": "Sélectionnez juridiction(s) *",
   "jurisdiction_message": "Veuillez sélectionner toutes les juridictions dans lesquelles vous opérerez afin d'assurer une vérification rapide",
   "legal_Documents": "Documents juridiques ",

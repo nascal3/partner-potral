@@ -38,6 +38,7 @@
         :hint="errors.get('email')"
         :error="errors.has('email')"
         @input="errors.clear('email')"
+        @change="setSegmentEvent('Select Email')"
       ></v-text-field>
 
       <!-- <v-text-field
@@ -50,6 +51,7 @@
         :hint="errors.get('phone')"
         :error="errors.has('phone')"
         @input="errors.clear('phone')"
+        @change="setSegmentEvent('Select Phone Number')"
       ></v-text-field> -->
     </v-col>
 
@@ -69,7 +71,7 @@
     </v-col>
 
     <v-col cols="12">
-      <p class="body-1 text-center">
+      <p class="body-1 text-center" @click="setSegmentEvent('Click Sign Up Link')">
         {{ $t('generate.dont_have_an_account') }}
         <router-link
           class="deep-orange--text"
@@ -87,8 +89,10 @@
 
 <script>
 import Auth from "@/libs/auth/Auth"
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       loading: false,

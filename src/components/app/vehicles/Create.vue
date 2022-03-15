@@ -11,6 +11,7 @@
         v-bind="attrs"
         color="primary"
         class="caption ttn"
+        @click="setSegmentEvent('Add vehicle')"
       >
         {{ $t('vehicles.add_vehicle') }}
       </v-btn>
@@ -46,6 +47,7 @@
             :hint="errors.get('registration_number')"
             :error="errors.has('registration_number')"
             @input="errors.clear('registration_number')"
+            @change="setSegmentEvent('Enter registration number')"
           ></v-text-field>
 
           <v-select
@@ -61,6 +63,7 @@
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"
             @input="errors.clear('vendor_type_id')"
+            @change="setSegmentEvent('Choose vendor type')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -85,8 +88,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Vehicle from '@/libs/app/vehicles/Vehicle'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       loading: false,
@@ -142,6 +147,7 @@ export default {
     },
 
     submit () {
+    this.setSegmentEvent('Add vehicle -- Submit')
       if (!this.loading) {
         this.loading = true
         this.vehicleObj.store()

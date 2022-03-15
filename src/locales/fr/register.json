@@ -5,9 +5,9 @@
   "company": "Entreprise",
   "country_of_operation": "Pays d’opération ",
   "email_address": "Adresse e-mail ",
-  "individual": "FR_Individual",
+  "individual": "Individu",
   "phone_number": "Numéro de téléphone ",
   "register_account": "Créer un Compte ",
-  "sign_in": "S'identifier",
+  "sign_in": "Connectez-vous",
   "your_full_name": "Votre nom complet "
 }

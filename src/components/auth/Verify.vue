@@ -37,8 +37,10 @@
 
 <script>
 import Auth from "@/libs/auth/Auth"
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       authObj: new Auth()
@@ -57,6 +59,7 @@ export default {
 
   methods: {
     verifyCode () {
+      this.setSegmentEvent('Enter OTP')
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
