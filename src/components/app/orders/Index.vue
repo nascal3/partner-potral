@@ -42,7 +42,7 @@
                   <v-text-field
                       v-model="dateFrom"
                       label="From Date"
-                      prepend-icon="event"
+                      prepend-inner-icon="event"
                       outlined
                       dense
                       readonly
@@ -72,7 +72,7 @@
                   <v-text-field
                       v-model="dateTo"
                       label="To Date"
-                      prepend-icon="event"
+                      prepend-inner-icon="event"
                       outlined
                       dense
                       readonly
@@ -163,7 +163,6 @@ export default {
 
   data () {
     return {
-      infiniteId: +new Date(),
       loading: true,
       expanded: [],
       orderObj: new Order(),
