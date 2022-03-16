@@ -72,6 +72,7 @@ export default {
             partner: data.partners[0]
           })
         })
+        this.setSegmentIdentity(data)
 
         if (isSolo) {
           this.authObj.abilities().then(() => {
