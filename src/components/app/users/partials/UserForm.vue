@@ -192,7 +192,7 @@ export default {
 
   ::placeholder {
     font-size: 16px;
-    opacity: .5;
+    opacity: .6;
   }
 }
 .error-message {
