@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:e2e": "vue-cli-service test:e2e"
+    "test:e2e": "vue-cli-service test:e2e",
+    "test": "start-server-and-test serve http://localhost:8080 cy:run",
+    "coverage": "npx nyc report --reporter=text-summary"
   },
   "dependencies": {
     "@sentry/tracing": "^6.17.3",
