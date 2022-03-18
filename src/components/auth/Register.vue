@@ -85,6 +85,7 @@
             @input="errors.clear('administrator.phone')"
             @blur="setSegmentEvent('Enter Phone Number')"
             :onlyCountries="validCountries"
+            :inputOptions="placeholder"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('administrator.phone')">
           {{errors.get('administrator.phone')}}
@@ -158,6 +159,9 @@ export default {
       country: null,
       validCountries: [],
       loading: false,
+      placeholder: {
+        placeholder: this.$t('register.phone_number'),
+      },
       authObj: new Auth()
     }
   },

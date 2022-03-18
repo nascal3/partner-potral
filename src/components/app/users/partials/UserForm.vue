@@ -48,16 +48,15 @@
             @input="errors.clear('email')"
           ></v-text-field>
 
-          <v-text-field
-            dense
-            outlined
-            persistent-hint
-            :label="$t('users.phone')"
-            v-model="userObj.phone"
-            :hint="errors.get('phone')"
-            :error="errors.has('phone')"
-            @input="errors.clear('phone')"
-          ></v-text-field>
+          <vue-tel-input
+              v-model="userObj.phone"
+              @input="errors.clear('phone')"
+              :onlyCountries="validCountries"
+              :inputOptions="placeholder"
+          ></vue-tel-input>
+          <span class="error-message" v-if="errors.has('phone')">
+            {{errors.get('phone')}}
+          </span>
 
           <v-select
             dense
@@ -105,7 +104,11 @@ export default {
   data () {
     return {
       loading: false,
+      validCountries: [],
       userObj: new User(),
+      placeholder: {
+        placeholder: this.$t('users.phone'),
+      }
     }
   },
 
@@ -117,12 +120,17 @@ export default {
           this.userObj[key] = user[key]
         })
       }
-    }
+    },
+
+    countries() {
+      this.setValidCountries()
+    },
   },
 
   computed: {
     ...mapGetters({
-      roles: 'getRoles'
+      roles: 'getRoles',
+      countries: 'getCountries'
     }),
 
     errors () {
@@ -132,8 +140,15 @@ export default {
 
   methods: {
     ...mapActions([
-      'setRoles'
+      'setRoles',
+      'setCountries'
     ]),
+
+    setValidCountries() {
+      this.countries.data.map(country => {
+        this.validCountries.push(country.code)
+      })
+    },
 
     submit () {
       if (!this.loading) {
@@ -159,6 +174,7 @@ export default {
   },
 
   mounted () {
+    this.setCountries(),
     this.setRoles({
       routes: {
         partner: (auth.retrieve('partner')).id
@@ -167,3 +183,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.phoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 2px 0;
+  margin-bottom: 23px;
+
+  ::placeholder {
+    font-size: 16px;
+    opacity: .5;
+  }
+}
+.error-message {
+  color: #EE551A;
+}
+</style>
+
