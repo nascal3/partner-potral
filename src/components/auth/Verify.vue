@@ -76,7 +76,7 @@ export default {
 
         if (isSolo) {
           this.authObj.abilities().then(() => {
-            this.$router.push({ name: 'dashboard' })
+            this.$router.push({ name: 'orders.index' })
           })
         } else {
           this.$router.push({ name: 'accounts' })

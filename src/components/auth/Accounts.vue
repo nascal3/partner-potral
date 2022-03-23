@@ -67,7 +67,7 @@ export default {
             ...auth.decrypt(),
           })
           this.loading = null
-          this.$router.push({ name: 'dashboard' })
+          this.$router.push({ name: 'orders.index' })
         })
       }
     }
