@@ -8,14 +8,9 @@
           </h1>
         </div>
         <v-spacer></v-spacer>
-      </v-card-title>
 
-      <v-divider></v-divider>
-
-      <v-row class="mt-5 mb-1">
-        <v-col md="3" cols="12" class="d-flex">
+        <div class="search-tenant-table">
           <v-text-field
-              class="search-tenant-table"
               v-model="search"
               prepend-inner-icon="mdi-magnify"
               label="Search"
@@ -24,7 +19,13 @@
               outlined
               dense
           ></v-text-field>
-        </v-col>
+        </div>
+
+      </v-card-title>
+
+      <v-divider></v-divider>
+
+      <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
           <v-row class="date-filters">
             <v-col cols="12" md="4">
@@ -48,6 +49,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      @blur="loadOrders"
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="dateFrom" :locale="locale" :show-current="dateTo" :max="maximumDate">
@@ -78,6 +80,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      @blur="loadOrders"
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="dateTo" :locale="locale" :show-current="dateFrom" :min="minimumDate">
@@ -88,10 +91,6 @@
               </v-menu>
             </v-col>
             <v-col cols="12" md="4">
-              <v-btn color="primary" @click="loadOrders">
-                <v-icon>mdi-filter</v-icon>
-                {{ $t('orders.filter') }}
-              </v-btn>
             </v-col>
           </v-row>
         </v-col>
@@ -104,6 +103,7 @@
           id="orders-table"
           fixed-header
           disable-sort
+          class="title"
           hide-default-footer
           disable-pagination
           :no-data-text="$t('orders.no_orders_found')"
@@ -115,7 +115,6 @@
           :expanded.sync="expanded"
           show-expand
           @item-expanded="getOrderDetails"
-          :loading="loading"
           :loading-text="$t('core.system_loading')"
         >
           <template v-slot:item.destinations="{ item }">
@@ -331,6 +330,13 @@ export default {
 
       table {
         color: #909399;
+        thead {
+          tr {
+            th:first-letter {
+              text-transform: uppercase;
+            }
+          }
+        }
         tbody {
           tr.v-data-table__expanded__content {
             background-color: #FFFFFF !important;
@@ -376,4 +382,9 @@ export default {
       }
     }
   }
+</style>
+<style lang="scss" scoped>
+.search-tenant-table {
+  width: 240px;
+}
 </style>

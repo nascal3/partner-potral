@@ -307,7 +307,7 @@ export default {
       position: absolute;
       border-left: 3px dashed #EE7D00;
       left: 7px;
-      bottom: -18px;
+      bottom: -13px;
       height: 21px;
     }
     .v-icon{
@@ -335,15 +335,15 @@ export default {
       position: absolute;
       border-left: 3px solid #EE7D00;
       left: 7px;
-      top: 19px;
-      height: 5px;
+      top: 24px;
+      height: 8px;
     }
     &::before {
       content: "";
       position: absolute;
       border-left: 3px solid #EE7D00;
       left: 7px;
-      top: -3px;
+      top: 3px;
       height: 7px;
     }
     .v-icon{
@@ -363,7 +363,7 @@ export default {
       position: absolute;
       border-left: 3px dashed #324BA8;
       left: 7px;
-      top: -10px;
+      top: -7px;
       height: 26px;
     }
     .v-icon{
