@@ -305,10 +305,18 @@ export default {
           this.loading = false
         }).catch(error => {
           this.loading = false
+          flash({
+            message: error.data.message,
+            color: '#e74c3c',
+          })
           throw error
         })
       }).catch(error => {
         this.loading = false
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
         throw error
       })
     },
