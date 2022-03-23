@@ -9,16 +9,18 @@
         </div>
         <v-spacer></v-spacer>
 
-        <v-text-field
-            class="search-tenant-table"
-            v-model="search"
-            prepend-inner-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-            outlined
-            dense
-        ></v-text-field>
+        <div class="search-tenant-table">
+          <v-text-field
+              v-model="search"
+              prepend-inner-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+              outlined
+              dense
+          ></v-text-field>
+        </div>
+
       </v-card-title>
 
       <v-divider></v-divider>
@@ -331,7 +333,6 @@ export default {
         thead {
           tr {
             th:first-letter {
-              //display: inline-block;
               text-transform: uppercase;
             }
           }
@@ -381,4 +382,9 @@ export default {
       }
     }
   }
+</style>
+<style lang="scss" scoped>
+.search-tenant-table {
+  width: 240px;
+}
 </style>
