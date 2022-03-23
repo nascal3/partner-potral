@@ -13,7 +13,7 @@
           <v-text-field
               v-model="search"
               prepend-inner-icon="mdi-magnify"
-              label="Search"
+              :label="$t('orders.search')"
               single-line
               hide-details
               outlined
@@ -42,7 +42,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                       v-model="dateFrom"
-                      label="From Date"
+                      :label="$t('orders.from_date')"
                       prepend-inner-icon="event"
                       outlined
                       dense
@@ -73,7 +73,7 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                       v-model="dateTo"
-                      label="To Date"
+                      :label="$t('orders.to_date')"
                       prepend-inner-icon="event"
                       outlined
                       dense

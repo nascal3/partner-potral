@@ -174,7 +174,7 @@ export default {
     },
 
     submit () {
-      this.setSegmentEvent(`Submit ${vehicleDocument.document.label}`)
+      this.setSegmentEvent(`Submit ${this.vehicleDocument.document.label}`)
       if (!this.loading) {
         this.loading = true
         this.vehicleDocumentObj.update(this.vehicleDocument.id)
