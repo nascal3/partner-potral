@@ -39,9 +39,10 @@
               small
               color="secondary"
               class="ttn caption"
+              :to="`vehicles/${item.id}/drivers`"
               @click="forAllocation = item"
             >
-              {{ $t('vehicles.allocate') }}
+              {{ $t('vehicles.allocate_driver') }}
             </v-btn>
           </template>
           <template v-slot:item.documents="{ item }">
@@ -94,6 +95,7 @@ export default {
         { text: this.$t('vehicles.vendor_type'), value: 'vendor_type' },
         { text: this.$t('vehicles.verified'), value: 'is_valid' },
         { text: this.$t('vehicles.vehicle_management'), value: 'manage' },
+        { text: this.$t('vehicles.allocate_driver'), value: 'driver' }
       ],
     }
   },

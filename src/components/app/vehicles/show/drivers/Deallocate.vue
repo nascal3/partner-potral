@@ -1,10 +1,10 @@
 <template>
   <div class="pb-10">
     <v-card-title class="body-1 font-weight-bold px-0 pb-0 pt-0 mt-n2">
-      Current driver
+      {{ $t('vehicles.current_driver') }}
     </v-card-title>
- 
-    <v-list-item 
+
+    <v-list-item
       class="px-0"
       @click="dialog = true"
     >
@@ -40,7 +40,7 @@
       <v-card>
         <v-card-title>
           <h2 class="subtitle-1">
-            Deallocate Driver
+            {{ $t('vehicles.deallocate_driver') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -56,8 +56,15 @@
         <v-divider class="mb-5"></v-divider>
 
         <v-card-text>
-          <p>Are you sure you want to remove {{ transporter.driver.name }} from the vehicle {{ transporter.vehicle.registration_number }}</p>
-          <p>This action is irreversible! Please proceed with caution</p>
+          <p>
+            {{
+              $t('vehicles.deallocate_driver_message', {
+                name:transporter.driver.name,
+                registration_number: transporter.vehicle.registration_number
+              })
+            }}
+          </p>
+          <p>{{ $t('vehicles.deallocate_driver_warning') }}</p>
         </v-card-text>
 
         <v-card-actions class="pb-5 px-5">
@@ -71,7 +78,7 @@
             :disabled="loading"
             @click="deallocate()"
           >
-            Deallocate Driver From Vehicle
+            {{ $t('vehicles.deallocate_driver_button') }}
           </v-btn>
         </v-card-actions>
       </v-card>

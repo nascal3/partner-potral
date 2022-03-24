@@ -3,7 +3,7 @@
     <v-card-title
       class="body-1 font-weight-bold px-0 py-0"
     >
-      {{ $t('available_drivers') }}
+      {{ $t('vehicles.available_drivers') }}
     </v-card-title>
     <v-list>
       <template v-for="(user, index) in users.data">
@@ -90,7 +90,10 @@ export default {
       this.transporterObj.vehicle_id = this.vehicle.id
       this.transporterObj.store()
         .then(response => {
-          flash(response)
+          flash({
+            color: 'success',
+            message: response.message
+          })
           this.$emit('allocated')
         })
     }
