@@ -11,7 +11,7 @@
       <v-btn
         icon
         text
-        color="#e74c3c"
+        color="#ffffff"
         v-bind="attrs"
         @click="show = false"
       >

@@ -1,6 +1,12 @@
 {
   "add_vehicle": "Add Vehicle",
   "allocate": "Allocate",
+  "allocate_driver": "Allocate driver",
+  "current_driver": "Current driver",
+  "deallocate_driver": "Deallocate Driver",
+  "deallocate_driver_message": "Are you sure you want to remove {name} from the vehicle {registration_number} ",
+  "deallocate_driver_warning": "This action is irreversible! Please proceed with caution",
+  "deallocate_driver_button": "Deallocate Driver From Vehicle",
   "available_drivers": "Available drivers",
   "documents": "Documents",
   "drivers": "Drivers",
