@@ -36,10 +36,10 @@ export default {
 
     changeLanguage(languageCode) {
       localStorage.setItem('setLanguage', languageCode)
+      this.$emit('setLanguage', languageCode)
       this.$nextTick(() => {
         this.$i18n.locale = languageCode
         this.activeLanguage = languageCode
-
       })
     }
   },
