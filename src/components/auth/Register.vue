@@ -161,7 +161,7 @@ export default {
       loading: false,
       locale: localStorage.getItem('setLanguage'),
       placeholder: {
-        placeholder: 'Phone number *',
+        placeholder: this.$t('register.phone_number'),
       },
       authObj: new Auth()
     }
@@ -180,7 +180,7 @@ export default {
       this.setValidCountries()
     },
 
-    locale(value) {
+    locale() {
      this.$nextTick(() => {
        this.placeholder.placeholder = this.$t('register.phone_number')
      })

@@ -17,6 +17,7 @@
               single-line
               hide-details
               outlined
+              clearable
               dense
           ></v-text-field>
         </div>
