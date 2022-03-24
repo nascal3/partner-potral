@@ -142,7 +142,7 @@
     </div>
 
     <v-col cols="12">
-      <language-selector />
+      <language-selector @setLanguage="setLanguage" />
     </v-col>
   </v-card>
 </template>
@@ -159,8 +159,9 @@ export default {
       country: null,
       validCountries: [],
       loading: false,
+      locale: localStorage.getItem('setLanguage'),
       placeholder: {
-        placeholder: this.$t('register.phone_number'),
+        placeholder: 'Phone number *',
       },
       authObj: new Auth()
     }
@@ -178,6 +179,12 @@ export default {
     countries() {
       this.setValidCountries()
     },
+
+    locale(value) {
+     this.$nextTick(() => {
+       this.placeholder.placeholder = this.$t('register.phone_number')
+     })
+    }
   },
 
   computed: {
@@ -194,6 +201,10 @@ export default {
      ...mapActions([
        'setCountries'
      ]),
+
+     setLanguage(languageCode) {
+       this.locale = languageCode
+     },
 
      entityTypeChangedEvent() {
        const entity =  this.authObj.legal_entity_type
