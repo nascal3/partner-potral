@@ -19,7 +19,7 @@ export default class Auth extends Base {
         flash({
           message: 'Registration successful. Redirecting ...',
           color: 'green'
-        })  
+        })
         this.email = data.administrator.email
         resolve(response)
       } catch (err) {
@@ -31,14 +31,14 @@ export default class Auth extends Base {
   generate () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'authenticator', 'product_group'])
+        const data = this.getFields(['email', 'authenticator', 'product_group', 'identification_method'])
         const response = await this.form.submit('post', url('otp/generate'), data)
         const identifier = this.identifier.toLowerCase()
         localStorage.setItem('sendy:identification', JSON.stringify({
           identifier,
           value:this[identifier],
         }))
-        flash(response)     
+        flash(response)
         resolve(response)
       } catch (err) {
         reject(err)
