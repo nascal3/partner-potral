@@ -41,6 +41,7 @@
               class="ttn caption"
               :to="`vehicles/${item.id}/drivers`"
               @click="forAllocation = item"
+              :disabled="!item.is_valid"
             >
               {{ $t('vehicles.allocate_driver') }}
             </v-btn>
