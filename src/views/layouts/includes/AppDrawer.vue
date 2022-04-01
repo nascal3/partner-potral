@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
     app
-    fixed 
+    fixed
     width="250"
     color="#fff"
     :value="showDrawer"
@@ -20,17 +20,17 @@
     </template>
 
     <v-list dense class="pl-2">
-      <template 
+      <template
         v-for="(group, name) in sidebar"
       >
-        <v-subheader 
-          class="caption font-weight-bold" 
+        <v-subheader
+          class="caption font-weight-bold"
           :key="name"
-          v-text="name"
+          v-text="translateText(name)"
           :class="name !== 'ANALYTICS' ? 'mt-5' : ''"
         ></v-subheader>
 
-        <template 
+        <template
           v-for="(item) in group"
         >
           <v-list-item
@@ -38,7 +38,7 @@
             :key="item.name"
             :to="item.to"
             active-class="active-route"
-          > 
+          >
             <v-list-item-icon>
               <v-icon small>
                 {{ `mdi-${item.icon}` }}
@@ -110,23 +110,24 @@ export default {
       sidebar: {
         // 'ANALYTICS': [
         //   { name: 'Dashboard', icon: 'poll', to: '/' },
-        //   { 
-        //     name: 'Reports', 
-        //     icon: 'file-chart', 
+        //   {
+        //     name: 'Reports',
+        //     icon: 'file-chart',
         //     children: [
         //       { name: 'User Accounts', icon: '', to: '/reports/users' },
         //       { name: 'Access Roles', icon: '', to: '/reports/roles' },
-        //     ] 
+        //     ]
         //   },
         // ],
 
         'APPLICATION': [
-          { name: 'Vehicles', icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
+          { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
+          { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
         ],
-        
+
         'ACCESS CONTROL': [
-          { name: 'Roles', icon: 'lock', to: '/roles', permission: 'roles.index' },
-          { name: 'Users', icon: 'account-group', to: '/users', permission: 'users.index' },
+          { name: this.$t('navigation.roles'), icon: 'lock', to: '/roles', permission: 'roles.index' },
+          { name: this.$t('navigation.users'), icon: 'account-group', to: '/users', permission: 'users.index' },
         ],
 
         // 'CONFIGURATIONS': [
@@ -143,7 +144,14 @@ export default {
         this.$emit('closed')
       }
     },
-    
+
+    translateText(text) {
+      if (text === 'APPLICATION') return this.$t('navigation.nav_application')
+      if (text === 'ACCESS CONTROL') return this.$t('navigation.nav_access_control')
+      if (text === 'ANALYTICS') return this.$t('navigation.nav_analytics')
+      if (text === 'CONFIGURATIONS') return this.$t('navigation.nav_configurations')
+    },
+
     permitted (link) {
       return auth.can(link.permission)
     }

@@ -1,6 +1,8 @@
 export const resources = [
   /** Dashboard routes */
   { name: 'countries', url: 'countries' },
+  { name: 'languages', url: 'languages' },
+  { name: 'country', url: 'countries/:id' },
   { name: 'documents', url: 'documents' },
   { name: 'vendorTypes', url: 'vendor-types' },
   { name: 'roles', url: `partners/:partner/roles` },
@@ -8,6 +10,7 @@ export const resources = [
   { name: 'permissions', url: `partners/:partner/permissions`},
   { name: 'vehicles', url: `partners/:partner/vehicles` },
   { name: 'vehicleDocuments', url: `partners/:partner/vehicle-documents` },
+  { name: 'transporters', url: `partners/:partner/transporters` },
 ];
 
 export const helpers = {

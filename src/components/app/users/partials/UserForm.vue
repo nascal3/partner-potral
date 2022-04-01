@@ -9,7 +9,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            {{ user ? `Update` :`Record` }} user details
+            {{ user ? $t('users.update') : $t('users.record') }} {{ $t('users.user_details') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -29,7 +29,7 @@
             dense
             outlined
             persistent-hint
-            label="Full name *"
+            :label="$t('users.name')"
             v-model="userObj.name"
             :hint="errors.get('name')"
             :error="errors.has('name')"
@@ -41,23 +41,22 @@
             outlined
             type="email"
             persistent-hint
-            label="Email address *"
+            :label="$t('users.email')"
             v-model="userObj.email"
             :hint="errors.get('email')"
             :error="errors.has('email')"
             @input="errors.clear('email')"
           ></v-text-field>
 
-          <v-text-field
-            dense
-            outlined
-            persistent-hint
-            label="Phone number *"
-            v-model="userObj.phone"
-            :hint="errors.get('phone')"
-            :error="errors.has('phone')"
-            @input="errors.clear('phone')"
-          ></v-text-field>
+          <vue-tel-input
+              v-model="userObj.phone"
+              @input="errors.clear('phone')"
+              :onlyCountries="validCountries"
+              :inputOptions="placeholder"
+          ></vue-tel-input>
+          <span class="error-message" v-if="errors.has('phone')">
+            {{errors.get('phone')}}
+          </span>
 
           <v-select
             dense
@@ -67,7 +66,7 @@
             item-value="id"
             item-text="display_name"
             :items="roles.data"
-            label="Select user role(s) *"
+            :label="$t('users.roles')"
             v-model="userObj.role_ids"
             :hint="errors.get('role_ids')"
             :error="errors.has('role_ids')"
@@ -80,12 +79,12 @@
             large
             type="submit"
             color="primary"
-            class="caption"
+            class="caption font-weight-bold"
             :dark="!loading"
             :loading="loading"
             :disabled="loading"
           >
-            {{ user ? 'Update' : 'Save' }} Details
+            {{ user ? $t('users.update') : $t('users.save') }} {{ $t('users.user_details') }}
           </v-btn>
         </v-card-actions>
       </form>
@@ -105,13 +104,33 @@ export default {
   data () {
     return {
       loading: false,
+      validCountries: [],
       userObj: new User(),
+      placeholder: {
+        placeholder: this.$t('users.phone'),
+      }
     }
+  },
+
+  watch: {
+    user (user) {
+      if (user) {
+        this.userObj.role_ids = _.map(user.roles, 'id')
+        Object.keys(user).forEach(key => {
+          this.userObj[key] = user[key]
+        })
+      }
+    },
+
+    countries() {
+      this.setValidCountries()
+    },
   },
 
   computed: {
     ...mapGetters({
-      roles: 'getRoles'
+      roles: 'getRoles',
+      countries: 'getCountries'
     }),
 
     errors () {
@@ -121,8 +140,15 @@ export default {
 
   methods: {
     ...mapActions([
-      'setRoles'
+      'setRoles',
+      'setCountries'
     ]),
+
+    setValidCountries() {
+      this.countries.data.map(country => {
+        this.validCountries.push(country.code)
+      })
+    },
 
     submit () {
       if (!this.loading) {
@@ -148,6 +174,7 @@ export default {
   },
 
   mounted () {
+    this.setCountries(),
     this.setRoles({
       routes: {
         partner: (auth.retrieve('partner')).id
@@ -156,3 +183,20 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.phoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 2px 0;
+  margin-bottom: 23px;
+
+  ::placeholder {
+    font-size: 16px;
+    opacity: .6;
+  }
+}
+.error-message {
+  color: #EE551A;
+}
+</style>
+

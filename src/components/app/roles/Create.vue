@@ -11,7 +11,7 @@
         color="primary"
         class="caption ttn"
       >
-        Add Role
+        {{ $t('role.add_role') }}
       </v-btn>
     </template>
 

@@ -1,0 +1,19 @@
+{
+  "access_control": "La fonctionnalité de contrôle d'accès a été désactivée pour ce rôle.",
+  "actions": "Actions ",
+  "add_role": "Ajouter rôle ",
+  "back_to_roles": "Retour aux rôles",
+  "crumb_roles": "Rôles ",
+  "edit": "Modifier",
+  "manage_permissions": "Gérer les autorisations",
+  "oops": "Oups! Rôle géré par le système.",
+  "record": "enregistrer ",
+  "role": "role",
+  "role_details": "détails du rôle ",
+  "roles": "Sélectionnez le(s) rôle(s) d'utilisateur *",
+  "save": "Enregistrer ",
+  "table_access_control": "contrôle d’accès ",
+  "table_display_name": "Nom d'affichage ",
+  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre ",
+  "update": "Mettre à jour"
+}

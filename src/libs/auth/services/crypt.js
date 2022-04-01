@@ -5,13 +5,7 @@ export const crypt = {
    * Encrypt the authenticated user's data
    */
   encrypt: (data) => {
-    let encrypted = {}
-    Object.keys(data).forEach(key => {
-      encrypted[key] = btoa(JSON.stringify(data[key]))
-    })
-    localStorage.setItem(app, btoa(
-      JSON.stringify(encrypted)
-    ))
+    localStorage.setItem(app, JSON.stringify(data))
   },
 
   /**
@@ -19,12 +13,7 @@ export const crypt = {
    */
   decrypt: () => {
     const portal = localStorage.getItem(app)
-    if (!portal) return null
-    let decrypted = JSON.parse(atob(portal))
-    for (let key in decrypted) {
-      decrypted[key] = JSON.parse(atob(decrypted[key]))
-    }
-    return decrypted
+    return portal ? JSON.parse(portal) : null
   },
 
   /**

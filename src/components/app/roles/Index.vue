@@ -4,8 +4,11 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Roles
+            {{ $t('role.roles') }}
           </h1>
+          <app-crumbs
+            :crumbs="crumbs"
+          ></app-crumbs>
         </div>
         <v-spacer></v-spacer>
         <roles-create
@@ -17,18 +20,23 @@
       <v-divider></v-divider>
 
       <v-card-text class="px-0">
+        <app-loading
+          v-if="processing"
+        ></app-loading>
+
         <v-data-table
+          v-if="!processing"
           fixed-header
           disable-sort
-          class="title" 
+          class="title"
           hide-default-footer
           disable-pagination
-          :headers="headers" 
+          :headers="headers"
           :items="roles.data"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.permissions="{ item }">
-            <v-btn 
+            <v-btn
               dark
               text
               small
@@ -36,29 +44,19 @@
               class="ttn body-2"
               :to="`roles/${item.id}/permissions`"
             >
-              Manage permissions
+              {{ $t('role.manage_permissions') }}
             </v-btn>
           </template>
           <template v-slot:item.actions="{ item }">
-            <v-btn 
+            <v-btn
               dark
               small
               color="secondary"
               class="ttn caption mr-2"
               @click="role = item"
             >
-              Edit
+              {{ $t('role.edit') }}
             </v-btn>
-
-            <!-- <v-btn 
-              dark
-              small
-              color="#e74c3c"
-              class="ttn caption"
-              @click="role = item"
-            >
-              Deactivate
-            </v-btn> -->
           </template>
         </v-data-table>
       </v-card-text>
@@ -84,11 +82,14 @@ export default {
   data () {
     return {
       role: null,
+      processing: true,
+      crumbs: [
+        { text: this.$t('role.crumb_roles'), disabled: true },
+      ],
       headers: [
-        { text: 'Display name', value: 'display_name' },
-        // { text: 'Description', value: 'description' },
-        { text: 'Access control', value: 'permissions' },
-        { text: 'Actions', value: 'actions' },
+        { text: this.$t('role.table_display_name'), value: 'display_name' },
+        { text: this.$t('role.table_access_control'), value: 'permissions' },
+        { text: this.$t('role.actions'), value: 'actions' },
       ],
     }
   },
@@ -100,7 +101,7 @@ export default {
 
     auth: () => auth,
   },
-  
+
   methods: {
     ...mapActions([
       'setRoles'
@@ -112,10 +113,12 @@ export default {
         routes: {
           partner: id
         }
+      }).then(() => {
+        this.processing = false
       })
     }
   },
-  
+
   mounted () {
     this.loadRoles()
   }

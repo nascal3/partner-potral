@@ -13,13 +13,13 @@ export default class Auth extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'business_name', 'legal_entity_type', 'country_id', 'administrator'
+          'business_name', 'legal_entity_type', 'country_id', 'administrator', 'product_group'
         ])
         const response = await this.form.submit('post', url('sign-up'), data)
         flash({
           message: 'Registration successful. Redirecting ...',
           color: 'green'
-        })  
+        })
         this.email = data.administrator.email
         resolve(response)
       } catch (err) {
@@ -31,14 +31,14 @@ export default class Auth extends Base {
   generate () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'authenticator'])
+        const data = this.getFields(['email', 'authenticator', 'product_group', 'identification_method'])
         const response = await this.form.submit('post', url('otp/generate'), data)
         const identifier = this.identifier.toLowerCase()
         localStorage.setItem('sendy:identification', JSON.stringify({
           identifier,
           value:this[identifier],
         }))
-        flash(response)     
+        flash(response)
         resolve(response)
       } catch (err) {
         reject(err)
@@ -49,7 +49,7 @@ export default class Auth extends Base {
   verify () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'authenticator', 'code'])
+        const data = this.getFields(['email', 'authenticator', 'code', 'product_group'])
         const response = await this.form.submit('post', url('sign-in'), data)
         this.encrypt(response.data)
         resolve(response)
@@ -68,6 +68,14 @@ export default class Auth extends Base {
           ...this.decrypt(),
           abilities: response.data
         })
+
+        //Fetch and cache the country data
+        const { data } = await this.form.submit('get', url(`countries/${partner.country_id}`))
+        this.encrypt({
+          ...this.decrypt(),
+          country: data,
+        })
+
         resolve(response)
       } catch (err) {
         reject(err)

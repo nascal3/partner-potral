@@ -31,7 +31,7 @@
 <script>
 export default {
   components: {
-    // 'app-switcher': () => import('./app_bar/AppSwitcher'),
+    'app-switcher': () => import('./app_bar/AppSwitcher'),
     'profile-switcher': () => import('./app_bar/ProfileSwitcher.vue')
   },
 

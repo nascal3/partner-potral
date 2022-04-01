@@ -3,7 +3,7 @@
     <v-card-title>
       <div>
         <h1 class="title font-weight-bold">
-          Users
+          {{ $t('users.users') }}
         </h1>
       </div>
       <v-spacer></v-spacer>
@@ -16,13 +16,18 @@
     <v-divider></v-divider>
 
     <v-card-text class="px-0">
+      <app-loading
+        v-if="processing"
+      ></app-loading>
+
       <v-data-table
+        v-if="!processing"
         fixed-header
         disable-sort
-        class="title" 
+        class="title"
         hide-default-footer
         disable-pagination
-        :headers="headers" 
+        :headers="headers"
         :items="users.data"
         style="overflow-x: scroll; width: 100%"
       >
@@ -33,7 +38,7 @@
           {{ item.roles.map(({display_name}) => display_name).join(", ") }}
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-btn 
+          <v-btn
             small
             color="secondary"
             class="ttn caption"
@@ -72,12 +77,13 @@ export default {
   data () {
     return {
       user: null,
+      processing: true,
       headers: [
-        { text: 'Name', value: 'name' },
-        { text: 'Email', value: 'email' },
-        { text: 'Phone', value: 'phone' },
-        { text: 'Roles', value: 'roles' },
-        { text: 'Actions', value: 'actions' },
+        { text: this.$t('users.table_name'), value: 'name' },
+        { text: this.$t('users.table_email'), value: 'email' },
+        { text: this.$t('users.table_phone'), value: 'phone' },
+        { text: this.$t('users.table_role'), value: 'roles' },
+        // { text: 'Actions', value: 'actions' },
       ],
     }
   },
@@ -89,7 +95,7 @@ export default {
 
     auth: () => auth
   },
-  
+
   methods: {
     ...mapActions([
       'setUsers'
@@ -100,11 +106,13 @@ export default {
         routes: {
           partner: (auth.retrieve('partner')).id
         }
+      }).then(() => {
+        this.processing = false
       })
     }
   },
 
-  
+
   mounted () {
     this.loadUsers()
   }

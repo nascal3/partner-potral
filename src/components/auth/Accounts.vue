@@ -11,8 +11,8 @@
         outlined
       >
         <v-list-item @click="setPartner(partner)">
-          <v-list-item-avatar 
-            color="primary" 
+          <v-list-item-avatar
+            color="primary"
             size="40"
             class="body-1 white--text font-weight-bold"
           >
@@ -40,7 +40,10 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents";
+
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       loading: null,
@@ -55,6 +58,7 @@ export default {
 
   methods: {
     setPartner (partner) {
+      this.setSegmentEvent('Choose account')
       if (!this.loading) {
         auth.permit(partner).then(({data}) => {
           auth.encrypt({
@@ -63,7 +67,7 @@ export default {
             ...auth.decrypt(),
           })
           this.loading = null
-          this.$router.push({ name: 'dashboard' })
+          this.$router.push({ name: 'orders.index' })
         })
       }
     }

@@ -3,25 +3,26 @@
     <v-card-text class="px-0">
       <div>
         <p class="mb-n4 mt-5 body-1">
-          Business model *
+          {{ $t('register.business_model') }}
         </p>
-        <v-radio-group 
+        <v-radio-group
           row
           v-model="authObj.legal_entity_type"
+          @change="entityTypeChangedEvent"
         >
-          <v-radio 
-            v-for="(ofType, index) in ['Company', 'Individual']"
+          <v-radio
+            v-for="(ofType, index) in [ `${$t('register.individual')}`, `${$t('register.company')}` ]"
             :key="`entity-${index}`"
-            :label="ofType" 
+            :label="ofType"
             :value="ofType"
             class="body-1"
           ></v-radio>
-        </v-radio-group> 
+        </v-radio-group>
       </div>
 
       <div>
         <p class="mb-1 body-1">
-          Country of operation *
+          {{ $t('register.country_of_operation') }}
         </p>
         <v-select
           dense
@@ -35,12 +36,13 @@
           :hint="errors.get('country_id')"
           :error="errors.has('country_id')"
           @input="errors.clear('country_id')"
+          @change="setSegmentEvent('Select Country of Operation')"
         ></v-select>
       </div>
 
       <div v-if="authObj.legal_entity_type == 'Company'">
         <p class="mb-1 body-1">
-          Business name *
+          {{ $t('register.business_name') }}
         </p>
         <v-text-field
           dense
@@ -52,12 +54,13 @@
           :hint="errors.get('business_name')"
           :error="errors.has('business_name')"
           @input="errors.clear('business_name')"
+          @change="setSegmentEvent('Enter Business Name')"
         ></v-text-field>
       </div>
 
       <div>
         <p class="mb-1 body-1">
-          Your full name *
+          {{ $t('register.your_full_name') }}
         </p>
         <v-text-field
           dense
@@ -69,12 +72,29 @@
           :hint="errors.get('administrator.name')"
           :error="errors.has('administrator.name')"
           @input="errors.clear('administrator.name')"
+          @change="setSegmentEvent('Enter Full Name')"
         ></v-text-field>
+      </div>
+
+      <div class="mb-7">
+        <p class="mb-1 body-1">
+          {{ $t('register.phone_number') }}
+        </p>
+        <vue-tel-input
+            v-model="authObj.administrator.phone"
+            @input="errors.clear('administrator.phone')"
+            @blur="setSegmentEvent('Enter Phone Number')"
+            :onlyCountries="validCountries"
+            :inputOptions="placeholder"
+        ></vue-tel-input>
+        <span class="error-message" v-if="errors.has('administrator.phone')">
+          {{errors.get('administrator.phone')}}
+        </span>
       </div>
 
       <div>
         <p class="mb-1 body-1">
-          Email address *
+          {{ $t('register.email_address') }}
         </p>
         <v-text-field
           dense
@@ -86,12 +106,15 @@
           :hint="errors.get('administrator.email')"
           :error="errors.has('administrator.email')"
           @input="errors.clear('administrator.email')"
+          @change="setSegmentEvent('Enter Email Address')"
         ></v-text-field>
       </div>
+
+
     </v-card-text>
 
     <v-card-actions class="px-0">
-      <v-btn 
+      <v-btn
         block
         x-large
         color="primary"
@@ -102,61 +125,65 @@
         :disabled="loading"
         @click="submit"
       >
-        Register Account
+        {{ $t('register.register_account') }}
       </v-btn>
     </v-card-actions>
-  </v-card>
-  <!-- 
 
-    <v-col cols="12">
-      <v-text-field
-        dense
-        outlined
-        persistent-hint
-        class="body-2"
-        label="Phone number *"
-        v-model="authObj.administrator.phone"
-        :hint="errors.get('administrator.phone')"
-        :error="errors.has('administrator.phone')"
-        @input="errors.clear('administrator.phone')"
-      ></v-text-field>
-    </v-col>
-
-    <v-col cols="12">
-      
-    </v-col>
-
-    <v-col cols="12">
-      <p class="body-1">
-        Already have an account? 
+    <div>
+      <p class="body-1 mt-4 text-center">
+        {{ $t('register.already_registered') }}
         <router-link
           class="deep-orange--text"
           to="/auth/generate"
         >
-          Login
+          {{ $t('register.sign_in') }}
         </router-link>
       </p>
+    </div>
+
+    <v-col cols="12">
+      <language-selector @setLanguage="setLanguage" />
     </v-col>
-  </v-row> -->
+  </v-card>
 </template>
 
 <script>
 import Auth from "@/libs/auth/Auth"
 import { mapActions, mapGetters } from 'vuex'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   data () {
     return {
       country: null,
+      validCountries: [],
       loading: false,
+      locale: localStorage.getItem('setLanguage'),
+      placeholder: {
+        placeholder: this.$t('register.phone_number'),
+      },
       authObj: new Auth()
     }
   },
 
+  components: {
+    'language-selector': () => import('@/views/layouts/LanguageSelector.vue')
+  },
+
   watch: {
-    countries ({ data }) {
-      this.country = data[0] || null
-      this.authObj.country_id = this.country?.id
+    country (country) {
+      this.authObj.country_id = country.id
+    },
+
+    countries() {
+      this.setValidCountries()
+    },
+
+    locale() {
+     this.$nextTick(() => {
+       this.placeholder.placeholder = this.$t('register.phone_number')
+     })
     }
   },
 
@@ -175,7 +202,27 @@ export default {
        'setCountries'
      ]),
 
+     setLanguage(languageCode) {
+       this.locale = languageCode
+     },
+
+     entityTypeChangedEvent() {
+       const entity =  this.authObj.legal_entity_type
+       if (entity === 'Company') {
+         this.setSegmentEvent('Select Company')
+       } else {
+         this.setSegmentEvent('Select Individual')
+       }
+     },
+
+     setValidCountries() {
+       this.countries.data.map(country => {
+         this.validCountries.push(country.code)
+       })
+     },
+
     submit () {
+      this.setSegmentEvent('Submit Registration Information')
       if (!this.loading) {
         this.loading = true
         this.authObj.register()
@@ -196,3 +243,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.phoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 3px 0;
+
+  ::placeholder {
+    font-size: 16px;
+    opacity: .5;
+  }
+}
+.error-message {
+  color: #EE551A;
+}
+</style>

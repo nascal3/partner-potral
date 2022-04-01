@@ -8,10 +8,12 @@ export const fields = {
   authenticator: 'otp',
   code: null,
   identifier: 'Email',
+  product_group: 'partner',
+  identification_method: 'email',
 
   //Register
   business_name: null,
-  legal_entity_type: 'Company',
+  legal_entity_type: 'Individual',
   country_id: 1,
   administrator: {
     name: null,

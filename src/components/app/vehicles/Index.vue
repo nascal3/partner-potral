@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            Vehicles
+            {{ $t('vehicles.vehicles') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
@@ -20,86 +20,83 @@
         <v-data-table
           fixed-header
           disable-sort
-          class="title" 
+          class="title"
           hide-default-footer
           disable-pagination
-          :headers="headers" 
+          :headers="headers"
           :items="vehicles.data"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.vendor_type="{ item }">
-            {{ item.vendor_type.name }}
+            {{ item.vendor_type.display_name }}
           </template>
           <template v-slot:item.is_valid="{ item }">
-            {{ item.is_valid ? 'Yes' : 'No' }}
+            {{ item.is_valid ? $t('vehicles.yes') : $t('vehicles.no') }}
+          </template>
+          <template v-slot:item.driver="{ item }">
+            <v-btn
+              dark
+              small
+              color="secondary"
+              class="ttn caption"
+              :to="`vehicles/${item.id}/drivers`"
+              @click="forAllocation = item"
+              :disabled="!item.is_valid"
+            >
+              {{ $t('vehicles.allocate_driver') }}
+            </v-btn>
           </template>
           <template v-slot:item.documents="{ item }">
-            <v-btn 
+            <v-btn
               dark
               small
               color="secondary"
               class="ttn caption"
               @click="forDocument = item"
             >
-              Provide document
+              {{ $t('vehicles.documents') }}
             </v-btn>
           </template>
-          <template v-slot:item.actions="{ item }">
-            <v-btn 
+          <template v-slot:item.manage="{ item }">
+            <v-btn
               dark
+              text
               small
-              color="secondary"
-              class="ttn caption mr-2"
-              @click="role = item"
+              color="deep-orange"
+              class="ttn body-2"
+              :to="`vehicles/${item.id}/documents`"
+              @click="setSegmentEvent('Select Manage vehicle')"
             >
-              Edit
-            </v-btn>
-
-            <v-btn 
-              dark
-              small
-              color="#e74c3c"
-              class="ttn caption"
-              @click="role = item"
-            >
-              Delete
+              {{ $t('vehicles.manage_vehicle') }}
             </v-btn>
           </template>
         </v-data-table>
       </v-card-text>
-
-      <documents-create
-        :vehicle="forDocument"
-      ></documents-create>
-
-      <!-- <roles-edit
-        :role="role"
-        @close="role = null"
-        @updated="loadRoles()"
-      ></roles-edit> -->
     </v-card>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+  mixins: [segmentMixin],
   components: {
     'vehicles-create': () => import('./Create.vue'),
-    'documents-create': () => import('@/components/app/documents/Create.vue')
   },
 
   data () {
     return {
       vehicle: null,
       forDocument: null,
+      forAllocation: null,
       headers: [
-        { text: 'Registration number', value: 'registration_number' },
-        { text: 'Vendor type', value: 'vendor_type' },
-        { text: 'Documents', value: 'documents' },
-        { text: 'Verified', value: 'is_valid' },
-        { text: 'Actions', value: 'actions' },
+        { text: this.$t('vehicles.table_registration_number'), value: 'registration_number' },
+        { text: this.$t('vehicles.vendor_type'), value: 'vendor_type' },
+        { text: this.$t('vehicles.verified'), value: 'is_valid' },
+        { text: this.$t('vehicles.vehicle_management'), value: 'manage' },
+        { text: this.$t('vehicles.allocate_driver'), value: 'driver' }
       ],
     }
   },
@@ -111,7 +108,7 @@ export default {
 
     auth: () => auth
   },
-  
+
   methods: {
     ...mapActions([
       'setVehicles'
@@ -123,9 +120,18 @@ export default {
           partner: (auth.retrieve('partner')).id
         }
       })
+    },
+
+    stored () {
+      this.forDocument = null
+      this.loadVehicles()
+    },
+
+    allocated () {
+
     }
   },
-  
+
   mounted () {
     this.loadVehicles()
   }

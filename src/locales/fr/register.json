@@ -1,0 +1,13 @@
+{
+  "already_registered": "Enregistré déjà ?",
+  "business_model": "Modèle d'affaires *",
+  "business_name": "Nom de l'entreprise *",
+  "company": "Entreprise",
+  "country_of_operation": "Pays d’opération *",
+  "email_address": "Adresse e-mail *",
+  "individual": "Individu",
+  "phone_number": "Numéro de téléphone *",
+  "register_account": "Créer un Compte",
+  "sign_in": "Connectez-vous",
+  "your_full_name": "Votre nom complet *"
+}

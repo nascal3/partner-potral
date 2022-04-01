@@ -79,6 +79,12 @@ const routes = [
       },
 
       {
+        path: 'dashboard',
+        name: 'app-dashboard',
+        component: () => import('@/components/app/dashboard/Index.vue'),
+      },
+
+      {
         path: 'users',
         name: 'users.index',
         component: () => import('@/components/app/users/Index.vue'),
@@ -107,6 +113,63 @@ const routes = [
         path: 'vehicles',
         name: 'vehicles.index',
         component: () => import('@/components/app/vehicles/Index.vue'),
+      },
+
+      {
+        path: 'orders',
+        name: 'orders.index',
+        component: () => import('@/components/app/orders/Index.vue'),
+      },
+
+      {
+        path: 'vehicles/:vehicleId',
+        name: 'vehicles.show',
+        component: () => import('@/components/app/vehicles/Show.vue'),
+        children: [
+          {
+            path: 'documents',
+            name: 'vehicle-documents.index',
+            component: () => import('@/components/app/vehicle_documents/Index.vue')
+          },
+
+          {
+            path: 'drivers',
+            name: 'vehicle-drivers.index',
+            component: () => import('@/components/app/vehicles/show/Drivers.vue')
+          }
+        ]
+      },
+
+      {
+        path: 'driver',
+        name: 'driver-profile',
+        component: () => import('@/components/app/driver/Index.vue'),
+        children: [
+          {
+            path: 'home',
+            name: 'driver-home',
+            component: () => import('@/components/app/driver/Home.vue')
+          },
+        ]
+      },
+
+      {
+        path: 'profile',
+        name: 'doe-profile',
+        component: () => import('@/components/app/profile/Index.vue'),
+        children: [
+          {
+            path: 'personal',
+            name: 'doe-personal',
+            component: () => import('@/components/app/profile/Personal.vue')
+          },
+
+          {
+            path: 'security',
+            name: 'doe-security',
+            component: () => import('@/components/app/profile/Security.vue')
+          },
+        ]
       },
     ],
   },

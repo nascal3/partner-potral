@@ -21,3 +21,8 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+#cypres test recording files
+/coverage
+/tests/e2e/screenshots
+/tests/e2e/videos

@@ -1,0 +1,87 @@
+{
+  "user": {
+    "id": 474,
+    "name": "Caleb Nasio",
+    "email": "caleb@sendyit.com",
+    "phone": "+25472720663",
+    "registered_at": "2022-02-08 10:50:33"
+  },
+  "token": "MjUxOQ.Fj6MYrmmQ_tFjhITsBJP8lyi7Ci8Vvtu7fBwKy_STdWZ6eRmzQDUDuXeuUt1",
+  "partners": [
+    {
+      "id": 19,
+      "business_name": "Caleb Nasio",
+      "legal_entity_type": "individual",
+      "country_id": 1,
+      "created_at": "08 February 2022",
+      "updated_at": "2022-02-08T10:50:33.000+00:00"
+    }
+  ],
+  "partner": {
+    "id": 19,
+    "business_name": "Caleb Nasio",
+    "legal_entity_type": "individual",
+    "country_id": 1,
+    "created_at": "08 February 2022",
+    "updated_at": "2022-02-08T10:50:33.000+00:00"
+  },
+  "abilities": [
+    "partner::abilities",
+    "partner::profile",
+    "partner::users.index",
+    "partner::users.store",
+    "partner::users.show",
+    "partner::users.update",
+    "partner::users.destroy",
+    "partner::roles.index",
+    "partner::roles.store",
+    "partner::roles.show",
+    "partner::roles.update",
+    "partner::roles.destroy",
+    "partner::vehicles.index",
+    "partner::vehicles.store",
+    "partner::vehicles.show",
+    "partner::vehicles.update",
+    "partner::vehicles.destroy"
+  ],
+  "country": {
+    "id": 1,
+    "name": "Kenya",
+    "code": "KE",
+    "currency": "KES",
+    "language_id": 1,
+    "dial_code": "+254",
+    "trim": 1,
+    "value": null,
+    "is_active": true,
+    "language": {
+      "id": 1,
+      "name": "English",
+      "code": "en"
+    },
+    "documents": [
+      {
+        "id": 1,
+        "label": "License",
+        "hint": "License ",
+        "placeholder": "A112233",
+        "regex": "^[a-zA-Z0-9]*$",
+        "resource": "vehicle",
+        "country_id": 1,
+        "is_expirable": false,
+        "is_active": true
+      },
+      {
+        "id": 2,
+        "label": "Insurance",
+        "hint": "Insurance ",
+        "placeholder": "B112233",
+        "regex": "^[a-zA-Z0-9]*$",
+        "resource": "vehicle",
+        "country_id": 1,
+        "is_expirable": false,
+        "is_active": true
+      }
+    ]
+  }
+}

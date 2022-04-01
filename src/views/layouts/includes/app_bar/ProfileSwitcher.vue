@@ -1,5 +1,5 @@
 <template>
-  <v-menu 
+  <v-menu
     offset-y
     min-width="220"
   >
@@ -22,14 +22,25 @@
         color="primary"
         class="white--text"
       >
-        {{ user.name.charAt(0) }}
+        {{ user.name ? user.name.charAt(0) : 'Co' }}
       </v-avatar>
     </template>
-    <v-list>
-      <v-list-item :to="`/profile/security`">
-        <v-icon small>mdi-account</v-icon>
-        <span class="ml-2 body-2">Account settings</span>
+    <v-list class="pt-0">
+      <v-list-item
+        v-for="(link, index) in links"
+        :key="`app-bar-link-${index}`"
+        :to="link.to"
+      >
+        <v-list-item-content class="body-2">
+          {{ link.title }}
+        </v-list-item-content>
       </v-list-item>
+
+      <!-- <v-list-item>
+        <v-list-item-content class="body-2">
+          Account Information
+        </v-list-item-content>
+      </v-list-item> -->
 
       <v-divider></v-divider>
 
@@ -37,13 +48,12 @@
         <v-list-item-content>
           <v-btn
             dark
-            block 
-            outlined
+            block
             color="#e74c3c"
             class="caption font-weight-bold"
             @click="logout()"
           >
-            Logout
+            {{ $t('navigation.logout') }}
           </v-btn>
         </v-list-item-content>
       </v-list-item>
@@ -52,7 +62,19 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents";
+
 export default {
+  mixins: [segmentMixin],
+
+  data () {
+    return {
+      links: [
+        { title: this.$t('navigation.driver_profile'), icon: 'driver', to: 'driver/home' }
+      ]
+    }
+  },
+
   computed: {
     user () {
       return auth.retrieve('user')
@@ -61,6 +83,7 @@ export default {
 
   methods: {
     logout () {
+      this.setSegmentEvent(`Select logout`)
       auth.logout()
       this.$router.push({
         name: "generate"
