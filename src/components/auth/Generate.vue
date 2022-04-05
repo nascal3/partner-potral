@@ -113,10 +113,12 @@ export default {
         this.authObj.generate().then(() => {
           this.$router.push({ name: 'verify' })
         }).catch((error) => {
-          flash({
-            message: error.data.message,
-            color: '#e74c3c',
-          })
+          if (![422].includes(error.status)) {
+            flash({
+              message: error.data.message,
+              color: '#e74c3c',
+            })
+          }
         }).finally(() => {
           this.loading = false
         })

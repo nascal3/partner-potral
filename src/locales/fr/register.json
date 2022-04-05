@@ -3,7 +3,7 @@
   "business_model": "FR_Business model *",
   "business_name": "FR_Business name *",
   "country_of_operation": "FR_Country of operation *",
-  "email_address": "FR_Email address *",
+  "email_address": "FR_Email address",
   "phone_number": "FR_Phone number *",
   "register_account": "FR_Register Account",
   "sign_in": "FR_Sign in",

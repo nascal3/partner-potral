@@ -28,7 +28,6 @@
           v-if="!processing"
           fixed-header
           disable-sort
-          class="title"
           hide-default-footer
           disable-pagination
           :headers="headers"

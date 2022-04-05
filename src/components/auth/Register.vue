@@ -1,5 +1,8 @@
 <template>
-  <v-card flat>
+  <v-card
+    v-if="initialised"
+    flat
+  >
     <v-card-text class="px-0">
       <div>
         <p class="mb-n4 mt-5 body-1">
@@ -77,11 +80,15 @@
           {{ $t('register.phone_number') }}
         </p>
         <vue-tel-input
-            v-model="authObj.administrator.phone"
-            @input="errors.clear('administrator.phone')"
+          v-model="authObj.administrator.phone"
+          defaultCountry="ke"
+          :onlyCountries="onlyCountries"
+          @input="errors.clear('administrator.phone')"
         ></vue-tel-input>
-        <span class="error-message" v-if="errors.has('administrator.phone')">
-          {{errors.get('administrator.phone')}}
+        <span 
+          v-if="errors.has('administrator.phone')"
+          class="error-message" >
+          {{ errors.get('administrator.phone') }}
         </span>
       </div>
 
@@ -101,7 +108,6 @@
           @input="errors.clear('administrator.email')"
         ></v-text-field>
       </div>
-
 
     </v-card-text>
 
@@ -144,7 +150,13 @@ export default {
     return {
       country: null,
       loading: false,
-      authObj: new Auth()
+      authObj: new Auth(),
+      vueTelOptions: {
+        inputOptions: {
+          placeholder: 'Phone number *',
+        },
+        styleClasses: 'phoneInput',
+      }
     }
   },
 
@@ -162,6 +174,14 @@ export default {
     errors () {
       return this.authObj.form.errors
     },
+
+    onlyCountries () {
+      return this.countries.data.map(({ code }) => code)
+    },
+
+    initialised () {
+      return this.countries.data
+    }
   },
 
    methods: {

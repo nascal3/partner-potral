@@ -33,15 +33,7 @@ Sentry.init({
   logErrors: true
 });
 
-const options = {
-  defaultCountry: 'ke',
-  onlyCountries: ['KE', 'CI', 'NG', 'UG'],
-  inputOptions: {
-    placeholder: 'Phone number *',
-  },
-  styleClasses: 'phoneInput',
-}
-Vue.use(VueTelInput, options);
+Vue.use(VueTelInput);
 
 new Vue({
   router,
