@@ -55,6 +55,19 @@ phrase:
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: driver
 
+    - file: ./src/locales/en/finance.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: finance
+    - file: ./src/locales/fr/finance.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: finance
+
     - file: ./src/locales/en/generate.json
       params:
         file_format: simple_json
@@ -209,6 +222,12 @@ phrase:
         file_format: simple_json
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: driver
+
+    - file: ./src/locales/fr/finance.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: finance
 
     - file: ./src/locales/fr/generate.json
       params:
