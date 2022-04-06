@@ -72,10 +72,16 @@ const routes = [
       }
     },
     children: [
+      // {
+      //   path: '/',
+      //   name: 'dashboard',
+      //   component: () => import('@/components/app/dashboard/Index.vue'),
+      // },
+
       {
         path: '/',
-        name: 'dashboard',
-        component: () => import('@/components/app/dashboard/Index.vue'),
+        name: 'orders.index',
+        component: () => import('@/components/app/orders/Index.vue'),
       },
 
       {
