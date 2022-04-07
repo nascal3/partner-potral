@@ -123,6 +123,15 @@ export default {
         'APPLICATION': [
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
+          {
+              name: this.$t('finance.finances'),
+              icon: 'bank',
+              children: [
+                { name: this.$t('finance.statement'), icon: '', to: '/finances/statement' },
+                { name: this.$t('finance.bank_accounts'), icon: '', to: '/finances/bank' },
+                { name: this.$t('finance.loans_savings'), icon: '', to: '/finances/loans_savings' },
+              ]
+            },
         ],
 
         'ACCESS CONTROL': [

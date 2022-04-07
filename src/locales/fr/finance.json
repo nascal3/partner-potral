@@ -12,5 +12,8 @@
   "txn_driver": "FR_Driver Name",
   "txn_no_statement_found": "FR_No statement found",
   "txn_no_results_found": "FR_No results found",
-  "txn_payment_type": "FR_Payment type"
+  "txn_payment_type": "FR_Payment type",
+  "txn_type_all": "FR_All",
+  "txn_type_cash_orders": "FR_Cash orders",
+  "txn_type_non_cash": "FR_Non-Cash orders"
 }

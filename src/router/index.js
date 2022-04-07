@@ -177,6 +177,24 @@ const routes = [
           },
         ]
       },
+
+      {
+        path: 'finances/statement',
+        name: 'statement.index',
+        component: () => import('@/components/app/finances/statement/index.vue')
+      },
+
+      {
+        path: 'finances/bank',
+        name: 'bank.index',
+        component: () => import('@/components/app/finances/bank/index.vue')
+      },
+
+      {
+        path: 'finances/loans_savings',
+        name: 'loans_savings.index',
+        component: () => import('@/components/app/finances/loans_savings/index.vue')
+      }
     ],
   },
 ]

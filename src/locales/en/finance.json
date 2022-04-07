@@ -1,6 +1,6 @@
 {
   "finances": "Finances",
-  "statements": "Statements",
+  "statement": "Statement",
   "bank_accounts": "Bank Accounts",
   "loans_savings": "Loans & Savings",
   "statement_title": "Statement",
@@ -12,5 +12,8 @@
   "txn_driver": "Driver Name",
   "txn_no_statement_found": "No statement found",
   "txn_no_results_found": "No results found",
-  "txn_payment_type": "Payment type"
+  "txn_payment_type": "Payment type",
+  "txn_type_all": "All",
+  "txn_type_cash_orders": "Cash orders",
+  "txn_type_non_cash": "Non-Cash orders"
 }
