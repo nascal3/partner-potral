@@ -326,8 +326,3 @@ export default {
   }
 }
 </style>
-<style lang="scss" scoped>
-.search-tenant-table {
-  width: 240px;
-}
-</style>
