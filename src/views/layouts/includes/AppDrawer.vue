@@ -128,6 +128,7 @@ export default {
               icon: 'bank',
               children: [
                 { name: this.$t('finance.statement'), icon: '', to: '/finances/statement' },
+                { name: this.$t('finance.withdrawals'), icon: '', to: '/finances/withdrawals' },
                 { name: this.$t('finance.bank_accounts'), icon: '', to: '/finances/bank' },
                 { name: this.$t('finance.loans_savings'), icon: '', to: '/finances/loans_savings' },
               ]

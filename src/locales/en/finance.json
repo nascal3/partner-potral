@@ -1,6 +1,9 @@
 {
   "finances": "Finances",
   "statement": "Statement",
+  "withdrawals": "Withdrawals",
+  "withdrawals_title": "Withdrawals",
+  "withdrawal_state": "Withdrawal state",
   "bank_accounts": "Bank Accounts",
   "loans_savings": "Loans & Savings",
   "statement_title": "Statement",
@@ -15,5 +18,10 @@
   "txn_payment_type": "Payment type",
   "txn_type_all": "All",
   "txn_type_cash_orders": "Cash orders",
-  "txn_type_non_cash": "Non-Cash orders"
+  "txn_type_non_cash": "Non-Cash orders",
+  "in_progress": "In progress",
+  "failed": "Failed",
+  "completed": "Completed",
+  "withdrawal_record_found": "No records found",
+  "withdrawal_results_found": "No results found"
 }

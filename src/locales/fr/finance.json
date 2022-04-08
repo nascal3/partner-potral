@@ -1,6 +1,9 @@
 {
   "finances": "FR_Finances",
   "statements": "FR_Statements",
+  "withdrawals": "FR_Withdrawals",
+  "withdrawals_title": "FR_Withdrawals",
+  "withdrawal_state": "FR_Withdrawal state",
   "bank_accounts": "FR_Bank Accounts",
   "loans_savings": "FR_Loans & Savings",
   "statement_title": "FR_Statement",
@@ -15,5 +18,10 @@
   "txn_payment_type": "FR_Payment type",
   "txn_type_all": "FR_All",
   "txn_type_cash_orders": "FR_Cash orders",
-  "txn_type_non_cash": "FR_Non-Cash orders"
+  "txn_type_non_cash": "FR_Non-Cash orders",
+  "in_progress": "FR_In progress",
+  "failed": "FR_Failed",
+  "completed": "FR_Completed",
+  "withdrawal_record_found": "FR_No records found",
+  "withdrawal_results_found": "FR_No results found"
 }

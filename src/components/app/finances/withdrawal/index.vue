@@ -4,10 +4,18 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('finance.statement_title') }}
+            {{ $t('finance.withdrawals_title') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
+
+        <v-btn
+            color="primary"
+            class="caption ttn"
+            @click="setSegmentEvent('Withdraw funds')"
+        >
+          {{ $t('finance.withdraw') }}: KES 1,500
+        </v-btn>
 
       </v-card-title>
 
@@ -80,11 +88,11 @@
             </v-col>
             <v-col cols="12" md="4">
               <v-select
-                  v-model="selectedPaymentType"
-                  :items="paymentTypes"
-                  :label="$t('finance.txn_payment_type')"
-                  item-text="paymentLabel"
-                  item-value="paymentValue"
+                  v-model="selectedWithdrawalState"
+                  :items="withdrawalState"
+                  :label="$t('finance.withdrawal_state')"
+                  item-text="withdrawalLabel"
+                  item-value="withdrawalValue"
                   dense
                   outlined
                   @change="loadStatement"
@@ -104,17 +112,17 @@
             class="title"
             hide-default-footer
             disable-pagination
-            :no-data-text="$t('finance.txn_no_statement_found')"
-            :no-results-text="$t('finance.txn_no_results_found')"
+            :no-data-text="$t('finance.withdrawal_record_found')"
+            :no-results-text="$t('finance.withdrawal_results_found')"
             :headers="headers"
-            :items="statement"
+            :items="withdrawals"
             item-key="txn_no"
             :loading-text="$t('core.system_loading')"
         >
         </v-data-table>
 
         <app-pagination
-            v-if="statement.length"
+            v-if="withdrawals.length"
             id="statement-pagination"
             :meta="meta"
             @pageChanged="pageChanged"
@@ -137,14 +145,14 @@ export default {
       orderObj: new Order(),
       orderDetailsObj: new OrderDetails(),
       usersObj: new User(),
-      statement: [],
+      withdrawals: [],
       orderDetails: {},
       orderDetailsError: {},
-      selectedPaymentType: {paymentLabel: this.$t('finance.txn_type_all'), paymentValue: 'all'},
-      paymentTypes: [
-        {paymentLabel: this.$t('finance.txn_type_all'), paymentValue: 'all'},
-        {paymentLabel: this.$t('finance.txn_type_cash_orders'), paymentValue: 'cash'},
-        {paymentLabel: this.$t('finance.txn_type_non_cash'), paymentValue: 'non_Cash'}
+      selectedWithdrawalState: {withdrawalLabel: this.$t('finance.in_progress'), withdrawalValue: 'in_progress'},
+      withdrawalState: [
+        {withdrawalLabel: this.$t('finance.in_progress'), withdrawalValue: 'in_progress'},
+        {withdrawalLabel: this.$t('finance.failed'), withdrawalValue: 'failed'},
+        {withdrawalLabel: this.$t('finance.completed'), withdrawalValue: 'completed'}
       ],
       menu: false,
       menu2: false,

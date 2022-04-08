@@ -80,7 +80,7 @@ const routes = [
 
       {
         path: '/',
-        name: 'orders.index',
+        name: 'orders',
         component: () => import('@/components/app/orders/Index.vue'),
       },
 
@@ -182,6 +182,12 @@ const routes = [
         path: 'finances/statement',
         name: 'statement.index',
         component: () => import('@/components/app/finances/statement/index.vue')
+      },
+
+      {
+        path: 'finances/withdrawals',
+        name: 'withdrawal.index',
+        component: () => import('@/components/app/finances/withdrawal/index.vue')
       },
 
       {
