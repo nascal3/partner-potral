@@ -123,6 +123,7 @@ export default {
         'APPLICATION': [
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
+          { name: this.$t('navigation.submitted_documents'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
         ],
 
         'ACCESS CONTROL': [
