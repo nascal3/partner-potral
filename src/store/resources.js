@@ -11,6 +11,7 @@ export const resources = [
   { name: 'vehicles', url: `partners/:partner/vehicles` },
   { name: 'vehicleDocuments', url: `partners/:partner/vehicle-documents` },
   { name: 'transporters', url: `partners/:partner/transporters` },
+  { name: 'banks', url: `banks` }
 ];
 
 export const helpers = {

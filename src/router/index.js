@@ -181,25 +181,25 @@ const routes = [
       {
         path: 'finances/statement',
         name: 'statement.index',
-        component: () => import('@/components/app/finances/statement/index.vue')
+        component: () => import('@/components/app/finances/statement/Index.vue')
       },
 
       {
         path: 'finances/withdrawals',
         name: 'withdrawal.index',
-        component: () => import('@/components/app/finances/withdrawal/index.vue')
+        component: () => import('@/components/app/finances/withdrawal/Index.vue')
       },
 
       {
         path: 'finances/bank',
         name: 'bank.index',
-        component: () => import('@/components/app/finances/bank/index.vue')
+        component: () => import('@/components/app/finances/bank/Index.vue')
       },
 
       {
         path: 'finances/loans_savings',
         name: 'loans_savings.index',
-        component: () => import('@/components/app/finances/loans_savings/index.vue')
+        component: () => import('@/components/app/finances/loans_savings/Index.vue')
       }
     ],
   },
