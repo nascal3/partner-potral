@@ -1,0 +1,16 @@
+{
+  "finances": "FR_Finances",
+  "statements": "FR_Statements",
+  "bank_accounts": "FR_Bank Accounts",
+  "loans_savings": "FR_Loans & Savings",
+  "statement_title": "FR_Statement",
+  "withdraw": "FR_Withdraw",
+  "txn": "Txn No",
+  "txn_date": "FR_Date",
+  "txn_amount": "FR_Amount",
+  "txn_balance": "FR_Balance",
+  "txn_driver": "FR_Driver Name",
+  "txn_no_statement_found": "FR_No statement found",
+  "txn_no_results_found": "FR_No results found",
+  "txn_payment_type": "FR_Payment type"
+}

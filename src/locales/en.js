@@ -2,6 +2,7 @@ import auth from './en/auth.json'
 import core from './en/core.json'
 import documents from './en/documents.json'
 import driver from './en/driver.json'
+import finance from './en/finance.json'
 import generate from './en/generate.json'
 import map from './en/map.json'
 import navigation from './en/navigation.json'
@@ -19,6 +20,7 @@ const translation = {
     core,
     documents,
     driver,
+    finance,
     generate,
     map,
     navigation,
