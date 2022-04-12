@@ -67,7 +67,12 @@ export default {
             ...auth.decrypt(),
           })
           this.loading = null
-          this.$router.push({ name: 'orders.index' })
+          this.$router.push({ name: 'orders' })
+        }).catch((error) => {
+          flash({
+            message: error.response.data.message,
+            color: '#e74c3c',
+          })
         })
       }
     }
