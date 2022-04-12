@@ -80,7 +80,7 @@ const routes = [
 
       {
         path: '/',
-        name: 'orders.index',
+        name: 'orders',
         component: () => import('@/components/app/orders/Index.vue'),
       },
 
