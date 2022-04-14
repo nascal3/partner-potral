@@ -2,5 +2,7 @@
   "system_loading": "Le système est en cours de chargement ! S'il vous plaît, attendez.",
   "to_dashboard": "Aller au tableau de bord ",
   "to_date": "FR_To date",
-  "from_date": "FR_From date"
+  "from_date": "FR_From date",
+  "cancel": "FR_Cancel",
+  "ok": "FR_Ok"
 }

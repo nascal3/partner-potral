@@ -12,5 +12,7 @@
   "status_approved": "Approved",
   "document_status": "Document status",
   "no_documents_found": "No document found",
-  "no_results_found": "No results found"
+  "no_results_found": "No results found",
+  "submission_date": "Submission date",
+  "document_name": "Document name"
 }

@@ -12,5 +12,7 @@
   "status_approved": "FR_Approved",
   "document_status": "FR_Document status",
   "no_documents_found": "FR_No document found",
-  "no_results_found": "FR_No results found"
+  "no_results_found": "FR_No results found",
+  "submission_date": "FR_Submission date",
+  "document_name": "FR_Document name"
 }
