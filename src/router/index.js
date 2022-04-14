@@ -177,6 +177,12 @@ const routes = [
           },
         ]
       },
+
+      {
+        path: 'documents',
+        name: 'documents.index',
+        component: () => import('@/components/app/documents/Index.vue'),
+      },
     ],
   },
 ]

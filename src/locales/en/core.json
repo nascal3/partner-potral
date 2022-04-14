@@ -1,4 +1,6 @@
 {
   "system_loading": "System is loading! Please wait.",
-  "to_dashboard": "Go to dashboard"
+  "to_dashboard": "Go to dashboard",
+  "to_date": "To date",
+  "from_date": "From date"
 }

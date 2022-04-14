@@ -4,18 +4,10 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('finance.statement_title') }}
+            {{ $t('documents.documents_title') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
-
-        <v-btn
-            color="primary"
-            class="caption ttn"
-            @click="setSegmentEvent('Withdraw funds')"
-        >
-          {{ $t('finance.withdraw') }} KES 1,500
-        </v-btn>
 
       </v-card-title>
 
@@ -38,14 +30,14 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                       v-model="dateFrom"
-                      :label="$t('orders.from_date')"
+                      :label="$t('core.from_date')"
                       prepend-inner-icon="event"
                       outlined
                       dense
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      @blur="loadOrders"
+                      @blur="loadStatement"
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="dateFrom" :locale="locale" :show-current="dateTo" :max="maximumDate">
@@ -69,14 +61,14 @@
                 <template v-slot:activator="{ on, attrs }">
                   <v-text-field
                       v-model="dateTo"
-                      :label="$t('orders.to_date')"
+                      :label="$t('core.to_date')"
                       prepend-inner-icon="event"
                       outlined
                       dense
                       readonly
                       v-bind="attrs"
                       v-on="on"
-                      @blur="loadOrders"
+                      @blur="loadStatement"
                   ></v-text-field>
                 </template>
                 <v-date-picker v-model="dateTo" :locale="locale" :show-current="dateFrom" :min="minimumDate">
@@ -88,13 +80,14 @@
             </v-col>
             <v-col cols="12" md="4">
               <v-select
-                  v-model="selectedPaymentType"
-                  :items="paymentTypes"
-                  :label="$t('finance.txn_payment_type')"
+                  v-model="selectedDocumentStatus"
+                  :items="documentStatus"
+                  :label="$t('documents.document_status')"
                   item-text="paymentLabel"
                   item-value="paymentValue"
                   dense
                   outlined
+                  @change="loadStatement"
               ></v-select>
             </v-col>
           </v-row>
@@ -111,22 +104,13 @@
             class="title"
             hide-default-footer
             disable-pagination
-            :no-data-text="$t('finance.txn_no_statement_found')"
-            :no-results-text="$t('finance.txn_no_results_found')"
+            :no-data-text="$t('documents.no_documents_found')"
+            :no-results-text="$t('documents.no_results_found')"
             :headers="headers"
             :items="statement"
-            item-key="order_no"
+            item-key="txn_no"
             :loading-text="$t('core.system_loading')"
         >
-          <template v-slot:item.destinations="{ item }">
-            {{ getLastStop(item.destinations) }}
-          </template>
-          <template v-slot:item.updated_at="{ item }">
-            {{ formatDate(item.updated_at) }}
-          </template>
-          <template v-slot:item.cost="{ item }">
-            {{ item.currency }} {{ item.cost }}
-          </template>
         </v-data-table>
 
         <app-pagination
@@ -156,11 +140,11 @@ export default {
       statement: [],
       orderDetails: {},
       orderDetailsError: {},
-      selectedPaymentType: {paymentLabel: 'All', paymentValue: 'all'},
-      paymentTypes: [
-        {paymentLabel: 'All', paymentValue: 'all'},
-        {paymentLabel: 'Cash orders', paymentValue: 'cash'},
-        {paymentLabel: 'Non-Cash orders', paymentValue: 'non_Cash'}
+      selectedDocumentStatus: {paymentLabel: this.$t('documents.status_all'), paymentValue: 'all'},
+      documentStatus: [
+        {paymentLabel: this.$t('documents.status_all'), paymentValue: 'all'},
+        {paymentLabel: this.$t('documents.status_pending'), paymentValue: 'pending'},
+        {paymentLabel: this.$t('documents.status_approved'), paymentValue: 'approved'}
       ],
       menu: false,
       menu2: false,
@@ -225,49 +209,14 @@ export default {
       })
     },
 
-    getLastStop(destinations) {
-      if (!destinations.length) return
-      return destinations[destinations.length - 1]
-    },
-
     formatDate(date) {
       if (!date) return
       return format(new Date(date), 'iii, do LLL')
     },
 
-    setChipColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return '#FDDB97'
-      }
-      if (orderStatus === 'confirmed') {
-        return '#CCEFFF'
-      }
-      if (orderStatus === 'delivered') {
-        return '#DEFAD2'
-      }
-      if (orderStatus === 'in transit') {
-        return '#FDDB97'
-      }
-    },
-
-    setChipTextColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return  '#9B101C'
-      }
-      if (orderStatus === 'confirmed') {
-        return '#006492'
-      }
-      if (orderStatus === 'delivered') {
-        return '#116F28'
-      }
-      if (orderStatus === 'in transit') {
-        return '#9D5004'
-      }
-    },
-
     pageChanged (page) {
       this.page = page
-      this.loadOrders()
+      this.loadStatement()
     },
 
     formatOrders(ordersData) {
@@ -282,7 +231,7 @@ export default {
       });
     },
 
-    loadOrders () {
+    loadStatement () {
       this.loading = true
       this.getDriverIds().then(driverIds => {
         this.orderObj.show(this.dateFrom, this.dateTo, this.page, driverIds).then(({ data }) => {
@@ -309,7 +258,7 @@ export default {
   },
 
   mounted () {
-    this.loadOrders()
+    this.loadStatement()
   }
 
 }
@@ -375,10 +324,5 @@ export default {
       box-shadow: none;
     }
   }
-}
-</style>
-<style lang="scss" scoped>
-.search-tenant-table {
-  width: 240px;
 }
 </style>

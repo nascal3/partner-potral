@@ -5,5 +5,12 @@
   "renewal_date": "Renewal date:",
   "save": "Save",
   "subtitle": "Record vehicle details",
-  "title": "For secure authentication, please enter the verification code we have sent to your"
+  "title": "For secure authentication, please enter the verification code we have sent to your",
+  "documents_title": "Submitted documents",
+  "status_all": "All status",
+  "status_pending": "Pending approval",
+  "status_approved": "Approved",
+  "document_status": "Document status",
+  "no_documents_found": "No document found",
+  "no_results_found": "No results found"
 }

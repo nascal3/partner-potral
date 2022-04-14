@@ -5,5 +5,12 @@
   "renewal_date": "Date de renouvellement:",
   "save": "Enregistrer ",
   "subtitle": "Enregistrer les détails du véhicule",
-  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre "
+  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre ",
+  "documents_title": "FR_Submitted documents",
+  "status_all": "FR_All status",
+  "status_pending": "FR_Pending approval",
+  "status_approved": "FR_Approved",
+  "document_status": "FR_Document status",
+  "no_documents_found": "FR_No document found",
+  "no_results_found": "FR_No results found"
 }
