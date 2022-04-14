@@ -66,7 +66,7 @@
 
 <script>
 import { format } from 'date-fns'
-import Document from '@/libs/app/orders/Order'
+import Document from '@/libs/app/documents/Document'
 
 export default {
   components: {
@@ -113,6 +113,7 @@ export default {
     setDateRange({dateFrom, dateTo}) {
       this.dateFrom = dateFrom
       this.dateTo = dateTo
+      this.loadDocuments()
     },
 
     pageChanged (page) {
@@ -135,12 +136,7 @@ export default {
         throw error
       })
     },
-  },
-
-  mounted () {
-    this.loadDocuments()
   }
-
 }
 </script>
 

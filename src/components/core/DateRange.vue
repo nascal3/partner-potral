@@ -21,7 +21,6 @@
               readonly
               v-bind="attrs"
               v-on="on"
-              @blur="loadDates"
           ></v-text-field>
         </template>
         <v-date-picker v-model="dateFrom" :locale="locale" :show-current="dateTo" :max="maximumDate">
@@ -52,7 +51,6 @@
               readonly
               v-bind="attrs"
               v-on="on"
-              @blur="loadDates"
           ></v-text-field>
         </template>
         <v-date-picker v-model="dateTo" :locale="locale" :show-current="dateFrom" :min="minimumDate">
@@ -83,10 +81,12 @@ export default {
   watch: {
     dateFrom (newDate) {
       this.minimumDate = newDate
+      this.loadDates()
     },
 
     dateTo (newDate) {
       this.maximumDate = newDate
+      this.loadDates()
     }
   },
 

@@ -152,7 +152,7 @@
 
 <script>
 import { format } from 'date-fns'
-import Order from '@/libs/app/orders/Order'
+import Document from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
 
