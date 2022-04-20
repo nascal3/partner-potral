@@ -98,10 +98,6 @@ export default {
       }
       this.$emit('getDateRange', dates)
     }
-  },
-
-  mounted () {
-    this.loadDates()
   }
 }
 </script>

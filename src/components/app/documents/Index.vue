@@ -28,7 +28,6 @@
                   item-value="paymentValue"
                   dense
                   outlined
-                  @change="loadDocuments"
               ></v-select>
             </v-col>
           </v-row>
@@ -37,40 +36,32 @@
 
       <v-spacer></v-spacer>
 
-      <v-card-text class="px-0">
-        <v-data-table
-            id="documents-table"
-            fixed-header
-            disable-sort
-            class="title"
-            hide-default-footer
-            disable-pagination
-            :no-data-text="$t('documents.no_documents_found')"
-            :no-results-text="$t('documents.no_results_found')"
-            :headers="headers"
-            :items="documents"
-            item-key="txn_no"
-            :loading-text="$t('core.system_loading')"
-        >
-        </v-data-table>
-
-        <app-pagination
-            v-if="documents.length"
-            :meta="meta"
-            @pageChanged="pageChanged"
-        />
-      </v-card-text>
+      <v-tabs id="documents-tabs" left>
+        <v-tab>{{ $t('documents.tab_non_expiry') }}</v-tab>
+        <v-tab>{{ $t('documents.tab_expiry') }}</v-tab>
+        <!--       Non-expiry documents tab -->
+        <v-tab-item>
+          <non-expiry-documents />
+        </v-tab-item>
+        <!--     Expiry documents tab-->
+        <v-tab-item>
+          <expiry-documents
+              :date-from="dateFrom"
+              :date-to="dateTo"
+              :selected-document-status="selectedDocumentStatus"
+          />
+        </v-tab-item>
+      </v-tabs>
     </v-card>
   </div>
 </template>
 
 <script>
-import { format } from 'date-fns'
-import Document from '@/libs/app/documents/Document'
-
 export default {
   components: {
     'date-range': () => import('@/components/core/DateRange.vue'),
+    'expiry-documents': () => import('./partials/ExpirtyDocuments.vue'),
+    'non-expiry-documents': () => import('./partials/NonExpirtyDocuments.vue'),
   },
 
   data () {
@@ -78,7 +69,9 @@ export default {
       loading: true,
       documentObj: new Document(),
       documents: [],
-      selectedDocumentStatus: {paymentLabel: this.$t('documents.status_all'), paymentValue: 'all'},
+      selectedDocumentStatus: 'all',
+      dateFrom: new Date().toISOString().substr(0, 10),
+      dateTo: new Date().toISOString().substr(0, 10),
       documentStatus: [
         {paymentLabel: this.$t('documents.status_all'), paymentValue: 'all'},
         {paymentLabel: this.$t('documents.status_pending'), paymentValue: 'pending'},
@@ -105,82 +98,28 @@ export default {
   },
 
   methods: {
-    formatDate(date) {
-      if (!date) return
-      return format(new Date(date), 'iii, do LLL')
-    },
-
     setDateRange({dateFrom, dateTo}) {
       this.dateFrom = dateFrom
       this.dateTo = dateTo
-      this.loadDocuments()
-    },
-
-    pageChanged (page) {
-      this.page = page
-      this.loadDocuments()
-    },
-
-    loadDocuments () {
-      this.loading = true
-      this.documentObj.show(this.dateFrom, this.dateTo, this.page, this.selectedDocumentStatus.paymentValue).then(({ data }) => {
-        this.documents = data
-        this.meta.total = this.documents.length
-        this.loading = false
-      }).catch(error => {
-        this.loading = false
-        flash({
-          message: error.data.message,
-          color: '#e74c3c',
-        })
-        throw error
-      })
-    },
+    }
   }
 }
 </script>
 
 <style lang="scss">
-#documents-table {
-  .v-data-table__wrapper {
-    max-height: 90vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    table {
-      color: #909399;
-      thead {
-        tr {
-          th:first-letter {
-            text-transform: uppercase;
-          }
-        }
-      }
-      tbody {
-        tr.v-data-table__expanded__content {
-          background-color: #FFFFFF !important;
-          box-shadow: none;
-        }
-        tr:nth-of-type(odd) {
-          background-color: #F7F9FC;
-        }
-        tr {
-          td.text-start:first-child {
-            color: #606266;
-            font-weight: 700;
-          }
-        }
-      }
-    }
-  }
-  .v-chip {
-    .v-chip__content {
-      padding-top: 2px;
-      display: inline-block !important;
-      &:first-letter {
-        text-transform: uppercase;
-      }
-    }
+#documents-tabs {
+  .v-item-group {
+    margin-bottom: 30px;
   }
 }
 </style>
+<style lang="scss" scoped>
+.v-tab {
+  text-transform: none !important;
+  font-weight: 700;
+  &--active {
+    border-radius: 6px;
+  }
+}
+</style>
+

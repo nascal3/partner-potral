@@ -14,5 +14,7 @@
   "no_documents_found": "No documents found",
   "no_results_found": "No results found",
   "submission_date": "Submission date",
-  "document_name": "Document name"
+  "document_name": "Document name",
+  "tab_non_expiry": "Non expiry documents",
+  "tab_expiry": "Expiry documents"
 }
