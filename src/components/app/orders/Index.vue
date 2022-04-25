@@ -57,6 +57,7 @@
           :expanded.sync="expanded"
           show-expand
           @item-expanded="getOrderDetails"
+          :loading="loading"
           :loading-text="$t('core.system_loading')"
         >
           <template v-slot:item.destinations="{ item }">
@@ -162,6 +163,7 @@ export default {
     setDateRange({dateFrom, dateTo}) {
       this.dateFrom = dateFrom
       this.dateTo = dateTo
+      this.loadOrders()
     },
 
     getOrderDetails ({item, value}) {
