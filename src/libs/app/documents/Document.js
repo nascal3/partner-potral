@@ -9,11 +9,11 @@ export default class Document extends Base {
     this.group = auth.retrieve('partner')
   }
 
-  show (dateFrom, dateTo, page, status) {
+  show (country, resource, status, page) {
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit("get", url(
-            `partners/${this.group.id}/documents?from=${dateFrom}&to=${dateTo}&status=${status}&page=${page}`
+            `partners/${this.group.id}/documents?country=${country}&resource=${resource}&status=${status}&page=${page}`
         ))
         resolve(response)
       } catch (err) {

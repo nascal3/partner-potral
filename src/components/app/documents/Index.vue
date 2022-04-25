@@ -59,9 +59,9 @@
       <v-spacer></v-spacer>
 
       <legal-documents
-          :date-from="dateFrom"
-          :date-to="dateTo"
-          :selected-document-status="selectedDocumentStatus"
+          :country-code="country"
+          :resource="resource"
+          :expiration-status="selectedExpirationStatus"
       />
     </v-card>
   </div>

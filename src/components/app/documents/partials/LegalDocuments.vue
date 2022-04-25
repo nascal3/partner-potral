@@ -30,17 +30,17 @@ import Document from '@/libs/app/documents/Document'
 
 export default {
   props: {
-    dateTo: {
+    countryCode: {
       type: String,
-      default: new Date().toISOString().substr(0, 10)
+      default: null
     },
-    dateFrom: {
+    resource: {
       type: String,
-      default: new Date().toISOString().substr(0, 10)
+      default: null
     },
-    selectedDocumentStatus: {
-      type: String,
-      default: 'all'
+    expirationStatus: {
+      type: Boolean,
+      default: null
     }
   },
 
@@ -51,9 +51,12 @@ export default {
       documents: [],
       page: 1,
       headers: [
+        { text: this.$t('documents.document_active_status'), value: 'destinations' },
         { text: this.$t('documents.document_name'), value: 'order_no' },
-        { text: this.$t('documents.submission_date'), value: 'pickup_location' },
-        { text: this.$t('documents.document_status'), value: 'destinations' }
+        { text: this.$t('documents.document_country'), value: 'pickup_location' },
+        { text: this.$t('documents.document_resource'), value: 'pickup_location' },
+        { text: this.$t('documents.document_expires'), value: 'destinations' },
+        { text: this.$t('documents.document_action'), value: '' }
       ],
       meta: {
         current_page: 1,
@@ -70,32 +73,20 @@ export default {
   },
 
   watch: {
-    dateTo() {
+    countryCode() {
       this.loadDocuments()
     },
 
-    dateFrom() {
+    resource() {
       this.loadDocuments()
     },
 
-    selectedDocumentStatus(value) {
-      console.log('>>>', value)
+    expirationStatus() {
       this.loadDocuments()
     }
   },
 
   methods: {
-    formatDate(date) {
-      if (!date) return
-      return format(new Date(date), 'iii, do LLL')
-    },
-
-    setDateRange({dateFrom, dateTo}) {
-      this.dateFrom = dateFrom
-      this.dateTo = dateTo
-      this.loadDocuments()
-    },
-
     pageChanged (page) {
       this.page = page
       this.loadDocuments()
@@ -103,7 +94,7 @@ export default {
 
     loadDocuments () {
       this.loading = true
-      this.documentObj.show(this.dateFrom, this.dateTo, this.page, this.selectedDocumentStatus)
+      this.documentObj.show(this.countryCode, this.resource, this.expirationStatus, this.page)
           .then(({ data }) => {
             this.documents = data
             this.meta.total = this.documents.length
