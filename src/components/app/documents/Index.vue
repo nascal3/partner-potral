@@ -16,18 +16,40 @@
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
           <v-row class="date-filters">
-            <v-col cols="12" md="7">
-              <date-range @getDateRange="setDateRange"/>
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="country"
+                  :items="countries.data"
+                  :label="$t('documents.document_country')"
+                  item-text="name"
+                  item-value="code"
+                  dense
+                  outlined
+                  clearable
+              ></v-select>
             </v-col>
             <v-col cols="12" md="4">
               <v-select
-                  v-model="selectedDocumentStatus"
-                  :items="documentStatus"
-                  :label="$t('documents.document_status')"
-                  item-text="paymentLabel"
-                  item-value="paymentValue"
+                  v-model="resource"
+                  :items="vendorTypes.data"
+                  :label="$t('documents.resource_type')"
+                  item-text="display_name"
+                  item-value="name"
                   dense
                   outlined
+                  clearable
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="4">
+              <v-select
+                  v-model="selectedExpirationStatus"
+                  :items=" expirationStatus"
+                  :label="$t('documents.expiration_status')"
+                  item-text="expirationStatusLabel"
+                  item-value="expirationStatusValue"
+                  dense
+                  outlined
+                  clearable
               ></v-select>
             </v-col>
           </v-row>
@@ -36,32 +58,21 @@
 
       <v-spacer></v-spacer>
 
-      <v-tabs id="documents-tabs" left>
-        <v-tab>{{ $t('documents.tab_non_expiry') }}</v-tab>
-        <v-tab>{{ $t('documents.tab_expiry') }}</v-tab>
-        <!--       Non-expiry documents tab -->
-        <v-tab-item>
-          <non-expiry-documents />
-        </v-tab-item>
-        <!--     Expiry documents tab-->
-        <v-tab-item>
-          <expiry-documents
-              :date-from="dateFrom"
-              :date-to="dateTo"
-              :selected-document-status="selectedDocumentStatus"
-          />
-        </v-tab-item>
-      </v-tabs>
+      <legal-documents
+          :date-from="dateFrom"
+          :date-to="dateTo"
+          :selected-document-status="selectedDocumentStatus"
+      />
     </v-card>
   </div>
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
+
 export default {
   components: {
-    'date-range': () => import('@/components/core/DateRange.vue'),
-    'expiry-documents': () => import('./partials/ExpirtyDocuments.vue'),
-    'non-expiry-documents': () => import('./partials/NonExpirtyDocuments.vue'),
+    'legal-documents': () => import('./partials/LegalDocuments.vue')
   },
 
   data () {
@@ -69,13 +80,12 @@ export default {
       loading: true,
       documentObj: new Document(),
       documents: [],
-      selectedDocumentStatus: 'all',
-      dateFrom: new Date().toISOString().substr(0, 10),
-      dateTo: new Date().toISOString().substr(0, 10),
-      documentStatus: [
-        {paymentLabel: this.$t('documents.status_all'), paymentValue: 'all'},
-        {paymentLabel: this.$t('documents.status_pending'), paymentValue: 'pending'},
-        {paymentLabel: this.$t('documents.status_approved'), paymentValue: 'approved'}
+      country: null,
+      resource: null,
+      selectedExpirationStatus: null,
+      expirationStatus: [
+        {expirationStatusLabel: this.$t('documents.expiration_status_true'), expirationStatusValue: true},
+        {expirationStatusLabel: this.$t('documents.expiration_status_false'), expirationStatusValue: false},
       ],
       page: 1,
       headers: [
@@ -97,11 +107,31 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      countries: "getCountries",
+      vendorTypes: "getVendorTypes",
+    })
+  },
+
   methods: {
-    setDateRange({dateFrom, dateTo}) {
-      this.dateFrom = dateFrom
-      this.dateTo = dateTo
-    }
+    ...mapActions([
+      "setCountries",
+      "setVendorTypes"
+    ]),
+
+    fetchCountries() {
+      this.setCountries()
+    },
+
+    setVendors() {
+      this.setVendorTypes()
+    },
+  },
+
+  mounted () {
+    this.fetchCountries()
+    this.setVendors()
   }
 }
 </script>
@@ -110,15 +140,6 @@ export default {
 #documents-tabs {
   .v-item-group {
     margin-bottom: 30px;
-  }
-}
-</style>
-<style lang="scss" scoped>
-.v-tab {
-  text-transform: none !important;
-  font-weight: 700;
-  &--active {
-    border-radius: 6px;
   }
 }
 </style>
