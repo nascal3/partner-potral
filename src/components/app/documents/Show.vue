@@ -12,8 +12,26 @@
         :headers="headers"
         :items="documents"
         item-key="txn_no"
+        :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
+      <template v-slot:item.status="{ item }">
+        <v-chip :color="setColor(item.status)" outlined small>
+          {{ item.status }}
+        </v-chip>
+      </template>
+      <template v-slot:item.action="{ item }">
+        <v-btn
+            dark
+            small
+            color="primary"
+            class="ttn body-2"
+            :to="`legal-documents/${item.id}`"
+            @click="setSegmentEvent('Select View document')"
+        >
+          {{ $t('documents.view_document') }}
+        </v-btn>
+      </template>
     </v-data-table>
 
     <app-pagination
@@ -25,10 +43,12 @@
 </template>
 
 <script>
-import {format} from "date-fns";
+import mockResponse from '@/libs/app/documents/mockResponce.json'
 import Document from '@/libs/app/documents/Document'
+import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
+
   props: {
     countryCode: {
       type: String,
@@ -44,6 +64,7 @@ export default {
     }
   },
 
+  mixins: [segmentMixin],
   data () {
     return {
       loading: true,
@@ -51,12 +72,12 @@ export default {
       documents: [],
       page: 1,
       headers: [
-        { text: this.$t('documents.document_active_status'), value: 'destinations' },
-        { text: this.$t('documents.document_name'), value: 'order_no' },
-        { text: this.$t('documents.document_country'), value: 'pickup_location' },
-        { text: this.$t('documents.document_resource'), value: 'pickup_location' },
-        { text: this.$t('documents.document_expires'), value: 'destinations' },
-        { text: this.$t('documents.document_action'), value: '' }
+        { text: this.$t('documents.document_active_status'), value: 'status' },
+        { text: this.$t('documents.document_name'), value: 'label' },
+        { text: this.$t('documents.document_country'), value: 'country' },
+        { text: this.$t('documents.document_resource'), value: 'resource' },
+        { text: this.$t('documents.document_expires'), value: 'expires' },
+        { text: this.$t('documents.document_action'), value: 'action' }
       ],
       meta: {
         current_page: 1,
@@ -87,6 +108,11 @@ export default {
   },
 
   methods: {
+    setColor(status) {
+      if (status === 'inactive') return 'error'
+      return 'success'
+    },
+
     pageChanged (page) {
       this.page = page
       this.loadDocuments()
@@ -96,7 +122,8 @@ export default {
       this.loading = true
       this.documentObj.show(this.countryCode, this.resource, this.expirationStatus, this.page)
           .then(({ data }) => {
-            this.documents = data
+            // this.documents = data
+            this.documents = mockResponse
             this.meta.total = this.documents.length
             this.loading = false
           })
@@ -126,7 +153,6 @@ export default {
     overflow-y: auto;
 
     table {
-      color: #909399;
       thead {
         tr {
           th:first-letter {
@@ -135,18 +161,8 @@ export default {
         }
       }
       tbody {
-        tr.v-data-table__expanded__content {
-          background-color: #FFFFFF !important;
-          box-shadow: none;
-        }
         tr:nth-of-type(odd) {
           background-color: #F7F9FC;
-        }
-        tr {
-          td.text-start:first-child {
-            color: #606266;
-            font-weight: 700;
-          }
         }
       }
     }

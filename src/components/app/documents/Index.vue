@@ -72,7 +72,7 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
-    'legal-documents': () => import('./partials/LegalDocuments.vue')
+    'legal-documents': () => import('./Show.vue')
   },
 
   data () {

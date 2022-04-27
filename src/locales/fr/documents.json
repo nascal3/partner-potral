@@ -23,5 +23,6 @@
   "expiration_status": "Expiration state",
   "expiration_status_true": "FR_True",
   "expiration_status_false": "FR_False",
-  "resource_type": "FR_Resource type"
+  "resource_type": "FR_Resource type",
+  "view_document": "FR_View"
 }

@@ -12,9 +12,10 @@ export default class Document extends Base {
   show (country, resource, status, page) {
     return new Promise(async (resolve, reject) => {
       try {
-        let response = await this.form.submit("get", url(
-            `partners/${this.group.id}/documents?country=${country}&resource=${resource}&status=${status}&page=${page}`
-        ))
+        // let response = await this.form.submit("get", url(
+        //     `partners/${this.group.id}/documents?country=${country}&resource=${resource}&status=${status}&page=${page}`
+        // ))
+        let response = []
         resolve(response)
       } catch (err) {
         reject(err)
