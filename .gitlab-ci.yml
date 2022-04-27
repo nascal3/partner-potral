@@ -4,7 +4,6 @@ variables:
   REIMAGINED_STAGING_IMAGE_NAME: sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:latest_$CI_COMMIT_SHORT_SHA
 stages:
   - buildpush
-  - deploy
 
 buildpush:staging:
   stage: buildpush
@@ -19,15 +18,5 @@ buildpush:staging:
   only:
     - staging
 
-deploy:staging:
-  stage: deploy
-  tags:
-    - shell
-  # before_script:
-  #   - export STAGING_IMAGE_NAME="sendy-docker-local.jfrog.io/convoy:latest_$CI_COMMIT_SHORT_SHA"
-  script:
-    - ssh -i /home/ubuntu/keys/id_rsa -v -f -o StrictHostKeyChecking=no -l admin kubetest-master.sendyit.com "kubectl set image deploy vue-partner-portal-reimagined vue-partner-portal-reimagined=$REIMAGINED_STAGING_IMAGE_NAME"
 
-  only:
-    - staging
    
