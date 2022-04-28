@@ -13,7 +13,7 @@ export default class Auth extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'business_name', 'legal_entity_type', 'country_id', 'administrator', 'product_group'
+          'business_name', 'legal_entity_type', 'country_id', 'administrator', 'product_group', 'identification_method'
         ])
         const response = await this.form.submit('post', url('sign-up'), data)
         flash({
