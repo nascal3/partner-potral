@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "total": 4,
+    "per_page": 25,
+    "current_page": 1,
+    "last_page": 1,
+    "first_page": 1,
+    "first_page_url": "/?page=1",
+    "last_page_url": "/?page=1",
+    "next_page_url": null,
+    "previous_page_url": null
+  },
+  "data": [
+    {
+      "id": 548,
+      "name": "Jane Doe",
+      "email": "jane@mail.com",
+      "phone": "0718769663",
+      "registered_at": "2022-03-16T14:13:22.000+00:00",
+      "roles": [
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        },
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        }
+      ]
+    },
+    {
+      "id": 547,
+      "name": "John Doe",
+      "email": "doe@mail.com",
+      "phone": "+254718769663",
+      "registered_at": "2022-03-16T14:12:25.000+00:00",
+      "roles": [
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        }
+      ]
+    },
+    {
+      "id": 546,
+      "name": "Don Wan",
+      "email": "cobopeh498@siberpay.com",
+      "phone": "2347045113084",
+      "registered_at": "2022-03-15T10:47:46.000+00:00",
+      "roles": [
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        },
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        },
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        }
+      ]
+    },
+    {
+      "id": 474,
+      "name": "Caleb Nasio",
+      "email": "nascal3@gmail.com",
+      "phone": "+25418769663",
+      "registered_at": "2022-02-08T10:50:33.000+00:00",
+      "roles": [
+        {
+          "id": 1482,
+          "name": "partner::717::admin",
+          "product_group_uuid_id": 717,
+          "display_name": "admin role",
+          "description": null
+        },
+        {
+          "id": 1484,
+          "name": "partner::717::driver",
+          "product_group_uuid_id": 717,
+          "display_name": "driver role",
+          "description": null
+        }
+      ]
+    }
+  ]
+}
