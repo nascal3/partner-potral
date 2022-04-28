@@ -20,12 +20,7 @@
       <v-divider></v-divider>
 
       <v-card-text class="px-0">
-        <app-loading
-          v-if="processing"
-        ></app-loading>
-
         <v-data-table
-          v-if="!processing"
           fixed-header
           disable-sort
           class="title"
@@ -33,6 +28,8 @@
           disable-pagination
           :headers="headers"
           :items="roles.data"
+          :loading="loading"
+          :loading-text="$t('core.system_loading')"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.permissions="{ item }">
@@ -82,7 +79,7 @@ export default {
   data () {
     return {
       role: null,
-      processing: true,
+      loading: true,
       crumbs: [
         { text: this.$t('role.crumb_roles'), disabled: true },
       ],
@@ -114,7 +111,7 @@ export default {
           partner: id
         }
       }).then(() => {
-        this.processing = false
+        this.loading = false
       })
     }
   },

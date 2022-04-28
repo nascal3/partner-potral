@@ -1,5 +1,6 @@
 {
   "passcode_expired": "mot de passe expiré ?",
+  "time_to_expired": "Délai d'expiration OTP: ",
   "request_another_one": "demander un autre ",
   "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre "
 }

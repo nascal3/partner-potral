@@ -16,12 +16,7 @@
     <v-divider></v-divider>
 
     <v-card-text class="px-0">
-      <app-loading
-        v-if="processing"
-      ></app-loading>
-
       <v-data-table
-        v-if="!processing"
         fixed-header
         disable-sort
         class="title"
@@ -29,6 +24,8 @@
         disable-pagination
         :headers="headers"
         :items="users.data"
+        :loading="loading"
+        :loading-text="$t('core.system_loading')"
         style="overflow-x: scroll; width: 100%"
       >
         <template v-slot:item.phone="{ item }">
@@ -77,7 +74,7 @@ export default {
   data () {
     return {
       user: null,
-      processing: true,
+      loading: true,
       headers: [
         { text: this.$t('users.table_name'), value: 'name' },
         { text: this.$t('users.table_email'), value: 'email' },
@@ -107,7 +104,7 @@ export default {
           partner: (auth.retrieve('partner')).id
         }
       }).then(() => {
-        this.processing = false
+        this.loading = false
       })
     }
   },

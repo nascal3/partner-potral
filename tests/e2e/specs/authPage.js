@@ -6,10 +6,11 @@ describe('Authentication features works', () => {
   it('Get to the OTP page and login', () => {
     cy.visit('/')
     cy.authStubs()
+    cy.ordersStubs()
 
-    cy.contains('The journey is our home - in it we are forever lost in the right direction.')
-    cy.get('input[type=text]').type('caleb@sendyit.com', {force: true})
-    cy.get('button').click({force: true})
+    cy.contains('Enter your email address *')
+    cy.get('input[type=text]').type('caleb@sendyit.com')
+    cy.get('.v-btn').click({ multiple: true, force: true })
     cy.wait('@user').its('response.statusCode').should('equal', 201)
     cy.url().should('include', '/auth/verify')
 
@@ -21,12 +22,13 @@ describe('Authentication features works', () => {
       cy.setTokens()
     })
 
-    cy.visit('dashboard')
-    // cy.wait('@stats')
+
+    cy.visit('/orders')
     cy.get('.v-list a').eq(0).click()
+    cy.wait('@orders')
 
     cy.get('.title').as("title")
-    cy.get("@title").should("contain", 'Dashboard')
+    cy.get("@title").should("contain", 'Orders')
   })
 
 })

@@ -19,6 +19,10 @@
         @input="errors.clear('code')"
         @finish="verifyCode()"
       ></v-otp-input>
+      <div v-if="counter <= 0">
+        {{ $t('verify.time_to_expired') }}
+        <span class="primary">{{counter}}</span> sec
+      </div>
     </v-col>
 
     <v-col cols="12">
@@ -38,9 +42,10 @@
 <script>
 import Auth from "@/libs/auth/Auth"
 import segmentMixin from "@/mixins/segmentEvents";
+import timeCountDown from "@/mixins/timeCountDown";
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, timeCountDown],
   data () {
     return {
       authObj: new Auth()
@@ -54,33 +59,42 @@ export default {
 
     identification () {
       return JSON.parse(localStorage.getItem('sendy:identification'))
+    },
+
+    counter () {
+      return JSON.parse(localStorage.getItem('otpExpiry')) || 0
+    }
+  },
+
+  watch: {
+    counter(newValue) {
+      console.log('count: ', newValue)
     }
   },
 
   methods: {
+    setCountDown () {
+      const ExpiryTime = JSON.parse(localStorage.getItem('otpExpiry'))
+      this.timeCountDown(ExpiryTime)
+    },
+
     verifyCode () {
       this.setSegmentEvent('Enter OTP')
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
-        const isSolo = data.partners.length == 1
+        localStorage.removeItem('otpExpiry')
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
-          ...(isSolo && {
-            partner: data.partners[0]
-          })
+          ...({ partner: data.partner })
         })
         this.setSegmentIdentity(data)
 
-        if (isSolo) {
-          this.authObj.abilities().then(() => {
-            this.$router.push({ name: 'orders.index' })
-          })
-        } else {
-          this.$router.push({ name: 'accounts' })
-        }
+        this.authObj.abilities().then(() => {
+          this.$router.push({ name: 'orders.index' })
+        })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
         if (codes.includes(status)) {
@@ -93,5 +107,9 @@ export default {
       }).finally()
     },
   },
+
+  mounted () {
+    this.setCountDown()
+  }
 }
 </script>

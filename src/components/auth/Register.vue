@@ -11,10 +11,10 @@
           @change="entityTypeChangedEvent"
         >
           <v-radio
-            v-for="(ofType, index) in [ `${$t('register.individual')}`, `${$t('register.company')}` ]"
+            v-for="(ofType, index) in entityType"
             :key="`entity-${index}`"
-            :label="ofType"
-            :value="ofType"
+            :label="ofType.label"
+            :value="ofType.value"
             class="body-1"
           ></v-radio>
         </v-radio-group>
@@ -83,9 +83,10 @@
         <vue-tel-input
             v-model="authObj.administrator.phone"
             @input="errors.clear('administrator.phone')"
-            @blur="setSegmentEvent('Enter Phone Number')"
+            @blur="setSegmentEvent('Enter Register Phone Number')"
             :onlyCountries="validCountries"
             :inputOptions="placeholder"
+            styleClasses="registerPhoneInput"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('administrator.phone')">
           {{errors.get('administrator.phone')}}
@@ -154,6 +155,7 @@ import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
   mixins: [segmentMixin],
+
   data () {
     return {
       country: null,
@@ -163,6 +165,10 @@ export default {
       placeholder: {
         placeholder: this.$t('register.phone_number'),
       },
+      entityType: [
+        { label: 'Individual', value: "Individual"},
+        { label: 'Company', value: "Company"}
+      ],
       authObj: new Auth()
     }
   },
@@ -183,6 +189,10 @@ export default {
     locale() {
      this.$nextTick(() => {
        this.placeholder.placeholder = this.$t('register.phone_number')
+       this.entityType = [
+         { label: `${this.$t('register.individual')}`, value: "Individual"},
+         { label: `${this.$t('register.company')}`, value: "Company"}
+       ]
      })
     }
   },
@@ -207,7 +217,7 @@ export default {
      },
 
      entityTypeChangedEvent() {
-       const entity =  this.authObj.legal_entity_type
+       const entity = this.authObj.legal_entity_type
        if (entity === 'Company') {
          this.setSegmentEvent('Select Company')
        } else {
@@ -245,7 +255,7 @@ export default {
 </script>
 
 <style lang="scss">
-.phoneInput {
+.registerPhoneInput {
   border: solid 1px rgba(0, 0, 0, 0.38);
   padding: 3px 0;
 
