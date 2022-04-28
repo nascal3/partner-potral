@@ -21,7 +21,6 @@ describe('Authentication features works', () => {
     cy.wait('@sign_in').then((resp) => {
       cy.setTokens()
     })
-    // cy.wait('@abilities')
 
 
     cy.visit('/orders')

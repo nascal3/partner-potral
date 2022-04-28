@@ -1,7 +1,6 @@
 import "cypress-localstorage-commands"
 import constants from "../fixtures/constants.json";
 import partnerToken from "../fixtures/partnerToken.json";
-// import abilities from "../fixtures/abilities.json";
 // import stats from "../fixtures/stats.json";
 
 Cypress.Commands.add('authStubs', () => {
@@ -23,11 +22,6 @@ Cypress.Commands.add('authStubs', () => {
             product_group: "partner"
         }
     }).as('sign_in')
-
-    // cy.intercept('GET', `${APIbaseUrl}/partners/9/abilities`, {
-    //     statusCode: 200,
-    //     body: abilities
-    // }).as('abilities')
 
     // cy.intercept('GET', `${APIbaseUrl}/dashboard/stats?*`, {
     //     statusCode: 200,
