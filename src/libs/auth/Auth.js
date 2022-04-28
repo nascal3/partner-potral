@@ -89,6 +89,7 @@ export default class Auth extends Base {
   logout () {
     /** @todo - add call to API to expire the token */
     localStorage.removeItem(this.app)
+    localStorage.clear()
     flash({
       message: 'You have been logged out successfully'
     })

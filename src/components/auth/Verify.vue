@@ -19,9 +19,9 @@
         @input="errors.clear('code')"
         @finish="verifyCode()"
       ></v-otp-input>
-      <div v-if="counter <= 0">
+      <div v-if="counter > 0">
         {{ $t('verify.time_to_expired') }}
-        <span class="primary">{{counter}}</span> sec
+        <span class="count-text">{{counter}} sec</span>
       </div>
     </v-col>
 
@@ -59,16 +59,6 @@ export default {
 
     identification () {
       return JSON.parse(localStorage.getItem('sendy:identification'))
-    },
-
-    counter () {
-      return JSON.parse(localStorage.getItem('otpExpiry')) || 0
-    }
-  },
-
-  watch: {
-    counter(newValue) {
-      console.log('count: ', newValue)
     }
   },
 
@@ -83,8 +73,8 @@ export default {
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
-        localStorage.removeItem('sendy:identification')
         localStorage.removeItem('otpExpiry')
+        localStorage.removeItem('sendy:identification')
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
@@ -113,3 +103,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.count-text {
+  color: #324BAB;
+}
+</style>

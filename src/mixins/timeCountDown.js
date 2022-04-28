@@ -1,17 +1,25 @@
 const timeCountDown = {
+    data () {
+        return {
+            counter: 0
+        }
+    },
     methods: {
         timeCountDown(timeLeft) {
             const timer = setInterval(() => {
                 if(timeLeft <= 0) {
                     clearInterval(timer)
-                    localStorage.setItem('otpExpiry', JSON.stringify(0))
-                    return 0
+                    this.counter = 0
+                    this.removeCounterStorage()
                 }
                 timeLeft -= 1
                 localStorage.setItem('otpExpiry', JSON.stringify(timeLeft))
-                return timeLeft
+                this.counter = timeLeft
             }, 1000)
-            return timer
+        },
+
+        removeCounterStorage() {
+            localStorage.removeItem('otpExpiry')
         }
     },
 };
