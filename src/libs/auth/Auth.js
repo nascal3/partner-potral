@@ -64,6 +64,8 @@ export default class Auth extends Base {
       try {
         const acl = auth.retrieve('acl')
         const partner = auth.retrieve('partner')
+
+        //Fetch and cache the users abilities data
         this.encrypt({
           ...this.decrypt(),
           abilities: acl.abilities
