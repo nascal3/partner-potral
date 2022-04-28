@@ -174,7 +174,7 @@ export default {
     generateCode () {
       if (!this.loading) {
         this.loading = true
-        this.authObj.phone = this.authObj.phone.replace(/\s/g,'')
+        // this.authObj.phone = this.authObj.phone.replace(/\s/g, '')
         this.authObj.identification_method = this.authObj.identifier.toLowerCase()
         this.authObj.generate().then(() => {
           this.$router.push({ name: 'verify' })

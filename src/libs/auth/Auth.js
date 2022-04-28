@@ -36,7 +36,7 @@ export default class Auth extends Base {
         const identifier = this.identifier.toLowerCase()
         localStorage.setItem('sendy:identification', JSON.stringify({
           identifier,
-          value: this[identifier].replace(/\s/g,''),
+          value: this[identifier].replace(/\s/g,'')
         }))
         flash(response)
         resolve(response)
@@ -62,11 +62,11 @@ export default class Auth extends Base {
   abilities () {
     return new Promise(async (resolve, reject) => {
       try {
+        const acl = auth.retrieve('acl')
         const partner = auth.retrieve('partner')
-        const response = await this.form.submit('get', url(`partners/${partner.id}/abilities`))
         this.encrypt({
           ...this.decrypt(),
-          abilities: response.data
+          abilities: acl.abilities
         })
 
         //Fetch and cache the country data
@@ -76,7 +76,7 @@ export default class Auth extends Base {
           country: data,
         })
 
-        resolve(response)
+        resolve(true)
       } catch (err) {
         reject(err)
       }

@@ -64,12 +64,12 @@ export default {
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
-        const isSolo = data.partners.length == 1
+        const isSolo = true
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
           ...(isSolo && {
-            partner: data.partners[0]
+            partner: data.partner
           })
         })
         this.setSegmentIdentity(data)
