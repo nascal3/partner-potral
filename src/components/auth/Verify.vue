@@ -64,23 +64,16 @@ export default {
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
-        const isSolo = true
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
-          ...(isSolo && {
-            partner: data.partner
-          })
+          ...({ partner: data.partner })
         })
         this.setSegmentIdentity(data)
 
-        if (isSolo) {
-          this.authObj.abilities().then(() => {
-            this.$router.push({ name: 'orders.index' })
-          })
-        } else {
-          this.$router.push({ name: 'accounts' })
-        }
+        this.authObj.abilities().then(() => {
+          this.$router.push({ name: 'orders.index' })
+        })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
         if (codes.includes(status)) {
