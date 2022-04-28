@@ -192,6 +192,7 @@ export default {
 
   mounted () {
     this.setCountries()
+    localStorage.removeItem('otpExpiry')
     let identification = localStorage.getItem('sendy:identification')
     if (identification) {
       const { value, identifier } = JSON.parse(identification)

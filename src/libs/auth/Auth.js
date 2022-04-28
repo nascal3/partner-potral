@@ -34,6 +34,7 @@ export default class Auth extends Base {
         const data = this.getFields(['email', 'phone', 'authenticator', 'product_group', 'identification_method'])
         const response = await this.form.submit('post', url('otp/generate'), data)
         const identifier = this.identifier.toLowerCase()
+        localStorage.setItem('otpExpiry', JSON.stringify(response.data.otp_expiry_time))
         localStorage.setItem('sendy:identification', JSON.stringify({
           identifier,
           value: this[identifier].replace(/\s/g,'')
