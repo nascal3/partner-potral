@@ -1,48 +1,14 @@
 {
-  "partner": {
-    "id": 9,
-    "business_name": "Caleb Nasio",
-    "legal_entity_type": "individual",
-    "country_id": 1,
-    "created_at": "21 February 2022",
-    "updated_at": "2022-02-21T13:47:23.000+00:00"
-  },
-  "abilities": [
-    "partner::abilities",
-    "partner::profile",
-    "partner::users.index",
-    "partner::users.store",
-    "partner::users.show",
-    "partner::users.update",
-    "partner::users.destroy",
-    "partner::roles.index",
-    "partner::roles.store",
-    "partner::roles.show",
-    "partner::roles.update",
-    "partner::roles.destroy",
-    "partner::vehicles.index",
-    "partner::vehicles.store",
-    "partner::vehicles.show",
-    "partner::vehicles.update",
-    "partner::vehicles.destroy",
-    "partner::orders.index",
-    "partner::orders.store",
-    "partner::orders.show",
-    "partner::orders.update",
-    "partner::orders.destroy",
-    "partner::abilities",
-    "partner::profile"
-  ],
-  "user": {
-    "id": 474,
-    "name": "Caleb Nasio",
-    "email": "nascal3@gmail.com",
-    "phone": "+25418769663",
-    "registered_at": "2022-02-08T10:50:33.000+00:00"
-  },
-  "token": "MzgxMg.1QbYhNEzwYnjCIqywFtRHL5tn78q1btt8TNQKTqpdZsTrohb1YLsjYPFW5HD",
-  "partners": [
-    {
+  "data": {
+    "type": "bearer",
+    "token": "Mzg0MA.9K-8sLUz-2AEyGvA359hmqrlj1VR2v2ENbp9EIRSQM48cIeCnSMqLJV2pjDy",
+    "user": {
+      "id": 474,
+      "name": "Caleb Nasio",
+      "email": "nascal3@gmail.com",
+      "phone": "+25418769663"
+    },
+    "partner": {
       "id": 9,
       "business_name": "Caleb Nasio",
       "legal_entity_type": "individual",
@@ -50,13 +16,130 @@
       "created_at": "21 February 2022",
       "updated_at": "2022-02-21T13:47:23.000+00:00"
     },
-    {
-      "id": 35,
-      "business_name": "E2e John Doe",
-      "legal_entity_type": "individual",
-      "country_id": 1,
-      "created_at": "23 March 2022",
-      "updated_at": "2022-03-23T08:10:21.000+00:00"
+    "acl": {
+      "is_admin": false,
+      "abilities": [
+        {
+          "id": 70,
+          "name": "partner::abilities",
+          "display_name": "abilities"
+        },
+        {
+          "id": 71,
+          "name": "partner::profile",
+          "display_name": "profile"
+        },
+        {
+          "id": 74,
+          "name": "partner::users.index",
+          "display_name": "View Users"
+        },
+        {
+          "id": 75,
+          "name": "partner::users.store",
+          "display_name": "Store Users"
+        },
+        {
+          "id": 76,
+          "name": "partner::users.show",
+          "display_name": "Show single Users"
+        },
+        {
+          "id": 77,
+          "name": "partner::users.update",
+          "display_name": "Update Users"
+        },
+        {
+          "id": 78,
+          "name": "partner::users.destroy",
+          "display_name": "Delete Users"
+        },
+        {
+          "id": 79,
+          "name": "partner::roles.index",
+          "display_name": "View Roles"
+        },
+        {
+          "id": 80,
+          "name": "partner::roles.store",
+          "display_name": "Store Roles"
+        },
+        {
+          "id": 81,
+          "name": "partner::roles.show",
+          "display_name": "Show single Roles"
+        },
+        {
+          "id": 82,
+          "name": "partner::roles.update",
+          "display_name": "Update Roles"
+        },
+        {
+          "id": 83,
+          "name": "partner::roles.destroy",
+          "display_name": "Delete Roles"
+        },
+        {
+          "id": 84,
+          "name": "partner::vehicles.index",
+          "display_name": "View Vehicles"
+        },
+        {
+          "id": 85,
+          "name": "partner::vehicles.store",
+          "display_name": "Store Vehicles"
+        },
+        {
+          "id": 86,
+          "name": "partner::vehicles.show",
+          "display_name": "Show single Vehicles"
+        },
+        {
+          "id": 87,
+          "name": "partner::vehicles.update",
+          "display_name": "Update Vehicles"
+        },
+        {
+          "id": 88,
+          "name": "partner::vehicles.destroy",
+          "display_name": "Delete Vehicles"
+        },
+        {
+          "id": 91,
+          "name": "partner::orders.index",
+          "display_name": "View Orders"
+        },
+        {
+          "id": 92,
+          "name": "partner::orders.store",
+          "display_name": "Store Orders"
+        },
+        {
+          "id": 93,
+          "name": "partner::orders.show",
+          "display_name": "Show single Orders"
+        },
+        {
+          "id": 94,
+          "name": "partner::orders.update",
+          "display_name": "Update Orders"
+        },
+        {
+          "id": 95,
+          "name": "partner::orders.destroy",
+          "display_name": "Delete Orders"
+        },
+        {
+          "id": 70,
+          "name": "partner::abilities",
+          "display_name": "abilities"
+        },
+        {
+          "id": 71,
+          "name": "partner::profile",
+          "display_name": "profile"
+        }
+      ]
     }
-  ]
+  }
 }
