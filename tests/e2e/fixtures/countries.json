@@ -1,0 +1,48 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Kenya",
+      "code": "KE",
+      "currency": "KES",
+      "language_id": 1,
+      "dial_code": "+254",
+      "trim": 1,
+      "value": null,
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "name": "Uganda",
+      "code": "UG",
+      "currency": "UGX",
+      "language_id": 1,
+      "dial_code": "+256",
+      "trim": 1,
+      "value": null,
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "name": "Nigeria",
+      "code": "NG",
+      "currency": "NGN",
+      "language_id": 1,
+      "dial_code": "+234",
+      "trim": 1,
+      "value": null,
+      "is_active": true
+    },
+    {
+      "id": 5,
+      "name": "Côte d'Ivoire",
+      "code": "CI",
+      "currency": "XOF",
+      "language_id": 2,
+      "dial_code": "+225",
+      "trim": 0,
+      "value": 0,
+      "is_active": true
+    }
+  ]
+}

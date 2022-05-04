@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "total": 3,
+    "per_page": 100,
+    "current_page": 1,
+    "last_page": 1,
+    "first_page": 1,
+    "first_page_url": "/?page=1",
+    "last_page_url": "/?page=1",
+    "next_page_url": null,
+    "previous_page_url": null
+  },
+  "data": [
+    {
+      "id": 3,
+      "name": "Arabic",
+      "code": "ar"
+    },
+    {
+      "id": 2,
+      "name": "French",
+      "code": "fr"
+    },
+    {
+      "id": 1,
+      "name": "English",
+      "code": "en"
+    }
+  ]
+}

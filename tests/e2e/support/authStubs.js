@@ -1,32 +1,34 @@
 import "cypress-localstorage-commands"
 import constants from "../fixtures/constants.json";
 import partnerToken from "../fixtures/partnerToken.json";
-// import stats from "../fixtures/stats.json";
+import languages from "../fixtures/languages.json";
+import countries from "../fixtures/countries.json";
 
 Cypress.Commands.add('authStubs', () => {
+    cy.intercept('GET', `${constants.APIbaseUrl}/languages`, {
+        statusCode: 200,
+        body: languages
+    }).as('languages')
+
+    cy.intercept('GET', `${constants.APIbaseUrl}/countries`, {
+        statusCode: 200,
+        body: countries
+    }).as('countries')
+
     cy.intercept('POST', `${constants.APIbaseUrl}/otp/generate`, {
-        statusCode: 201,
+        statusCode: 200,
         body: {
-            email: "caleb@sendyit.com",
-            authenticator: "otp",
-            identification_method: "email",
-            product_group: "partner",
+            "message": "Code generated successfully",
+            "data": {
+                "otp_expiry_time": 210
+            }
         }
-    }).as('user')
+    }).as('generate')
 
     cy.intercept('POST', `${constants.APIbaseUrl}/sign-in`, {
         statusCode: 200,
-        body: {
-            code: "1234",
-            email: "caleb@sendyit.com",
-            product_group: "partner"
-        }
-    }).as('sign_in')
-
-    // cy.intercept('GET', `${APIbaseUrl}/dashboard/stats?*`, {
-    //     statusCode: 200,
-    //     body: stats
-    // }).as('stats')
+        body: partnerToken
+    }).as('sign-in')
 })
 
 Cypress.Commands.add("setTokens", () => {

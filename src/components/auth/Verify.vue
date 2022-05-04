@@ -73,7 +73,6 @@ export default {
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.verify().then(({ data }) => {
-        localStorage.removeItem('otpExpiry')
         localStorage.removeItem('sendy:identification')
 
         this.authObj.encrypt({
@@ -83,6 +82,7 @@ export default {
         this.setSegmentIdentity(data)
 
         this.authObj.abilities().then(() => {
+          this.removeCounterStorage()
           this.$router.push({ name: 'orders.index' })
         })
       }).catch(({ data, status }) => {
