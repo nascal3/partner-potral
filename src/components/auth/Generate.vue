@@ -96,10 +96,11 @@
 <script>
 import Auth from "@/libs/auth/Auth"
 import segmentMixin from "@/mixins/segmentEvents";
+import timeCountDown from "@/mixins/timeCountDown";
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, timeCountDown],
 
   data () {
     return {
@@ -176,6 +177,7 @@ export default {
         this.loading = true
         const identifier = this.authObj.identifier.toLowerCase()
         this.authObj.identification_method = identifier
+        if(this.authObj.identification_method === 'phone') this.authObj.phone = this.authObj.phone.replace(/\s/g,'')
 
         this.authObj.generate().then(() => {
           this.$router.push({ name: 'verify' })
@@ -194,7 +196,7 @@ export default {
 
   mounted () {
     this.setCountries()
-    localStorage.removeItem('otpExpiry')
+    this.removeCounterStorage()
     let identification = localStorage.getItem('sendy:identification')
     if (identification) {
       const { value, identifier } = JSON.parse(identification)
