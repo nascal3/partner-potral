@@ -13,7 +13,6 @@ describe('The order feature works as expected', () => {
     })
 
     it('Get to the order page and view orders', () => {
-        // cy.get('.v-list a').eq(0).click()
         cy.intercept('/').as('loaded');
         cy.visit('/')
         cy.wait('@loaded').then(() => {

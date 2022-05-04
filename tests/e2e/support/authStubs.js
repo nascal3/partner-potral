@@ -1,6 +1,7 @@
 import "cypress-localstorage-commands"
 import constants from "../fixtures/constants.json";
 import partnerToken from "../fixtures/partnerToken.json";
+import signIn from "../fixtures/signIn.json";
 import languages from "../fixtures/languages.json";
 import countries from "../fixtures/countries.json";
 
@@ -27,7 +28,7 @@ Cypress.Commands.add('authStubs', () => {
 
     cy.intercept('POST', `${constants.APIbaseUrl}/sign-in`, {
         statusCode: 200,
-        body: partnerToken
+        body: signIn
     }).as('sign-in')
 })
 

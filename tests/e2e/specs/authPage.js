@@ -31,7 +31,8 @@ describe('Authentication features works', () => {
 
     cy.wait('@sign-in').then((interception) => {
       expect(interception.response.statusCode).to.equal( 200)
-      cy.setLocalStorage('setLanguage', 'en')
+      cy.setTokens()
+
       cy.url().should('include', '/orders')
       cy.get('.title').as("title")
       cy.get("@title").should("contain", 'Orders')
