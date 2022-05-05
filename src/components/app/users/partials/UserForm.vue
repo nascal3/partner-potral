@@ -34,6 +34,7 @@
             :hint="errors.get('name')"
             :error="errors.has('name')"
             @input="errors.clear('name')"
+            @change="setSegmentEvent('Enter new user name')"
           ></v-text-field>
 
           <v-text-field
@@ -46,13 +47,16 @@
             :hint="errors.get('email')"
             :error="errors.has('email')"
             @input="errors.clear('email')"
+            @change="setSegmentEvent('Enter new user email')"
           ></v-text-field>
 
           <vue-tel-input
               v-model="userObj.phone"
               @input="errors.clear('phone')"
+              @blur="setSegmentEvent('Register new user Phone Number')"
               :onlyCountries="validCountries"
               :inputOptions="placeholder"
+              styleClasses="userPhoneInput"
           ></vue-tel-input>
           <span class="error-message" v-if="errors.has('phone')">
             {{errors.get('phone')}}
@@ -71,6 +75,7 @@
             :hint="errors.get('role_ids')"
             :error="errors.has('role_ids')"
             @input="errors.clear('role_ids')"
+            @change="setSegmentEvent('Assigned new user role')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -95,11 +100,14 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import User from "@/libs/app/users/User"
+import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
   props: [
     'dialogLaunch', 'user'
   ],
+
+  mixins: [segmentMixin],
 
   data () {
     return {
@@ -153,23 +161,29 @@ export default {
     submit () {
       if (!this.loading) {
         this.loading = true
+        if (this.userObj.phone !== null) this.userObj.phone = this.userObj.phone.replace(/\s/g,'')
         !this.user ? this.store() : this.update()
       }
     },
 
     store () {
-      this.userObj.store()
-        .then(response => {
-          flash(response)
-          this.$emit('stored')
+      this.setSegmentEvent('Submit new user details')
+      this.userObj.store().then(response => {
+        flash(response)
+        this.$emit('stored')
+      }).catch((error) => {
+        this.loading = false
+        flash({
+          message: error.data.errors[0].message,
+          color: '#e74c3c',
         })
-        .finally(() => {
-          this.loading = false
-        })
+      }).finally(() => {
+        this.loading = false
+      })
     },
 
     update () {
-
+      this.setSegmentEvent('Submit updated user details')
     }
   },
 
@@ -185,7 +199,7 @@ export default {
 </script>
 
 <style lang="scss">
-.phoneInput {
+.userPhoneInput {
   border: solid 1px rgba(0, 0, 0, 0.38);
   padding: 2px 0;
   margin-bottom: 23px;
