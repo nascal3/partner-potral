@@ -151,7 +151,7 @@
 <script>
 import Auth from "@/libs/auth/Auth"
 import { mapActions, mapGetters } from 'vuex'
-import segmentMixin from "@/mixins/segmentEvents";
+import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
   mixins: [segmentMixin],
@@ -235,6 +235,7 @@ export default {
       this.setSegmentEvent('Submit Registration Information')
       if (!this.loading) {
         this.loading = true
+        if (this.authObj.administrator.phone !== null) this.authObj.administrator.phone = this.authObj.administrator.phone.replace(/\s/g,'')
         this.authObj.register()
           .then(() => {
             this.authObj.generate().then(() => {
