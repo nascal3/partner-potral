@@ -41,8 +41,7 @@ const options = {
   mode: 'international',
   inputOptions: {
     placeholder: 'Phone number *',
-  },
-  styleClasses: 'phoneInput',
+  }
 }
 Vue.use(VueTelInput, options)
 Vue.use(VueGoogleMaps, {

@@ -177,6 +177,18 @@ const routes = [
           },
         ]
       },
+
+      {
+        path: 'legal-documents',
+        name: 'legal-documents.index',
+        component: () => import('@/components/app/documents/Index.vue')
+      },
+
+      {
+        path: 'legal-documents/:documentId',
+        name: 'document-details.index',
+        component: () => import('@/components/app/documents/document_details/Index.vue')
+      },
     ],
   },
 ]

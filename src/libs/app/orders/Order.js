@@ -9,40 +9,12 @@ export default class Order extends Base {
     this.group = auth.retrieve('partner')
   }
 
-  store () {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const data = this.getFields([
-          'vendor_type_id',
-          'registration_number',
-        ])
-        let response = await this.form.submit('post', url(`partners/${this.group.id}/orders`), data)
-        this.setFields(fields)
-        resolve(response)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
   show (from, to, page, driversIds) {
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit("get", url(
             `partners/${this.group.id}/orders?from=${from}&to=${to}&drivers=${driversIds}&page=${page}`
         ))
-        resolve(response)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-  update (userId) {
-    const data = this.getFields();
-    return new Promise(async (resolve, reject) => {
-      try {
-        let response = await this.form.submit("patch", url(`partners/${this.group}/users/${userId}`), data)
         resolve(response)
       } catch (err) {
         reject(err)

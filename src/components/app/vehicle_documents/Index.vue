@@ -1,5 +1,9 @@
 <template>
   <div>
+    <app-loading
+        v-if="loading"
+    ></app-loading>
+
     <v-list
       v-if="initialised"
       two-line
@@ -63,6 +67,7 @@ export default {
 
   data () {
     return {
+      loading: true,
       vehicleDocument: null,
       metadata: {
         title: this.$t('vehicles.legal_Documents'),
@@ -77,6 +82,12 @@ export default {
 
     initialised () {
       return this.vehicleDocuments.data
+    }
+  },
+
+  watch: {
+    vehicleDocuments(documents) {
+      this.loading = false
     }
   },
 

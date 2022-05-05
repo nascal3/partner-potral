@@ -14,7 +14,9 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
+import '@cypress/code-coverage/support'
 import './authStubs'
+import './ordersStubs'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
