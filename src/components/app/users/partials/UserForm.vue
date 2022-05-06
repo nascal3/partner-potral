@@ -65,16 +65,15 @@
           <v-select
             dense
             outlined
-            multiple
             persistent-hint
             item-value="id"
             item-text="display_name"
             :items="roles.data"
             :label="$t('users.roles')"
-            v-model="userObj.role_ids"
-            :hint="errors.get('role_ids')"
-            :error="errors.has('role_ids')"
-            @input="errors.clear('role_ids')"
+            v-model="userObj.role_id"
+            :hint="errors.get('role_id')"
+            :error="errors.has('role_id')"
+            @input="errors.clear('role_id')"
             @change="setSegmentEvent('Assigned new user role')"
           ></v-select>
         </v-card-text>
@@ -188,7 +187,7 @@ export default {
   },
 
   mounted () {
-    this.setCountries(),
+    this.setCountries()
     this.setRoles({
       routes: {
         partner: (auth.retrieve('partner')).id
