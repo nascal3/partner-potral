@@ -72,6 +72,8 @@ export default {
       this.setSegmentEvent('Enter OTP')
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
+      this.authObj.identification_method = identifier
+
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
 
