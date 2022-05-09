@@ -24,8 +24,8 @@ test:staging:
     - npm ci --prefer-offline
     - npx cypress cache path
     - npx cypress cache list
-     - npm run test
-     - npm run coverage
+    - npm run test
+    - npm run coverage
   only:
     - staging
 
