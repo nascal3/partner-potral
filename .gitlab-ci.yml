@@ -1,9 +1,33 @@
-image: node:10.24.0-alpine
+image: node:14.19.0-alpine
 
 variables:
   REIMAGINED_STAGING_IMAGE_NAME: sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:latest_$CI_COMMIT_SHORT_SHA
+  VUE_APP_PORTAL: sendy:partner
+  VUE_APP_PARTNER_BFF: https://partner-bff-test.sendyit.com/api/v1/
+  MAPS_API_KEY: AIzaSyBWMVg9uhO7-BieEMUB3cVzm9O78RGtugo
+
 stages:
+  - test
   - buildpush
+
+test:staging:
+  image: cypress/base:14.16.0
+  stage: test
+  tags:
+    - docker
+  cache:
+    paths:
+      - .npm
+      - /root/.cache/Cypress
+
+  script:
+    - npm ci --prefer-offline
+    - npx cypress cache path
+    - npx cypress cache list
+     - npm run test
+     - npm run coverage
+  only:
+    - staging
 
 buildpush:staging:
   stage: buildpush
@@ -19,4 +43,4 @@ buildpush:staging:
     - staging
 
 
-   
+
