@@ -33,7 +33,7 @@ export default {
       show: false,
       alert: null,
       color: 'grey darken-3',
-      timeout: 8000,
+      timeout: 4000,
     };
   },
 
