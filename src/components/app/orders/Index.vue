@@ -14,6 +14,7 @@
               v-model="search"
               prepend-inner-icon="mdi-magnify"
               :label="$t('orders.search')"
+              @change="setSegmentEvent('Searched an order phrase')"
               single-line
               hide-details
               outlined
@@ -94,11 +95,14 @@
 
 <script>
 import { format } from 'date-fns'
+import segmentMixin from "@/mixins/segmentEvents"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
 
 export default {
+  mixins: [segmentMixin],
+
   components: {
     'order-details': () => import('./partials/OrderDetails'),
     'date-range': () => import('@/components/core/DateRange.vue'),
@@ -168,6 +172,7 @@ export default {
 
     getOrderDetails ({item, value}) {
       if (!value) return
+      this.setSegmentEvent('Viewed order details')
       const { order_no } = item
       this.orderDetailsObj.show(order_no).then( data => {
         this.orderDetails = data.data
@@ -273,6 +278,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Visited orders page')
     this.loadOrders()
   }
 
