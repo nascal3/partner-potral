@@ -27,7 +27,7 @@
         {{ notificationsDateFormat(item.date) }}
       </template>
       <template v-slot:item.message="{ item }">
-        <div v-html="item.message"></div>
+        <div class="text-truncate" style="max-width: 180px" v-html="item.message"></div>
       </template>
       <template v-slot:item.action="{ item }">
         <v-btn
@@ -67,7 +67,7 @@ export default {
         { text: this.$t('notifications.notification_status'), value: 'status' },
         { text: this.$t('notifications.notification_date'), value: 'date' },
         { text: this.$t('notifications.notification_title'), value: 'title' },
-        { text: this.$t('notifications.notification_message'), value: 'message' },
+        { text: this.$t('notifications.notification_message'), value: 'message', width: 180 },
         { text: '', value: 'data-table-expand' }
       ]
     }
