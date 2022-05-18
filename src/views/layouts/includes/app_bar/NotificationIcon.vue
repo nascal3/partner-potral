@@ -26,7 +26,7 @@
           max-width="300"
           tile
       >
-        <v-list>
+        <v-list flat>
           <v-subheader>
             {{ $t('navigation.notifications') }}
             <v-spacer></v-spacer>
