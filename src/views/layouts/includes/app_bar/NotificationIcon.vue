@@ -10,8 +10,8 @@
         <v-btn v-bind="attrs" v-on="on"  icon>
           <v-badge
               color="pink"
-              :content="messages"
-              :value="messages"
+              :content="notifications.length"
+              :value="notifications.length"
               overlap
           >
             <v-icon>mdi-bell-outline</v-icon>
@@ -38,12 +38,12 @@
               color="primary"
           >
             <v-list-item
-                v-for="(item, index) in items"
+                v-for="(notification, index) in notifications"
                 :key="index"
             >
               <v-list-item-content @click="setSegmentEvent('Clicked nav notification message')">
-                <v-list-item-title v-html="item.title"></v-list-item-title>
-                <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                <v-list-item-title v-html="notification.title"></v-list-item-title>
+                <v-list-item-subtitle v-html="notification.subtitle"></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -62,9 +62,8 @@ export default {
 
   data() {
     return {
-      messages: 5,
       selectedItem: null,
-      items: [
+      notifications: [
         {
           title: 'Brunch this weekend?',
           subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`
