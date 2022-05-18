@@ -65,7 +65,7 @@
             {{ getLastStop(item.destinations) }}
           </template>
           <template v-slot:item.updated_at="{ item }">
-            {{ formatDate(item.updated_at) }}
+            {{ ordersDateFormat(item.updated_at) }}
           </template>
           <template v-slot:item.cost="{ item }">
             {{ item.currency }} {{ item.cost }}
@@ -94,14 +94,14 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
 import segmentMixin from "@/mixins/segmentEvents"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
+import dateFormat from "@/mixins/dateFormat";
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, dateFormat],
 
   components: {
     'order-details': () => import('./partials/OrderDetails'),
@@ -137,7 +137,7 @@ export default {
         { text: this.$t('orders.table_pickup_date'), value: 'updated_at' },
         { text: this.$t('orders.table_price'), value: 'cost' },
         { text: this.$t('orders.table_status'), value: 'status' },
-        { text: '', value: 'data-table-expand' },
+        { text: '', value: 'data-table-expand' }
       ],
       meta: {
         current_page: 1,
@@ -197,11 +197,6 @@ export default {
     getLastStop(destinations) {
       if (!destinations.length) return
       return destinations[destinations.length - 1]
-    },
-
-    formatDate(date) {
-      if (!date) return
-       return format(new Date(date), 'iii, do LLL')
     },
 
     setChipColor (orderStatus) {

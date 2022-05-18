@@ -6,6 +6,7 @@ import finance from './en/finance.json'
 import generate from './en/generate.json'
 import map from './en/map.json'
 import navigation from './en/navigation.json'
+import notifications from './en/notifications.json'
 import orders from './en/orders.json'
 import register from './en/register.json'
 import role from './en/role.json'
@@ -24,6 +25,7 @@ const translation = {
     generate,
     map,
     navigation,
+    notifications,
     orders,
     register,
     role,

@@ -7,7 +7,7 @@
         bottom
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on"  icon>
+        <v-btn v-bind="attrs" v-on="on" icon>
           <v-badge
               color="pink"
               :content="notifications.length"
@@ -34,6 +34,7 @@
           </v-subheader>
           <v-divider></v-divider>
           <v-list-item-group
+              v-if="notifications.length"
               v-model="selectedItem"
               color="primary"
           >
@@ -43,10 +44,13 @@
             >
               <v-list-item-content @click="setSegmentEvent('Clicked nav notification message')">
                 <v-list-item-title v-html="notification.title"></v-list-item-title>
-                <v-list-item-subtitle v-html="notification.subtitle"></v-list-item-subtitle>
+                <v-list-item-subtitle v-html="notification.message"></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
+          <div class="d-flex align-center justify-center pa-4" v-else>
+            {{ $t('notifications.all_notifications_read') }}
+          </div>
         </v-list>
       </v-card>
     </v-menu>
@@ -55,6 +59,7 @@
 </template>
 
 <script>
+import mockResponse from '@/libs/app/notifications/mockResponce.json'
 import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
@@ -63,26 +68,21 @@ export default {
   data() {
     return {
       selectedItem: null,
-      notifications: [
-        {
-          title: 'Brunch this weekend?',
-          subtitle: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`
-        },
-        {
-          title: 'Oui oui',
-          subtitle: '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
-        },
-        {
-          title: 'Birthday gift',
-          subtitle: '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
-        },
-        {
-          title: 'Recipe to try',
-          subtitle: '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-        },
-      ],
+      notifications: []
     }
   },
+
+  methods: {
+    unreadNotifications() {
+      this.notifications = mockResponse.filter(notification => {
+        return notification.status === "unread"
+      })
+    }
+  },
+
+  mounted () {
+    this.unreadNotifications()
+  }
 }
 </script>
 
