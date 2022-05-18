@@ -189,6 +189,12 @@ const routes = [
         name: 'document-details.index',
         component: () => import('@/components/app/documents/document_details/Index.vue')
       },
+
+      {
+        path: 'notifications',
+        name: 'notifications.index',
+        component: () => import('@/components/app/notifications/Index.vue')
+      },
     ],
   },
 ]

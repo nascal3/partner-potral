@@ -48,9 +48,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import Transporter from "@/libs/app/transporters/Transporter"
 
 export default {
+  mixins: [segmentMixin],
+
   props: [
     'users',
     'vehicle'
@@ -86,6 +89,7 @@ export default {
 
   methods: {
     allocate (user) {
+      this.setSegmentEvent('Allocate driver a vehicle')
       this.transporterObj.driver_id = user.id
       this.transporterObj.vehicle_id = this.vehicle.id
       this.transporterObj.store()
