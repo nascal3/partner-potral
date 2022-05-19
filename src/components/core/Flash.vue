@@ -33,7 +33,7 @@ export default {
       show: false,
       alert: null,
       color: 'grey darken-3',
-      timeout: 8000,
+      timeout: 4000,
     };
   },
 
@@ -44,7 +44,7 @@ export default {
       this.timeout = details.timeout || 10000;
       this.color = details.color || 'grey darken-3'
 
-      this.show = true;
+      this.show = this.body.length;
       setTimeout(() => {
         this.body = "";
         this.show = false;

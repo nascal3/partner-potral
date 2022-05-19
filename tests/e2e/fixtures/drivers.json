@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "total": 1,
+    "per_page": 25,
+    "current_page": 1,
+    "last_page": 1,
+    "first_page": 1,
+    "first_page_url": "/?page=1",
+    "last_page_url": "/?page=1",
+    "next_page_url": null,
+    "previous_page_url": null
+  },
+  "data": [
+    {
+      "id": 457,
+      "name": "Caleb Nasio",
+      "email": "caleb@sendyit.com",
+      "phone": "+254718769663",
+      "registered_at": "2022-02-19T09:50:13.000+00:00",
+      "roles": [
+        {
+          "id": 2011,
+          "name": "partner::910::admin",
+          "product_group_uuid_id": 910,
+          "display_name": "admin role",
+          "description": null
+        },
+        {
+          "id": 2013,
+          "name": "partner::910::driver",
+          "product_group_uuid_id": 910,
+          "display_name": "driver role",
+          "description": null
+        }
+      ]
+    }
+  ]
+}

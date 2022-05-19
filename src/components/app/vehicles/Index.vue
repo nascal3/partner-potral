@@ -25,6 +25,8 @@
           disable-pagination
           :headers="headers"
           :items="vehicles.data"
+          :loading="loading"
+          :loading-text="$t('core.system_loading')"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.vendor_type="{ item }">
@@ -40,7 +42,7 @@
               color="secondary"
               class="ttn caption"
               :to="`vehicles/${item.id}/drivers`"
-              @click="forAllocation = item"
+              @click="forAllocation = item; setSegmentEvent('Select allocate vehicle to driver');"
               :disabled="!item.is_valid"
             >
               {{ $t('vehicles.allocate_driver') }}
@@ -82,12 +84,14 @@ import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
   mixins: [segmentMixin],
+
   components: {
     'vehicles-create': () => import('./Create.vue'),
   },
 
   data () {
     return {
+      loading: true,
       vehicle: null,
       forDocument: null,
       forAllocation: null,
@@ -107,6 +111,12 @@ export default {
     }),
 
     auth: () => auth
+  },
+
+  watch: {
+    vehicles() {
+      this.loading = false
+    }
   },
 
   methods: {

@@ -107,6 +107,19 @@ phrase:
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: navigation
 
+    - file: ./src/locales/en/notifications.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 86a7be09fe6ba1d9eb2d7005f8b4afbb
+        tags: notifications
+    - file: ./src/locales/fr/notifications.json
+      params:
+        file_format: simple_json
+        update_translations: true
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: notifications
+
     - file: ./src/locales/en/orders.json
       params:
         file_format: simple_json
@@ -246,6 +259,12 @@ phrase:
         file_format: simple_json
         locale_id: 264225cb781cb97047a758e27e9152f1
         tags: navigation
+
+    - file: ./src/locales/fr/notifications.json
+      params:
+        file_format: simple_json
+        locale_id: 264225cb781cb97047a758e27e9152f1
+        tags: notifications
 
     - file: ./src/locales/fr/orders.json
       params:

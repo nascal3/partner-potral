@@ -61,8 +61,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Transporter from "@/libs/app/transporters/Transporter"
+import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
+  mixins: [segmentMixin],
+
   data () {
     return {
       initialising: true,
@@ -70,7 +73,7 @@ export default {
       transporterObj: new Transporter(),
       title: '',
       crumbs: [
-        { text: 'Driver', disabled: true, }
+        { text: this.$t('driver.driver'), disabled: true, }
       ],
       navigation: [
         { name: this.$t('driver.home'), icon: 'home-variant', to: 'home' },
@@ -121,6 +124,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Open driver profile')
     this.setTransporters({
       routes: {
         partner: auth.retrieve('partner').id

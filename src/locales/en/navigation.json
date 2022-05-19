@@ -9,5 +9,7 @@
   "roles": "Select user role(s) *",
   "users": "Users",
   "vehicles": "Vehicles",
-  "orders": "Orders"
+  "orders": "Orders",
+  "legal_documents": "Legal documents",
+  "notifications": "Notifications"
 }

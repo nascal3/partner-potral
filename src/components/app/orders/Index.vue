@@ -14,6 +14,7 @@
               v-model="search"
               prepend-inner-icon="mdi-magnify"
               :label="$t('orders.search')"
+              @change="setSegmentEvent('Searched an order phrase')"
               single-line
               hide-details
               outlined
@@ -29,67 +30,8 @@
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
           <v-row class="date-filters">
-            <v-col cols="12" md="4">
-              <v-menu
-                  ref="menu"
-                  v-model="menu"
-                  :close-on-content-click="false"
-                  :return-value.sync="dateFrom"
-                  :nudge-right="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="290px"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                      v-model="dateFrom"
-                      :label="$t('orders.from_date')"
-                      prepend-inner-icon="event"
-                      outlined
-                      dense
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                      @blur="loadOrders"
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="dateFrom" :locale="locale" :show-current="dateTo" :max="maximumDate">
-                  <v-spacer></v-spacer>
-                  <v-btn class="btn-text" text color="primary" @click="menu = false">{{ $t('orders.cancel') }}</v-btn>
-                  <v-btn class="btn-text" color="primary" @click="$refs.menu.save(dateFrom)">{{ $t('orders.ok') }}</v-btn>
-                </v-date-picker>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-menu
-                  ref="menu2"
-                  v-model="menu2"
-                  :close-on-content-click="false"
-                  :return-value.sync="dateTo"
-                  :nudge-right="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="290px"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                      v-model="dateTo"
-                      :label="$t('orders.to_date')"
-                      prepend-inner-icon="event"
-                      outlined
-                      dense
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                      @blur="loadOrders"
-                  ></v-text-field>
-                </template>
-                <v-date-picker v-model="dateTo" :locale="locale" :show-current="dateFrom" :min="minimumDate">
-                  <v-spacer></v-spacer>
-                  <v-btn class="btn-text" text color="primary" @click="menu2 = false">{{ $t('orders.cancel') }}</v-btn>
-                  <v-btn class="btn-text" color="primary" @click="$refs.menu2.save(dateTo)">{{ $t('orders.ok') }}</v-btn>
-                </v-date-picker>
-              </v-menu>
+            <v-col cols="12" md="7">
+              <date-range @getDateRange="setDateRange"/>
             </v-col>
             <v-col cols="12" md="4">
             </v-col>
@@ -116,13 +58,14 @@
           :expanded.sync="expanded"
           show-expand
           @item-expanded="getOrderDetails"
+          :loading="loading"
           :loading-text="$t('core.system_loading')"
         >
           <template v-slot:item.destinations="{ item }">
             {{ getLastStop(item.destinations) }}
           </template>
           <template v-slot:item.updated_at="{ item }">
-            {{ formatDate(item.updated_at) }}
+            {{ ordersDateFormat(item.updated_at) }}
           </template>
           <template v-slot:item.cost="{ item }">
             {{ item.currency }} {{ item.cost }}
@@ -151,14 +94,18 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
+import segmentMixin from "@/mixins/segmentEvents"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
+import dateFormat from "@/mixins/dateFormat";
 
 export default {
+  mixins: [segmentMixin, dateFormat],
+
   components: {
     'order-details': () => import('./partials/OrderDetails'),
+    'date-range': () => import('@/components/core/DateRange.vue'),
   },
 
   data () {
@@ -190,7 +137,7 @@ export default {
         { text: this.$t('orders.table_pickup_date'), value: 'updated_at' },
         { text: this.$t('orders.table_price'), value: 'cost' },
         { text: this.$t('orders.table_status'), value: 'status' },
-        { text: '', value: 'data-table-expand' },
+        { text: '', value: 'data-table-expand' }
       ],
       meta: {
         current_page: 1,
@@ -217,8 +164,15 @@ export default {
   },
 
   methods: {
+    setDateRange({dateFrom, dateTo}) {
+      this.dateFrom = dateFrom
+      this.dateTo = dateTo
+      this.loadOrders()
+    },
+
     getOrderDetails ({item, value}) {
       if (!value) return
+      this.setSegmentEvent('Viewed order details')
       const { order_no } = item
       this.orderDetailsObj.show(order_no).then( data => {
         this.orderDetails = data.data
@@ -243,11 +197,6 @@ export default {
     getLastStop(destinations) {
       if (!destinations.length) return
       return destinations[destinations.length - 1]
-    },
-
-    formatDate(date) {
-      if (!date) return
-       return format(new Date(date), 'iii, do LLL')
     },
 
     setChipColor (orderStatus) {
@@ -324,6 +273,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Visited orders page')
     this.loadOrders()
   }
 

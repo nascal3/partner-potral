@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "status": "unread",
+    "date": "2021-09-20T12:12:36.166584+02:00",
+    "title": "Brunch this weekend?",
+    "message": " <span class=\"text--primary\">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out? "
+  },
+  {
+    "id": 2,
+    "status": "unread",
+    "date": "2021-09-20T12:12:36.166584+02:00",
+    "title": "Oui oui",
+    "message": " <span class=\"text--primary\">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been? "
+  },
+  {
+    "id": 3,
+    "status": "unread",
+    "date": "2021-09-20T12:12:36.166584+02:00",
+    "title": "Birthday gift",
+    "message": " <span class=\"text--primary\">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday? "
+  },
+  {
+    "id": 4,
+    "status": "unread",
+    "date": "2021-09-20T12:12:36.166584+02:00",
+    "title": "Recipe to try",
+    "message": " <span class=\"text--primary\">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos. "
+  },
+  {
+    "id": 5,
+    "status": "read",
+    "date": "2021-09-20T12:12:36.166584+02:00",
+    "title": "Grab one now",
+    "message": " <span class=\"text--primary\">Mr transporter</span> &mdash; New offers and shit are available to you men! "
+  }
+]
