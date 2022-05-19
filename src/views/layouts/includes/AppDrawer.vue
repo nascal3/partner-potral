@@ -83,9 +83,9 @@
             </template>
             <v-list dense>
               <v-list-item
-                v-for="(child, index) in item.children"
-                :to="child.to"
-                :key="index"
+                  v-for="(child, index) in item.children"
+                  :to="child.to"
+                  :key="index"
               >
                 <v-list-item-title class="body-2">
                   {{ child.name }}
@@ -123,15 +123,15 @@ export default {
         'APPLICATION': [
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
           {
-              name: this.$t('finance.finances'),
-              icon: 'bank',
-              children: [
-                { name: this.$t('finance.statement'), icon: '', to: '/finances/statement' },
-                { name: this.$t('finance.withdrawals'), icon: '', to: '/finances/withdrawals' },
-                { name: this.$t('finance.bank_accounts'), icon: '', to: '/finances/bank' },
-                { name: this.$t('finance.loans_savings'), icon: '', to: '/finances/loans_savings' },
-              ]
-            },
+            name: this.$t('finance.finances'),
+            icon: 'bank',
+            children: [
+              { name: this.$t('finance.statement'), icon: '', to: '/finances/statement' },
+              { name: this.$t('finance.withdrawals'), icon: '', to: '/finances/withdrawals' },
+              { name: this.$t('finance.bank_accounts'), icon: '', to: '/finances/bank' },
+              { name: this.$t('finance.loans_savings'), icon: '', to: '/finances/loans_savings' },
+            ]
+          },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           // { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'orders.index' },
           // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'orders.index' }
@@ -152,7 +152,7 @@ export default {
 
   methods: {
     input (input) {
-      if (input == false) {
+      if (!input) {
         this.$emit('closed')
       }
     },
