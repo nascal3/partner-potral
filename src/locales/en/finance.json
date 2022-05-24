@@ -1,4 +1,6 @@
 {
+  "amount_label": "Amount",
+  "btn_back": "Back",
   "payments": "Payments",
   "payments_title": "Payments",
   "account_balance": "ACCOUNT BALANCE",

@@ -46,6 +46,8 @@
             v-if="proceed"
             :input-errors="errors"
             :amount="withdrawAmount"
+            @paymentMethod="paymentMethod"
+            @proceed="proceedToWithdraw"
         />
 
       </form>
@@ -72,6 +74,7 @@ export default {
       dialogLaunch: false,
       proceed: false,
       withdrawAmount: null,
+      withdrawalMethod: null,
       vehicleObj: new Vehicle(),
     }
   },
@@ -93,6 +96,11 @@ export default {
   methods: {
     amount (value) {
       this.withdrawAmount = value
+    },
+
+    paymentMethod(method) {
+      this.withdrawalMethod = method
+      console.log('>>>', this.withdrawalMethod)
     },
 
     loadPartnerBalance () {

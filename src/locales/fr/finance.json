@@ -1,4 +1,6 @@
 {
+  "amount_label": "FR_Amount",
+  "btn_back": "FR_Back",
   "payments": "FR_Payments",
   "payments_title": "FR_Payments",
   "account_balance": "FR_ACCOUNT BALANCE",

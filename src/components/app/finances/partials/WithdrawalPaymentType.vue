@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="d-flex justify-space-between pa-4">
-      <div>Amount</div>
+      <div>{{ $t('finance.amount_label') }}</div>
       <div>
         <span>KES</span>
         {{ amount }}
@@ -14,9 +14,9 @@
       {{ $t('finance.withdraw_method_question') }}
     </div>
 
-    <v-card-text class="pt-0">
+    <v-card-text class="py-0">
       <v-radio-group v-model="paymentMethod">
-        <v-radio value="mpesa">
+        <v-radio value="mpesa" :class="{ active: paymentMethod === 'mpesa' }">
           <template v-slot:label>
             <div class="d-flex">
               <div class="method-icon pa-1 mr-2">
@@ -33,14 +33,11 @@
             </div>
           </template>
         </v-radio>
-        <v-radio value="bank">
+        <v-radio value="bank" :class="{ active: paymentMethod === 'bank' }">
           <template v-slot:label>
             <div class="d-flex">
               <div class="d-flex justify-center method-icon pa-1 mr-2" style="width: 55px;">
-                <v-icon
-                >
-                  mdi-bank
-                </v-icon>
+                <v-icon>mdi-bank</v-icon>
               </div>
               <div class="d-flex flex-column method-text">
                 <div>Bank Transfer</div>
@@ -52,17 +49,27 @@
         </v-radio>
       </v-radio-group>
     </v-card-text>
-    <v-card-actions class="px-4 pb-5">
+    <v-card-actions class="d-flex flex-column px-4 pb-5">
       <v-btn
           block
           large
           type="submit"
           color="primary"
-          class="caption font-weight-bold"
+          class="caption font-weight-bold mb-4"
           :dark="!disabled"
           :disabled="disabled"
       >
         {{ $t('finance.withdraw') }}
+      </v-btn>
+      <v-spacer></v-spacer>
+      <v-btn
+          block
+          large
+          text
+          class="caption font-weight-bold"
+          @click="navigateBack"
+      >
+        {{ $t('finance.btn_back') }}
       </v-btn>
     </v-card-actions>
   </section>
@@ -101,6 +108,7 @@ export default {
 
     paymentMethod (value) {
       this.disabled = !value
+      this.$emit('paymentMethod', value)
     }
   },
 
@@ -111,7 +119,9 @@ export default {
   },
 
   methods: {
-
+    navigateBack () {
+      this.$emit('proceed', false)
+    }
   },
 }
 </script>
@@ -128,11 +138,22 @@ export default {
 .method-icon {
   border: 1px solid #D9D9D9;
   border-radius: 5px;
+  .v-icon {
+    color: #314BAB;
+  }
 }
 .v-radio {
   border: 1px solid #E2E7ED;
   padding: 16px;
   border-radius: 5px;
   margin-bottom: 16px !important;
+}
+.v-card__actions {
+  button {
+
+  }
+}
+.active {
+  border: 2px solid #314BAB;
 }
 </style>
