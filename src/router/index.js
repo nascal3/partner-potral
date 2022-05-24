@@ -179,29 +179,11 @@ const routes = [
       },
 
       {
-        path: 'finances/statement',
+        path: 'statements',
         name: 'statement.index',
-        component: () => import('@/components/app/finances/statement/Index.vue')
+        component: () => import('@/components/app/finances/Index.vue')
       },
 
-      {
-        path: 'finances/withdrawals',
-        name: 'withdrawal.index',
-        component: () => import('@/components/app/finances/withdrawal/Index.vue')
-      },
-
-      // {
-      //   path: 'finances/bank',
-      //   name: 'bank.index',
-      //   component: () => import('@/components/app/finances/bank/Index.vue')
-      // },
-
-      {
-        path: 'finances/loans_savings',
-        name: 'loans_savings.index',
-        component: () => import('@/components/app/finances/loans_savings/Index.vue')
-      },
-      
       {
         path: 'legal-documents',
         name: 'legal-documents.index',

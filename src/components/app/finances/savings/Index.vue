@@ -4,7 +4,7 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('finance.loans_savings') }}
+            {{ $t('finance.savings') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
