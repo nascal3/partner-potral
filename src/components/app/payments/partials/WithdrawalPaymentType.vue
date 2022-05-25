@@ -18,7 +18,7 @@
       <v-radio-group v-model="paymentMethod">
         <v-radio value="mpesa" :class="{ active: paymentMethod === 'mpesa' }">
           <template v-slot:label>
-            <div class="d-flex">
+            <div class="d-flex" @click="setSegmentEvent('Select mpesa payment method')">
               <div class="method-icon pa-1 mr-2">
                 <v-img
                     max-width="45"
@@ -35,7 +35,7 @@
         </v-radio>
         <v-radio value="bank" :class="{ active: paymentMethod === 'bank' }">
           <template v-slot:label>
-            <div class="d-flex">
+            <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
               <div class="d-flex justify-center method-icon pa-1 mr-2" style="width: 55px;">
                 <v-icon>mdi-bank</v-icon>
               </div>
@@ -76,8 +76,8 @@
 </template>
 
 <script>
-import segmentMixin from "@/mixins/segmentEvents";
-import formatNumbers from "@/mixins/formatNumbers";
+import segmentMixin from "@/mixins/segmentEvents"
+import formatNumbers from "@/mixins/formatNumbers"
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -120,6 +120,7 @@ export default {
 
   methods: {
     navigateBack () {
+      this.setSegmentEvent('Navigate back to payment amount')
       this.$emit('proceed', false)
     }
   },

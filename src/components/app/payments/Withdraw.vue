@@ -100,7 +100,6 @@ export default {
 
     paymentMethod(method) {
       this.withdrawalMethod = method
-      console.log('>>>', this.withdrawalMethod)
     },
 
     loadPartnerBalance () {
@@ -120,18 +119,19 @@ export default {
 
     submit () {
       this.setSegmentEvent('Withdraw amount -- Submit')
-      if (!this.loading) {
-        this.loading = true
-        this.vehicleObj.store()
-            .then(response => {
-              flash(response)
-              this.$emit('stored')
-              this.dialogLaunch = false
-            })
-            .finally(() => {
-              this.loading = false
-            })
-      }
+      console.log(this.withdrawAmount, this.withdrawalMethod)
+      // if (!this.loading) {
+      //   this.loading = true
+      //   this.vehicleObj.store()
+      //       .then(response => {
+      //         flash(response)
+      //         this.$emit('stored')
+      //         this.dialogLaunch = false
+      //       })
+      //       .finally(() => {
+      //         this.loading = false
+      //       })
+      // }
     },
   },
 

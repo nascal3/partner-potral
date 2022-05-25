@@ -15,6 +15,7 @@
   "continue": "FR_Continue",
   "withdraw_amount_question": "FR_How much do you want to withdraw?",
   "withdraw_method_question": "FR_How would you like to be paid?",
+  "withdraw_amount_error": "FR_You can't withdraw more than your account balance",
   "bank_transfer": "FR_Bank Transfer",
   "withdrawals": "FR_Withdrawals",
   "withdrawals_title": "FR_Withdrawals",

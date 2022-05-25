@@ -15,6 +15,7 @@
   "continue": "Continue",
   "withdraw_amount_question": "How much do you want to withdraw?",
   "withdraw_method_question": "How would you like to be paid?",
+  "withdraw_amount_error": "You can't withdraw more than your account balance",
   "bank_transfer": "Bank Transfer",
   "withdrawals_title": "Withdrawals",
   "withdrawal_state": "Withdrawal state",

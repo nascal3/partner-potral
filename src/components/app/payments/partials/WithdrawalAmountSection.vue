@@ -14,10 +14,13 @@
             :label="$t('finance.withdrawal_amount')"
             v-model="amount"
             :hint="errors.get('registration_number')"
-            :error="errors.has('registration_number')"
+            :error="withdrawAmountError || errors.has('registration_number')"
             @input="errors.clear('registration_number')"
             @change="setSegmentEvent('Enter withdrawal amount')"
         ></v-text-field>
+        <span class="error-message" v-if="withdrawAmountError">
+          {{ $t('finance.withdraw_amount_error') }}
+        </span>
       </div>
 
     </v-card-text>
@@ -38,10 +41,11 @@
 </template>
 
 <script>
-import segmentMixin from "@/mixins/segmentEvents";
+import segmentMixin from "@/mixins/segmentEvents"
+import formatNumbers from "@/mixins/formatNumbers"
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, formatNumbers],
 
   props: {
     inputErrors: {
@@ -53,7 +57,8 @@ export default {
   data() {
     return {
       disabled: true,
-      amount: '0'
+      accountBalance: 35450,
+      amount: ''
     }
   },
 
@@ -63,7 +68,8 @@ export default {
           .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       await this.$nextTick(() => {
         this.amount = result
-        this.disabled = !this.amount
+        const numValue = this.formatAmountToNumber(this.amount)
+        this.disabled = !numValue
         this.$emit('amount', this.amount)
       })
     },
@@ -72,6 +78,10 @@ export default {
   computed: {
     errors() {
       return this.inputErrors
+    },
+
+    withdrawAmountError() {
+      return this.formatAmountToNumber(this.amount) > this.accountBalance
     }
   },
 
@@ -84,6 +94,10 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.error-message {
+  position: relative;
+  color: #EE551A;
+  bottom: 25px;
+}
 </style>

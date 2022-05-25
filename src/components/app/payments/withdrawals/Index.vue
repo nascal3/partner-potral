@@ -39,6 +39,7 @@ export default {
       withdrawals: [],
       page: 1,
       headers: [
+        { text: this.$t('finance.txn'), value: 'pickup_location' },
         { text: this.$t('finance.txn_date'), value: 'pickup_location' },
         { text: this.$t('finance.txn_amount'), value: 'destinations' },
         { text: this.$t('finance.txn_payment_type'), value: 'updated_at' },

@@ -23,7 +23,7 @@
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
             <div class="d-flex currency-text">
               <span class="mr-2 mt-2">KES</span>
-              35,265
+              {{ thousandSeparator(accountBalance) }}
             </div>
           </div>
         </v-col>
@@ -69,16 +69,23 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
+import formatNumbers from "@/mixins/formatNumbers";
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, formatNumbers],
 
   components: {
     'withdraw-modal': () => import('./Withdraw.vue'),
     'withdrawal-table': () => import('./withdrawals/Index.vue'),
     'statement-table': () => import('./statement/Index.vue'),
     'savings-table': () => import('./savings/Index.vue')
-  }
+  },
+
+  data() {
+    return {
+      accountBalance: 35450
+    }
+  },
 }
 </script>
 
