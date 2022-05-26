@@ -16,10 +16,10 @@
 
     <v-card-text class="py-0">
       <v-radio-group v-model="paymentMethod">
-        <v-radio value="mpesa" :class="{ active: paymentMethod === 'mpesa' }">
+        <v-radio value="mpesa" class="rounded-lg" :class="{ active: paymentMethod === 'mpesa' }">
           <template v-slot:label>
             <div class="d-flex" @click="setSegmentEvent('Select mpesa payment method')">
-              <div class="method-icon pa-1 mr-2">
+              <div class="method-icon rounded pa-1 mr-2">
                 <v-img
                     max-width="45"
                     :src="require('@/assets/mpesa-logo.png')"
@@ -33,10 +33,10 @@
             </div>
           </template>
         </v-radio>
-        <v-radio value="bank" :class="{ active: paymentMethod === 'bank' }">
+        <v-radio value="bank" class="rounded-lg" :class="{ active: paymentMethod === 'bank' }">
           <template v-slot:label>
             <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
-              <div class="d-flex justify-center method-icon pa-1 mr-2" style="width: 55px;">
+              <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
                 <v-icon>mdi-bank</v-icon>
               </div>
               <div class="d-flex flex-column method-text">
@@ -143,7 +143,6 @@ export default {
 }
 .method-icon {
   border: 1px solid #D9D9D9;
-  border-radius: 5px;
   .v-icon {
     color: #314BAB;
   }
@@ -151,7 +150,6 @@ export default {
 .v-radio {
   border: 1px solid #E2E7ED;
   padding: 16px;
-  border-radius: 5px;
   margin-bottom: 16px !important;
 }
 .v-card__actions {

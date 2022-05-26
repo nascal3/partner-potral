@@ -18,7 +18,7 @@
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
-        <v-col md="6" cols="12">
+        <v-col md="6" cols="12" class="top-account-balance">
           <div class="d-flex flex-column justify-end align-end mr-4">
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
             <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
@@ -40,6 +40,17 @@
           <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
           <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
+
+          <div class="account-balance">
+            <div class="d-flex flex-column justify-end align-end mr-4">
+              <div class="small-text">{{ $t('finance.account_balance') }}</div>
+              <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
+                <span class="mr-2 mt-2">KES</span>
+                {{ thousandSeparator(accountBalance) }}
+              </div>
+            </div>
+          </div>
+
           <!--      withdrawals summary tab-->
           <v-tab-item>
             <v-container fluid>
@@ -136,6 +147,29 @@ export default {
   &--active {
     background: #F0F3F7;
     border-radius: 6px;
+  }
+}
+.top-account-balance {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: inline-block;
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    display: inline-block;
+  }
+}
+.account-balance {
+  position: absolute;
+  right: 0;
+  color: black;
+  display: inline-block;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 769px) and (max-width: 1024px) {
+    display: none;
   }
 }
 .small-text {
