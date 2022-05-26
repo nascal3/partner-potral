@@ -1,4 +1,5 @@
 {
+  "driver": "Conducteur",
   "home": "Accueil ",
   "more": "Plus ",
   "not_active": "Oups! Pas un conducteur actif",
@@ -8,6 +9,5 @@
   "offline_title": "Vous êtes hors ligne ",
   "online_call_to_action": "Aller en ligne ",
   "orders": "Commandes ",
-  "payments": "Paiements ",
-  "driver": "Conducteur"
+  "payments": "FR_Payments"
 }
