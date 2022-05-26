@@ -21,9 +21,9 @@
         <v-col md="6" cols="12">
           <div class="d-flex flex-column justify-end align-end mr-4">
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
-            <div class="d-flex currency-text">
+            <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
               <span class="mr-2 mt-2">KES</span>
-              {{ thousandSeparator(accountBalance) }}
+                {{ thousandSeparator(accountBalance) }}
             </div>
           </div>
         </v-col>

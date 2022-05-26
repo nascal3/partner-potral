@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-animate-css="animationObject">
     <div class="d-flex justify-space-between pa-4">
       <div>{{ $t('finance.amount_label') }}</div>
       <div>
@@ -97,7 +97,12 @@ export default {
     return {
       disabled: true,
       withdrawAmount: null,
-      paymentMethod: null
+      paymentMethod: null,
+      animationObject:{
+        classes: 'slideInRight',
+        delay: 0,
+        duration: 300
+      }
     }
   },
 

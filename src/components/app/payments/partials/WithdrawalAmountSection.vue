@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-animate-css="animationObject">
     <div class="px-4 pt-2">
       {{ $t('finance.withdraw_amount_question') }}
     </div>
@@ -58,7 +58,12 @@ export default {
     return {
       disabled: true,
       accountBalance: 35450,
-      amount: ''
+      amount: '',
+      animationObject:{
+        classes: 'slideInLeft',
+        delay: 0,
+        duration: 300
+      }
     }
   },
 
