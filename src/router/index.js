@@ -179,9 +179,15 @@ const routes = [
       },
 
       {
-        path: 'statements',
-        name: 'transactions.index',
+        path: 'payments',
+        name: 'payments.index',
         component: () => import('@/components/app/payments/Index.vue')
+      },
+
+      {
+        path: 'banks',
+        name: 'banks.index',
+        component: () => import('@/components/app/payments/banks/Index.vue')
       },
 
       {

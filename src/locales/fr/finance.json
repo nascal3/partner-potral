@@ -28,6 +28,7 @@
   "no_results_found": "FR_No results found",
   "no_bank_records_found": "FR_No bank accounts found",
   "statement_title": "FR_Statement",
+  "banks": "FR_Banks",
   "bank_title": "FR_Bank accounts",
   "add_bank": "FR_Add Bank Account",
   "record_bank": "FR_Record Bank Details",
