@@ -180,7 +180,7 @@ const routes = [
 
       {
         path: 'statements',
-        name: 'statement.index',
+        name: 'transactions.index',
         component: () => import('@/components/app/payments/Index.vue')
       },
 

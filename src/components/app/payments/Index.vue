@@ -49,16 +49,25 @@
           <!--      savings tab-->
           <v-tab-item>
             <v-container fluid>
-              <v-row>
-                <v-col cols="12" md="2">
-                  <div class="grey-text bold-text">{{ $t('orders.price_per_order') }}</div>
-                  <div class="bold-text dark-grey-text">KES 139</div>
-                </v-col>
-                <v-col cols="12" md="10">
-                  <div class="grey-text bold-text">{{ $t('orders.total_orders') }}</div>
-                  <div class="bold-text dark-grey-text">KES 13,609</div>
-                </v-col>
-              </v-row>
+              <withdrawal-table/>
+            </v-container>
+          </v-tab-item>
+          <!--      repayments summary tab-->
+          <v-tab-item>
+            <v-container fluid>
+              <withdrawal-table/>
+            </v-container>
+          </v-tab-item>
+          <!--      uncleared earnings summary tab-->
+          <v-tab-item>
+            <v-container fluid>
+              <withdrawal-table/>
+            </v-container>
+          </v-tab-item>
+          <!--      transactions summary tab-->
+          <v-tab-item>
+            <v-container fluid>
+              <transactions-table/>
             </v-container>
           </v-tab-item>
         </v-tabs>
@@ -77,7 +86,7 @@ export default {
   components: {
     'withdraw-modal': () => import('./Withdraw.vue'),
     'withdrawal-table': () => import('./withdrawals/Index.vue'),
-    'statement-table': () => import('./statement/Index.vue'),
+    'transactions-table': () => import('./transactions/Index.vue'),
     'savings-table': () => import('./savings/Index.vue')
   },
 
@@ -119,7 +128,7 @@ export default {
 </style>
 <style lang="scss" scoped>
 .v-tabs {
-  margin-top: 20px;
+  //margin-top: 20px;
 }
 .v-tab {
   text-transform: none !important;

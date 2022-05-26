@@ -1,8 +1,8 @@
 import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
-import { fields } from './BanksRepository'
+import { fields } from './PaymentRepository'
 
-export default class Order extends Base {
+export default class Payment extends Base {
   constructor () {
     super(fields)
     this.form = new Form(fields)

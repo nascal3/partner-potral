@@ -59,7 +59,7 @@ export default {
         { text: this.$t('finance.txn_date'), value: 'date' },
         { text: this.$t('finance.txn_amount'), value: 'amount' },
         { text: this.$t('finance.txn_payment_method'), value: 'method' },
-        { text: this.$t('finance.txn_status'), value: 'status' },
+        { text: this.$t('finance.txn_type'), value: 'txn_type' },
       ],
       meta: {
         current_page: 1,

@@ -89,7 +89,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Bank from '@/libs/app/banks/Bank'
+import Bank from '@/libs/app/payments/Bank'
 import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
