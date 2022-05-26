@@ -123,7 +123,7 @@ export default {
         'APPLICATION': [
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
           {
-            name: this.$t('finance.payments'),
+            name: this.$t('finance.finance'),
             icon: 'cash-multiple',
               children: [
                 { name: this.$t('finance.payments'), icon: '', to: '/payments', permission: 'orders.index' },
