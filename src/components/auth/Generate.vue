@@ -183,7 +183,7 @@ export default {
           this.$router.push({ name: 'verify' })
         }).catch((error) => {
           flash({
-            message: error.data.errors[0].message,
+            message: error.data.message,
             color: '#e74c3c',
           })
           this.authObj[identifier] = null
