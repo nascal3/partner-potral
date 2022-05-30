@@ -54,6 +54,7 @@
             :onlyCountries="validCountries"
             :inputOptions="placeholder"
             styleClasses="loginPhoneInput"
+            :class="{ 'input-error': errors.get('phone') }"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('phone')">
           {{errors.get('phone')}}
