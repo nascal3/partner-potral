@@ -96,9 +96,9 @@ export default {
 
   components: {
     'withdraw-modal': () => import('./Withdraw.vue'),
-    'withdrawal-table': () => import('./withdrawals/Index.vue'),
-    'transactions-table': () => import('./transactions/Index.vue'),
-    'savings-table': () => import('./savings/Index.vue')
+    'withdrawal-table': () => import('./withdrawals/Show.vue'),
+    'transactions-table': () => import('./transactions/Show.vue'),
+    'savings-table': () => import('./savings/Show.vue')
   },
 
   data() {

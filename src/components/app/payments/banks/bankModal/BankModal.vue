@@ -9,10 +9,10 @@
           v-on="on"
           v-bind="attrs"
           color="primary"
-          class="caption ttn font-weight-bold"
-          @click="setSegmentEvent('Withdraw funds')"
+          class="caption ttn"
+          @click="setSegmentEvent('Add bank account')"
       >
-        {{ $t('finance.withdraw_btn') }}
+        {{ $t('finance.add_bank') }}
       </v-btn>
     </template>
 
@@ -20,7 +20,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            {{ $t('finance.withdraw_cash') }}
+            {{ $t('finance.add_bank') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -35,14 +35,14 @@
 
         <v-divider></v-divider>
 
-        <withdraw-amount
+        <bank-details
             v-if="!proceed"
             :input-errors="errors"
             @amount="amount"
             @proceed="proceedToWithdraw"
         />
 
-        <payment-method
+        <get-otp
             v-if="proceed"
             :input-errors="errors"
             :amount="withdrawAmount"
@@ -64,8 +64,8 @@ import formatNumbers from "@/mixins/formatNumbers";
 export default {
   mixins: [segmentMixin, formatNumbers],
   components: {
-    'withdraw-amount': () => import('./partials/WithdrawAmount.vue'),
-    'payment-method': () => import('./partials/PaymentMethod.vue'),
+    'bank-details': () => import('./BankDetails.vue'),
+    'get-otp': () => import('./GetOTP.vue'),
   },
 
   data () {
