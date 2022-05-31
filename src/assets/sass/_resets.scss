@@ -14,11 +14,15 @@ html body #app {
     }
   }
 
+  .input-error {
+    border: solid 1px #EE551A;
+  }
+
   a {
     text-decoration: none;
   }
 
-  .ttn { 
+  .ttn {
     text-transform: none !important
   }
 }

@@ -179,7 +179,7 @@ export default {
         this.loading = true
         this.vehicleDocumentObj.update(this.vehicleDocument.id)
           .then(response => {
-            flash(response)
+            flash({...response, color: '#38c172',})
             this.$emit('updated')
           })
           .finally(() => {

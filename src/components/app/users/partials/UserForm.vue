@@ -168,7 +168,7 @@ export default {
     store () {
       this.setSegmentEvent('Submit new user details')
       this.userObj.store().then(response => {
-        flash(response)
+        flash({...response, color: '#38c172',})
         this.$emit('stored')
       }).catch((error) => {
         this.loading = false
