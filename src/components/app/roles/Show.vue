@@ -1,8 +1,12 @@
 <template>
   <div>
-    <app-loading
+    <div
         v-if="!initialised"
-    ></app-loading>
+        class="d-flex justify-center align-center loader"
+    >
+      <app-loading/>
+    </div>
+
     <v-card v-if="initialised" flat class="ma-0 pa-0">
       <v-card-title>
         <div>
@@ -114,3 +118,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .loader {
+    min-height: 300px;
+  }
+</style>

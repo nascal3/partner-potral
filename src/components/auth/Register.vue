@@ -87,6 +87,7 @@
             :onlyCountries="validCountries"
             :inputOptions="placeholder"
             styleClasses="registerPhoneInput"
+            :class="{ 'input-error': errors.get('administrator.phone') }"
         ></vue-tel-input>
         <span class="error-message" v-if="errors.has('administrator.phone')">
           {{errors.get('administrator.phone')}}
