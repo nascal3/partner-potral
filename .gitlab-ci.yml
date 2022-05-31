@@ -44,3 +44,15 @@ buildpush:staging:
 
 
 
+buildpush:prod:
+  stage: buildpush
+  tags:
+    - shell
+  before_script:
+    - export REIMAGINED_PROD_IMAGE_FLUX="sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:prod_$(date +%Y-%m-%d-%H-%M)"
+  script:
+    - docker build  --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF=https://partner-bff-test.sendyit.com/api/v1/ --build-arg VUE_APP_GOOGLE_CLIENT_ID='693530769708-t8ibd43rpavia989f7n95dqtcps5rt33.apps.googleusercontent.com' -t $REIMAGINED_STAGING_IMAGE_NAME -t $REIMAGINED_PROD_IMAGE_FLUX -f Dockerfile .
+    - docker push $REIMAGINED_PROD_IMAGE_NAME
+    - docker push $REIMAGINED_PROD_IMAGE_FLUX
+  only:
+    - main
