@@ -1,11 +1,11 @@
 <template>
   <v-row class="mt-5">
-    <!-- <v-col
+    <v-col
       cols="12"
       class="mb-n4"
     >
       <p class="mb-n2 body-1">
-        Send authentication code to
+        {{ $t('generate.send_authentication_code') }}
       </p>
 
       <v-radio-group
@@ -13,46 +13,53 @@
         mandatory
         persistent-hint
         v-model="authObj.identifier"
+        @change="identifierTypeChangedEvent"
       >
         <v-radio
-          v-for="(identifier, index) in ['Email', 'Phone']"
+          v-for="(identifier, index) in authType"
           :key="`identifier-${index}`"
-          :label="identifier"
-          :value="identifier"
+          :label="identifier.label"
+          :value="identifier.value"
           class="body-1"
         ></v-radio>
       </v-radio-group>
-    </v-col> -->
+    </v-col>
 
     <v-col cols="12">
-      <p class="mb-1 body-1">
-        {{ $t('generate.enter_your_email_address') }}
-      </p>
-      <v-text-field
-        v-if="authObj.identifier == 'Email'"
-        outlined
-        persistent-hint
-        class="body-1"
-        placeholder="johndoe@knowhere.com"
-        v-model="authObj.email"
-        :hint="errors.get('email')"
-        :error="errors.has('email')"
-        @input="errors.clear('email')"
-        @change="setSegmentEvent('Select Email')"
-      ></v-text-field>
+      <div v-if="authObj.identifier == 'Email'">
+        <p class="mb-1 body-1">
+          {{ $t('generate.enter_your_email_address') }}
+        </p>
+        <v-text-field
+            outlined
+            persistent-hint
+            class="body-1"
+            placeholder="johndoe@knowhere.com"
+            v-model="authObj.email"
+            :hint="errors.get('email')"
+            :error="errors.has('email')"
+            @input="errors.clear('email')"
+            @change="setSegmentEvent('Enter Login Email')"
+        ></v-text-field>
+      </div>
 
-      <!-- <v-text-field
-        v-if="authObj.identifier == 'Phone'"
-        outlined
-        persistent-hint
-        class="body-2"
-        label="Phone number"
-        v-model="authObj.phone"
-        :hint="errors.get('phone')"
-        :error="errors.has('phone')"
-        @input="errors.clear('phone')"
-        @change="setSegmentEvent('Select Phone Number')"
-      ></v-text-field> -->
+      <div class="mb-7" v-if="authObj.identifier == 'Phone'">
+        <p class="mb-1 body-1">
+          {{ $t('generate.login_phone_number') }}
+        </p>
+        <vue-tel-input
+            v-model="authObj.phone"
+            @input="errors.clear('phone')"
+            @blur="setSegmentEvent('Enter Login Phone Number')"
+            :onlyCountries="validCountries"
+            :inputOptions="placeholder"
+            styleClasses="loginPhoneInput"
+            :class="{ 'input-error': errors.get('phone') }"
+        ></vue-tel-input>
+        <span class="error-message" v-if="errors.has('phone')">
+          {{errors.get('phone')}}
+        </span>
+      </div>
     </v-col>
 
     <v-col cols="12">
@@ -82,7 +89,7 @@
       </p>
     </v-col>
     <v-col cols="12">
-      <language-selector />
+      <language-selector @setLanguage="setLanguage"/>
     </v-col>
   </v-row>
 </template>
@@ -90,13 +97,25 @@
 <script>
 import Auth from "@/libs/auth/Auth"
 import segmentMixin from "@/mixins/segmentEvents";
+import timeCountDown from "@/mixins/timeCountDown";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, timeCountDown],
+
   data () {
     return {
       loading: false,
-      authObj: new Auth()
+      authObj: new Auth(),
+      validCountries: [],
+      locale: localStorage.getItem('setLanguage'),
+      placeholder: {
+        placeholder: this.$t('register.phone_number'),
+      },
+      authType: [
+        { label: 'Email', value: "Email"},
+        { label: 'Phone', value: "Phone"}
+      ]
     }
   },
 
@@ -104,16 +123,63 @@ export default {
     'language-selector': () => import('@/views/layouts/LanguageSelector.vue')
   },
 
+  watch: {
+    countries() {
+      this.setValidCountries()
+    },
+
+    locale() {
+      this.$nextTick(() => {
+        this.placeholder.placeholder = this.$t('register.phone_number')
+        this.authType = [
+          { label: `${this.$t('generate.email')}`, value: "Email"},
+          { label: `${this.$t('generate.phone')}`, value: "Phone"}
+        ]
+      })
+    }
+  },
+
   computed: {
+    ...mapGetters({
+      countries: 'getCountries'
+    }),
+
     errors () {
       return this.authObj.form.errors
     },
   },
 
   methods: {
+    ...mapActions([
+      'setCountries'
+    ]),
+
+    setLanguage(languageCode) {
+      this.locale = languageCode
+    },
+
+    setValidCountries() {
+      this.countries.data.map(country => {
+        this.validCountries.push(country.code)
+      })
+    },
+
+    identifierTypeChangedEvent() {
+      const entity = this.authObj.identifier
+      if (entity === 'Email') {
+        this.setSegmentEvent('Select Login with Email')
+      } else {
+        this.setSegmentEvent('Select Login with Phone')
+      }
+    },
+
     generateCode () {
       if (!this.loading) {
         this.loading = true
+        const identifier = this.authObj.identifier.toLowerCase()
+        this.authObj.identification_method = identifier
+        if(this.authObj.identification_method === 'phone') this.authObj.phone = this.authObj.phone.replace(/\s/g,'')
+
         this.authObj.generate().then(() => {
           this.$router.push({ name: 'verify' })
         }).catch((error) => {
@@ -121,6 +187,7 @@ export default {
             message: error.data.message,
             color: '#e74c3c',
           })
+          this.authObj[identifier] = null
         }).finally(() => {
           this.loading = false
         })
@@ -129,11 +196,29 @@ export default {
   },
 
   mounted () {
+    this.setCountries()
+    this.removeCounterStorage()
     let identification = localStorage.getItem('sendy:identification')
     if (identification) {
-      const { value } = JSON.parse(identification)
-      this.authObj.email = value
+      const { value, identifier } = JSON.parse(identification)
+      this.authObj[identifier] = value
     }
   }
 }
 </script>
+
+<style lang="scss">
+.loginPhoneInput {
+  border: solid 1px rgba(0, 0, 0, 0.38);
+  padding: 3px 0;
+  height: 56px;
+
+  ::placeholder {
+    font-size: 16px;
+    opacity: .5;
+  }
+}
+.error-message {
+  color: #EE551A;
+}
+</style>

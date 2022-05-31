@@ -25,6 +25,8 @@
           disable-pagination
           :headers="headers"
           :items="vehicles.data"
+          :loading="loading"
+          :loading-text="$t('core.system_loading')"
           style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.vendor_type="{ item }">
@@ -88,6 +90,7 @@ export default {
 
   data () {
     return {
+      loading: true,
       vehicle: null,
       forDocument: null,
       forAllocation: null,
@@ -107,6 +110,12 @@ export default {
     }),
 
     auth: () => auth
+  },
+
+  watch: {
+    vehicles() {
+      this.loading = false
+    }
   },
 
   methods: {

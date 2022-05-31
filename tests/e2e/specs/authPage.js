@@ -1,3 +1,4 @@
+
 describe('Authentication features works', () => {
   after(() => {
     cy.removeTokens()
@@ -7,26 +8,33 @@ describe('Authentication features works', () => {
     cy.visit('/')
     cy.authStubs()
 
-    cy.contains('The journey is our home - in it we are forever lost in the right direction.')
-    cy.get('input[type=text]').type('caleb@sendyit.com', {force: true})
-    cy.get('button').click({force: true})
-    cy.wait('@user').its('response.statusCode').should('equal', 201)
+    cy.intercept('/').as('loaded');
+    cy.visit('/')
+    cy.wait('@loaded').then(() => {
+      cy.wait('@languages')
+      cy.wait('@countries')
+    })
+
+    cy.get('.v-radio').eq(0).click()
+    cy.contains('Enter your email address *')
+    cy.get('input[type=text]').type('caleb@sendyit.com')
+    cy.get('button .v-btn__content').contains('Get OTP Code').click()
+    cy.wait('@generate').then((interception) => {
+      expect(interception.response.statusCode).to.equal( 200)
+    });
     cy.url().should('include', '/auth/verify')
 
     cy.get('.v-otp-input .v-input').eq(0).type('1')
     cy.get('.v-otp-input .v-input').eq(1).type('2')
     cy.get('.v-otp-input .v-input').eq(2).type('3')
     cy.get('.v-otp-input .v-input').eq(3).type('4')
-    cy.wait('@sign_in').then((resp) => {
-      cy.setTokens()
+
+    cy.wait('@sign-in').then((interception) => {
+      expect(interception.response.statusCode).to.equal( 200)
+      cy.url().should('include', '/orders')
+      cy.get('.title').as("title")
+      cy.get("@title").should("contain", 'Orders')
     })
-
-    cy.visit('dashboard')
-    // cy.wait('@stats')
-    cy.get('.v-list a').eq(0).click()
-
-    cy.get('.title').as("title")
-    cy.get("@title").should("contain", 'Dashboard')
   })
 
 })

@@ -10,7 +10,7 @@
         loading
         outlined
       >
-        <v-list-item @click="setPartner(partner)">
+        <v-list-item @click="setPartner(partner, index)">
           <v-list-item-avatar
             color="primary"
             size="40"
@@ -28,7 +28,7 @@
           </v-list-item-content>
           <v-list-item-action>
             <v-progress-circular
-              v-if="loading == partner.id"
+              v-if="loading = (index === selectedAccountIndex)"
               indeterminate
               color="primary"
             ></v-progress-circular>
@@ -47,6 +47,7 @@ export default {
   data () {
     return {
       loading: null,
+      selectedAccountIndex: null
     }
   },
 
@@ -57,7 +58,8 @@ export default {
   },
 
   methods: {
-    setPartner (partner) {
+    setPartner (partner, index) {
+      this.selectedAccountIndex = index
       this.setSegmentEvent('Choose account')
       if (!this.loading) {
         auth.permit(partner).then(({data}) => {
@@ -67,7 +69,14 @@ export default {
             ...auth.decrypt(),
           })
           this.loading = null
-          this.$router.push({ name: 'orders.index' })
+          this.$router.push({ name: 'orders' })
+        }).catch((error) => {
+          this.loading = null
+          this.selectedAccountIndex = null
+          flash({
+            message: error.response.data.message,
+            color: '#e74c3c',
+          })
         })
       }
     }

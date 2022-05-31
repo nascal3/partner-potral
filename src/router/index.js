@@ -72,10 +72,16 @@ const routes = [
       }
     },
     children: [
+      // {
+      //   path: '/',
+      //   name: 'dashboard',
+      //   component: () => import('@/components/app/dashboard/Index.vue'),
+      // },
+
       {
         path: '/',
-        name: 'dashboard',
-        component: () => import('@/components/app/dashboard/Index.vue'),
+        name: 'orders',
+        component: () => import('@/components/app/orders/Index.vue'),
       },
 
       {
@@ -170,6 +176,18 @@ const routes = [
             component: () => import('@/components/app/profile/Security.vue')
           },
         ]
+      },
+
+      {
+        path: 'legal-documents',
+        name: 'legal-documents.index',
+        component: () => import('@/components/app/documents/Index.vue')
+      },
+
+      {
+        path: 'legal-documents/:documentId',
+        name: 'document-details.index',
+        component: () => import('@/components/app/documents/document_details/Index.vue')
       },
     ],
   },

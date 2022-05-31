@@ -1,0 +1,16 @@
+{
+  "finances": "Finances",
+  "statements": "Statements",
+  "bank_accounts": "Bank Accounts",
+  "loans_savings": "Loans & Savings",
+  "statement_title": "Statement",
+  "withdraw": "Withdraw",
+  "txn": "Txn No",
+  "txn_date": "Date",
+  "txn_amount": "Amount",
+  "txn_balance": "Balance",
+  "txn_driver": "Driver Name",
+  "txn_no_statement_found": "No statement found",
+  "txn_no_results_found": "No results found",
+  "txn_payment_type": "Payment type"
+}

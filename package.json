@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:e2e": "vue-cli-service test:e2e",
+    "cy:run": "cypress run",
+    "test:debug": "vue-cli-service test:e2e",
     "test": "start-server-and-test serve http://localhost:8080 cy:run",
     "coverage": "npx nyc report --reporter=text-summary"
   },
@@ -34,7 +35,7 @@
     "@vue/cli-service": "~4.5.0",
     "babel-plugin-istanbul": "^6.1.1",
     "browserify-istanbul": "^3.0.1",
-    "cypress": "^8.3.0",
+    "cypress": "^9.6.0",
     "cypress-localstorage-commands": "^1.7.0",
     "node-sass": "^4.12.0",
     "sass": "~1.32.0",
