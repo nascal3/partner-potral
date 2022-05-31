@@ -37,7 +37,6 @@ Sentry.init({
 
 const options = {
   defaultCountry: 'ke',
-  onlyCountries: ['KE', 'CI', 'NG', 'UG'],
   enabledCountryCode: true,
   mode: 'international',
   inputOptions: {
