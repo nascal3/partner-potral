@@ -40,7 +40,12 @@ export default {
       this.$nextTick(() => {
         this.$i18n.locale = languageCode
         this.activeLanguage = languageCode
+        this.changeRTL (languageCode)
       })
+    },
+
+    changeRTL (languageCode) {
+      this.$vuetify.rtl = languageCode === 'ar'
     }
   },
 
