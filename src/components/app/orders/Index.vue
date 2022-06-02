@@ -190,7 +190,10 @@ export default {
         })
       }).catch(error => {
         this.loading = false
-        throw error.data
+        flash({
+          message: error.data.message,
+          color: '#e74c3c'
+        })
       })
     },
 

@@ -46,8 +46,7 @@ export default {
 
     changeRTL (languageCode) {
       this.$vuetify.rtl = languageCode === 'ar'
-    },
-
+    }
   },
 
   mounted () {
