@@ -105,6 +105,12 @@ export default {
         }
       }).then(() => {
         this.loading = false
+      }).catch((error) => {
+        this.loading = false
+        flash({
+          message: error.response.data.message,
+          color: '#e74c3c'
+        })
       })
     }
   },
