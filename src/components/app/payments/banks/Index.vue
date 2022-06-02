@@ -68,6 +68,8 @@ export default {
         { text: this.$t('finance.tbl_bank_branch'), value: 'bank_branch' },
         { text: this.$t('finance.tbl_account_name'), value: 'account_name' },
         { text: this.$t('finance.tbl_account_number'), value: 'account_number' },
+        { text: this.$t('finance.tbl_status'), value: 'status' },
+        { text: this.$t('finance.tbl_status'), value: '' }
       ]
     }
   },
