@@ -39,10 +39,12 @@
               small
               color="deep-orange"
               class="ttn body-2"
+              :disabled="systemRole(item.name)"
               :to="`roles/${item.id}/permissions`"
             >
               {{ $t('role.manage_permissions') }}
             </v-btn>
+
           </template>
           <template v-slot:item.actions="{ item }">
             <v-btn
@@ -88,6 +90,10 @@ export default {
         { text: this.$t('role.table_access_control'), value: 'permissions' },
         { text: this.$t('role.actions'), value: 'actions' },
       ],
+      systemRoles: [
+          'driver',
+          'admin'
+      ]
     }
   },
 
@@ -104,6 +110,11 @@ export default {
       'setRoles'
     ]),
 
+    systemRole(role) {
+      const roleName = role.split('::').at(-1)
+      return this.systemRoles.includes(roleName)
+    },
+
     loadRoles () {
       const { id } = auth.retrieve('partner')
       this.setRoles({
@@ -112,6 +123,12 @@ export default {
         }
       }).then(() => {
         this.loading = false
+      }).catch((error) => {
+        this.loading = false
+        flash({
+          message: error.response.data.message,
+          color: '#e74c3c'
+        })
       })
     }
   },
