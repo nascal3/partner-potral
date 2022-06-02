@@ -1,10 +1,10 @@
 {
   "become_a_partner": "S'inscrire",
   "dont_have_an_account": "Vous n'avez pas de compte?",
+  "email": "Adresse e-mail ",
   "enter_your_email_address": "Saisir votre adresse e-mail ",
+  "login_phone_number": "Numéro de téléphone *",
+  "phone": "Numéro de téléphone ",
   "request_verification_code": "Obtenir le code OTP",
-  "send_authentication_code": "Envoyer le code d'authentification à",
-  "email": "E-mail",
-  "phone": "Téléphone",
-  "login_phone_number": "Numéro de téléphone *"
+  "send_authentication_code": "Envoyer le code d'authentification à"
 }

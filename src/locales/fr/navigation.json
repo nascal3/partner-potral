@@ -2,15 +2,16 @@
   "access_control": "La fonctionnalité de contrôle d'accès a été désactivée pour ce rôle.",
   "application": "APPLICATION ",
   "driver_profile": "Profil chauffeur ",
+  "legal_documents": "Documents le'gaux",
   "logout": "Se déconnecter",
   "nav_access_control": "CONTRÔLE D'ACCÈS",
   "nav_analytics": "ANALYTIQUE",
   "nav_application": "APPLICATION",
   "nav_configurations": "CONFIGURATIONS",
+  "notifications": "Notification",
   "orders": "Commandes ",
   "roles": "Sélectionnez le(s) rôle(s) d'utilisateur *",
+  "submitted_documents": "Documents soumis",
   "users": "Utilisateurs ",
-  "vehicles": "Véhicules ",
-  "legal_documents": "Documents le'gaux",
-  "notifications": "Notification"
+  "vehicles": "Véhicules "
 }
