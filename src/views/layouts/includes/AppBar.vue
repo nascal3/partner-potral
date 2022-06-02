@@ -20,7 +20,7 @@
     <v-spacer></v-spacer>
 
     <div class="mr-3 d-flex align-center">
-      <notification-icon/>
+<!--      <notification-icon/>-->
       <profile-switcher
       ></profile-switcher>
 
