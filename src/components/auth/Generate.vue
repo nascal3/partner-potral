@@ -147,6 +147,12 @@ export default {
     errors () {
       return this.authObj.form.errors
     },
+
+    identification () {
+      const contacts = JSON.parse(localStorage.getItem('sendy:contacts'))
+      if (contacts) return contacts
+      return null
+    }
   },
 
   methods: {
@@ -176,6 +182,13 @@ export default {
     generateCode () {
       if (!this.loading) {
         this.loading = true
+
+        if (this.identification) {
+          const { country_id, phone, email } = this.identification
+          this.authObj.country_id = country_id
+          this.authObj.phone = phone
+          this.authObj.email = email
+        }
         const identifier = this.authObj.identifier.toLowerCase()
         this.authObj.identification_method = identifier
         if(this.authObj.identification_method === 'phone') this.authObj.phone = this.authObj.phone.replace(/\s/g,'')

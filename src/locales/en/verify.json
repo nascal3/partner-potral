@@ -2,5 +2,7 @@
   "passcode_expired": "Passcode expired?",
   "time_to_expired": "OTP code expiration time: ",
   "request_another_one": "Request another one",
-  "title": "For secure authentication, please enter the verification code we have sent to your"
+  "title": "For secure authentication, please enter the verification code we have sent to your",
+  "preferred_login_phone": "OTP code send to you Phone",
+  "preferred_login_email": "OTP code send to you Email"
 }
