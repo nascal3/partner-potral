@@ -19,6 +19,7 @@
         @input="errors.clear('code')"
         @finish="verifyCode()"
       ></v-otp-input>
+      <div> {{preferredLoginMethod}} </div>
       <div v-if="counter > 0">
         {{ $t('verify.time_to_expired') }}
         <span class="count-text">{{counter}} sec</span>
@@ -57,6 +58,12 @@ export default {
       return this.authObj.form.errors
     },
 
+    preferredLoginMethod () {
+      const { identification_method } = JSON.parse(localStorage.getItem('sendy:contacts'))
+      if (identification_method === 'phone') return this.$t('verify.preferred_login_phone')
+      if (identification_method === 'email') return this.$t('verify.preferred_login_email')
+    },
+
     identification () {
       return JSON.parse(localStorage.getItem('sendy:identification'))
     }
@@ -76,6 +83,7 @@ export default {
 
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
+        localStorage.removeItem('sendy:contacts')
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),

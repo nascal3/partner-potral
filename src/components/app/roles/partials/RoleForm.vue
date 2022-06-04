@@ -105,7 +105,7 @@ export default {
     store () {
       this.roleObj.store()
         .then(response => {
-          flash(response)
+          flash({...response, color: '#38c172'})
           this.$emit('stored')
         })
         .finally(() => {
@@ -116,7 +116,7 @@ export default {
     update () {
       this.roleObj.update(this.role.id)
         .then(response => {
-          flash(response)
+          flash({...response, color: '#38c172'})
           this.$emit('updated')
         })
         .finally(() => {
