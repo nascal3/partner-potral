@@ -59,8 +59,9 @@ export default {
     },
 
     preferredLoginMethod () {
-      const { identifier } = this.identification
-      return identifier === 'phone' ? this.$t('verify.preferred_login_phone') : this.$t('verify.preferred_login_email')
+      const { identification_method } = JSON.parse(localStorage.getItem('sendy:contacts'))
+      if (identification_method === 'phone') return this.$t('verify.preferred_login_phone')
+      if (identification_method === 'email') return this.$t('verify.preferred_login_email')
     },
 
     identification () {

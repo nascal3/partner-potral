@@ -23,10 +23,12 @@ export default class Auth extends Base {
         this.email = data.administrator.email
         this.phone = data.administrator.phone
         this.country_id = data.country_id
+        this.identification_method = data.identification_method
         localStorage.setItem('sendy:contacts', JSON.stringify({
           country_id: this.country_id,
           phone: this.phone,
-          email: this.email
+          email: this.email,
+          identification_method: this.identification_method
         }))
         resolve(response)
       } catch (err) {

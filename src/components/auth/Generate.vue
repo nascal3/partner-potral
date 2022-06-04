@@ -148,7 +148,7 @@ export default {
       return this.authObj.form.errors
     },
 
-    identification () {
+    contacts () {
       const contacts = JSON.parse(localStorage.getItem('sendy:contacts'))
       if (contacts) return contacts
       return null
@@ -182,9 +182,8 @@ export default {
     generateCode () {
       if (!this.loading) {
         this.loading = true
-
-        if (this.identification) {
-          const { country_id, phone, email } = this.identification
+        if (this.contacts) {
+          const { country_id, phone, email } = this.contacts
           this.authObj.country_id = country_id
           this.authObj.phone = phone
           this.authObj.email = email
