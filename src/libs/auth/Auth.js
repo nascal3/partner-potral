@@ -106,7 +106,8 @@ export default class Auth extends Base {
     localStorage.removeItem(this.app)
     localStorage.clear()
     flash({
-      message: 'You have been logged out successfully'
+      message: 'You have been logged out successfully',
+      color: '#38c172'
     })
   }
 }
