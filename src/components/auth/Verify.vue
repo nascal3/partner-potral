@@ -112,6 +112,7 @@ export default {
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
           this.$router.push({ name: 'orders.index' })
+          this.loading = false
         })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
@@ -122,7 +123,6 @@ export default {
             color: '#e74c3c',
           })
         }
-        this.loading = false
       }).finally(() => {
         this.loading = false
       })

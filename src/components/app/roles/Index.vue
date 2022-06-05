@@ -39,6 +39,7 @@
               small
               color="deep-orange"
               class="ttn body-2"
+              :class="{disabled: systemRole(item.name)}"
               :disabled="systemRole(item.name)"
               :to="`roles/${item.id}/permissions`"
             >
@@ -91,8 +92,8 @@ export default {
         { text: this.$t('role.actions'), value: 'actions' },
       ],
       systemRoles: [
-          'driver',
-          'admin'
+        'driver',
+        'admin'
       ]
     }
   },
@@ -138,3 +139,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.disabled {
+  background-color: #ebecf0;
+  color: white !important;
+  cursor: not-allowed;
+}
+</style>
