@@ -148,7 +148,7 @@ export default {
       return this.authObj.form.errors
     },
 
-    contacts () {
+    contactMethod () {
       if (localStorage.getItem('sendy:contacts') === null) return null
       return JSON.parse(localStorage.getItem('sendy:contacts'))
     }
@@ -169,6 +169,11 @@ export default {
       })
     },
 
+    destroyTempStorageValues() {
+      localStorage.removeItem('sendy:contacts')
+      this.removeCounterStorage()
+    },
+
     identifierTypeChangedEvent() {
       const entity = this.authObj.identifier
       if (entity === 'Email') {
@@ -181,9 +186,8 @@ export default {
     generateCode () {
       if (!this.loading) {
         this.loading = true
-        if (this.contacts) {
-          const { country_id, phone, email } = this.contacts
-          this.authObj.country_id = country_id
+        if (this.contactMethod) {
+          const { phone, email } = this.contactMethod
           this.authObj.phone = phone
           this.authObj.email = email
         }
@@ -198,6 +202,7 @@ export default {
             message: error.data.message,
             color: '#e74c3c',
           })
+          this.loading = false
           this.authObj[identifier] = null
         }).finally(() => {
           this.loading = false
@@ -208,7 +213,7 @@ export default {
 
   mounted () {
     this.setCountries()
-    this.removeCounterStorage()
+    this.destroyTempStorageValues()
     let identification = localStorage.getItem('sendy:identification')
     if (identification) {
       const { value, identifier } = JSON.parse(identification)

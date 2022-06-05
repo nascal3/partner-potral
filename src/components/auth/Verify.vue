@@ -9,6 +9,13 @@
     <v-col
       cols="12"
     >
+      <div v-if="loading">
+        <div class="deep-orange--text">Redirecting...</div>
+        <v-progress-linear
+            indeterminate
+            color="deep-orange"
+        ></v-progress-linear>
+      </div>
       <v-otp-input
         length="4"
         class="body-2"
@@ -48,6 +55,7 @@ export default {
   mixins: [segmentMixin, timeCountDown],
   data () {
     return {
+      loading: false,
       authObj: new Auth()
     }
   },
@@ -85,7 +93,8 @@ export default {
     },
 
     verifyCode () {
-      this.setSegmentEvent('Enter OTP')
+      this.setSegmentEvent('Entered OTP')
+      this.loading = true
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.identification_method = identifier
@@ -109,11 +118,14 @@ export default {
         if (codes.includes(status)) {
           flash({
             message: data.message,
-            timeout: 100000,
+            timeout: 5000,
             color: '#e74c3c',
           })
         }
-      }).finally()
+        this.loading = false
+      }).finally(() => {
+        this.loading = false
+      })
     },
   },
 
