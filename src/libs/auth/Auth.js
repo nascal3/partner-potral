@@ -48,11 +48,12 @@ export default class Auth extends Base {
           identifier,
           value: this[identifier]
         }))
-        flash(response)
+        flash({...response, color: '#38c172'})
         resolve(response)
       } catch (err) {
+        const message = err.status === 404 ? err.data.message : err.data.errors[0].message
         flash({
-          message: err.data.errors[0].message,
+          message,
           color: '#e74c3c'
         })
         reject(err)

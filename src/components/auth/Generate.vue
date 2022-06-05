@@ -56,7 +56,7 @@
             styleClasses="loginPhoneInput"
             :class="{ 'input-error': errors.get('phone') }"
         ></vue-tel-input>
-        <span class="error-message" v-if="errors.has('phone')">
+        <span class="input-error-message" v-if="errors.has('phone')">
           {{errors.get('phone')}}
         </span>
       </div>
@@ -149,9 +149,8 @@ export default {
     },
 
     contacts () {
-      const contacts = JSON.parse(localStorage.getItem('sendy:contacts'))
-      if (contacts) return contacts
-      return null
+      if (localStorage.getItem('sendy:contacts') === null) return null
+      return JSON.parse(localStorage.getItem('sendy:contacts'))
     }
   },
 
@@ -229,8 +228,5 @@ export default {
     font-size: 16px;
     opacity: .5;
   }
-}
-.error-message {
-  color: #EE551A;
 }
 </style>
