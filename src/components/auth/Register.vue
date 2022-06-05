@@ -284,6 +284,7 @@ export default {
               message: error.data.message,
               color: '#e74c3c',
             })
+            this.loading = false
           })
           .finally(() => {
             this.loading = false
