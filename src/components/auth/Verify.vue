@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12">
       <p class="body-1 pb-0">
-        {{ $t('verify.title') }} {{ identification.identifier }}
+        {{ $t('verify.title') }} {{ preferredLoginMethod }}
       </p>
     </v-col>
 
@@ -19,7 +19,6 @@
         @input="errors.clear('code')"
         @finish="verifyCode()"
       ></v-otp-input>
-      <div> {{preferredLoginMethod}} </div>
       <div v-if="counter > 0">
         {{ $t('verify.time_to_expired') }}
         <span class="count-text">{{counter}} sec</span>
@@ -58,14 +57,24 @@ export default {
       return this.authObj.form.errors
     },
 
-    preferredLoginMethod () {
-      const { identification_method } = JSON.parse(localStorage.getItem('sendy:contacts'))
-      if (identification_method === 'phone') return this.$t('verify.preferred_login_phone')
-      if (identification_method === 'email') return this.$t('verify.preferred_login_email')
+    contactMethod() {
+      if (localStorage.getItem('sendy:contacts') === null) return null
+      return JSON.parse(localStorage.getItem('sendy:contacts'))
     },
 
     identification () {
       return JSON.parse(localStorage.getItem('sendy:identification'))
+    },
+
+    preferredLoginMethod () {
+      let loginMethod = null
+      loginMethod = this.contactMethod
+          ? this.contactMethod.identification_method
+          : this.identification.identifier
+
+      return loginMethod === 'phone'
+          ? this.$t('verify.preferred_login_phone')
+          : this.$t('verify.preferred_login_email')
     }
   },
 
