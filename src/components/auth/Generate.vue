@@ -56,7 +56,7 @@
             styleClasses="loginPhoneInput"
             :class="{ 'input-error': errors.get('phone') }"
         ></vue-tel-input>
-        <span class="error-message" v-if="errors.has('phone')">
+        <span class="input-error-message" v-if="errors.has('phone')">
           {{errors.get('phone')}}
         </span>
       </div>
@@ -96,8 +96,8 @@
 
 <script>
 import Auth from "@/libs/auth/Auth"
-import segmentMixin from "@/mixins/segmentEvents";
-import timeCountDown from "@/mixins/timeCountDown";
+import segmentMixin from "@/mixins/segmentEvents"
+import timeCountDown from "@/mixins/timeCountDown"
 import {mapActions, mapGetters} from "vuex";
 
 export default {
@@ -147,6 +147,11 @@ export default {
     errors () {
       return this.authObj.form.errors
     },
+
+    contactMethod () {
+      if (localStorage.getItem('sendy:contacts') === null) return null
+      return JSON.parse(localStorage.getItem('sendy:contacts'))
+    }
   },
 
   methods: {
@@ -164,6 +169,11 @@ export default {
       })
     },
 
+    destroyTempStorageValues() {
+      localStorage.removeItem('sendy:contacts')
+      this.removeCounterStorage()
+    },
+
     identifierTypeChangedEvent() {
       const entity = this.authObj.identifier
       if (entity === 'Email') {
@@ -176,6 +186,11 @@ export default {
     generateCode () {
       if (!this.loading) {
         this.loading = true
+        if (this.contactMethod) {
+          const { phone, email } = this.contactMethod
+          this.authObj.phone = phone
+          this.authObj.email = email
+        }
         const identifier = this.authObj.identifier.toLowerCase()
         this.authObj.identification_method = identifier
         if(this.authObj.identification_method === 'phone') this.authObj.phone = this.authObj.phone.replace(/\s/g,'')
@@ -187,6 +202,7 @@ export default {
             message: error.data.message,
             color: '#e74c3c',
           })
+          this.loading = false
           this.authObj[identifier] = null
         }).finally(() => {
           this.loading = false
@@ -197,7 +213,7 @@ export default {
 
   mounted () {
     this.setCountries()
-    this.removeCounterStorage()
+    this.destroyTempStorageValues()
     let identification = localStorage.getItem('sendy:identification')
     if (identification) {
       const { value, identifier } = JSON.parse(identification)
@@ -217,8 +233,5 @@ export default {
     font-size: 16px;
     opacity: .5;
   }
-}
-.error-message {
-  color: #EE551A;
 }
 </style>

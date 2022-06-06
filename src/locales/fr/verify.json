@@ -1,6 +1,8 @@
 {
-  "passcode_expired": "mot de passe expiré ?",
+  "passcode_expired": "Mot de passe expiré ?",
+  "preferred_login_email": "veuillez saisir le code de vérification que nous vous avons envoyé par e-mail",
+  "preferred_login_phone": "veuillez entrer le code de vérification que nous avons envoyé sur votre téléphone",
   "request_another_one": "demander un autre ",
   "time_to_expired": "Délai d'expiration du code OTP: ",
-  "title": "Pour une authentification sécurisée, veuillez entrer le code de vérification que nous avons envoyé à votre "
+  "title": "Pour une authentification sécurisée, "
 }

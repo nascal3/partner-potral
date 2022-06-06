@@ -105,8 +105,13 @@ export default {
     store () {
       this.roleObj.store()
         .then(response => {
-          flash(response)
+          flash({...response, color: '#38c172'})
           this.$emit('stored')
+        }).catch(error => {
+          flash({
+            message: error.message,
+            color: '#e74c3c'
+          })
         })
         .finally(() => {
           this.loading = false
@@ -116,8 +121,13 @@ export default {
     update () {
       this.roleObj.update(this.role.id)
         .then(response => {
-          flash(response)
+          flash({...response, color: '#38c172'})
           this.$emit('updated')
+        }).catch(error => {
+          flash({
+            message: error.message,
+            color: '#e74c3c'
+          })
         })
         .finally(() => {
           this.loading = false

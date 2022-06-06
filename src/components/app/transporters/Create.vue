@@ -24,7 +24,7 @@
         <v-divider></v-divider>
 
         <v-card-text class="pt-5">
-         
+
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
           <v-btn
@@ -46,9 +46,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents";
 import Transporter from "@/libs/app/transporters/Transporter"
 
 export default {
+  mixins: [segmentMixin],
+
   props: [
     'driver',
     'vehicle',

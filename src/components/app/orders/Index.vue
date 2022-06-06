@@ -14,6 +14,7 @@
               v-model="search"
               prepend-inner-icon="mdi-magnify"
               :label="$t('orders.search')"
+              @change="setSegmentEvent('Searched an order phrase')"
               single-line
               hide-details
               outlined
@@ -64,10 +65,10 @@
             {{ getLastStop(item.destinations) }}
           </template>
           <template v-slot:item.updated_at="{ item }">
-            {{ formatDate(item.updated_at) }}
+            {{ ordersDateFormat(item.updated_at) }}
           </template>
           <template v-slot:item.cost="{ item }">
-            {{ item.currency }} {{ item.cost }}
+            {{ item.currency }} {{ thousandSeparator(item.cost) }}
           </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
@@ -93,12 +94,16 @@
 </template>
 
 <script>
-import { format } from 'date-fns'
+import segmentMixin from "@/mixins/segmentEvents"
+import formatNumbers from "@/mixins/formatNumbers"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
+import dateFormat from "@/mixins/dateFormat"
 
 export default {
+  mixins: [segmentMixin, dateFormat, formatNumbers],
+
   components: {
     'order-details': () => import('./partials/OrderDetails'),
     'date-range': () => import('@/components/core/DateRange.vue'),
@@ -133,7 +138,7 @@ export default {
         { text: this.$t('orders.table_pickup_date'), value: 'updated_at' },
         { text: this.$t('orders.table_price'), value: 'cost' },
         { text: this.$t('orders.table_status'), value: 'status' },
-        { text: '', value: 'data-table-expand' },
+        { text: '', value: 'data-table-expand' }
       ],
       meta: {
         current_page: 1,
@@ -168,6 +173,7 @@ export default {
 
     getOrderDetails ({item, value}) {
       if (!value) return
+      this.setSegmentEvent('Viewed order details')
       const { order_no } = item
       this.orderDetailsObj.show(order_no).then( data => {
         this.orderDetails = data.data
@@ -195,11 +201,6 @@ export default {
     getLastStop(destinations) {
       if (!destinations.length) return
       return destinations[destinations.length - 1]
-    },
-
-    formatDate(date) {
-      if (!date) return
-       return format(new Date(date), 'iii, do LLL')
     },
 
     setChipColor (orderStatus) {
@@ -249,10 +250,16 @@ export default {
       });
     },
 
+    formatDriverIds(driverIds) {
+      const IdsText = driverIds.toString()
+      return IdsText.replaceAll(',', '|')
+    },
+
     loadOrders () {
       this.loading = true
       this.getDriverIds().then(driverIds => {
-        this.orderObj.show(this.dateFrom, this.dateTo, this.page, driverIds).then(({ data }) => {
+        const Ids = this.formatDriverIds(driverIds)
+        this.orderObj.show(this.dateFrom, this.dateTo, this.page, Ids).then(({ data }) => {
           this.orders = this.formatOrders(data)
           this.meta.total = this.orders.length
           this.loading = false
@@ -276,6 +283,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Visited orders page')
     this.loadOrders()
   }
 

@@ -87,9 +87,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import Transporter from "@/libs/app/transporters/Transporter"
 
 export default {
+  mixins: [segmentMixin],
+
   props: [
     'transporter'
   ],
@@ -106,6 +109,7 @@ export default {
     deallocate () {
       if (!this.loading) {
         this.loading = true
+        this.setSegmentEvent('Deallocate driver a vehicle')
         this.transporterObj.destroy(this.transporter.id)
           .then(response => {
             flash(response)
