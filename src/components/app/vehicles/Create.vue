@@ -11,7 +11,7 @@
         v-bind="attrs"
         color="primary"
         class="caption ttn"
-        @click="setSegmentEvent('Add vehicle')"
+        @click="setSegmentEvent('Add new vehicle')"
       >
         {{ $t('vehicles.add_vehicle') }}
       </v-btn>
@@ -47,7 +47,7 @@
             :hint="errors.get('registration_number')"
             :error="errors.has('registration_number')"
             @input="errors.clear('registration_number')"
-            @change="setSegmentEvent('Enter registration number')"
+            @change="setSegmentEvent('Enter vehicle registration number')"
           ></v-text-field>
 
           <v-select

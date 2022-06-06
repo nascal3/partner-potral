@@ -96,8 +96,8 @@
 
 <script>
 import Auth from "@/libs/auth/Auth"
-import segmentMixin from "@/mixins/segmentEvents";
-import timeCountDown from "@/mixins/timeCountDown";
+import segmentMixin from "@/mixins/segmentEvents"
+import timeCountDown from "@/mixins/timeCountDown"
 import {mapActions, mapGetters} from "vuex";
 
 export default {

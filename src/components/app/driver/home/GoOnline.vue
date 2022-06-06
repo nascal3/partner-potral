@@ -1,5 +1,5 @@
 <template>
-  <v-bottom-sheet 
+  <v-bottom-sheet
     v-model="sheet"
     persistent
   >
@@ -22,11 +22,12 @@
             x-large
             class="ttn font-weight-bold body-2"
             color="primary"
+            @click="setSegmentEvent('Go online button clicked')"
            >
             {{ $t('driver.online_call_to_action') }}
 
-            <v-icon 
-              
+            <v-icon
+
               v-for="i in 3"
               :key="`icon-${i}`"
               small
@@ -42,7 +43,11 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
+
 export default {
+  mixins: [segmentMixin],
+
   data () {
     return {
       sheet: true

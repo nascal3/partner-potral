@@ -1,12 +1,12 @@
 <template>
-  <v-app-bar 
+  <v-app-bar
     app
     color="#fff"
     elevation="0"
     style="border-bottom: 1px solid #ddd"
   >
     <v-toolbar-title>
-      <v-btn 
+      <v-btn
         icon
         small
         class="mr-2 hidden-md-and-up"
@@ -19,7 +19,8 @@
 
     <v-spacer></v-spacer>
 
-    <div class="mr-3">
+    <div class="mr-3 d-flex align-center">
+<!--      <notification-icon/>-->
       <profile-switcher
       ></profile-switcher>
 
@@ -31,7 +32,8 @@
 <script>
 export default {
   components: {
-    'app-switcher': () => import('./app_bar/AppSwitcher'),
+    'app-switcher': () => import('./app_bar/AppSwitcher.vue'),
+    'notification-icon': () => import('./app_bar/NotificationIcon.vue'),
     'profile-switcher': () => import('./app_bar/ProfileSwitcher.vue')
   },
 
