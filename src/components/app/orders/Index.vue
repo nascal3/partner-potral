@@ -249,10 +249,16 @@ export default {
       });
     },
 
+    formatDriverIds(driverIds) {
+      const IdsText = driverIds.toString()
+      return IdsText.replace(',', '|')
+    },
+
     loadOrders () {
       this.loading = true
       this.getDriverIds().then(driverIds => {
-        this.orderObj.show(this.dateFrom, this.dateTo, this.page, driverIds).then(({ data }) => {
+        const Ids = this.formatDriverIds(driverIds)
+        this.orderObj.show(this.dateFrom, this.dateTo, this.page, Ids).then(({ data }) => {
           this.orders = this.formatOrders(data)
           this.meta.total = this.orders.length
           this.loading = false
