@@ -251,7 +251,7 @@ export default {
 
     formatDriverIds(driverIds) {
       const IdsText = driverIds.toString()
-      return IdsText.replace(',', '|')
+      return IdsText.replaceAll(',', '|')
     },
 
     loadOrders () {
