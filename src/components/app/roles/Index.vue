@@ -106,7 +106,7 @@ export default {
     filteredRoles() {
       if (this.roles.data) {
         return  this.roles.data.filter(role => {
-          return role.name !== 'partner::1121::driver' && role.name !== 'partner::1121::admin'
+          return !role.name.includes('driver') && !role.name.includes('admin')
         })
       }
     },
