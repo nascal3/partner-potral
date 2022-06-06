@@ -27,7 +27,7 @@
           hide-default-footer
           disable-pagination
           :headers="headers"
-          :items="roles.data"
+          :items="filteredRoles"
           :loading="loading"
           :loading-text="$t('core.system_loading')"
           style="overflow-x: scroll; width: 100%"
@@ -102,6 +102,14 @@ export default {
     ...mapGetters({
       roles: 'getRoles'
     }),
+
+    filteredRoles() {
+      if (this.roles.data) {
+        return  this.roles.data.filter(role => {
+          return role.name !== 'partner::1121::driver' && role.name !== 'partner::1121::admin'
+        })
+      }
+    },
 
     auth: () => auth,
   },

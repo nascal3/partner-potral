@@ -1,10 +1,10 @@
 {
-  "notifications_title": "Notification",
-  "no_notifications_found": "Aucune notification trouvée",
-  "no_results_found": "Aucun résultat trouvé\n",
   "all_notifications_read": "Terminé",
-  "notification_status": "Statut",
+  "no_notifications_found": "Aucune notification trouvée",
+  "no_results_found": "Aucun résultat trouvé !",
   "notification_date": "Date",
+  "notification_message": "Message",
+  "notification_status": "Statut",
   "notification_title": "Titre",
-  "notification_message": "Message"
+  "notifications_title": "Notification"
 }
