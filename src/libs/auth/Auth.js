@@ -21,6 +21,15 @@ export default class Auth extends Base {
           color: 'green'
         })
         this.email = data.administrator.email
+        this.phone = data.administrator.phone
+        this.country_id = data.country_id
+        this.identification_method = data.identification_method
+        localStorage.setItem('sendy:contacts', JSON.stringify({
+          country_id: this.country_id,
+          phone: this.phone,
+          email: this.email,
+          identification_method: this.identification_method
+        }))
         resolve(response)
       } catch (err) {
         reject(err)
@@ -31,18 +40,24 @@ export default class Auth extends Base {
   generate () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'phone', 'authenticator', 'product_group', 'identification_method'])
+        const data = this.getFields(['email', 'phone', 'authenticator', 'product_group', 'identification_method', 'country_id'])
         const response = await this.form.submit('post', url('otp/generate'), data)
         const identifier = this.identifier.toLowerCase()
         localStorage.setItem('otpExpiry', JSON.stringify(response.data.otp_expiry_time))
         localStorage.setItem('sendy:identification', JSON.stringify({
           identifier,
-          value: this[identifier].replace(/\s/g,'')
+          value: this[identifier]
         }))
-        flash(response)
+        flash({...response, color: '#38c172'})
         resolve(response)
-      } catch (err) {
-        reject(err)
+      } catch ({status, data}) {
+        const codes = [404]
+        const message = codes.includes(status) ? data.message : data.errors[0].message
+        flash({
+          message,
+          color: '#e74c3c'
+        })
+        reject(data)
       }
     })
   }
@@ -91,7 +106,8 @@ export default class Auth extends Base {
     localStorage.removeItem(this.app)
     localStorage.clear()
     flash({
-      message: 'You have been logged out successfully'
+      message: 'You have been logged out successfully',
+      color: '#38c172'
     })
   }
 }

@@ -26,3 +26,4 @@ pnpm-debug.log*
 /coverage
 /tests/e2e/screenshots
 /tests/e2e/videos
+.nyc_output
