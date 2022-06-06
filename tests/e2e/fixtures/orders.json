@@ -1,5 +1,63 @@
 {
-  "data": [],
+  "data": [
+    {
+      "meta": {
+        "current_page": 1,
+        "first_page": 1,
+        "page_size": 30,
+        "total": 2
+      },
+      "rider_id": 17500,
+      "transporter_orders": [
+        {
+          "cost": 1000,
+          "destinations": [
+            "Meadow Springs Apartments, Nairobi, Kenya",
+            "Kahawa Downs Apartments - Hub"
+          ],
+          "distance": "35.00 km",
+          "order_no": "AJ74G4773-NJM",
+          "pickup_location": "Meadow Springs Apartments, Nairobi, Kenya",
+          "status": "delivered",
+          "updated_at": "2022-06-06 02:34:51.0"
+        },
+        {
+          "cost": 0,
+          "destinations": [
+            "Mwimuto - Hub",
+            "Marsabit plaza, Nairobi, Kenya",
+            "Ruiru, Kenya",
+            "Mwimuto - Hub"
+          ],
+          "distance": "nu km",
+          "order_no": "AJ743T774-TRF",
+          "pickup_location": "Mwimuto - Hub",
+          "status": "delivered",
+          "updated_at": "2022-06-06 02:46:10.0"
+        }
+      ]
+    },
+    {
+      "meta": {
+        "current_page": 1,
+        "first_page": 1,
+        "page_size": 30,
+        "total": 0
+      },
+      "rider_id": 17502,
+      "transporter_orders": []
+    },
+    {
+      "meta": {
+        "current_page": 1,
+        "first_page": 1,
+        "page_size": 30,
+        "total": 0
+      },
+      "rider_id": 17386,
+      "transporter_orders": []
+    }
+  ],
   "reason": "successfully retrieved orders",
   "status": true
 }
