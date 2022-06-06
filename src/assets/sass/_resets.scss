@@ -15,7 +15,13 @@ html body #app {
   }
 
   .input-error {
-    border: solid 1px #EE551A;
+    border: solid 2px #e74c3c;
+  }
+
+  .input-error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-left: 13px;
   }
 
   a {

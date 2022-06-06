@@ -2,13 +2,20 @@
   <v-row>
     <v-col cols="12">
       <p class="body-1 pb-0">
-        {{ $t('verify.title') }} {{ identification.identifier }}
+        {{ $t('verify.title') }} {{ preferredLoginMethod }}
       </p>
     </v-col>
 
     <v-col
       cols="12"
     >
+      <div v-if="loading">
+        <div class="deep-orange--text">Redirecting...</div>
+        <v-progress-linear
+            indeterminate
+            color="deep-orange"
+        ></v-progress-linear>
+      </div>
       <v-otp-input
         length="4"
         class="body-2"
@@ -48,6 +55,7 @@ export default {
   mixins: [segmentMixin, timeCountDown],
   data () {
     return {
+      loading: false,
       authObj: new Auth()
     }
   },
@@ -57,8 +65,24 @@ export default {
       return this.authObj.form.errors
     },
 
+    contactMethod() {
+      if (localStorage.getItem('sendy:contacts') === null) return null
+      return JSON.parse(localStorage.getItem('sendy:contacts'))
+    },
+
     identification () {
       return JSON.parse(localStorage.getItem('sendy:identification'))
+    },
+
+    preferredLoginMethod () {
+      let loginMethod = null
+      loginMethod = this.contactMethod
+          ? this.contactMethod.identification_method
+          : this.identification.identifier
+
+      return loginMethod === 'phone'
+          ? this.$t('verify.preferred_login_phone')
+          : this.$t('verify.preferred_login_email')
     }
   },
 
@@ -69,13 +93,15 @@ export default {
     },
 
     verifyCode () {
-      this.setSegmentEvent('Enter OTP')
+      this.setSegmentEvent('Entered OTP')
+      this.loading = true
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
       this.authObj.identification_method = identifier
 
       this.authObj.verify().then(({ data }) => {
         localStorage.removeItem('sendy:identification')
+        localStorage.removeItem('sendy:contacts')
 
         this.authObj.encrypt({
           ..._.omit(data, ['type']),
@@ -86,17 +112,20 @@ export default {
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
           this.$router.push({ name: 'orders.index' })
+          this.loading = false
         })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
         if (codes.includes(status)) {
           flash({
             message: data.message,
-            timeout: 100000,
+            timeout: 5000,
             color: '#e74c3c',
           })
         }
-      }).finally()
+      }).finally(() => {
+        this.loading = false
+      })
     },
   },
 

@@ -30,6 +30,7 @@
             persistent-hint
             ref="upload"
             class="body-2"
+            :accept="acceptedFileTypes.toString()"
             :prepend-icon="null"
             :placeholder="$t('vehicles.upload_document')"
             v-model="vehicleDocumentObj.file_upload"
@@ -144,6 +145,13 @@ export default {
       dialog: false,
       loading: false,
       expiryDialog: false,
+      acceptedFileTypes: [
+        "image/png",
+        "image/jpeg",
+        "image/bmp",
+        "image/webp",
+        "application/pdf"
+      ],
       vehicleDocumentObj: new VehicleDocument()
     }
   },

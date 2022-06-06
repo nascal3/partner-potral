@@ -151,14 +151,24 @@ export default {
       if (!this.loading) {
         this.loading = true
         this.vehicleObj.store()
-          .then(response => {
-            flash(response)
-            this.$emit('stored')
-            this.dialogLaunch = false
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .then(response => {
+              flash({
+                ...response,
+                color: '#38c172'
+              })
+              this.$emit('stored')
+              this.dialogLaunch = false
+            })
+            .catch((error) => {
+              flash({
+                message: error.data.message,
+                color: '#e74c3c',
+              })
+              this.loading = false
+            })
+            .finally(() => {
+              this.loading = false
+            })
       }
     },
   },
