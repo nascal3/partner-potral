@@ -68,7 +68,7 @@
             {{ ordersDateFormat(item.updated_at) }}
           </template>
           <template v-slot:item.cost="{ item }">
-            {{ item.currency }} {{ item.cost }}
+            {{ item.currency }} {{ thousandSeparator(item.cost) }}
           </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
@@ -95,13 +95,14 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
+import formatNumbers from "@/mixins/formatNumbers"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
 import User from '@/libs/app/users/User'
-import dateFormat from "@/mixins/dateFormat";
+import dateFormat from "@/mixins/dateFormat"
 
 export default {
-  mixins: [segmentMixin, dateFormat],
+  mixins: [segmentMixin, dateFormat, formatNumbers],
 
   components: {
     'order-details': () => import('./partials/OrderDetails'),
