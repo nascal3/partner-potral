@@ -61,7 +61,7 @@
               <section class="info-section">
                 <div class="grey-text bold-text">{{ $t('orders.price_for_order') }}</div>
                 <div class="bold-text dark-grey-text">
-                  {{ orderDetails.order_currency }} {{ orderDetails.partner_amount }}
+                  {{ orderDetails.order_currency }} {{ thousandSeparator(orderDetails.partner_amount) }}
                 </div>
               </section>
               <section class="info-section">
@@ -115,8 +115,11 @@
 </template>
 
 <script>
+import formatNumbers from "@/mixins/formatNumbers"
+
 export default {
   name: "OrderDetails",
+
   props: {
     orderDetails: {
       type: Object,
@@ -127,6 +130,9 @@ export default {
       default: () => {}
     }
   },
+
+  mixins: [formatNumbers],
+
   components: {
     'location-map': () => import('@/views/layouts/LocationMap'),
   },
