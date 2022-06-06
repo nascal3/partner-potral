@@ -16,6 +16,10 @@ export default class VehicleDocument extends Base {
         let response = await this.form.submit("patch", url(`partners/${this.group.id}/vehicle-documents/${vehicleDocumentId}`), data)
         resolve(response)
       } catch (err) {
+        flash({
+          message: err.message,
+          color: '#e74c3c'
+        })
         reject(err)
       }
     })
@@ -32,7 +36,7 @@ export default class VehicleDocument extends Base {
           'Content-Type': 'multipart/form-data'
         })
         this.setFields(fields)
-        flash(response)
+        flash({...response, color: '#38c172'})
         resolve(response)
       } catch (err) {
         reject(err)

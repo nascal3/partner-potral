@@ -89,7 +89,7 @@
             styleClasses="registerPhoneInput"
             :class="{ 'input-error': errors.get('administrator.phone') }"
         ></vue-tel-input>
-        <span class="error-message" v-if="errors.has('administrator.phone')">
+        <span class="input-error-message" v-if="errors.has('administrator.phone')">
           {{errors.get('administrator.phone')}}
         </span>
       </div>
@@ -110,6 +110,25 @@
           @input="errors.clear('administrator.email')"
           @change="setSegmentEvent('Enter Email Address')"
         ></v-text-field>
+      </div>
+
+      <div>
+        <p class="mb-n4 body-1">
+          {{ $t('register.otp_method') }}
+        </p>
+        <v-radio-group
+            row
+            v-model="authObj.identification_method"
+            @change="preferredLoginTypeChangedEvent"
+        >
+          <v-radio
+              v-for="(ofType, index) in otpMethod"
+              :key="`entity-${index}`"
+              :label="ofType.label"
+              :value="ofType.value"
+              class="body-1"
+          ></v-radio>
+        </v-radio-group>
       </div>
 
 
@@ -170,6 +189,10 @@ export default {
         { label: 'Individual', value: "Individual"},
         { label: 'Company', value: "Company"}
       ],
+      otpMethod: [
+        { label: 'Email', value: "email"},
+        { label: 'Phone', value: "phone"}
+      ],
       authObj: new Auth()
     }
   },
@@ -193,6 +216,10 @@ export default {
        this.entityType = [
          { label: `${this.$t('register.individual')}`, value: "Individual"},
          { label: `${this.$t('register.company')}`, value: "Company"}
+       ]
+       this.otpMethod = [
+         { label: `${this.$t('generate.email')}`, value: "email"},
+         { label: `${this.$t('generate.phone')}`, value: "phone"}
        ]
      })
     }
@@ -226,6 +253,15 @@ export default {
        }
      },
 
+     preferredLoginTypeChangedEvent() {
+       const entity = this.authObj.identification_method
+       if (entity === 'Phone') {
+         this.setSegmentEvent('Select preferred login as phone')
+       } else {
+         this.setSegmentEvent('Select preferred login as email')
+       }
+     },
+
      setValidCountries() {
        this.countries.data.map(country => {
          this.validCountries.push(country.code)
@@ -236,12 +272,19 @@ export default {
       this.setSegmentEvent('Submit Registration Information')
       if (!this.loading) {
         this.loading = true
-        if (this.authObj.administrator.phone !== null) this.authObj.administrator.phone = this.authObj.administrator.phone.replace(/\s/g,'')
+        this.authObj.administrator.phone = this.authObj.administrator.phone.replace(/\s/g,'')
         this.authObj.register()
           .then(() => {
             this.authObj.generate().then(() => {
               this.$router.push({ name: 'verify' })
             })
+          })
+          .catch((error) => {
+            flash({
+              message: error.data.message,
+              color: '#e74c3c',
+            })
+            this.loading = false
           })
           .finally(() => {
             this.loading = false
@@ -265,8 +308,5 @@ export default {
     font-size: 16px;
     opacity: .5;
   }
-}
-.error-message {
-  color: #EE551A;
 }
 </style>
