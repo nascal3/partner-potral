@@ -70,7 +70,7 @@ export default {
   data () {
     return {
       links: [
-        // { title: this.$t('navigation.driver_profile'), icon: 'driver', to: 'driver/home' }
+        { title: this.$t('navigation.driver_profile'), icon: 'driver', to: 'driver/home' }
       ]
     }
   },
