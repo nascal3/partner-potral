@@ -1,8 +1,6 @@
 <template>
   <div>
-    <app-loading
-        v-if="loading"
-    ></app-loading>
+    <app-loading v-if="loading"/>
 
     <v-list
       v-if="initialised"
@@ -102,6 +100,7 @@ export default {
           partner: auth.retrieve('partner').id
         },
         params: {
+          document_resources: 'vehicle',
           vehicle_id: this.vehicle.id
         }
       })

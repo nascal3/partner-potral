@@ -4,5 +4,6 @@
   "preferred_login_phone": "veuillez entrer le code de vérification que nous avons envoyé sur votre téléphone",
   "request_another_one": "demander un autre ",
   "time_to_expired": "Délai d'expiration du code OTP: ",
-  "title": "Pour une authentification sécurisée, "
+  "title": "Pour une authentification sécurisée, ",
+  "verifying_code": "Vérification du code..."
 }

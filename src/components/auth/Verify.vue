@@ -9,12 +9,17 @@
     <v-col
       cols="12"
     >
-      <div v-if="loading">
-        <div class="deep-orange--text">Redirecting...</div>
-        <v-progress-linear
+      <div v-if="loading" class="d-flex align-center">
+        <v-progress-circular
             indeterminate
+            size="15"
+            width="2"
             color="deep-orange"
-        ></v-progress-linear>
+            class="mr-2"
+        ></v-progress-circular>
+        <div class="deep-orange--text">
+          {{ $t('verify.verifying_code') }}
+        </div>
       </div>
       <v-otp-input
         length="4"
