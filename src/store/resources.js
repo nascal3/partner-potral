@@ -9,7 +9,7 @@ export const resources = [
   { name: 'users', url: `partners/:partner/users` },
   { name: 'permissions', url: `partners/:partner/permissions`},
   { name: 'vehicles', url: `partners/:partner/vehicles` },
-  { name: 'vehicleDocuments', url: `partners/:partner/vehicle-documents` },
+  { name: 'vehicleDocuments', url: `partners/:partner/document-submissions` },
   { name: 'transporters', url: `partners/:partner/transporters` },
 ];
 
