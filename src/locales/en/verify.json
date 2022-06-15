@@ -4,5 +4,6 @@
   "request_another_one": "Request another one",
   "title": "For secure authentication, ",
   "preferred_login_phone": "please enter the verification code we have sent to your phone",
-  "preferred_login_email": "please enter the verification code we have sent to your email"
+  "preferred_login_email": "please enter the verification code we have sent to your email",
+  "verifying_code": "Verifying code..."
 }

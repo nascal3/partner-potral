@@ -13,7 +13,7 @@ export default class VehicleDocument extends Base {
     const data = this.getFields(['value', 'expires_at'])
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await this.form.submit("patch", url(`partners/${this.group.id}/document_submissions/${vehicleDocumentId}`), data)
+        const response = await this.form.submit("patch", url(`partners/${this.group.id}/document-submissions/${vehicleDocumentId}`), data)
         resolve(response)
       } catch (err) {
         flash({

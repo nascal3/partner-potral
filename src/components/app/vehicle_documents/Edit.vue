@@ -97,7 +97,7 @@
             <v-date-picker
               v-model="vehicleDocumentObj.expires_at"
               scrollable
-              no-title
+              :locale="locale"
             >
               <v-btn
                 block
@@ -152,6 +152,7 @@ export default {
         "image/webp",
         "application/pdf"
       ],
+      locale: localStorage.getItem('setLanguage'),
       vehicleDocumentObj: new VehicleDocument()
     }
   },
