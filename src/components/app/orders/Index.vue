@@ -33,7 +33,30 @@
             <v-col cols="12" md="7">
               <date-range @getDateRange="setDateRange"/>
             </v-col>
-            <v-col cols="12" md="4">
+            <v-col cols="12" md="5">
+              <v-select
+                  v-model="selectedDrivers"
+                  :items="driversData"
+                  item-text="name"
+                  item-value="id"
+                  :label="$t('orders.filter_by_driver')"
+                  @change="getSelectedDrivers"
+                  multiple
+                  outlined
+                  dense
+              >
+                <template v-slot:selection="{ item, index }">
+                  <v-chip v-if="index === 0" small>
+                    <span>{{ item.name }}</span>
+                  </v-chip>
+                  <span
+                      v-if="index === 1"
+                      class="grey--text text-caption"
+                  >
+                    +{{ selectedDrivers.length - 1 }} {{ $t('orders.other_drivers') }}
+                  </span>
+                </template>
+              </v-select>
             </v-col>
           </v-row>
         </v-col>
@@ -130,6 +153,8 @@ export default {
       locale: localStorage.getItem('setLanguage'),
       page: 1,
       search: '',
+      driversData: [],
+      selectedDrivers: [],
       headers: [
         { text: this.$t('orders.table_order_num'), value: 'order_no' },
         { text: this.$t('orders.table_pickup_location'), value: 'pickup_location' },
@@ -183,10 +208,18 @@ export default {
       })
     },
 
+    getSelectedDrivers () {
+      this.setSegmentEvent('Filtered orders by driver')
+      if (!this.selectedDrivers.length) return
+      this.loadOrders()
+    },
+
     getDriverIds () {
       return this.usersObj.show('?roles=driver').then(data => {
-        const drivers = data.data
-        return drivers.map(driver => {
+        if (this.selectedDrivers.length) return this.selectedDrivers
+        this.driversData = data.data
+        this.selectedDrivers = data.data
+        return this.driversData.map(driver => {
           return driver.id
         })
       }).catch(error => {
