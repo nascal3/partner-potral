@@ -15,7 +15,6 @@ import users from './en/users.json'
 import vehicles from './en/vehicles.json'
 import verify from './en/verify.json'
 
-
 const translation = {
     auth,
     core,

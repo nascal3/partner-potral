@@ -46,12 +46,24 @@
 import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
+<<<<<<< HEAD:src/components/app/driver/home/GoOnline.vue
   mixins: [segmentMixin],
+=======
+  props: [
+    'driver'
+  ],
+>>>>>>> 2e824ff6a727b3f4167dc421ca5040ad5dfabefc:src/components/app/profiles/driver/includes/home/GoOnline.vue
 
   data () {
     return {
       sheet: true
     }
   },
+
+  computed: {
+    broadcaster () {
+      return this.process.env.VUE_APP_BROADCASTER
+    }
+  }
 }
 </script>
