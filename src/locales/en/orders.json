@@ -27,5 +27,7 @@
   "cancel": "cancel",
   "filter": "Filter",
   "no_orders_found": "No orders found!",
-  "no_results_found": "No results found!"
+  "no_results_found": "No results found!",
+  "filter_by_driver": "Filter by driver",
+  "other_drivers": "others"
 }
