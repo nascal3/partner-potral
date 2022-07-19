@@ -5,7 +5,7 @@
   "bank_accounts": "FR_Bank Accounts",
   "bank_branch": "FR_Bank branch",
   "bank_title": "FR_Bank accounts",
-  "bank_transfer": "FR_Bank Transfer",
+  "bank_transfer": "Virement bancaire",
   "banks": "FR_Banks",
   "btn_back": "FR_Back",
   "completed": "FR_Completed",
@@ -37,7 +37,7 @@
   "tbl_account_number": "FR_Account number",
   "tbl_bank": "FR_Bank",
   "tbl_bank_branch": "FR_Bank branch",
-  "tbl_status": "FR_status",
+  "tbl_status": "Statut",
   "txn": "Txn No",
   "txn_amount": "FR_Amount",
   "txn_balance": "FR_Balance",
@@ -61,7 +61,7 @@
   "withdrawal_amount": "FR_Enter amount",
   "withdrawal_record_found": "FR_No records found",
   "withdrawal_results_found": "FR_No results found",
-  "withdrawal_state": "FR_Withdrawal state",
+  "withdrawal_state": "État de retrait",
   "withdrawals": "FR_Withdrawals",
-  "withdrawals_title": "FR_Withdrawals"
+  "withdrawals_title": "Retraits"
 }
