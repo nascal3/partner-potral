@@ -54,26 +54,19 @@
 </template>
 
 <script>
-<<<<<<< HEAD:src/components/app/driver/Index.vue
 import { mapActions, mapGetters } from 'vuex'
 import Transporter from "@/libs/app/transporters/Transporter"
 import segmentMixin from "@/mixins/segmentEvents"
 
-=======
->>>>>>> 2e824ff6a727b3f4167dc421ca5040ad5dfabefc:src/components/app/profiles/driver/Main.vue
 export default {
   mixins: [segmentMixin],
 
   data () {
     return {
       title: '',
-<<<<<<< HEAD:src/components/app/driver/Index.vue
       crumbs: [
         { text: this.$t('driver.driver'), disabled: true, }
       ],
-=======
-      breadcrumbs: [],
->>>>>>> 2e824ff6a727b3f4167dc421ca5040ad5dfabefc:src/components/app/profiles/driver/Main.vue
       navigation: [
         { name: this.$t('driver.home'), icon: 'home-variant', to: 'home' },
         { name: this.$t('driver.orders'), icon: 'package-variant', to: 'orders' },
@@ -91,7 +84,6 @@ export default {
       ], meta.crumbs)
     },
   },
-<<<<<<< HEAD:src/components/app/driver/Index.vue
 
   mounted () {
     this.setSegmentEvent('Open driver profile')
@@ -105,8 +97,6 @@ export default {
       }
     })
   }
-=======
->>>>>>> 2e824ff6a727b3f4167dc421ca5040ad5dfabefc:src/components/app/profiles/driver/Main.vue
 }
 </script>
 
