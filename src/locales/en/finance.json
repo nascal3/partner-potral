@@ -42,6 +42,8 @@
   "tbl_account_number": "Account number",
   "tbl_status": "Status",
   "tbl_action": "Action",
+  "tbl_from": "From",
+  "tbl_to": "To",
   "withdraw_btn": "Withdraw Cash",
   "txn": "Txn No",
   "txn_date": "Date",

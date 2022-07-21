@@ -16,7 +16,7 @@
         :loading-text="$t('core.system_loading')"
     >
       <template v-slot:item.status="{ item }">
-        <v-chip :color="setColor(item.status)" outlined small>
+        <v-chip :color="setColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
           {{ item.status }}
         </v-chip>
       </template>
@@ -77,10 +77,21 @@ export default {
 
   methods: {
     setColor(status) {
-      if (status === 'failed') return 'error'
-      if (status === 'processing') return 'warning'
-      if (status === 'sent') return 'info'
-      return 'success'
+      const colorMap = {
+        'failed': '#FBDECF',
+        'processing': '#FDDB97',
+        'sent': '#CCEFFF'
+      }
+      return colorMap[status] || '#DEFAD2'
+    },
+
+    setChipTextColor (orderStatus) {
+      const colorMap = {
+        'failed': 'error',
+        'processing': 'warning',
+        'sent': 'info'
+      }
+      return colorMap[orderStatus] || 'success'
     },
 
     pageChanged (page) {

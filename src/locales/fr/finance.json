@@ -38,6 +38,8 @@
   "tbl_bank": "FR_Bank",
   "tbl_bank_branch": "FR_Bank branch",
   "tbl_status": "Statut",
+  "tbl_from": "FR_From",
+  "tbl_to": "FR_To",
   "txn": "Txn No",
   "txn_amount": "FR_Amount",
   "txn_balance": "FR_Balance",

@@ -18,12 +18,12 @@
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
-        <v-col md="6" cols="12" class="top-account-balance">
+        <v-col v-if="initialised" md="6" cols="12" class="top-account-balance">
           <div class="d-flex flex-column justify-end align-end mr-4">
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
             <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
               <span class="mr-2 mt-2">KES</span>
-                {{ thousandSeparator(accountBalance) }}
+                {{ thousandSeparator(balance) }}
             </div>
           </div>
         </v-col>
@@ -41,12 +41,12 @@
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
           <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
 
-          <div class="account-balance">
+          <div v-if="initialised" class="account-balance">
             <div class="d-flex flex-column justify-end align-end mr-4">
               <div class="small-text">{{ $t('finance.account_balance') }}</div>
               <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
                 <span class="mr-2">KES</span>
-                {{ thousandSeparator(accountBalance) }}
+                {{ thousandSeparator(balance) }}
               </div>
             </div>
           </div>
@@ -72,7 +72,7 @@
           <!--      uncleared earnings summary tab-->
           <v-tab-item>
             <v-container fluid>
-              <withdrawal-table/>
+              <uncleared-earnings/>
             </v-container>
           </v-tab-item>
           <!--      transactions summary tab-->
@@ -89,7 +89,8 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
-import formatNumbers from "@/mixins/formatNumbers";
+import formatNumbers from "@/mixins/formatNumbers"
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -98,14 +99,58 @@ export default {
     'withdraw-modal': () => import('./Withdraw.vue'),
     'withdrawal-table': () => import('./withdrawals/Show.vue'),
     'transactions-table': () => import('./transactions/Show.vue'),
+    'uncleared-earnings': () => import('./unclearedEarnings/Show.vue'),
     'savings-table': () => import('./savings/Show.vue')
   },
 
   data() {
     return {
-      accountBalance: 35450
+      loading: true
     }
   },
+
+  computed: {
+    ...mapGetters({
+      accountBalance: 'getAccountBalance'
+    }),
+
+    initialised () {
+      return this.accountBalance.Account_balances && this.accountBalance.Account_balances.length
+    },
+
+    balance() {
+      if (!this.initialised) return 0
+      return this.accountBalance.Account_balances[0].current_account
+    }
+  },
+
+  methods: {
+    ...mapActions([
+      'setAccountBalance'
+    ]),
+
+    loadAccountBalance () {
+      const { id } = auth.retrieve('partner')
+      this.setAccountBalance({
+        routes: {
+          partner: id
+        }
+      }).then(() => {
+        this.loading = false
+      }).catch((error) => {
+        this.loading = false
+        flash({
+          message: error.response.data.message,
+          color: '#e74c3c'
+        })
+      })
+    }
+  },
+
+
+  mounted () {
+    this.loadAccountBalance()
+  }
 }
 </script>
 

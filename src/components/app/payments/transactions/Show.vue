@@ -10,7 +10,7 @@
         :no-data-text="$t('finance.txn_no_statement_found')"
         :no-results-text="$t('finance.txn_no_results_found')"
         :headers="headers"
-        :items="withdrawals"
+        :items="transactions.data"
         item-key="txn_no"
         :loading="loading"
         :loading-text="$t('core.system_loading')"
@@ -29,7 +29,7 @@
     </v-data-table>
 
     <app-pagination
-        v-if="withdrawals.length"
+        v-if="initialised"
         id="statement-pagination"
         :meta="meta"
         @pageChanged="pageChanged"
@@ -41,10 +41,7 @@
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
 import mockResponse from '@/libs/app/payments/mockResponce.json'
-
-import Order from '@/libs/app/orders/Order'
-import OrderDetails from '@/libs/app/order_details/OrderDetails'
-import User from '@/libs/app/users/User'
+import {mapGetters, mapActions} from "vuex"
 
 export default {
   mixins: [dateFormat, formatNumbers],
@@ -52,7 +49,6 @@ export default {
   data () {
     return {
       loading: true,
-      withdrawals: [],
       page: 1,
       headers: [
         { text: this.$t('finance.txn'), value: 'transaction_no' },
@@ -75,7 +71,21 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      transactions: 'getPartnerTransactions'
+    }),
+
+    initialised () {
+      return this.transactions
+    }
+  },
+
   methods: {
+    ...mapActions([
+      'setPartnerTransactions'
+    ]),
+
     setColor(status) {
       if (status === 'failed') return 'error'
       if (status === 'processing') return 'warning'
@@ -85,17 +95,32 @@ export default {
 
     pageChanged (page) {
       this.page = page
-      this.loadWithdrawals()
+      this.loadTransactions()
     },
 
-    loadWithdrawals () {
-      this.withdrawals = mockResponse
-      this.loading =  false
-    },
+    loadAccountBalance () {
+      const { id } = auth.retrieve('partner')
+      this.setPartnerTransactions({
+        routes: {
+          partner: id
+        }
+      }).then(() => {
+        this.loading = false
+      }).catch((error) => {
+        console.error('>>>', error)
+        this.loading = false
+        flash({
+          message: error.response.data.message,
+          color: '#e74c3c'
+        })
+      }).finally(() => {
+        this.loading = false
+      })
+    }
   },
 
   mounted () {
-    this.loadWithdrawals()
+    this.loadAccountBalance()
   }
 
 }
