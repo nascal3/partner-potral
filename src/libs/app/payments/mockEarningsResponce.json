@@ -9,6 +9,7 @@
       "drop_off_location":"Marsabit plaza",
       "amount":450,
       "commission":20,
+      "currency": "KES",
       "earnings":430
     },
     {
@@ -19,6 +20,7 @@
       "drop_off_location":"Kamindi plaza",
       "amount":550,
       "commission":30,
+      "currency": "KES",
       "earnings":520
     },
     {
@@ -29,6 +31,7 @@
       "drop_off_location":"Muknas Apartments",
       "amount":250,
       "commission":30,
+      "currency": "KES",
       "earnings":220
     }
   ],

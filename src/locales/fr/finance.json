@@ -18,12 +18,14 @@
   "no_bank_records_found": "Aucun compte bancaire trouvé",
   "no_records_found": "Aucun enregistrement trouvé",
   "no_results_found": "Aucun résultat trouvé !",
+  "order_amount": "Montant de la commande",
   "payments": "Paiements",
   "payments_title": "Paiements",
   "record_bank": "Enregistrer les coordonnées bancaires",
   "save_details": "Enregistrer les détails ",
   "search_bank": "Banque de recherche",
   "select_bank_name": "Sélectionnez la banque",
+  "sendy_commission": "Commission Sendy",
   "statement": "Déclaration",
   "statement_title": "Déclaration",
   "statements": "Déclarations",
@@ -39,6 +41,8 @@
   "tbl_bank_branch": "Succursale bancaire",
   "tbl_earnings": "Gains",
   "tbl_from": "De",
+  "tbl_order_completed_on": "Commande terminée le",
+  "tbl_order_id": "Numéro de commande",
   "tbl_status": "Statut",
   "tbl_to": "À",
   "txn": "Txn No",
@@ -66,5 +70,6 @@
   "withdrawal_results_found": "Aucun enregistrement trouvé",
   "withdrawal_state": "État de retrait",
   "withdrawals": "Retraits",
-  "withdrawals_title": "Retraits"
+  "withdrawals_title": "Retraits",
+  "your_earnings": "Vos gains"
 }

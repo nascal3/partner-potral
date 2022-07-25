@@ -25,8 +25,8 @@
       <template v-slot:item.date="{ item }">
         {{ notificationsDateFormat(item.date) }}
       </template>
-      <template v-slot:item.amount="{ item }">
-        {{ thousandSeparator(item.earnings) }}
+      <template v-slot:item.earnings="{ item }">
+        {{ item.currency }} {{ thousandSeparator(item.earnings) }}
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
@@ -61,11 +61,11 @@ export default {
     return {
       loading: true,
       expanded: [],
-      earnings: [],
+      // earnings: [],
       page: 1,
       headers: [
-        { text: this.$t('finance.txn'), value: 'order_no' },
-        { text: this.$t('finance.txn_date'), value: 'date' },
+        { text: this.$t('finance.tbl_order_id'), value: 'order_no' },
+        { text: this.$t('finance.tbl_order_completed_on'), value: 'date' },
         { text: this.$t('finance.tbl_from'), value: 'pick_up_location' },
         { text: this.$t('finance.tbl_to'), value: 'drop_off_location' },
         { text: this.$t('finance.tbl_earnings'), value: 'earnings' },
@@ -95,10 +95,10 @@ export default {
       return this.unclearedEarnings.disputed_orders && this.unclearedEarnings.disputed_orders.length
     },
 
-    // earnings() {
-    //   if (!this.initialised) return []
-    //   return this.unclearedEarnings.disputed_orders
-    // }
+    earnings() {
+      if (!this.initialised) return []
+      return this.unclearedEarnings.disputed_orders
+    }
   },
 
   methods: {
@@ -151,7 +151,7 @@ export default {
 
   mounted () {
     this.loadEarnings()
-    this.earnings = mockResponse
+    // this.earnings = mockResponse
   }
 
 }

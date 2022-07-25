@@ -37,6 +37,8 @@
   "bank_branch": "Bank branch",
   "search_bank": "Search bank",
   "tbl_bank": "Bank",
+  "tbl_order_completed_on": "Order Completed on",
+  "tbl_order_id": "Order ID",
   "tbl_bank_branch": "Bank branch",
   "tbl_account_name": "Account name",
   "tbl_account_number": "Account number",
@@ -63,5 +65,11 @@
   "failed": "Failed",
   "completed": "Completed",
   "withdrawal_record_found": "No records found",
-  "withdrawal_results_found": "No results found"
+  "withdrawal_results_found": "No results found",
+  "order_amount": "Order Amount",
+  "sendy_commission": "Sendy Commission",
+  "your_earnings": "Your earnings",
+  "payment_method": "Payment method",
+  "funds_sent_to": "Funds sent to"
+
 }

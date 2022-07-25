@@ -15,6 +15,7 @@ export const resources = [
   { name: 'accountBalance', url: `partners/:partner/finances/account-balance` },
   { name: 'partnerTransactions', url: `partners/:partner/finances/transactions` },
   { name: 'unclearedEarnings', url: `partners/:partner/finances/uncleared-earnings` },
+  { name: 'withdrawals', url: `partners/:partner/finances/withdrawals` },
 ];
 
 export const helpers = {
