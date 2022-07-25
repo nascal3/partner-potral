@@ -10,23 +10,23 @@
         :no-data-text="$t('finance.txn_no_statement_found')"
         :no-results-text="$t('finance.txn_no_results_found')"
         :headers="headers"
-        :items="earnings"
-        item-key="id"
+        :items="earnings.disputed_orders"
+        item-key="order_no"
         :expanded.sync="expanded"
         show-expand
         :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
       <template v-slot:item.status="{ item }">
-        <v-chip :color="setColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
-          {{ item.status }}
+        <v-chip :color="setColor('in_review')" :text-color="setChipTextColor('in_review')" light small>
+        <!-- {{ item.status }}--> In Review
         </v-chip>
       </template>
       <template v-slot:item.date="{ item }">
         {{ notificationsDateFormat(item.date) }}
       </template>
       <template v-slot:item.amount="{ item }">
-        {{ thousandSeparator(item.amount) }}
+        {{ thousandSeparator(item.earnings) }}
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
@@ -61,13 +61,14 @@ export default {
     return {
       loading: true,
       expanded: [],
+      earnings: [],
       page: 1,
       headers: [
-        { text: this.$t('finance.txn'), value: 'transaction_no' },
+        { text: this.$t('finance.txn'), value: 'order_no' },
         { text: this.$t('finance.txn_date'), value: 'date' },
-        { text: this.$t('finance.tbl_from'), value: 'from' },
-        { text: this.$t('finance.tbl_to'), value: 'to' },
-        { text: this.$t('finance.txn_amount'), value: 'earnings' },
+        { text: this.$t('finance.tbl_from'), value: 'pick_up_location' },
+        { text: this.$t('finance.tbl_to'), value: 'drop_off_location' },
+        { text: this.$t('finance.tbl_earnings'), value: 'earnings' },
         { text: this.$t('finance.tbl_status'), value: 'status' },
         { text: '', value: 'data-table-expand' }
       ],
@@ -94,10 +95,10 @@ export default {
       return this.unclearedEarnings.disputed_orders && this.unclearedEarnings.disputed_orders.length
     },
 
-    earnings() {
-      if (!this.initialised) return []
-      return this.unclearedEarnings.disputed_orders
-    }
+    // earnings() {
+    //   if (!this.initialised) return []
+    //   return this.unclearedEarnings.disputed_orders
+    // }
   },
 
   methods: {
@@ -150,6 +151,7 @@ export default {
 
   mounted () {
     this.loadEarnings()
+    this.earnings = mockResponse
   }
 
 }

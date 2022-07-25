@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div><span>Order Amount: </span>{{ thousandSeparator(details.order_amount) }}</div>
+    <div><span>Order Amount: </span>{{ thousandSeparator(details.amount) }}</div>
     <div><span>Sendy Commission:</span>{{ thousandSeparator(details.commission) }}</div>
     <div><span>Your earnings: </span>{{ thousandSeparator(details.earnings) }}</div>
   </section>
