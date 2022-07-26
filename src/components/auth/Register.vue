@@ -1,5 +1,8 @@
 <template>
-  <v-card flat>
+  <v-card
+    v-if="initialised"
+    flat
+  >
     <v-card-text class="px-0">
       <div>
         <p class="mb-n4 mt-5 body-1">
@@ -233,6 +236,14 @@ export default {
     errors () {
       return this.authObj.form.errors
     },
+
+    onlyCountries () {
+      return this.countries.data.map(({ code }) => code)
+    },
+
+    initialised () {
+      return this.countries.data
+    }
   },
 
    methods: {

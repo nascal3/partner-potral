@@ -237,33 +237,23 @@ export default {
     },
 
     setChipColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return '#FDDB97'
+      const colorMap = {
+        'pending': '#FBDECF',
+        'confirmed': '#CCEFFF',
+        'delivered': '#DEFAD2',
+        'in transit': '#FDDB97'
       }
-      if (orderStatus === 'confirmed') {
-        return '#CCEFFF'
-      }
-      if (orderStatus === 'delivered') {
-        return '#DEFAD2'
-      }
-      if (orderStatus === 'in transit') {
-        return '#FDDB97'
-      }
+      return colorMap[orderStatus]
     },
 
     setChipTextColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return  '#9B101C'
+      const colorMap = {
+        'pending': '#9B101C',
+        'confirmed': '#006492',
+        'delivered': '#116F28',
+        'in transit': '#9D5004'
       }
-      if (orderStatus === 'confirmed') {
-        return '#006492'
-      }
-      if (orderStatus === 'delivered') {
-        return '#116F28'
-      }
-      if (orderStatus === 'in transit') {
-        return '#9D5004'
-      }
+      return colorMap[orderStatus]
     },
 
     pageChanged (page) {

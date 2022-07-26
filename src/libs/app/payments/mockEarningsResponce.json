@@ -1,0 +1,40 @@
+{
+  "owner_id":1,
+  "disputed_orders":[
+    {
+      "order_no":"AJ74W6745-RSZ",
+      "date":"10-11-2022",
+      "name":"transporter",
+      "pick_up_location":"Moi Avenue",
+      "drop_off_location":"Marsabit plaza",
+      "amount":450,
+      "commission":20,
+      "currency": "KES",
+      "earnings":430
+    },
+    {
+      "order_no":"AJ74E9719-6RE",
+      "date":"01-11-2022",
+      "name":"transporter",
+      "pick_up_location":"Winsor Avenue",
+      "drop_off_location":"Kamindi plaza",
+      "amount":550,
+      "commission":30,
+      "currency": "KES",
+      "earnings":520
+    },
+    {
+      "order_no":"AJ748R714-W7X",
+      "date":"09-11-2022",
+      "name":"transporter",
+      "pick_up_location":"Marsabit plaza",
+      "drop_off_location":"Muknas Apartments",
+      "amount":250,
+      "commission":30,
+      "currency": "KES",
+      "earnings":220
+    }
+  ],
+  "status":true
+}
+

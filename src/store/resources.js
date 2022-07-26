@@ -11,6 +11,11 @@ export const resources = [
   { name: 'vehicles', url: `partners/:partner/vehicles` },
   { name: 'vehicleDocuments', url: `partners/:partner/document-submissions` },
   { name: 'transporters', url: `partners/:partner/transporters` },
+  { name: 'banks', url: `banks` },
+  { name: 'accountBalance', url: `partners/:partner/finances/account-balance` },
+  { name: 'partnerTransactions', url: `partners/:partner/finances/transactions` },
+  { name: 'unclearedEarnings', url: `partners/:partner/finances/uncleared-earnings` },
+  { name: 'withdrawals', url: `partners/:partner/finances/withdrawals` },
 ];
 
 export const helpers = {
