@@ -3,7 +3,7 @@
   "owner_id": 762,
   "owner_withdrawals": [
     {
-      "payment_id": null,
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762592",
       "payment_method": "Mobile",
       "currency": "KES",
       "ref_no": "AJ74W6745-RSZ",
@@ -12,7 +12,7 @@
       "amount": 200.0
     },
     {
-      "payment_id": null,
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762591",
       "payment_method": "Mobile",
       "currency": "KES",
       "ref_no": "AJ74E9719-6RE",
@@ -21,7 +21,7 @@
       "amount": 500.0
     },
     {
-      "payment_id": null,
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762595",
       "payment_method": "Bank",
       "currency": "KES",
       "ref_no": "AJ748R714-W7X",
@@ -30,7 +30,7 @@
       "amount": 560.0
     },
     {
-      "payment_id": null,
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762597",
       "payment_method": "Mobile",
       "currency": "KES",
       "ref_no": "AJ74MV713-IDD",

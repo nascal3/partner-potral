@@ -38,6 +38,7 @@
         <withdraw-amount
             v-if="!proceed"
             :input-errors="errors"
+            :account-balance="accountBalance"
             @amount="amount"
             @proceed="proceedToWithdraw"
         />
@@ -63,6 +64,14 @@ import formatNumbers from "@/mixins/formatNumbers";
 
 export default {
   mixins: [segmentMixin, formatNumbers],
+
+  props: {
+    accountBalance: {
+      type: Number,
+      default: 0
+    },
+  },
+
   components: {
     'withdraw-amount': () => import('./partials/WithdrawAmount.vue'),
     'payment-method': () => import('./partials/PaymentMethod.vue'),

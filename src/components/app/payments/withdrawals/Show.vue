@@ -49,7 +49,7 @@ export default {
   data () {
     return {
       loading: true,
-      withdrawals: [],
+      // withdrawals: [],
       page: 1,
       headers: [
         { text: this.$t('finance.txn_date'), value: 'created_at' },

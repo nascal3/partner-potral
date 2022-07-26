@@ -7,9 +7,9 @@ const setLanguage = localStorage.getItem('setLanguage')
 const dateFormat = {
     methods: {
         ordersDateFormat(date) {
-            // format date result e.g Mon, 20th Sep
+            // format date result e.g Mon, 20th Sep 2021
             if (!date) return
-            return format(new Date(date), 'iii, do LLL', {
+            return format(new Date(date), 'iii, do LLL yyy', {
                 locale: locales[setLanguage]
             })
         },

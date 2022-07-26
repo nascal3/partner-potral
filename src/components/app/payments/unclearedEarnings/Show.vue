@@ -17,13 +17,8 @@
         :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
-      <template v-slot:item.status="{ item }">
-        <v-chip :color="setColor('in_review')" :text-color="setChipTextColor('in_review')" light small>
-        <!-- {{ item.status }}--> In Review
-        </v-chip>
-      </template>
       <template v-slot:item.date="{ item }">
-        {{ notificationsDateFormat(item.date) }}
+        {{ ordersDateFormat(item.date) }}
       </template>
       <template v-slot:item.earnings="{ item }">
         {{ item.currency }} {{ thousandSeparator(item.earnings) }}
@@ -47,7 +42,7 @@
 <script>
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
-import mockResponse from '@/libs/app/payments/mockEarningsResponce.json'
+// import mockResponse from '@/libs/app/payments/mockEarningsResponce.json'
 import {mapGetters, mapActions} from "vuex"
 
 export default {
@@ -61,7 +56,6 @@ export default {
     return {
       loading: true,
       expanded: [],
-      // earnings: [],
       page: 1,
       headers: [
         { text: this.$t('finance.tbl_order_id'), value: 'order_no' },
@@ -69,7 +63,6 @@ export default {
         { text: this.$t('finance.tbl_from'), value: 'pick_up_location' },
         { text: this.$t('finance.tbl_to'), value: 'drop_off_location' },
         { text: this.$t('finance.tbl_earnings'), value: 'earnings' },
-        { text: this.$t('finance.tbl_status'), value: 'status' },
         { text: '', value: 'data-table-expand' }
       ],
       meta: {
@@ -106,29 +99,9 @@ export default {
       'setUnclearedEarnings'
     ]),
 
-    setColor(status) {
-      const colorMap = {
-        'failed': '#FDDB97',
-        'in_review': '#FDDB97',
-        'sent': '#CCEFFF',
-        'other': '#DEFAD2'
-      }
-      return colorMap[status]
-    },
-
-    setChipTextColor (orderStatus) {
-      const colorMap = {
-        'pending': '#9B101C',
-        'confirmed': '#006492',
-        'delivered': '#116F28',
-        'in_review': '#9D5004'
-      }
-      return colorMap[orderStatus]
-    },
-
     pageChanged (page) {
       this.page = page
-      this.loadTransactions()
+      this.loadEarnings()
     },
 
     loadEarnings () {
@@ -151,7 +124,6 @@ export default {
 
   mounted () {
     this.loadEarnings()
-    // this.earnings = mockResponse
   }
 
 }

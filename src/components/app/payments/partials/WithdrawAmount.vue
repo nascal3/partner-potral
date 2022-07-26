@@ -52,12 +52,15 @@ export default {
       type: Object,
       default: () => {}
     },
+    accountBalance: {
+      type: Number,
+      default: 0
+    },
   },
 
   data() {
     return {
       disabled: true,
-      accountBalance: 35450,
       amount: '',
       animationObject:{
         classes: 'slideInLeft',

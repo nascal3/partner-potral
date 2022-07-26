@@ -10,21 +10,16 @@
         :no-data-text="$t('finance.txn_no_statement_found')"
         :no-results-text="$t('finance.txn_no_results_found')"
         :headers="headers"
-        :items="transactions.data"
-        item-key="txn_no"
+        :items="transactions"
+        item-key="transaction_id"
         :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
-      <template v-slot:item.status="{ item }">
-        <v-chip :color="setColor(item.status)" outlined small>
-          {{ item.status }}
-        </v-chip>
-      </template>
-      <template v-slot:item.date="{ item }">
-        {{ notificationsDateFormat(item.date) }}
+      <template v-slot:item.completed_on="{ item }">
+        {{ notificationsDateFormat(item.completed_on) }}
       </template>
       <template v-slot:item.amount="{ item }">
-        {{ thousandSeparator(item.amount) }}
+        {{item.currency}} {{ thousandSeparator(item.amount) }}
       </template>
     </v-data-table>
 
@@ -40,7 +35,7 @@
 <script>
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
-import mockResponse from '@/libs/app/payments/mockResponce.json'
+// import mockResponse from '@/libs/app/payments/mockTransactionsResponce.json'
 import {mapGetters, mapActions} from "vuex"
 
 export default {
@@ -51,11 +46,10 @@ export default {
       loading: true,
       page: 1,
       headers: [
-        { text: this.$t('finance.txn'), value: 'transaction_no' },
-        { text: this.$t('finance.txn_date'), value: 'date' },
+        { text: this.$t('finance.txn_id'), value: 'transaction_id' },
+        { text: this.$t('finance.txn_date'), value: 'completed_on' },
         { text: this.$t('finance.txn_amount'), value: 'amount' },
-        { text: this.$t('finance.txn_payment_method'), value: 'method' },
-        { text: this.$t('finance.txn_type'), value: 'txn_type' },
+        { text: this.$t('finance.txn_type'), value: 'transaction_type' },
       ],
       meta: {
         current_page: 1,
@@ -73,11 +67,16 @@ export default {
 
   computed: {
     ...mapGetters({
-      transactions: 'getPartnerTransactions'
+      transactionsData: 'getPartnerTransactions'
     }),
 
     initialised () {
-      return this.transactions
+      return this.transactionsData.transactions && this.transactionsData.transactions.length
+    },
+
+    transactions () {
+      if (!this.initialised) return
+      return this.transactionsData.transactions
     }
   },
 
@@ -98,7 +97,7 @@ export default {
       this.loadTransactions()
     },
 
-    loadAccountBalance () {
+    loadTransactions () {
       const { id } = auth.retrieve('partner')
       this.setPartnerTransactions({
         routes: {
@@ -107,7 +106,6 @@ export default {
       }).then(() => {
         this.loading = false
       }).catch((error) => {
-        console.error('>>>', error)
         this.loading = false
         flash({
           message: error.response.data.message,
@@ -120,7 +118,7 @@ export default {
   },
 
   mounted () {
-    this.loadAccountBalance()
+    this.loadTransactions()
   }
 
 }

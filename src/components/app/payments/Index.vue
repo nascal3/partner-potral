@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
 
-        <withdraw-modal />
+        <withdraw-modal :accountBalance="balance" />
 
       </v-card-title>
 
@@ -18,13 +18,18 @@
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
-        <v-col v-if="initialised" md="6" cols="12" class="top-account-balance">
+        <v-col md="6" cols="12" class="top-account-balance">
           <div class="d-flex flex-column justify-end align-end mr-4">
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
-            <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-              <span class="mr-2 mt-2">KES</span>
+
+            <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
+              <span class="mr-2 mt-2">{{ currency }}</span>
                 {{ thousandSeparator(balance) }}
             </div>
+            <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
+              0
+            </div>
+
           </div>
         </v-col>
       </v-row>
@@ -36,18 +41,23 @@
             left
         >
           <v-tab>{{ $t('finance.tab_withdrawals') }}</v-tab>
-          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>
-          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>
+<!--          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>-->
+<!--          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>-->
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
           <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
 
-          <div v-if="initialised" class="account-balance">
+          <div class="account-balance">
             <div class="d-flex flex-column justify-end align-end mr-4">
               <div class="small-text">{{ $t('finance.account_balance') }}</div>
-              <div class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-                <span class="mr-2">KES</span>
+
+              <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
+                <span class="mr-2">{{ currency }}</span>
                 {{ thousandSeparator(balance) }}
               </div>
+              <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
+                0
+              </div>
+
             </div>
           </div>
 
@@ -58,17 +68,17 @@
             </v-container>
           </v-tab-item>
           <!--      savings tab-->
-          <v-tab-item>
-            <v-container fluid>
-              <withdrawal-table/>
-            </v-container>
-          </v-tab-item>
+<!--          <v-tab-item>-->
+<!--            <v-container fluid>-->
+<!--              <withdrawal-table/>-->
+<!--            </v-container>-->
+<!--          </v-tab-item>-->
           <!--      repayments summary tab-->
-          <v-tab-item>
-            <v-container fluid>
-              <withdrawal-table/>
-            </v-container>
-          </v-tab-item>
+<!--          <v-tab-item>-->
+<!--            <v-container fluid>-->
+<!--              <withdrawal-table/>-->
+<!--            </v-container>-->
+<!--          </v-tab-item>-->
           <!--      uncleared earnings summary tab-->
           <v-tab-item>
             <v-container fluid>
@@ -116,6 +126,11 @@ export default {
 
     initialised () {
       return this.accountBalance.Account_balances && this.accountBalance.Account_balances.length
+    },
+
+    currency() {
+      if (!this.initialised) return 'KES'
+      return this.accountBalance.Account_balances[0].currency
     },
 
     balance() {
