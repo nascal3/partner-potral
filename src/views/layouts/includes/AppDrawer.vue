@@ -127,7 +127,7 @@ export default {
             icon: 'cash-multiple',
               children: [
                 { name: this.$t('finance.payments'), icon: '', to: '/payments', permission: 'orders.index' },
-                { name: this.$t('finance.banks'), icon: '', to: '/banks', permission: 'orders.index' },
+                // { name: this.$t('finance.banks'), icon: '', to: '/banks', permission: 'orders.index' },
               ]
           },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
