@@ -30,8 +30,7 @@
           large
           color="primary"
           class="caption font-weight-bold"
-          :dark="!disabled"
-          :disabled="disabled"
+          :disabled="disabled || withdrawAmountError"
           @click="proceedToWithdraw"
       >
         {{ $t('finance.continue') }}

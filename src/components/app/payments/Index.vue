@@ -9,7 +9,8 @@
         </div>
         <v-spacer></v-spacer>
 
-        <withdraw-modal :accountBalance="balance" />
+        <!-- TODO enable withdraw button when endpoint is ready-->
+        <!-- <withdraw-modal :accountBalance="balance" />-->
 
       </v-card-title>
 
