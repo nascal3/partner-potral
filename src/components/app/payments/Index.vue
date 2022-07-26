@@ -165,6 +165,7 @@ export default {
 
   mounted () {
     this.loadAccountBalance()
+    this.setSegmentEvent('Opened Payments feature')
   }
 }
 </script>

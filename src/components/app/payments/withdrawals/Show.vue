@@ -38,18 +38,18 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
-// import mockResponse from '@/libs/app/payments/mockWithdrawalResponce.json'
 import {mapGetters, mapActions} from "vuex"
+// import mockResponse from '@/libs/app/payments/mockWithdrawalResponce.json'
 
 export default {
-  mixins: [dateFormat, formatNumbers],
+  mixins: [segmentMixin, dateFormat, formatNumbers],
 
   data () {
     return {
       loading: true,
-      // withdrawals: [],
       page: 1,
       headers: [
         { text: this.$t('finance.txn_date'), value: 'created_at' },
@@ -134,6 +134,7 @@ export default {
 
   mounted () {
     this.loadWithdrawals()
+    this.setSegmentEvent('View Withdrawals')
   }
 
 }

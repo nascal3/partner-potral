@@ -10,7 +10,7 @@
         :no-data-text="$t('finance.txn_no_statement_found')"
         :no-results-text="$t('finance.txn_no_results_found')"
         :headers="headers"
-        :items="earnings.disputed_orders"
+        :items="earnings"
         item-key="order_no"
         :expanded.sync="expanded"
         show-expand
@@ -18,7 +18,7 @@
         :loading-text="$t('core.system_loading')"
     >
       <template v-slot:item.date="{ item }">
-        {{ ordersDateFormat(item.date) }}
+        {{ notificationsDateFormat(item.date) }}
       </template>
       <template v-slot:item.earnings="{ item }">
         {{ item.currency }} {{ thousandSeparator(item.earnings) }}
@@ -40,13 +40,14 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
-// import mockResponse from '@/libs/app/payments/mockEarningsResponce.json'
 import {mapGetters, mapActions} from "vuex"
+// import mockResponse from '@/libs/app/payments/mockEarningsResponce.json'
 
 export default {
-  mixins: [dateFormat, formatNumbers],
+  mixins: [segmentMixin, dateFormat, formatNumbers],
 
   components: {
     'earnings-details': () => import('./partials/EarningsDetails')
@@ -124,6 +125,7 @@ export default {
 
   mounted () {
     this.loadEarnings()
+    this.setSegmentEvent('View Uncleared earnings')
   }
 
 }
