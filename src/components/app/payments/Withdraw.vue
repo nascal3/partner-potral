@@ -38,7 +38,8 @@
         <withdraw-amount
             v-if="!proceed"
             :input-errors="errors"
-            :account-balance="accountBalance"
+            :account-balance="accountBalance.balance"
+            :payment-methods-init="initialised"
             @amount="amount"
             @proceed="proceedToWithdraw"
         />
@@ -47,7 +48,10 @@
             v-if="proceed"
             :input-errors="errors"
             :amount="withdrawAmount"
-            @paymentMethod="paymentMethod"
+            :currency="accountBalance.currency"
+            :payment-methods="paymentMethods.data"
+            :loading="loading"
+            @selectedPaymentMethod="selectedPaymentMethod"
             @proceed="proceedToWithdraw"
         />
 
@@ -67,8 +71,8 @@ export default {
 
   props: {
     accountBalance: {
-      type: Number,
-      default: 0
+      type: Object,
+      default: () => {}
     },
   },
 
@@ -88,13 +92,13 @@ export default {
     }
   },
 
-  watch: {
-
-  },
-
   computed: {
+    ...mapGetters({
+      paymentMethods: 'getPaymentMethods'
+    }),
+
     initialised () {
-      return true
+      return this.paymentMethods.data && Object.keys(this.paymentMethods.data).length >= 1
     },
 
     errors () {
@@ -103,27 +107,37 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'setPaymentMethods'
+    ]),
+
     amount (value) {
       this.withdrawAmount = value
     },
 
-    paymentMethod(method) {
+    selectedPaymentMethod(method) {
       this.withdrawalMethod = method
-    },
-
-    loadPartnerBalance () {
-      // this.setVendorTypes({
-      //   routes: {
-      //     partner: this.partner.id
-      //   },
-      //   params: {
-      //     country_id: this.partner.country_id,
-      //   },
-      // })
     },
 
     proceedToWithdraw (proceedStatus) {
       this.proceed = proceedStatus
+    },
+
+    loadPaymentMethods () {
+      const { id } = auth.retrieve('partner')
+      this.setPaymentMethods({
+        routes: {
+          partner: id
+        }
+      }).then(() => {
+        this.loading = false
+      }).catch((error) => {
+        this.loading = false
+        flash({
+          message: error.response.data.message,
+          color: '#e74c3c'
+        })
+      })
     },
 
     submit () {
@@ -145,7 +159,7 @@ export default {
   },
 
   mounted () {
-
+    this.loadPaymentMethods()
   }
 }
 </script>
