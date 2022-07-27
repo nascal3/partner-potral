@@ -62,7 +62,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Vehicle from '@/libs/app/vehicles/Vehicle'
+import Payment from '@/libs/app/payments/Payment'
 import segmentMixin from "@/mixins/segmentEvents";
 import formatNumbers from "@/mixins/formatNumbers";
 
@@ -88,7 +88,7 @@ export default {
       proceed: false,
       withdrawAmount: null,
       withdrawalMethod: null,
-      vehicleObj: new Vehicle(),
+      paymentObj: new Payment()
     }
   },
 
@@ -102,7 +102,7 @@ export default {
     },
 
     errors () {
-      return this.vehicleObj.form.errors
+      return this.paymentObj.form.errors
     }
   },
 
@@ -142,19 +142,31 @@ export default {
 
     submit () {
       this.setSegmentEvent('Withdraw amount -- Submit')
-      console.log(this.withdrawAmount, this.withdrawalMethod)
-      // if (!this.loading) {
-      //   this.loading = true
-      //   this.vehicleObj.store()
-      //       .then(response => {
-      //         flash(response)
-      //         this.$emit('stored')
-      //         this.dialogLaunch = false
-      //       })
-      //       .finally(() => {
-      //         this.loading = false
-      //       })
-      // }
+      if (!this.loading) {
+        this.loading = true
+        const { payment_method, bankPaybill, paymentReference } = this.withdrawalMethod
+        this.paymentObj.paybill = bankPaybill
+        this.paymentObj.payment_method = payment_method
+        this.paymentObj.payment_reference = paymentReference
+        this.paymentObj.amount = this.withdrawAmount
+
+        this.paymentObj.store()
+            .then(response => {
+              flash({...response, color: '#38c172'})
+              this.dialogLaunch = false
+            })
+            .catch(error => {
+              this.loading = false
+              flash({
+                message: error.data.message,
+                color: '#e74c3c',
+              })
+              throw error
+            })
+            .finally(() => {
+              this.loading = false
+            })
+      }
     },
   },
 

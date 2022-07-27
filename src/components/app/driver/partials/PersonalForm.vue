@@ -77,7 +77,7 @@ export default {
     submit() {
       try {
         const response = this.userObj.update(this.userId)
-        flash(response)
+        flash({...response, color: '#38c172'})
         this.$emit('updated')
         this.loading = false
       } catch (err) {

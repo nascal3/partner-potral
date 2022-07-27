@@ -154,7 +154,7 @@ export default {
         this.loading = true
         this.vehicleObj.store()
             .then(response => {
-              flash(response)
+              flash({...response, color: '#38c172'})
               this.$emit('stored')
               this.dialogLaunch = false
             })

@@ -30,7 +30,7 @@
               <div class="d-flex flex-column method-text">
                 <div>M-PESA</div>
                 <!--            TODO fetch partner mobile number-->
-                <div>**** 7659</div>
+                <div>{{ hideSensitiveData(phoneNumber) }}</div>
               </div>
             </div>
           </template>
@@ -49,8 +49,7 @@
               <div class="d-flex flex-column method-text">
                 <div>Bank Transfer</div>
                 <div>
-                  {{ paymentMethods.banks.bankAccounts[0].bank.name }}
-                  | {{ hideSensitiveData(paymentMethods.banks.bankAccounts[0].account_no) }}
+                  {{ bankName }} | {{ hideSensitiveData(bankAccountNumber) }}
                 </div>
               </div>
             </div>
@@ -120,6 +119,11 @@ export default {
       disabled: true,
       withdrawAmount: null,
       selectedPaymentMethod: null,
+      paymentReference: null,
+      phoneNumber: this.paymentMethods.mobile_money.phone_number,
+      bankName: this.paymentMethods.banks.bankAccounts[0].bank.name,
+      bankAccountNumber: this.paymentMethods.banks.bankAccounts[0].account_no,
+      bankPaybill: this.paymentMethods.banks.bankAccounts[0].bank.paybill,
       animationObject:{
         classes: 'slideInRight',
         delay: 0,
@@ -137,7 +141,8 @@ export default {
       this.disabled = !value
       const paymentData = {
         payment_method: value,
-        bankPaybill: this.paymentMethods.banks.bankAccounts[0].bank.paybill
+        bankPaybill: this.bankPaybill,
+        paymentReference: this.setPaymentReference(value)
       }
       this.$emit('selectedPaymentMethod', paymentData)
     }
@@ -155,9 +160,17 @@ export default {
       return paymentOptions.includes(paymentType)
     },
 
+    setPaymentReference (paymentType) {
+      if (!paymentType) return null
+      if (paymentType === 1) return this.phoneNumber
+      else if (paymentType === 2) return this.bankAccountNumber
+      else return null
+    },
+
     hideSensitiveData (value) {
+      if (!value) return '****'
       const valueArr = value.split('')
-      return `****${valueArr.slice(-4).join('')}`
+      return `**** ${valueArr.slice(-4).join('')}`
     },
 
     navigateBack () {
