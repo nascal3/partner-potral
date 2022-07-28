@@ -21,11 +21,11 @@
         {{ notificationsDateFormat(item.date) }}
       </template>
       <template v-slot:item.earnings="{ item }">
-        {{ item.currency }} {{ thousandSeparator(item.earnings) }}
+        {{ currency || item.currency }} {{ thousandSeparator(item.earnings) }}
       </template>
       <template v-slot:expanded-item="{ headers, item }">
         <td :colspan="headers.length">
-          <earnings-details :details="item"/>
+          <earnings-details :details="item" :currency="currency"/>
         </td>
       </template>
     </v-data-table>
@@ -84,6 +84,11 @@ export default {
     ...mapGetters({
       unclearedEarnings: 'getUnclearedEarnings'
     }),
+
+    currency() {
+      const { currency } = auth.retrieve('country')
+      return currency
+    },
 
     initialised () {
       return this.unclearedEarnings.disputed_orders && this.unclearedEarnings.disputed_orders.length

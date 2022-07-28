@@ -120,7 +120,7 @@ export default {
       withdrawAmount: null,
       selectedPaymentMethod: null,
       paymentReference: null,
-      phoneNumber: this.paymentMethods.mobile_money.phone_number,
+      phoneNumber: this.getUserPhoneNumber() || this.paymentMethods.mobile_money.phone_number,
       bankName: this.paymentMethods.banks.bankAccounts[0].bank.name,
       bankAccountNumber: this.paymentMethods.banks.bankAccounts[0].account_no,
       bankPaybill: this.paymentMethods.banks.bankAccounts[0].bank.paybill,
@@ -165,6 +165,11 @@ export default {
       if (paymentType === 1) return this.phoneNumber
       else if (paymentType === 2) return this.bankAccountNumber
       else return null
+    },
+
+    getUserPhoneNumber () {
+      const { phone } = auth.retrieve('user')
+      return phone
     },
 
     hideSensitiveData (value) {

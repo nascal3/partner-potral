@@ -131,7 +131,8 @@ export default {
 
     currency() {
       if (!this.initialised) return 'KES'
-      return this.accountBalance.Account_balances[0].currency
+      const { currency } = auth.retrieve('country')
+      return currency || this.accountBalance.currency
     },
 
     balance() {
