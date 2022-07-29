@@ -126,18 +126,19 @@ export default {
     }),
 
     initialised () {
-      return this.accountBalance.Account_balances && this.accountBalance.Account_balances.length
+      const account = Object.keys(this.accountBalance.primary_account)
+      return this.accountBalance.primary_account && account.includes(current_balance)
     },
 
     currency() {
       if (!this.initialised) return 'KES'
       const { currency } = auth.retrieve('country')
-      return currency || this.accountBalance.currency
+      return this.accountBalance.primary_account.currency || currency
     },
 
     balance() {
       if (!this.initialised) return 0
-      return this.accountBalance.Account_balances[0].current_account
+      return this.accountBalance.primary_account.current_balance
     }
   },
 
