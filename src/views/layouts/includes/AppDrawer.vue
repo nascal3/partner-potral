@@ -131,8 +131,8 @@ export default {
               ]
           },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-          { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'documents.index' },
-          // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'orders.index' }
+          { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'legal-documents.index' },
+          // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'notifications.index' }
         ],
 
         'ACCESS CONTROL': [
