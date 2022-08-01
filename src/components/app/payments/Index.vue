@@ -126,8 +126,11 @@ export default {
     }),
 
     initialised () {
-      const account = Object.keys(this.accountBalance.primary_account)
-      return this.accountBalance.primary_account && account.includes(current_balance)
+      let account = []
+      if (this.accountBalance && this.accountBalance.primary_account) {
+        account = Object.keys(this.accountBalance.primary_account)
+      }
+      return account.includes('current_balance')
     },
 
     currency() {

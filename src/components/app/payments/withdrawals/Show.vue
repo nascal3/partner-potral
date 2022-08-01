@@ -55,6 +55,7 @@ export default {
         { text: this.$t('finance.txn_date'), value: 'created_at' },
         { text: this.$t('finance.txn_amount'), value: 'amount' },
         { text: this.$t('finance.txn_payment_method'), value: 'payment_method' },
+        { text: this.$t('finance.txn_payment_to'), value: 'payment_method' },
         { text: this.$t('finance.txn_status'), value: 'status' },
       ],
       meta: {

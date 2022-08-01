@@ -55,6 +55,7 @@
   "txn_no_results_found": "Aucun résultat trouvé",
   "txn_no_statement_found": "Aucun enregistrement trouvé",
   "txn_payment_method": "Mode de paiement",
+  "txn_payment_to": "Paiement effectué à",
   "txn_payment_type": "Mode de paiement",
   "txn_status": "Statut",
   "txn_type": "Type d'opération",
