@@ -23,7 +23,6 @@
         <v-data-table
           fixed-header
           disable-sort
-          class="title"
           hide-default-footer
           disable-pagination
           :headers="headers"

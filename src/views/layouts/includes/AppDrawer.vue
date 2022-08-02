@@ -83,9 +83,9 @@
             </template>
             <v-list dense>
               <v-list-item
-                v-for="(child, index) in item.children"
-                :to="child.to"
-                :key="index"
+                  v-for="(child, index) in item.children"
+                  :to="child.to"
+                  :key="index"
               >
                 <v-list-item-title class="body-2">
                   {{ child.name }}
@@ -122,9 +122,17 @@ export default {
 
         'APPLICATION': [
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
+          {
+            name: this.$t('finance.finance'),
+            icon: 'cash-multiple',
+              children: [
+                { name: this.$t('finance.payments'), icon: '', to: '/payments', permission: 'payments.index' },
+                // { name: this.$t('finance.banks'), icon: '', to: '/banks', permission: 'banks.index' },
+              ]
+          },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-          // { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'orders.index' },
-          // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'orders.index' }
+          { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'legal-documents.index' },
+          // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'notifications.index' }
         ],
 
         'ACCESS CONTROL': [
@@ -142,7 +150,7 @@ export default {
 
   methods: {
     input (input) {
-      if (input == false) {
+      if (!input) {
         this.$emit('closed')
       }
     },

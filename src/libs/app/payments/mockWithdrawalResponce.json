@@ -1,0 +1,44 @@
+{
+  "code": 200,
+  "owner_id": 762,
+  "owner_withdrawals": [
+    {
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762592",
+      "payment_method": "Mobile",
+      "currency": "KES",
+      "ref_no": "AJ74W6745-RSZ",
+      "status": "completed",
+      "created_at": "2021-09-20T12:12:36.166584+02:00",
+      "amount": 200.0
+    },
+    {
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762591",
+      "payment_method": "Mobile",
+      "currency": "KES",
+      "ref_no": "AJ74E9719-6RE",
+      "status": "failed",
+      "created_at": "2021-09-10T12:12:36.166584+02:00",
+      "amount": 500.0
+    },
+    {
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762595",
+      "payment_method": "Bank",
+      "currency": "KES",
+      "ref_no": "AJ748R714-W7X",
+      "status": "processing",
+      "created_at": "2021-09-10T12:12:36.166584+02:00",
+      "amount": 560.0
+    },
+    {
+      "payment_id": "822e7c2b-6fb0-4915-a005-aca8d3762597",
+      "payment_method": "Mobile",
+      "currency": "KES",
+      "ref_no": "AJ74MV713-IDD",
+      "status": "completed",
+      "created_at": "2021-07-20T12:12:36.166584+02:00",
+      "amount": 3000.0
+    }
+  ],
+  "request_id": 1876,
+  "status": true
+}

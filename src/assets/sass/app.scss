@@ -7,9 +7,9 @@ html body #app {
   margin: 0;
   padding: 0;
   min-height: 689px;
-  
+
   height: 100%;
-  overflow: auto; 
+  overflow: auto;
   background-color: #fff;
   font-family: "Nunito", roboto, sans-serif !important;
 
@@ -31,4 +31,5 @@ html body #app {
   }
 }
 
+@import 'animations';
 @import 'mobile';
