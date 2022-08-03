@@ -53,5 +53,11 @@ export default {
       sheet: true
     }
   },
+
+  computed: {
+    broadcaster () {
+      return this.process.env.VUE_APP_BROADCASTER
+    }
+  }
 }
 </script>

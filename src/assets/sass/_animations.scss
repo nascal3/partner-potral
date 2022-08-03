@@ -1,0 +1,39 @@
+// Sass animations
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fade-enter-active {
+  animation: fade-in .3s linear;
+}
+.fade-leave-active {
+  animation: fade-in .3s reverse;
+}
+
+@keyframes rotate-up {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+@keyframes rotate-down {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+.rotate-up {
+  animation:rotate-up .2s linear forwards;
+}
+.rotate-down {
+  animation:rotate-down .2s linear forwards;
+}

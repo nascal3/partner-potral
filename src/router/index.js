@@ -149,33 +149,50 @@ const routes = [
       {
         path: 'driver',
         name: 'driver-profile',
-        component: () => import('@/components/app/driver/Index.vue'),
+        component: () => import('@/components/app/profiles/driver/Main.vue'),
         children: [
+          {
+            path: 'invalid',
+            name: 'driver-invalid',
+            component: () => import('@/components/app/profiles/driver/includes/Invalid.vue')
+          },
           {
             path: 'home',
             name: 'driver-home',
-            component: () => import('@/components/app/driver/Home.vue')
+            component: () => import('@/components/app/profiles/driver/includes/Home.vue')
           },
         ]
       },
 
       {
         path: 'profile',
-        name: 'doe-profile',
+        name: 'user-profile',
         component: () => import('@/components/app/profile/Index.vue'),
         children: [
           {
             path: 'personal',
-            name: 'doe-personal',
+            name: 'user-personal',
             component: () => import('@/components/app/profile/Personal.vue')
           },
 
           {
             path: 'security',
-            name: 'doe-security',
+            name: 'user-security',
             component: () => import('@/components/app/profile/Security.vue')
           },
         ]
+      },
+
+      {
+        path: 'payments',
+        name: 'payments.index',
+        component: () => import('@/components/app/payments/Index.vue')
+      },
+
+      {
+        path: 'banks',
+        name: 'banks.index',
+        component: () => import('@/components/app/payments/banks/Index.vue')
       },
 
       {

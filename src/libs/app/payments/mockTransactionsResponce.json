@@ -1,0 +1,111 @@
+{
+  "code": 200,
+  "transactions": [
+    {
+      "amount": 212,
+      "completed_on": "2022-06-15T09:12:26",
+      "currency": "KES",
+      "transaction_id": "AJ741X797-MCB",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 152,
+      "completed_on": "2022-07-20T12:55:08",
+      "currency": "KES",
+      "transaction_id": "AC27MW672-1QB",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 100,
+      "completed_on": "2022-06-16T09:50:03",
+      "currency": "KES",
+      "transaction_id": "GR98K98GBLU",
+      "transaction_type": "Others"
+    },
+    {
+      "amount": 100,
+      "completed_on": "2022-06-13T12:15:37",
+      "currency": "KES",
+      "transaction_id": "AJ74GI786-A2H",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 1088,
+      "completed_on": "2022-07-20T13:05:42",
+      "currency": "KES",
+      "transaction_id": "AC273Z674-2LV",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 100,
+      "completed_on": "2022-06-16T09:47:19",
+      "currency": "KES",
+      "transaction_id": "AJ7467811-C9F",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": -20,
+      "completed_on": "2022-07-22T14:17:32",
+      "currency": "KES",
+      "transaction_id": "ATQid_c118d53c18fc8b9ae3117ce2fa9424d6",
+      "transaction_type": "Withdrawal"
+    },
+    {
+      "amount": 0,
+      "completed_on": "2022-06-13T13:11:18",
+      "currency": "KES",
+      "transaction_id": "AJ74HX788-7IP",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 1088,
+      "completed_on": "2022-07-20T13:16:48",
+      "currency": "KES",
+      "transaction_id": "AC27MZ676-DV6",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": -20,
+      "completed_on": "2022-07-26T12:52:08",
+      "currency": "KES",
+      "transaction_id": "ATQid_d2eb8504343ca83e7ef0d310e9f7d260",
+      "transaction_type": "Withdrawal"
+    },
+    {
+      "amount": -20,
+      "completed_on": "2022-07-21T11:24:10",
+      "currency": "KES",
+      "transaction_id": "ATQid_ac18e49e9b7b4c964d97fd6b32c47edf",
+      "transaction_type": "Withdrawal"
+    },
+    {
+      "amount": 1000,
+      "completed_on": "2022-06-13T12:05:57",
+      "currency": "KES",
+      "transaction_id": "AJ74ZQ781-IFJ",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": -126,
+      "completed_on": "2022-07-15T07:46:12",
+      "currency": "KES",
+      "transaction_id": "AJ74F2923-UXS",
+      "transaction_type": "Sale"
+    },
+    {
+      "amount": 100,
+      "completed_on": "2022-06-13T12:20:03",
+      "currency": "KES",
+      "transaction_id": "4T4YQNZLEMU",
+      "transaction_type": "Others"
+    },
+    {
+      "amount": 200,
+      "completed_on": "2022-07-15T07:32:05",
+      "currency": "KES",
+      "transaction_id": "AJ74P6848-ZUF",
+      "transaction_type": "Sale"
+    }
+  ],
+  "status": true
+}

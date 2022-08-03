@@ -1,9 +1,6 @@
 <template>
   <div>
-    <app-loading v-if="initialising"></app-loading>
-
     <v-card
-      v-if="!initialising"
       flat
       class="ma-0 pa-0"
     >
@@ -13,7 +10,7 @@
             {{ title }}
           </h1>
           <app-crumbs
-            :crumbs="crumbs"
+            :crumbs="breadcrumbs"
           ></app-crumbs>
         </div>
         <v-spacer></v-spacer>
@@ -23,8 +20,7 @@
           <v-col
             md="3"
             class="hidden-sm-and-down"
-          >
-          </v-col>
+          ></v-col>
 
           <v-col
             sm="12"
@@ -32,8 +28,7 @@
           >
             <v-container fluid>
               <router-view
-                :transporter="transporter"
-                @meta="meta"
+                @meta="setMetadata"
               ></router-view>
             </v-container>
           </v-col>
@@ -68,9 +63,6 @@ export default {
 
   data () {
     return {
-      initialising: true,
-      transporter: null,
-      transporterObj: new Transporter(),
       title: '',
       crumbs: [
         { text: this.$t('driver.driver'), disabled: true, }
@@ -84,42 +76,12 @@ export default {
     }
   },
 
-  watch: {
-    transporters ({ data }) {
-      if (data.length) {
-        const transporter = data[0]
-        this.transporterObj.show(transporter.id)
-          .then(({ data }) => {
-            this.transporter = data
-            this.initialising = false
-          })
-      } else {
-        this.initialising = false
-      }
-    }
-  },
-
-  computed: {
-    ...mapGetters({
-      transporters: 'getTransporters'
-    }),
-
-    user () {
-      return auth.retrieve('user')
-    }
-  },
-
   methods: {
-    ...mapActions([
-      'setTransporters'
-    ]),
-
-    meta (info) {
-      this.title = info.title
-      const exists = this.crumbs.find(({ text }) => text == info.crumbs.text)
-      if (!exists) {
-        this.crumbs.push(info.crumbs)
-      }
+    setMetadata (meta) {
+      this.title = meta.title
+      this.breadcrumbs = _.union([
+        { text: 'Driver', disabled: true, }
+      ], meta.crumbs)
     },
   },
 
