@@ -9,8 +9,8 @@
         </div>
         <v-spacer></v-spacer>
 
-        <!-- TODO enable withdraw button when endpoint is ready-->
-        <!-- <withdraw-modal :accountBalance="balance" />-->
+
+        <withdraw-modal :accountBalance="{currency, balance}" />
 
       </v-card-title>
 
@@ -126,17 +126,22 @@ export default {
     }),
 
     initialised () {
-      return this.accountBalance.Account_balances && this.accountBalance.Account_balances.length
+      let account = []
+      if (this.accountBalance && this.accountBalance.primary_account) {
+        account = Object.keys(this.accountBalance.primary_account)
+      }
+      return account.includes('current_balance')
     },
 
     currency() {
       if (!this.initialised) return 'KES'
-      return this.accountBalance.Account_balances[0].currency
+      const { currency } = auth.retrieve('country')
+      return this.accountBalance.primary_account.currency || currency
     },
 
     balance() {
       if (!this.initialised) return 0
-      return this.accountBalance.Account_balances[0].current_account
+      return this.accountBalance.primary_account.current_balance
     }
   },
 

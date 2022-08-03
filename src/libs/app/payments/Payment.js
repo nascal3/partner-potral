@@ -13,24 +13,13 @@ export default class Payment extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'vendor_type_id',
-          'registration_number',
+          'paybill',
+          'payment_reference',
+          'amount',
+          'payment_method',
         ])
-        let response = await this.form.submit('post', url(`banks/${this.group.id}`), data)
+        let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/withdraw`), data)
         this.setFields(fields)
-        resolve(response)
-      } catch (err) {
-        reject(err)
-      }
-    })
-  }
-
-
-  update (userId) {
-    const data = this.getFields();
-    return new Promise(async (resolve, reject) => {
-      try {
-        let response = await this.form.submit("patch", url(`banks/${this.group.id}/users/${userId}`), data)
         resolve(response)
       } catch (err) {
         reject(err)

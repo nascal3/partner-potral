@@ -30,7 +30,7 @@
           large
           color="primary"
           class="caption font-weight-bold"
-          :disabled="disabled || withdrawAmountError"
+          :disabled="btnDisabled || withdrawAmountError"
           @click="proceedToWithdraw"
       >
         {{ $t('finance.continue') }}
@@ -55,6 +55,10 @@ export default {
       type: Number,
       default: 0
     },
+    paymentMethodsInit: {
+      type: Boolean,
+      default: false
+    }
   },
 
   data() {
@@ -83,6 +87,10 @@ export default {
   },
 
   computed: {
+    btnDisabled() {
+      return this.disabled || !this.paymentMethodsInit
+    },
+
     errors() {
       return this.inputErrors
     },
