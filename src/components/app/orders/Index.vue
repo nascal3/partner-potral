@@ -91,7 +91,7 @@
             {{ ordersDateFormat(item.updated_at) }}
           </template>
           <template v-slot:item.cost="{ item }">
-            {{ item.currency }} {{ thousandSeparator(item.cost) }}
+            {{ item.currency || currency }} {{ thousandSeparator(item.cost) }}
           </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
@@ -179,6 +179,13 @@ export default {
     }
   },
 
+  computed: {
+    currency() {
+      const { currency } = auth.retrieve('country')
+      return currency
+    }
+  },
+
   watch: {
     dateFrom (newDate) {
       this.minimumDate = newDate
@@ -214,14 +221,24 @@ export default {
       this.loadOrders()
     },
 
+    filterOutDriverIds (driversData) {
+      return driversData.map(driver => {
+        return driver.id
+      })
+    },
+
     getDriverIds () {
       return this.usersObj.show('?roles=driver').then(data => {
-        if (this.selectedDrivers.length) return this.selectedDrivers
+
+        if (this.selectedDrivers.length) {
+          if (typeof this.selectedDrivers === 'object') {
+            return this.filterOutDriverIds(this.selectedDrivers)
+          }
+          return this.selectedDrivers
+        }
         this.driversData = data.data
         this.selectedDrivers = data.data
-        return this.driversData.map(driver => {
-          return driver.id
-        })
+        return this.filterOutDriverIds(this.driversData)
       }).catch(error => {
         this.loading = false
         flash({

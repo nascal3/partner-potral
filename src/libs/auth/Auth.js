@@ -65,7 +65,7 @@ export default class Auth extends Base {
   verify () {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields(['email', 'phone', 'authenticator', 'code', 'product_group', 'identification_method'])
+        const data = this.getFields(['email', 'phone', 'authenticator', 'code', 'product_group', 'identification_method', 'country_id'])
         const response = await this.form.submit('post', url('sign-in'), data)
         this.encrypt(response.data)
         resolve(response)
