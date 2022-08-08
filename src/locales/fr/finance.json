@@ -58,6 +58,7 @@
   "txn_payment_to": "Paiement effectué à",
   "txn_payment_type": "Mode de paiement",
   "txn_status": "Statut",
+  "txn_step": "Étape de traitement",
   "txn_type": "Type d'opération",
   "txn_type_all": "Toute",
   "txn_type_cash_orders": "Commandes en espèces",
