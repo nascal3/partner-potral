@@ -26,5 +26,17 @@ export default class Payment extends Base {
       }
     })
   }
-}
 
+  show (paymentId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/finances/withdrawals/${paymentId}`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-data-table
-        id="statement-table"
+        id="withdrawal-table"
         fixed-header
         disable-sort
         class="title"
@@ -12,6 +12,8 @@
         :headers="headers"
         :items="withdrawalRecords"
         item-key="ref_no"
+        :expanded.sync="expanded"
+        show-expand
         :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
@@ -25,6 +27,11 @@
       </template>
       <template v-slot:item.amount="{ item }">
         {{item.currency}} {{ thousandSeparator(item.amount) }}
+      </template>
+      <template v-slot:expanded-item="{ headers, item }">
+        <td :colspan="headers.length">
+          <withdrawal-details :payment-id="item.payment_id"/>
+        </td>
       </template>
     </v-data-table>
 
@@ -47,16 +54,21 @@ import {mapGetters, mapActions} from "vuex"
 export default {
   mixins: [segmentMixin, dateFormat, formatNumbers],
 
+  components: {
+    'withdrawal-details': () => import('./partials/WithdrawalDetails')
+  },
+
   data () {
     return {
       loading: true,
       page: 1,
+      expanded: [],
       headers: [
         { text: this.$t('finance.txn_date'), value: 'created_at' },
         { text: this.$t('finance.txn_amount'), value: 'amount' },
         { text: this.$t('finance.txn_payment_method'), value: 'payment_method' },
-        { text: this.$t('finance.txn_payment_to'), value: 'payment_method' },
         { text: this.$t('finance.txn_status'), value: 'status' },
+        { text: '', value: 'data-table-expand' }
       ],
       meta: {
         current_page: 1,
@@ -140,3 +152,48 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+#withdrawal-table {
+  .v-data-table__wrapper {
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    table {
+      color: #909399;
+      thead {
+        tr {
+          th:first-letter {
+            text-transform: uppercase;
+          }
+        }
+      }
+      tbody {
+        tr.v-data-table__expanded__content {
+          background-color: #FFFFFF !important;
+          box-shadow: none;
+        }
+        tr:nth-of-type(odd) {
+          //background-color: #F7F9FC;
+        }
+        tr {
+          td.text-start:first-child {
+            color: #606266;
+            font-weight: 700;
+          }
+        }
+      }
+    }
+  }
+  .v-chip {
+    .v-chip__content {
+      padding-top: 2px;
+      display: inline-block !important;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+</style>
