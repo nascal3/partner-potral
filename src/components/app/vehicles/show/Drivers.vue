@@ -1,15 +1,15 @@
 <template>
   <div>
-    <app-loading 
+    <app-loading
       v-if="!initialised"
     ></app-loading>
-  
+
     <div v-if="initialised">
-      <driver-deallocate
-        v-if="transporter"
-        :transporter="transporter"
-        @deallocated="loadTransporters()"
-      ></driver-deallocate>
+<!--      <driver-deallocate-->
+<!--        v-if="transporter"-->
+<!--        :transporter="transporter"-->
+<!--        @deallocated="loadTransporters()"-->
+<!--      ></driver-deallocate>-->
 
       <driver-allocate
         :users="users"
