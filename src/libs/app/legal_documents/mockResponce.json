@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "status": "inactive",
+    "status": "pending",
     "label": "License plate",
     "country": "Kenya",
     "resource": "Van",
@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "status": "inactive",
+    "status": "rejected",
     "label": "CBD Licence",
     "country": "Uganda",
     "resource": "Bike",

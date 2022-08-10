@@ -2,7 +2,7 @@ import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
 import { fields } from './DocumentRepository'
 
-export default class Document extends Base {
+export default class LegalDocument extends Base {
   constructor () {
     super(fields)
     this.form = new Form(fields)

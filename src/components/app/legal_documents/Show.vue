@@ -16,7 +16,7 @@
         :loading-text="$t('core.system_loading')"
     >
       <template v-slot:item.status="{ item }">
-        <v-chip :color="setColor(item.status)" outlined small>
+        <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
           {{ item.status }}
         </v-chip>
       </template>
@@ -27,7 +27,7 @@
             color="primary"
             class="ttn body-2"
             :to="`legal-documents/${item.id}`"
-            @click="setSegmentEvent('Select View document')"
+            @click="setSegmentEvent('Select View legal document')"
         >
           {{ $t('documents.view_document') }}
         </v-btn>
@@ -108,9 +108,26 @@ export default {
   },
 
   methods: {
-    setColor(status) {
-      if (status === 'inactive') return 'error'
-      return 'success'
+    setChipColor (status) {
+      const colorMap = {
+        'expired': '#FBDECF',
+        'rejected': '#FBDECF',
+        'confirmed': '#CCEFFF',
+        'active': '#DEFAD2',
+        'pending': '#FDDB97'
+      }
+      return colorMap[status]
+    },
+
+    setChipTextColor (status) {
+      const colorMap = {
+        'expired': '#9B101C',
+        'rejected': '#9B101C',
+        'confirmed': '#006492',
+        'active': '#116F28',
+        'pending': '#9D5004'
+      }
+      return colorMap[status]
     },
 
     pageChanged (page) {
