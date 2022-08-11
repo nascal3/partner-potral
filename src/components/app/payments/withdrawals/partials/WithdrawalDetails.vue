@@ -45,18 +45,18 @@ export default {
   methods: {
     setColor(status) {
       const colorMap = {
-        'failed': '#FBDECF',
-        'processing': '#FDDB97',
-        'sent': '#CCEFFF'
+        'fail': '#FBDECF',
+        'pending': '#FDDB97',
+        'new': '#CCEFFF'
       }
       return colorMap[status.toLowerCase()] || '#DEFAD2'
     },
 
     setChipTextColor (orderStatus) {
       const colorMap = {
-        'failed': 'error',
-        'processing': 'warning',
-        'sent': 'info'
+        'fail': 'error',
+        'pending': 'warning',
+        'new': 'info'
       }
       return colorMap[orderStatus.toLowerCase()] || 'success'
     },
