@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import mockResponse from '@/libs/app/documents/mockResponce.json'
-import Document from '@/libs/app/documents/Document'
+import mockResponse from '@/libs/app/legal_documents/mockResponce.json'
+import Document from '@/libs/app/legal_documents/LegalDocument'
 import segmentMixin from "@/mixins/segmentEvents";
 
 export default {

@@ -1,6 +1,6 @@
 import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
-import { fields } from './DocumentRepository'
+import { fields } from './LegalDocumentRepository'
 
 export default class LegalDocument extends Base {
   constructor () {

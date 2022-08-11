@@ -198,13 +198,13 @@ const routes = [
       {
         path: 'legal-documents',
         name: 'legal-documents.index',
-        component: () => import('@/components/app/documents/Index.vue')
+        component: () => import('@/components/app/legal_documents/Index.vue')
       },
 
       {
         path: 'legal-documents/:documentId',
         name: 'document-details.index',
-        component: () => import('@/components/app/documents/document_details/Index.vue')
+        component: () => import('@/components/app/legal_documents/document_details/Index.vue')
       },
 
       {
