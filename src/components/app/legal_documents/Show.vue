@@ -173,6 +173,12 @@ export default {
           partner: id
         },
         params: this.queryParams
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
       }).finally(() => {
         this.loading = false
       })
