@@ -10,8 +10,8 @@
         :no-data-text="$t('documents.no_documents_found')"
         :no-results-text="$t('documents.no_results_found')"
         :headers="headers"
-        :items="documents"
-        item-key="txn_no"
+        :items="legalDocuments.data"
+        item-key="id"
         :loading="loading"
         :loading-text="$t('core.system_loading')"
     >
@@ -19,6 +19,9 @@
         <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
           {{ item.status }}
         </v-chip>
+      </template>
+      <template v-slot:item.document.country_id="{ item }">
+        {{ getCountryName(item.document.country_id) }}
       </template>
       <template v-slot:item.action="{ item }">
         <v-btn
@@ -35,7 +38,7 @@
     </v-data-table>
 
     <app-pagination
-        v-if="documents.length"
+        v-if="initialised"
         :meta="meta"
         @pageChanged="pageChanged"
     />
@@ -46,21 +49,18 @@
 import mockResponse from '@/libs/app/legal_documents/mockResponce.json'
 import Document from '@/libs/app/legal_documents/LegalDocument'
 import segmentMixin from "@/mixins/segmentEvents";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
 
   props: {
-    countryCode: {
+    status: {
       type: String,
-      default: null
+      default: () => null
     },
     resource: {
-      type: String,
-      default: null
-    },
-    expirationStatus: {
-      type: Boolean,
-      default: null
+      type: Array,
+      default: () => []
     }
   },
 
@@ -70,44 +70,63 @@ export default {
       loading: true,
       documentObj: new Document(),
       documents: [],
+      resourcesQuery: null,
+      queryParams: {},
       page: 1,
       headers: [
         { text: this.$t('documents.document_active_status'), value: 'status' },
-        { text: this.$t('documents.document_name'), value: 'label' },
-        { text: this.$t('documents.document_country'), value: 'country' },
-        { text: this.$t('documents.document_resource'), value: 'resource' },
-        { text: this.$t('documents.document_expires'), value: 'expires' },
+        { text: this.$t('documents.document_name'), value: 'document.label' },
+        { text: this.$t('documents.document_country'), value: 'document.country_id' },
+        { text: this.$t('documents.document_resource'), value: 'document.resource' },
+        { text: this.$t('documents.document_submitted_on'), value: 'created_at' },
+        { text: this.$t('documents.document_expires'), value: 'document.is_expirable' },
         { text: this.$t('documents.document_action'), value: 'action' }
       ],
-      meta: {
-        current_page: 1,
-        first_page: 1,
-        first_page_url: "/?page=1",
-        last_page: 1,
-        last_page_url: "/?page=1",
-        next_page_url: null,
-        per_page: 30,
-        previous_page_url: null,
-        total: 0
-      }
+      meta: {}
     }
   },
 
   watch: {
-    countryCode() {
+    status() {
+      this.setQueryParams()
       this.loadDocuments()
     },
 
-    resource() {
-      this.loadDocuments()
-    },
-
-    expirationStatus() {
+    resource(resourcesArray) {
+      this.resourcesQuery = this.formatResources(resourcesArray)
+      this.setQueryParams()
       this.loadDocuments()
     }
   },
 
+  computed: {
+    ...mapGetters({
+      legalDocuments: 'getLegalDocuments',
+      countries: 'getCountries'
+    }),
+
+    initialised () {
+      if (this.legalDocuments.data) {
+       this.meta = this.legalDocuments.meta
+      }
+      return this.legalDocuments.data
+    },
+  },
+
   methods: {
+    ...mapActions([
+      'setLegalDocuments'
+    ]),
+
+    setQueryParams () {
+      const params = {
+        status: this.status,
+        document_resource:  this.resourcesQuery
+      }
+      Object.keys(params).forEach((k) => params[k] == null && delete params[k]);
+      this.queryParams = params
+    },
+
     setChipColor (status) {
       const colorMap = {
         'expired': '#FBDECF',
@@ -130,28 +149,33 @@ export default {
       return colorMap[status]
     },
 
+    getCountryName (countryId) {
+      const country = this.countries.data.find(country => country.id === countryId)
+      return country.name
+    },
+
     pageChanged (page) {
       this.page = page
       this.loadDocuments()
     },
 
+    formatResources(resourcesArray) {
+      const resourcesText = resourcesArray.toString()
+      const results = resourcesText.replaceAll(',', '|')
+      return results === '' ? null : results
+    },
+
     loadDocuments () {
       this.loading = true
-      this.documentObj.show(this.countryCode, this.resource, this.expirationStatus, this.page)
-          .then(({ data }) => {
-            // this.documents = data
-            this.documents = mockResponse
-            this.meta.total = this.documents.length
-            this.loading = false
-          })
-          .catch(error => {
-            this.loading = false
-            flash({
-              message: error.data.message,
-              color: '#e74c3c',
-            })
-            throw error
-          })
+      const { id } = auth.retrieve('partner')
+      this.setLegalDocuments({
+        routes: {
+          partner: id
+        },
+        params: this.queryParams
+      }).finally(() => {
+        this.loading = false
+      })
     },
   },
 

@@ -15,6 +15,7 @@
   "no_documents_found": "No documents found",
   "no_results_found": "No results found",
   "submission_date": "Submission date",
+  "submission_status": "Submission status",
   "document_name": "Label",
   "document_country": "Country",
   "document_resource": "Resource",
@@ -24,5 +25,15 @@
   "expiration_status_true": "True",
   "expiration_status_false": "False",
   "resource_type": "Resource type",
-  "view_document": "View"
+  "view_document": "View",
+  "legal_documents": "Legal documents",
+  "document_submitted_on": "Submitted on",
+  "resource_business": "Business",
+  "resource_driver": "Driver",
+  "resource_vehicle": "Vehicle",
+  "resource_document_pending": "Pending",
+  "resource_document_submitted": "Submitted",
+  "resource_document_rejected": "Rejected",
+  "resource_document_approved": "Approved",
+  "resource_document_expired": "Expired"
 }

@@ -1,26 +1,67 @@
-[
-  {
-    "id": 1,
-    "status": "pending",
-    "label": "License plate",
-    "country": "Kenya",
-    "resource": "Van",
-    "expires": "true"
+{
+  "meta": {
+    "total": 2,
+    "per_page": 25,
+    "current_page": 1,
+    "last_page": 1,
+    "first_page": 1,
+    "first_page_url": "/?page=1",
+    "last_page_url": "/?page=1",
+    "next_page_url": null,
+    "previous_page_url": null
   },
-  {
-    "id": 2,
-    "status": "rejected",
-    "label": "CBD Licence",
-    "country": "Uganda",
-    "resource": "Bike",
-    "expires": "true"
-  },
-  {
-    "id": 3,
-    "status": "active",
-    "label": "Insurance",
-    "country": "Nigeria",
-    "resource": "Pick up",
-    "expires": "false"
-  }
-]
+  "data": [
+    {
+      "id": 56,
+      "document_id": 6,
+      "partner_id": 117,
+      "vehicle_id": 31,
+      "driver_uuid": null,
+      "driver_details": null,
+      "value": null,
+      "status": "pending",
+      "uploads": [],
+      "is_valid": false,
+      "created_at": "11 August 2022",
+      "updated_at": "2022-08-11T13:13:39.000+00:00",
+      "expires_at": null,
+      "document": {
+        "id": 6,
+        "label": "LogBook",
+        "hint": "LogBook",
+        "placeholder": "LogBook",
+        "regex": "^[a-zA-Z0-9- ]+$",
+        "resource": "vehicle",
+        "country_id": 1,
+        "is_expirable": false,
+        "is_active": true
+      }
+    },
+    {
+      "id": 57,
+      "document_id": 7,
+      "partner_id": 117,
+      "vehicle_id": 31,
+      "driver_uuid": null,
+      "driver_details": null,
+      "value": null,
+      "status": "pending",
+      "uploads": [],
+      "is_valid": false,
+      "created_at": "11 August 2022",
+      "updated_at": "2022-08-11T13:13:40.000+00:00",
+      "expires_at": null,
+      "document": {
+        "id": 7,
+        "label": "Vehicle Dimensions",
+        "hint": "Vehicle Dimensions",
+        "placeholder": "Vehicle Dimensions",
+        "regex": "/^[a-zA-Z0-9- ]+$/",
+        "resource": "vehicle",
+        "country_id": 1,
+        "is_expirable": true,
+        "is_active": true
+      }
+    }
+  ]
+}
