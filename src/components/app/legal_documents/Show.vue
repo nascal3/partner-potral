@@ -81,7 +81,7 @@ export default {
         { text: this.$t('documents.document_name'), value: 'document.label' },
         { text: this.$t('documents.document_country'), value: 'document.country_id' },
         { text: this.$t('documents.document_resource'), value: 'document.resource' },
-        { text: this.$t('documents.document_submitted_on'), value: 'created_at' },
+        { text: this.$t('documents.document_updated_on'), value: 'created_at' },
         { text: this.$t('documents.document_expires'), value: 'document.is_expirable' },
         { text: this.$t('documents.document_action'), value: 'action' }
       ],

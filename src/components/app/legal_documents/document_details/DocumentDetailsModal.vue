@@ -1,7 +1,7 @@
 <template>
   <v-dialog
       v-model="dialogLaunch"
-      width="400"
+      width="600"
       persistent
   >
     <template v-slot:activator="{ on, attrs }">
@@ -17,7 +17,7 @@
       </v-btn>
     </template>
 
-    <v-card v-if="initialised">
+    <v-card>
       <v-card-title>
         <h2 class="subtitle-1">
           {{ title }}
@@ -35,8 +35,51 @@
 
       <v-divider></v-divider>
 
-      <div>
-        {{ documentDetails }}
+      <div class="pa-5">
+        <section v-if="images.length" class="mb-3">
+          <div class="subtitle">Submitted Image:</div>
+          <v-carousel height="300">
+            <v-carousel-item
+                v-for="(image,i) in images"
+                :key="i"
+                :src="image.url"
+                reverse-transition="fade-transition"
+                transition="fade-transition"
+            ></v-carousel-item>
+          </v-carousel>
+        </section>
+
+        <section class="details d-flex flex-row justify-space-between mb-3">
+          <div>
+            <div><span class="subtitle">Document value:</span> {{ documentDetails.value }}</div>
+            <div><span class="subtitle">Driver details:</span> {{ documentDetails.driver_details }}</div>
+            <div><span class="subtitle">Document status:</span> {{ documentDetails.status }}</div>
+          </div>
+
+          <div>
+            <div><span class="subtitle">Document created on:</span> {{ documentDetails.created_at }}</div>
+            <div><span class="subtitle">Document updated on:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
+            <div><span class="subtitle">Resource type:</span> {{ documentDetails.document.resource }}</div>
+            <div v-if="documentDetails.document.is_expirable" >
+              <span class="subtitle">Expiry date:</span> {{ documentDetails.document.expires_at }}
+            </div>
+          </div>
+        </section>
+
+        <section v-if="driver && Object.keys(driver).length">
+          <div><span class="subtitle">Name:</span> {{ driver.name }}</div>
+          <div><span class="subtitle">Email:</span> {{ driver.email }}</div>
+          <div><span class="subtitle">Phone number:</span> {{ driver.phone }}</div>
+        </section>
+
+        <section v-if="reviews && reviews.length">
+          <div class="subtitle">Comments:</div>
+          <div>{{ reviews[0].comments }}</div>
+        </section>
+
+        <section v-if="documentDetails.status === 'rejected'">
+          Reupload doc
+        </section>
       </div>
 
     </v-card>
@@ -47,9 +90,10 @@
 import { mapGetters } from 'vuex'
 import LegalDocument from '@/libs/app/legal_documents/LegalDocument'
 import segmentMixin from "@/mixins/segmentEvents"
+import dateFormat from "@/mixins/dateFormat"
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, dateFormat],
 
   props: {
     documentDetails: {
@@ -64,7 +108,8 @@ export default {
       dialogLaunch: false,
       LegalDocumentObj: new LegalDocument(),
       Document: null,
-      title: null
+      title: this.documentDetails.document.label,
+      images: []
     }
   },
 
@@ -76,13 +121,25 @@ export default {
     initialised () {
       return this.Document
     },
+
+    reviews () {
+      if (this.initialised) return this.Document.reviews
+    },
+
+    driver () {
+      if (this.initialised) return this.Document.driver_details
+    },
   },
 
   methods: {
-    loadDocumentDetails(documentId) {
-      this.LegalDocumentObj.show(documentId).then(data => {
-        this.Document = data.data
-        this.title = this.Document.document.label
+    fetchAllDocumentImages() {
+      const imageArray = JSON.parse(this.documentDetails.uploads)
+      if (!imageArray || !imageArray.length) return
+      Promise.all(
+          imageArray.map(image => {
+            this.loadDocumentImages(this.documentDetails.id, image)
+          })
+      ).then(() => {
         this.loading = false
       }).catch(error => {
         flash({
@@ -93,7 +150,34 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-    }
+    },
+
+    loadDocumentImages(documentId, imageFiles) {
+      this.LegalDocumentObj.show(documentId, imageFiles).then(data => {
+        this.images.push(data.data)
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    },
+
+    loadDocumentDetails(documentId) {
+      this.LegalDocumentObj.fetch(documentId).then(data => {
+        this.Document = data.data
+        this.fetchAllDocumentImages()
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
   },
 
   mounted () {
@@ -103,4 +187,7 @@ export default {
 </script>
 
 <style scoped>
+  .subtitle {
+    font-weight: 700;
+  }
 </style>
