@@ -25,15 +25,16 @@
       </template>
       <template v-slot:item.action="{ item }">
         <v-btn
+            v-if="item.status === 'pending'"
             dark
             small
             color="primary"
             class="ttn body-2"
-            :to="`legal-documents/${item.id}`"
-            @click="setSegmentEvent('Select View legal document')"
+            @click="viewDocument(item)"
         >
           {{ $t('documents.view_document') }}
         </v-btn>
+        <document-details v-else :document-details = item />
       </template>
     </v-data-table>
 
@@ -47,7 +48,6 @@
 
 <script>
 import mockResponse from '@/libs/app/legal_documents/mockResponce.json'
-import Document from '@/libs/app/legal_documents/LegalDocument'
 import segmentMixin from "@/mixins/segmentEvents";
 import {mapActions, mapGetters} from "vuex";
 
@@ -65,11 +65,14 @@ export default {
   },
 
   mixins: [segmentMixin],
+
+  components: {
+    'document-details': () => import('./document_details/DocumentDetailsModal.vue')
+  },
+
   data () {
     return {
       loading: true,
-      documentObj: new Document(),
-      documents: [],
       resourcesQuery: null,
       queryParams: {},
       page: 1,
@@ -118,6 +121,13 @@ export default {
       'setLegalDocuments'
     ]),
 
+    viewDocument (item) {
+      this.setSegmentEvent('Select view legal document')
+      if (item.status === 'pending') return flash({
+        message: "You cannot view a document whose status is not 'submitted'."
+      })
+    },
+
     setQueryParams () {
       const params = {
         status: this.status,
@@ -133,7 +143,8 @@ export default {
         'rejected': '#FBDECF',
         'confirmed': '#CCEFFF',
         'active': '#DEFAD2',
-        'pending': '#FDDB97'
+        'pending': '#FDDB97',
+        'submitted': '#9F5FB9'
       }
       return colorMap[status]
     },
@@ -144,7 +155,8 @@ export default {
         'rejected': '#9B101C',
         'confirmed': '#006492',
         'active': '#116F28',
-        'pending': '#9D5004'
+        'pending': '#9D5004',
+        'submitted': '#FFFFFF'
       }
       return colorMap[status]
     },
