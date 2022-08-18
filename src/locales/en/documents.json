@@ -36,5 +36,14 @@
   "resource_document_submitted": "Submitted",
   "resource_document_rejected": "Rejected",
   "resource_document_approved": "Approved",
-  "resource_document_expired": "Expired"
+  "resource_document_expired": "Expired",
+  "document_value": "Document value",
+  "documents_status": "Document status",
+  "document_updated": "Document updated on",
+  "document_created": "Document created on",
+  "driver_details": "Driver details",
+  "name": "Name",
+  "email": "Email",
+  "Phone": "Phone number",
+  "comments": "Comments"
 }

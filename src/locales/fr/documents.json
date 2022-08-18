@@ -36,5 +36,14 @@
   "submission_status": "État de la soumission",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir"
+  "view_document": "Voir",
+  "document_value": "Valeur du document",
+  "documents_status": "État des documents",
+  "document_updated": "Document mis à jour le",
+  "document_created": "Document créé le",
+  "driver_details": "Détails du pilote",
+  "name": "Nom",
+  "email": "E-mail",
+  "Phone": "Numéro de téléphone",
+  "comments": "Commentaires"
 }

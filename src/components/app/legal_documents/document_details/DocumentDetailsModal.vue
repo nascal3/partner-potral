@@ -51,15 +51,18 @@
 
         <section class="details d-flex flex-row justify-space-between mb-3">
           <div>
-            <div><span class="subtitle">Document value:</span> {{ documentDetails.value }}</div>
-            <div><span class="subtitle">Driver details:</span> {{ documentDetails.driver_details }}</div>
-            <div><span class="subtitle">Document status:</span> {{ documentDetails.status }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_value') }}:</span> {{ documentDetails.value }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_status') }}: </span>
+              <v-chip :color="setChipColor(documentDetails.status)" :text-color="setChipTextColor(documentDetails.status)" light small>
+                {{ documentDetails.status.toUpperCase() }}
+              </v-chip>
+            </div>
+            <div><span class="subtitle">{{ $t('documents.resource_type') }}:</span> {{ documentDetails.document.resource }}</div>
           </div>
 
           <div>
-            <div><span class="subtitle">Document created on:</span> {{ documentDetails.created_at }}</div>
-            <div><span class="subtitle">Document updated on:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
-            <div><span class="subtitle">Resource type:</span> {{ documentDetails.document.resource }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
             <div v-if="documentDetails.document.is_expirable" >
               <span class="subtitle">Expiry date:</span> {{ documentDetails.document.expires_at }}
             </div>
@@ -67,13 +70,14 @@
         </section>
 
         <section v-if="driver && Object.keys(driver).length">
-          <div><span class="subtitle">Name:</span> {{ driver.name }}</div>
-          <div><span class="subtitle">Email:</span> {{ driver.email }}</div>
-          <div><span class="subtitle">Phone number:</span> {{ driver.phone }}</div>
+          <div class="subtitle">{{ $t('documents.driver_details') }}:</div>
+          <div><span class="subtitle">{{ $t('documents.name') }}:</span> {{ driver.name }}</div>
+          <div><span class="subtitle">{{ $t('documents.email') }}:</span> {{ driver.email }}</div>
+          <div><span class="subtitle">{{ $t('documents.phone') }}:</span> {{ driver.phone }}</div>
         </section>
 
         <section v-if="reviews && reviews.length">
-          <div class="subtitle">Comments:</div>
+          <div class="subtitle">{{ $t('documents.comments') }}:</div>
           <div>{{ reviews[0].comments }}</div>
         </section>
 
@@ -132,6 +136,30 @@ export default {
   },
 
   methods: {
+    setChipColor (status) {
+      const colorMap = {
+        'expired': '#FBDECF',
+        'rejected': '#FBDECF',
+        'confirmed': '#CCEFFF',
+        'active': '#DEFAD2',
+        'pending': '#FDDB97',
+        'submitted': '#9F5FB9'
+      }
+      return colorMap[status]
+    },
+
+    setChipTextColor (status) {
+      const colorMap = {
+        'expired': '#9B101C',
+        'rejected': '#9B101C',
+        'confirmed': '#006492',
+        'active': '#116F28',
+        'pending': '#9D5004',
+        'submitted': '#FFFFFF'
+      }
+      return colorMap[status]
+    },
+
     fetchAllDocumentImages() {
       const imageArray = JSON.parse(this.documentDetails.uploads)
       if (!imageArray || !imageArray.length) return
@@ -189,5 +217,14 @@ export default {
 <style scoped>
   .subtitle {
     font-weight: 700;
+  }
+  .v-chip {
+    .v-chip__content {
+      padding-top: 2px;
+      display: inline-block !important;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
   }
 </style>
