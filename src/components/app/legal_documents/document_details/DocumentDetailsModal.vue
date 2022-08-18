@@ -76,13 +76,26 @@
           <div><span class="subtitle">{{ $t('documents.phone') }}:</span> {{ driver.phone }}</div>
         </section>
 
-        <section v-if="reviews && reviews.length">
+        <section v-if="reviews && reviews.length" class="mb-4">
           <div class="subtitle">{{ $t('documents.comments') }}:</div>
           <div>{{ reviews[0].comments }}</div>
         </section>
 
         <section v-if="documentDetails.status === 'rejected'">
-          Reupload doc
+          <v-btn
+              dark
+              block
+              color="primary"
+              class="ttn body-2"
+              @click="vehicleDocument = documentDetails, setSegmentEvent(`Select re-upload document`)"
+          >
+            {{ $t('documents.reupload_document') }}
+          </v-btn>
+          <vehicle-documents-edit
+              :vehicle-document="vehicleDocument"
+              @close="vehicleDocument = null"
+              @updated="updated()"
+          ></vehicle-documents-edit>
         </section>
       </div>
 
@@ -91,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import LegalDocument from '@/libs/app/legal_documents/LegalDocument'
 import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
@@ -106,6 +119,10 @@ export default {
     },
   },
 
+  components: {
+    'vehicle-documents-edit': () => import('../../vehicle_documents/Edit')
+  },
+
   data () {
     return {
       loading: false,
@@ -113,13 +130,15 @@ export default {
       LegalDocumentObj: new LegalDocument(),
       Document: null,
       title: this.documentDetails.document.label,
-      images: []
+      images: [],
+      vehicleDocument: null
     }
   },
 
   computed: {
     ...mapGetters({
-      paymentMethods: 'getPaymentMethods'
+      paymentMethods: 'getPaymentMethods',
+      legalDocuments: 'getLegalDocuments',
     }),
 
     initialised () {
@@ -136,12 +155,16 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'setLegalDocuments'
+    ]),
+
     setChipColor (status) {
       const colorMap = {
         'expired': '#FBDECF',
         'rejected': '#FBDECF',
         'confirmed': '#CCEFFF',
-        'active': '#DEFAD2',
+        'approved': '#DEFAD2',
         'pending': '#FDDB97',
         'submitted': '#9F5FB9'
       }
@@ -153,15 +176,20 @@ export default {
         'expired': '#9B101C',
         'rejected': '#9B101C',
         'confirmed': '#006492',
-        'active': '#116F28',
+        'approved': '#116F28',
         'pending': '#9D5004',
         'submitted': '#FFFFFF'
       }
       return colorMap[status]
     },
 
+    updated () {
+      this.loadDocuments()
+      this.vehicleDocument = null
+    },
+
     fetchAllDocumentImages() {
-      const imageArray = JSON.parse(this.documentDetails.uploads)
+      const imageArray = JSON.parse(this.Document.uploads)
       if (!imageArray || !imageArray.length) return
       Promise.all(
           imageArray.map(image => {
@@ -196,6 +224,25 @@ export default {
       this.LegalDocumentObj.fetch(documentId).then(data => {
         this.Document = data.data
         this.fetchAllDocumentImages()
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
+    loadDocuments () {
+      this.loading = true
+      const { id } = auth.retrieve('partner')
+      this.setLegalDocuments({
+        routes: {
+          partner: id
+        },
+        params: this.queryParams
       }).catch(error => {
         flash({
           message: error.data.message,

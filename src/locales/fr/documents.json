@@ -45,5 +45,6 @@
   "submission_status": "État de la soumission",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir"
+  "view_document": "Voir",
+  "reupload_document": "Re-télécharger le document"
 }

@@ -142,7 +142,7 @@ export default {
         'expired': '#FBDECF',
         'rejected': '#FBDECF',
         'confirmed': '#CCEFFF',
-        'active': '#DEFAD2',
+        'approved': '#DEFAD2',
         'pending': '#FDDB97',
         'submitted': '#9F5FB9'
       }
@@ -154,7 +154,7 @@ export default {
         'expired': '#9B101C',
         'rejected': '#9B101C',
         'confirmed': '#006492',
-        'active': '#116F28',
+        'approved': '#116F28',
         'pending': '#9D5004',
         'submitted': '#FFFFFF'
       }

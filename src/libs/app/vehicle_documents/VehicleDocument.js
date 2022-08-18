@@ -30,9 +30,9 @@ export default class VehicleDocument extends Base {
       try {
         let formData = new FormData()
         formData.append('file_upload', this.file_upload)
-        formData.append('upload_type', 'vehicle_document')
+        formData.append('upload_type', `${this.resource}_document`)
         formData.append('vehicle_document_id', parseInt(this.vehicle_document_id))
-        formData.append('document_submission_id', parseInt(this.vehicle_document_id))
+        formData.append('document_submission_id', parseInt(this.document_id))
         const response = await this.form.submit('post', url(`partners/${this.group.id}/uploads`), formData, {
           'Content-Type': 'multipart/form-data'
         })

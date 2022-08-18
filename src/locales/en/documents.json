@@ -45,5 +45,6 @@
   "name": "Name",
   "email": "Email",
   "Phone": "Phone number",
-  "comments": "Comments"
+  "comments": "Comments",
+  "reupload_document": "Re-upload document"
 }
