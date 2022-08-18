@@ -37,6 +37,7 @@
   "resource_driver": "Chauffeur",
   "resource_type": "Type de ressource",
   "resource_vehicle": "Véhicule",
+  "reupload_document": "Re-télécharger le document",
   "save": "Enregistrer ",
   "status_all": "Tous les statuts",
   "status_approved": "Approuvée",
@@ -45,6 +46,5 @@
   "submission_status": "État de la soumission",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir",
-  "reupload_document": "Re-télécharger le document"
+  "view_document": "Voir"
 }
