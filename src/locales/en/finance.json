@@ -54,6 +54,7 @@
   "txn_balance": "Balance",
   "txn_driver": "Driver Name",
   "txn_status": "Status",
+  "txn_step": "Processing step",
   "txn_no_statement_found": "No records found",
   "txn_no_results_found": "No results found",
   "txn_payment_method": "Payment method",
