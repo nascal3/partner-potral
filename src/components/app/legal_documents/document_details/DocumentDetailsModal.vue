@@ -120,7 +120,7 @@ export default {
   },
 
   components: {
-    'vehicle-documents-edit': () => import('../../vehicle_documents/Edit')
+    'vehicle-documents-edit': () => import('@/components/app/vehicle_documents/Edit')
   },
 
   data () {
