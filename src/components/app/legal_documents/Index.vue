@@ -8,7 +8,12 @@
           </h1>
         </div>
         <v-spacer></v-spacer>
-
+        <v-btn
+            color="primary"
+            class="ttn body-2"
+        >
+          Add required documents
+        </v-btn>
       </v-card-title>
 
       <v-divider></v-divider>
