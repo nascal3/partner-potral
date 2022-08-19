@@ -58,7 +58,6 @@
             outlined
             persistent-hint
             class="body-2"
-            :disabled="Boolean(!vehicleDocument.value)"
             :label="vehicleDocument.document.label"
             :placeholder="vehicleDocument.document.placeholder"
             v-model="vehicleDocumentObj.value"
@@ -162,7 +161,9 @@ export default {
       this.dialog = Boolean(vehicleDocument)
       if (vehicleDocument) {
         const {id, value, document} = vehicleDocument
-        this.vehicleDocumentObj.vehicle_document_id = id
+        if (document.resource === 'vehicle') {
+          this.vehicleDocumentObj.vehicle_document_id = id
+        }
         this.vehicleDocumentObj.document_id = id
         this.vehicleDocumentObj.value = value
         this.vehicleDocumentObj.resource = document.resource

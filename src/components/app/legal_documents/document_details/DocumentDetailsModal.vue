@@ -63,8 +63,8 @@
           <div>
             <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
             <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
-            <div v-if="documentDetails.document.is_expirable" >
-              <span class="subtitle">Expiry date:</span> {{ documentDetails.document.expires_at }}
+            <div v-if="Document.document.is_expirable" >
+              <span class="subtitle">Expiry date:</span> {{ Document.expires_at }}
             </div>
           </div>
         </section>
