@@ -202,9 +202,9 @@ const routes = [
       },
 
       {
-        path: 'legal-documents/:documentId',
-        name: 'document-details.index',
-        component: () => import('@/components/app/legal_documents/document_details/Index.vue')
+        path: 'legal-documents/add-documents',
+        name: 'document-details.addDocuments',
+        component: () => import('@/components/app/legal_documents/AddDocuments.vue')
       },
 
       {

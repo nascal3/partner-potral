@@ -63,13 +63,13 @@
           <div>
             <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
             <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
-            <div v-if="Document.document.is_expirable" >
+            <div v-if="expirable" >
               <span class="subtitle">Expiry date:</span> {{ Document.expires_at }}
             </div>
           </div>
         </section>
 
-        <section v-if="driver && Object.keys(driver).length">
+        <section v-if="driver && Object.keys(driver).length" class="mb-4">
           <div class="subtitle">{{ $t('documents.driver_details') }}:</div>
           <div><span class="subtitle">{{ $t('documents.name') }}:</span> {{ driver.name }}</div>
           <div><span class="subtitle">{{ $t('documents.email') }}:</span> {{ driver.email }}</div>
@@ -87,15 +87,15 @@
               block
               color="primary"
               class="ttn body-2"
-              @click="vehicleDocument = documentDetails, setSegmentEvent(`Select re-upload document`)"
+              @click="documentData = documentDetails, setSegmentEvent(`Select re-upload document`)"
           >
             {{ $t('documents.reupload_document') }}
           </v-btn>
-          <vehicle-documents-edit
-              :vehicle-document="vehicleDocument"
-              @close="vehicleDocument = null"
+          <document-edit
+              :vehicle-document="documentData"
+              @close="documentData = null"
               @updated="updated()"
-          ></vehicle-documents-edit>
+          ></document-edit>
         </section>
       </div>
 
@@ -120,7 +120,7 @@ export default {
   },
 
   components: {
-    'vehicle-documents-edit': () => import('@/components/app/vehicle_documents/Edit')
+    'document-edit': () => import('@/components/app/vehicle_documents/Edit')
   },
 
   data () {
@@ -131,7 +131,7 @@ export default {
       Document: null,
       title: this.documentDetails.document.label,
       images: [],
-      vehicleDocument: null
+      documentData: null
     }
   },
 
@@ -145,12 +145,19 @@ export default {
       return this.Document
     },
 
+    expirable () {
+      if (this.initialised) return this.Document.document.is_expirable
+    },
+
     reviews () {
       if (this.initialised) return this.Document.reviews
     },
 
     driver () {
-      if (this.initialised) return this.Document.driver_details
+      if (this.initialised) {
+        const driverDetails = this.Document.driver_details
+        return JSON.parse(driverDetails)
+      }
     },
   },
 
@@ -185,7 +192,7 @@ export default {
 
     updated () {
       this.loadDocuments()
-      this.vehicleDocument = null
+      this.documentData = null
     },
 
     fetchAllDocumentImages() {

@@ -1,78 +1,80 @@
 <template>
-  <div>
-    <v-card flat class="ma-0 pa-0">
-      <v-card-title>
-        <div>
-          <h1 class="title font-weight-bold">
-            {{ $t('documents.documents_title') }}
-          </h1>
-        </div>
-        <v-spacer></v-spacer>
-        <v-btn
-            color="primary"
-            class="ttn body-2"
-        >
-          Add required documents
-        </v-btn>
-      </v-card-title>
-
-      <v-divider></v-divider>
-
-      <v-row class="mt-5 mb-1">
-        <v-col md="6" cols="12">
-          <v-row class="date-filters">
-            <v-col cols="12" md="4">
-              <v-select
-                  v-model="status"
-                  :items="submissionStatus"
-                  :label="$t('documents.submission_status')"
-                  item-text="label"
-                  item-value="value"
-                  dense
-                  outlined
-                  clearable
-              ></v-select>
-            </v-col>
-            <v-col cols="12" md="6">
-              <v-select
-                  v-model="resource"
-                  :items="resource_type"
-                  :label="$t('documents.resource_type')"
-                  item-text="resourceLabel"
-                  item-value="resourceValue"
-                  multiple
-                  dense
-                  outlined
-                  clearable
-              >
-                <template v-slot:selection="{ item, index }">
-                  <v-chip small>
-                    <span>{{ item.resourceLabel }}</span>
-                  </v-chip>
-                </template>
-              </v-select>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-
+  <v-card flat class="ma-0 pa-0">
+    <v-card-title>
+      <div>
+        <h1 class="title font-weight-bold">
+          {{ $t('documents.documents_title') }}
+        </h1>
+      </div>
       <v-spacer></v-spacer>
+      <v-btn
+          color="primary"
+          class="ttn body-2"
+          @click="addNewDocs"
+      >
+        {{ $t('documents.add_required_documents') }}
+      </v-btn>
+    </v-card-title>
 
-      <legal-documents
-          :status="status"
-          :resource="resource"
-      />
-    </v-card>
-  </div>
+    <v-divider></v-divider>
+
+    <v-row class="mt-5 mb-1">
+      <v-col md="6" cols="12">
+        <v-row class="date-filters">
+          <v-col cols="12" md="4">
+            <v-select
+                v-model="status"
+                :items="submissionStatus"
+                :label="$t('documents.submission_status')"
+                item-text="label"
+                item-value="value"
+                dense
+                outlined
+                clearable
+            ></v-select>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-select
+                v-model="resource"
+                :items="resource_type"
+                :label="$t('documents.resource_type')"
+                item-text="resourceLabel"
+                item-value="resourceValue"
+                multiple
+                dense
+                outlined
+                clearable
+            >
+              <template v-slot:selection="{ item, index }">
+                <v-chip small>
+                  <span>{{ item.resourceLabel }}</span>
+                </v-chip>
+              </template>
+            </v-select>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <v-spacer></v-spacer>
+
+    <legal-documents
+        :status="status"
+        :resource="resource"
+    />
+  </v-card>
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents";
 import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
     'legal-documents': () => import('./Show.vue')
   },
+
+  mixins: [segmentMixin],
 
   data () {
     return {
@@ -112,6 +114,11 @@ export default {
     ...mapActions([
       "setCountries"
     ]),
+
+    addNewDocs() {
+      this.setSegmentEvent('Click on add required documents')
+      this.$router.push('legal-documents/add-documents')
+    },
 
     fetchCountries() {
       this.setCountries()
