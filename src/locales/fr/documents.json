@@ -7,6 +7,7 @@
   "document_country": "Pays",
   "document_created": "Document déposé le",
   "document_expires": "Expire",
+  "document_is_unverified": "Assurez-vous que les documents requis sont vérifiés",
   "document_name": "Étiquette",
   "document_resource": "Ressource",
   "document_status": "État des documents",
@@ -47,6 +48,5 @@
   "submission_status": "État de la soumission",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir",
-  "document_is_unverified": "Assurez-vous que les documents requis sont vérifiés"
+  "view_document": "Voir"
 }
