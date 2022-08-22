@@ -30,6 +30,7 @@
   "Phone": "Numéro de téléphone",
   "provided_value": "Valeur fournie:",
   "renewal_date": "Date de renouvellement:",
+  "required_documents": "Documents requis",
   "resource_business": "Entreprise",
   "resource_document_approved": "Approuvée",
   "resource_document_expired": "Expiré",
@@ -48,6 +49,5 @@
   "submission_status": "État de la soumission",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir",
-  "required_documents": "Documents requis"
+  "view_document": "Voir"
 }
