@@ -75,5 +75,7 @@
   "withdrawal_state": "État de retrait",
   "withdrawals": "Retraits",
   "withdrawals_title": "Retraits",
-  "your_earnings": "Vos gains"
+  "your_earnings": "Vos gains",
+  "next_withdrawal_date": "Le prochain retrait est en cours",
+  "from": "de"
 }
