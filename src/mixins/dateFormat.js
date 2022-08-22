@@ -21,6 +21,18 @@ const dateFormat = {
                 locale: locales[setLanguage]
             })
         },
+
+        withdrawalDateFormat(date, separator) {
+            // format date result e.g Saturday from 8am
+            if (!date) return '...'
+            const day = format(new Date('2022-08-17'), 'iiii', {
+                locale: locales[setLanguage]
+            })
+            const time = format(new Date('2022-08-17'), 'h aaa', {
+                locale: locales[setLanguage]
+            })
+            return `${day} ${separator} ${time}`
+        },
     },
 };
 
