@@ -103,6 +103,13 @@ export default {
           document_resources: 'vehicle',
           vehicle_id: this.vehicle.id
         }
+      }).catch(error => {
+        this.loading = false
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
       })
     },
 

@@ -58,7 +58,6 @@
             outlined
             persistent-hint
             class="body-2"
-            :disabled="Boolean(vehicleDocument.value)"
             :label="vehicleDocument.document.label"
             :placeholder="vehicleDocument.document.placeholder"
             v-model="vehicleDocumentObj.value"
@@ -149,8 +148,7 @@ export default {
         "image/png",
         "image/jpeg",
         "image/bmp",
-        "image/webp",
-        "application/pdf"
+        "image/webp"
       ],
       locale: localStorage.getItem('setLanguage'),
       vehicleDocumentObj: new VehicleDocument()
@@ -161,7 +159,13 @@ export default {
     vehicleDocument (vehicleDocument) {
       this.dialog = Boolean(vehicleDocument)
       if (vehicleDocument) {
-        this.vehicleDocumentObj.vehicle_document_id = vehicleDocument.id
+        const {id, value, document} = vehicleDocument
+        if (document.resource === 'vehicle') {
+          this.vehicleDocumentObj.vehicle_document_id = id
+        }
+        this.vehicleDocumentObj.document_id = id
+        this.vehicleDocumentObj.value = value
+        this.vehicleDocumentObj.resource = document.resource
       }
     }
   },
@@ -190,10 +194,15 @@ export default {
           .then(response => {
             flash({...response, color: '#38c172',})
             this.$emit('updated')
+          }).catch(error => {
+          flash({
+            message: error.data.message,
+            color: '#e74c3c',
           })
-          .finally(() => {
-            this.loading = false
-          })
+          throw error
+        }).finally(() => {
+          this.loading = false
+        })
       }
     }
   }
