@@ -13,44 +13,55 @@
           :crumbs="crumbs"
       ></app-crumbs>
     </div>
-    <v-spacer></v-spacer>
+    <v-card-text>
+      <v-alert
+          text
+          dense
+          type="error"
+          border="left"
+          class="body-2 mb-0"
+          v-if="documentInvalid"
+      >
+        {{ $t('documents.document_is_unverified') }}
+      </v-alert>
+      <v-spacer></v-spacer>
 
-    <div class="col-sm-12 col-md-4 col">
-      <v-list>
-        <template v-for="(vd, index) in legalDocuments.data">
-          <v-list-item
-              :key="`document-${index}`"
-              class="elevation-1 mb-5"
-              ripple
-              @click="documentData = vd, setSegmentEvent(`Select ${vd.document.label}`)"
-          >
-            <!-- <v-list-item-avatar>
-              <v-img :src="item.avatar"></v-img>
-            </v-list-item-avatar> -->
-            <v-list-item-content>
-              <v-list-item-title>
-                <v-row>
-                  <v-col cols="8">
+      <div class="col-sm-12 col-md-4 col pl-0">
+        <v-list>
+          <template v-for="(vd, index) in legalDocuments.data">
+            <v-list-item
+                :key="`document-${index}`"
+                class="elevation-1 mb-5"
+                ripple
+                @click="documentData = vd, setSegmentEvent(`Select ${vd.document.label}`)"
+            >
+              <!-- <v-list-item-avatar>
+                <v-img :src="item.avatar"></v-img>
+              </v-list-item-avatar> -->
+              <v-list-item-content>
+                <v-list-item-title>
+                  <v-row>
+                    <v-col cols="8">
                 <span class="body-1 font-weight-bold">
                   {{ vd.document.label }}
                 </span>
-                  </v-col>
-                  <v-col
-                      cols="4"
-                      class="text-right"
-                  >
+                    </v-col>
+                    <v-col
+                        cols="4"
+                        class="text-right"
+                    >
                 <span class="caption">
                   {{ vd.status }}
                 </span>
-                  </v-col>
-                </v-row>
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-      </v-list>
-    </div>
-
+                    </v-col>
+                  </v-row>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
+      </div>
+    </v-card-text>
 
     <document-edit
         :vehicle-document="documentData"
@@ -77,7 +88,12 @@ export default {
   data() {
     return {
       loading: false,
-      documentData: null
+      documentData: null,
+      documentInvalid: false,
+      crumbs: [
+        { text: this.$t('documents.legal_documents'), to: 'legal-documents' },
+        { text: this.$t('documents.required_documents') , disabled: true }
+      ]
     }
   },
 
@@ -86,16 +102,15 @@ export default {
       legalDocuments: 'getLegalDocuments'
     }),
 
-    crumbs () {
-      return [
-        { text: this.$t('documents.legal_documents'), to: 'legal-documents' },
-        { text: this.$t('documents.required_documents') , disabled: true }
-      ]
-    },
-
     initialised () {
-      return this.Document
+      return this.legalDocuments.data && this.legalDocuments.data.length >= 1
     },
+  },
+
+  watch: {
+    legalDocuments(documents) {
+      this.checkDocumentsValidity(documents.data)
+    }
   },
 
   methods: {
@@ -106,6 +121,12 @@ export default {
     updated () {
       this.loadDocuments()
       this.documentData = null
+    },
+
+    checkDocumentsValidity(documents) {
+      documents.forEach(document => {
+        if (!document.is_valid) return this.documentInvalid = !document.is_valid
+      })
     },
 
     loadDocuments () {

@@ -48,5 +48,6 @@
   "comments": "Comments",
   "reupload_document": "Re-upload document",
   "add_required_documents": "Add required documents",
-  "required_documents": "Required documents"
+  "required_documents": "Required documents",
+  "document_is_unverified": "Ensure the required documents are verified"
 }

@@ -148,8 +148,7 @@ export default {
         "image/png",
         "image/jpeg",
         "image/bmp",
-        "image/webp",
-        "application/pdf"
+        "image/webp"
       ],
       locale: localStorage.getItem('setLanguage'),
       vehicleDocumentObj: new VehicleDocument()
