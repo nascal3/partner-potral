@@ -208,3 +208,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .v-file-input__text.v-file-input__text--placeholder {
+    cursor: pointer;
+  }
+</style>
