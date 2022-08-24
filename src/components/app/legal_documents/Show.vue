@@ -30,11 +30,17 @@
             small
             color="primary"
             class="ttn body-2"
-            @click="viewDocument(item)"
+            @click="documentData = item, setSegmentEvent(`Select submit document`)"
         >
-          {{ $t('documents.view_document') }}
+          {{ $t('documents.submit_document') }}
         </v-btn>
         <document-details v-else :document-details = item />
+
+        <document-edit
+            :vehicle-document="documentData"
+            @close="documentData = null"
+            @updated="updated()"
+        ></document-edit>
       </template>
     </v-data-table>
 
@@ -67,7 +73,9 @@ export default {
   mixins: [segmentMixin],
 
   components: {
-    'document-details': () => import('./document_details/DocumentDetailsModal.vue')
+    'document-details': () => import('./document_details/DocumentDetailsModal.vue'),
+    'document-edit': () => import('@/components/app/vehicle_documents/Edit')
+
   },
 
   data () {
@@ -85,7 +93,8 @@ export default {
         { text: this.$t('documents.document_expires'), value: 'document.is_expirable' },
         { text: this.$t('documents.document_action'), value: 'action' }
       ],
-      meta: {}
+      meta: {},
+      documentData: null
     }
   },
 
@@ -120,6 +129,11 @@ export default {
     ...mapActions([
       'setLegalDocuments'
     ]),
+
+    updated () {
+      this.loadDocuments()
+      this.documentData = null
+    },
 
     viewDocument (item) {
       this.setSegmentEvent('Select view legal document')
