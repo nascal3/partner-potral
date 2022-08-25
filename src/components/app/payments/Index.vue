@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
 
-        <div v-if="allowWithdraw" class="withdraw-text">
+        <div v-if="!allowWithdraw" class="withdraw-text">
           {{ $t('finance.next_withdrawal_date') }} {{ friendlyDateFormat }}
         </div>
         <withdraw-modal v-else :accountBalance="{currency, balance}" />
@@ -137,7 +137,6 @@ export default {
     },
 
     allowWithdraw() {
-      if (!this.initialised) return !this.initialised
       return this.accountBalance.withdrawal_day
     },
 
@@ -148,7 +147,6 @@ export default {
     },
 
     friendlyDateFormat() {
-      if (!this.initialised) return '...'
       return this.withdrawalDateFormat(this.accountBalance.next_withdrawal_day, this.$t('finance.from'))
     },
 
