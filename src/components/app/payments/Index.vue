@@ -9,8 +9,10 @@
         </div>
         <v-spacer></v-spacer>
 
-
-        <withdraw-modal :accountBalance="{currency, balance}" />
+        <withdraw-modal v-if="allowWithdraw" :accountBalance="{currency, balance}" />
+        <div v-else class="withdraw-text" v-animate-css.click="'rubberBand'">
+          {{ $t('finance.next_withdrawal_date') }} {{ friendlyDateFormat }}
+        </div>
 
       </v-card-title>
 
@@ -101,10 +103,11 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
+import dateFormat from "@/mixins/dateFormat"
 import {mapGetters, mapActions} from "vuex"
 
 export default {
-  mixins: [segmentMixin, formatNumbers],
+  mixins: [segmentMixin, formatNumbers, dateFormat],
 
   components: {
     'withdraw-modal': () => import('./Withdraw.vue'),
@@ -133,10 +136,18 @@ export default {
       return account.includes('current_balance')
     },
 
+    allowWithdraw() {
+      return this.accountBalance.withdrawal_day
+    },
+
     currency() {
       if (!this.initialised) return 'KES'
       const { currency } = auth.retrieve('country')
       return this.accountBalance.primary_account.currency || currency
+    },
+
+    friendlyDateFormat() {
+      return this.withdrawalDateFormat(this.accountBalance.next_withdrawal_day, this.$t('finance.from'))
     },
 
     balance() {
@@ -249,5 +260,9 @@ export default {
   span {
     font-size: 12px;
   }
+}
+.withdraw-text {
+  font-weight: 700;
+  font-size: 15px;
 }
 </style>

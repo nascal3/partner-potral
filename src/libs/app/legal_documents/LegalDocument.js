@@ -1,25 +1,20 @@
 import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
-import { fields } from './PaymentRepository'
+import { fields } from './LegalDocumentRepository'
 
-export default class Payment extends Base {
+export default class LegalDocument extends Base {
   constructor () {
     super(fields)
     this.form = new Form(fields)
     this.group = auth.retrieve('partner')
   }
 
-  store () {
+  show (documentSubmissionId, filePath) {
     return new Promise(async (resolve, reject) => {
       try {
-        const data = this.getFields([
-          'paybill',
-          'payment_reference',
-          'amount',
-          'payment_method',
-        ])
-        let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/withdraw`), data)
-        this.setFields(fields)
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/uploads?document_submission_id=${documentSubmissionId}&file_path=${filePath}`
+        ))
         resolve(response)
       } catch (err) {
         reject(err)
@@ -27,11 +22,11 @@ export default class Payment extends Base {
     })
   }
 
-  show (paymentId) {
+  fetch (documentSubmissionId) {
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit("get", url(
-            `partners/${this.group.id}/finances/withdrawals/${paymentId}`
+            `partners/${this.group.id}/document-submissions/${documentSubmissionId}`
         ))
         resolve(response)
       } catch (err) {
@@ -40,3 +35,4 @@ export default class Payment extends Base {
     })
   }
 }
+

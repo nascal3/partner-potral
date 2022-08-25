@@ -54,6 +54,7 @@
   "txn_balance": "Balance",
   "txn_driver": "Driver Name",
   "txn_status": "Status",
+  "txn_step": "Processing step",
   "txn_no_statement_found": "No records found",
   "txn_no_results_found": "No results found",
   "txn_payment_method": "Payment method",
@@ -71,6 +72,7 @@
   "sendy_commission": "Sendy Commission",
   "your_earnings": "Your earnings",
   "payment_method": "Payment method",
-  "funds_sent_to": "Funds sent to"
-
+  "funds_sent_to": "Funds sent to",
+  "next_withdrawal_date": "Next withdrawal is on",
+  "from": "from"
 }

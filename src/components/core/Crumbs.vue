@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs 
+  <v-breadcrumbs
     :items="breadcrumbs"
     class="pa-0 pt-1 caption"
   >
@@ -29,7 +29,7 @@ export default {
       return {
         text: 'Dashboard',
         disabled: false,
-        to: 'dashboard',
+        to: '/',
       }
     },
 
