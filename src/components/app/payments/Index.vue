@@ -10,7 +10,7 @@
         <v-spacer></v-spacer>
 
         <withdraw-modal v-if="allowWithdraw" :accountBalance="{currency, balance}" />
-        <div v-else class="withdraw-text">
+        <div v-else class="withdraw-text" v-animate-css.click="'rubberBand'">
           {{ $t('finance.next_withdrawal_date') }} {{ friendlyDateFormat }}
         </div>
 
