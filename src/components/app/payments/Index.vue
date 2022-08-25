@@ -9,10 +9,10 @@
         </div>
         <v-spacer></v-spacer>
 
-        <div v-if="!allowWithdraw" class="withdraw-text">
+        <withdraw-modal v-if="allowWithdraw" :accountBalance="{currency, balance}" />
+        <div v-else class="withdraw-text" v-animate-css.click="'rubberBand'">
           {{ $t('finance.next_withdrawal_date') }} {{ friendlyDateFormat }}
         </div>
-        <withdraw-modal v-else :accountBalance="{currency, balance}" />
 
       </v-card-title>
 
