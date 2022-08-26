@@ -26,7 +26,6 @@
       <template v-slot:item.action="{ item }">
         <v-btn
             v-if="item.status === 'pending'"
-            dark
             small
             color="primary"
             class="ttn body-2"
