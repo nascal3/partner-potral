@@ -44,7 +44,7 @@
   "driver_details": "Driver details",
   "name": "Name",
   "email": "Email",
-  "Phone": "Phone number",
+  "phone": "Phone number",
   "comments": "Comments",
   "submit_document": "Submit",
   "reupload_document": "Re-upload document",
