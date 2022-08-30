@@ -41,6 +41,7 @@
           <v-carousel
               cycle
               height="300"
+              show-arrows-on-hover
           >
             <v-carousel-item
                 v-for="(image,i) in images"
