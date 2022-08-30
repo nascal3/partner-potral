@@ -18,247 +18,427 @@
     "is_admin": true,
     "abilities": [
       {
-        "id": 70,
-        "name": "partner::abilities",
-        "display_name": "abilities"
-      },
-      {
-        "id": 71,
+        "id": 147,
         "name": "partner::profile",
         "display_name": "profile"
       },
       {
-        "id": 74,
+        "id": 148,
+        "name": "partner::iam",
+        "display_name": "iam"
+      },
+      {
+        "id": 149,
+        "name": "partner::abilities",
+        "display_name": "abilities"
+      },
+      {
+        "id": 150,
         "name": "partner::users.index",
-        "display_name": "View Users"
+        "display_name": "View users"
       },
       {
-        "id": 75,
+        "id": 151,
         "name": "partner::users.store",
-        "display_name": "Store Users"
+        "display_name": "Store users"
       },
       {
-        "id": 76,
+        "id": 152,
         "name": "partner::users.show",
-        "display_name": "Show single Users"
+        "display_name": "Show single users"
       },
       {
-        "id": 77,
+        "id": 153,
         "name": "partner::users.update",
-        "display_name": "Update Users"
+        "display_name": "Update users"
       },
       {
-        "id": 78,
+        "id": 154,
         "name": "partner::users.destroy",
-        "display_name": "Delete Users"
+        "display_name": "Delete users"
       },
       {
-        "id": 79,
+        "id": 155,
         "name": "partner::roles.index",
-        "display_name": "View Roles"
+        "display_name": "View roles"
       },
       {
-        "id": 80,
+        "id": 156,
         "name": "partner::roles.store",
-        "display_name": "Store Roles"
+        "display_name": "Store roles"
       },
       {
-        "id": 81,
+        "id": 157,
         "name": "partner::roles.show",
-        "display_name": "Show single Roles"
+        "display_name": "Show single roles"
       },
       {
-        "id": 82,
+        "id": 158,
         "name": "partner::roles.update",
-        "display_name": "Update Roles"
+        "display_name": "Update roles"
       },
       {
-        "id": 83,
+        "id": 159,
         "name": "partner::roles.destroy",
-        "display_name": "Delete Roles"
+        "display_name": "Delete roles"
       },
       {
-        "id": 84,
+        "id": 160,
         "name": "partner::vehicles.index",
-        "display_name": "View Vehicles"
+        "display_name": "View vehicles"
       },
       {
-        "id": 85,
+        "id": 161,
         "name": "partner::vehicles.store",
-        "display_name": "Store Vehicles"
+        "display_name": "Store vehicles"
       },
       {
-        "id": 86,
+        "id": 162,
         "name": "partner::vehicles.show",
-        "display_name": "Show single Vehicles"
+        "display_name": "Show single vehicles"
       },
       {
-        "id": 87,
+        "id": 163,
         "name": "partner::vehicles.update",
-        "display_name": "Update Vehicles"
+        "display_name": "Update vehicles"
       },
       {
-        "id": 88,
+        "id": 164,
         "name": "partner::vehicles.destroy",
-        "display_name": "Delete Vehicles"
+        "display_name": "Delete vehicles"
       },
       {
-        "id": 91,
+        "id": 165,
         "name": "partner::orders.index",
-        "display_name": "View Orders"
+        "display_name": "View orders"
       },
       {
-        "id": 92,
+        "id": 166,
         "name": "partner::orders.store",
-        "display_name": "Store Orders"
+        "display_name": "Store orders"
       },
       {
-        "id": 93,
+        "id": 167,
         "name": "partner::orders.show",
-        "display_name": "Show single Orders"
+        "display_name": "Show single orders"
       },
       {
-        "id": 94,
+        "id": 168,
         "name": "partner::orders.update",
-        "display_name": "Update Orders"
+        "display_name": "Update orders"
       },
       {
-        "id": 95,
+        "id": 169,
         "name": "partner::orders.destroy",
-        "display_name": "Delete Orders"
+        "display_name": "Delete orders"
       },
       {
-        "id": 70,
+        "id": 206,
+        "name": "partner::driver",
+        "display_name": "Driver"
+      },
+      {
+        "id": 230,
+        "name": "partner::payments.index",
+        "display_name": "View payments"
+      },
+      {
+        "id": 231,
+        "name": "partner::payments.store",
+        "display_name": "Store payments"
+      },
+      {
+        "id": 232,
+        "name": "partner::payments.show",
+        "display_name": "Show single payments"
+      },
+      {
+        "id": 233,
+        "name": "partner::payments.update",
+        "display_name": "Update payments"
+      },
+      {
+        "id": 234,
+        "name": "partner::payments.destroy",
+        "display_name": "Delete payments"
+      },
+      {
+        "id": 235,
+        "name": "partner::legal-documents.index",
+        "display_name": "View legal-documents"
+      },
+      {
+        "id": 236,
+        "name": "partner::legal-documents.store",
+        "display_name": "Store legal-documents"
+      },
+      {
+        "id": 237,
+        "name": "partner::legal-documents.show",
+        "display_name": "Show single legal-documents"
+      },
+      {
+        "id": 238,
+        "name": "partner::legal-documents.update",
+        "display_name": "Update legal-documents"
+      },
+      {
+        "id": 239,
+        "name": "partner::legal-documents.destroy",
+        "display_name": "Delete legal-documents"
+      },
+      {
+        "id": 147,
+        "name": "partner::profile",
+        "display_name": "profile"
+      },
+      {
+        "id": 148,
+        "name": "partner::iam",
+        "display_name": "iam"
+      },
+      {
+        "id": 149,
         "name": "partner::abilities",
         "display_name": "abilities"
       },
       {
-        "id": 71,
-        "name": "partner::profile",
-        "display_name": "profile"
+        "id": 245,
+        "name": "services::users.index",
+        "display_name": "View users"
+      },
+      {
+        "id": 246,
+        "name": "services::users.store",
+        "display_name": "Store users"
+      },
+      {
+        "id": 247,
+        "name": "services::users.show",
+        "display_name": "Show single users"
+      },
+      {
+        "id": 248,
+        "name": "services::users.update",
+        "display_name": "Update users"
+      },
+      {
+        "id": 249,
+        "name": "services::users.destroy",
+        "display_name": "Delete users"
       }
     ]
   },
   "abilities": [
     {
-      "id": 70,
-      "name": "partner::abilities",
-      "display_name": "abilities"
-    },
-    {
-      "id": 71,
+      "id": 147,
       "name": "partner::profile",
       "display_name": "profile"
     },
     {
-      "id": 74,
+      "id": 148,
+      "name": "partner::iam",
+      "display_name": "iam"
+    },
+    {
+      "id": 149,
+      "name": "partner::abilities",
+      "display_name": "abilities"
+    },
+    {
+      "id": 150,
       "name": "partner::users.index",
-      "display_name": "View Users"
+      "display_name": "View users"
     },
     {
-      "id": 75,
+      "id": 151,
       "name": "partner::users.store",
-      "display_name": "Store Users"
+      "display_name": "Store users"
     },
     {
-      "id": 76,
+      "id": 152,
       "name": "partner::users.show",
-      "display_name": "Show single Users"
+      "display_name": "Show single users"
     },
     {
-      "id": 77,
+      "id": 153,
       "name": "partner::users.update",
-      "display_name": "Update Users"
+      "display_name": "Update users"
     },
     {
-      "id": 78,
+      "id": 154,
       "name": "partner::users.destroy",
-      "display_name": "Delete Users"
+      "display_name": "Delete users"
     },
     {
-      "id": 79,
+      "id": 155,
       "name": "partner::roles.index",
-      "display_name": "View Roles"
+      "display_name": "View roles"
     },
     {
-      "id": 80,
+      "id": 156,
       "name": "partner::roles.store",
-      "display_name": "Store Roles"
+      "display_name": "Store roles"
     },
     {
-      "id": 81,
+      "id": 157,
       "name": "partner::roles.show",
-      "display_name": "Show single Roles"
+      "display_name": "Show single roles"
     },
     {
-      "id": 82,
+      "id": 158,
       "name": "partner::roles.update",
-      "display_name": "Update Roles"
+      "display_name": "Update roles"
     },
     {
-      "id": 83,
+      "id": 159,
       "name": "partner::roles.destroy",
-      "display_name": "Delete Roles"
+      "display_name": "Delete roles"
     },
     {
-      "id": 84,
+      "id": 160,
       "name": "partner::vehicles.index",
-      "display_name": "View Vehicles"
+      "display_name": "View vehicles"
     },
     {
-      "id": 85,
+      "id": 161,
       "name": "partner::vehicles.store",
-      "display_name": "Store Vehicles"
+      "display_name": "Store vehicles"
     },
     {
-      "id": 86,
+      "id": 162,
       "name": "partner::vehicles.show",
-      "display_name": "Show single Vehicles"
+      "display_name": "Show single vehicles"
     },
     {
-      "id": 87,
+      "id": 163,
       "name": "partner::vehicles.update",
-      "display_name": "Update Vehicles"
+      "display_name": "Update vehicles"
     },
     {
-      "id": 88,
+      "id": 164,
       "name": "partner::vehicles.destroy",
-      "display_name": "Delete Vehicles"
+      "display_name": "Delete vehicles"
     },
     {
-      "id": 91,
+      "id": 165,
       "name": "partner::orders.index",
-      "display_name": "View Orders"
+      "display_name": "View orders"
     },
     {
-      "id": 92,
+      "id": 166,
       "name": "partner::orders.store",
-      "display_name": "Store Orders"
+      "display_name": "Store orders"
     },
     {
-      "id": 93,
+      "id": 167,
       "name": "partner::orders.show",
-      "display_name": "Show single Orders"
+      "display_name": "Show single orders"
     },
     {
-      "id": 94,
+      "id": 168,
       "name": "partner::orders.update",
-      "display_name": "Update Orders"
+      "display_name": "Update orders"
     },
     {
-      "id": 95,
+      "id": 169,
       "name": "partner::orders.destroy",
-      "display_name": "Delete Orders"
+      "display_name": "Delete orders"
     },
     {
-      "id": 70,
+      "id": 206,
+      "name": "partner::driver",
+      "display_name": "Driver"
+    },
+    {
+      "id": 230,
+      "name": "partner::payments.index",
+      "display_name": "View payments"
+    },
+    {
+      "id": 231,
+      "name": "partner::payments.store",
+      "display_name": "Store payments"
+    },
+    {
+      "id": 232,
+      "name": "partner::payments.show",
+      "display_name": "Show single payments"
+    },
+    {
+      "id": 233,
+      "name": "partner::payments.update",
+      "display_name": "Update payments"
+    },
+    {
+      "id": 234,
+      "name": "partner::payments.destroy",
+      "display_name": "Delete payments"
+    },
+    {
+      "id": 235,
+      "name": "partner::legal-documents.index",
+      "display_name": "View legal-documents"
+    },
+    {
+      "id": 236,
+      "name": "partner::legal-documents.store",
+      "display_name": "Store legal-documents"
+    },
+    {
+      "id": 237,
+      "name": "partner::legal-documents.show",
+      "display_name": "Show single legal-documents"
+    },
+    {
+      "id": 238,
+      "name": "partner::legal-documents.update",
+      "display_name": "Update legal-documents"
+    },
+    {
+      "id": 239,
+      "name": "partner::legal-documents.destroy",
+      "display_name": "Delete legal-documents"
+    },
+    {
+      "id": 147,
+      "name": "partner::profile",
+      "display_name": "profile"
+    },
+    {
+      "id": 148,
+      "name": "partner::iam",
+      "display_name": "iam"
+    },
+    {
+      "id": 149,
       "name": "partner::abilities",
       "display_name": "abilities"
     },
     {
-      "id": 71,
-      "name": "partner::profile",
-      "display_name": "profile"
+      "id": 245,
+      "name": "services::users.index",
+      "display_name": "View users"
+    },
+    {
+      "id": 246,
+      "name": "services::users.store",
+      "display_name": "Store users"
+    },
+    {
+      "id": 247,
+      "name": "services::users.show",
+      "display_name": "Show single users"
+    },
+    {
+      "id": 248,
+      "name": "services::users.update",
+      "display_name": "Update users"
+    },
+    {
+      "id": 249,
+      "name": "services::users.destroy",
+      "display_name": "Delete users"
     }
   ],
   "country": {
