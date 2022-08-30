@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import mockResponse from '@/libs/app/legal_documents/mockResponce.json'
 import segmentMixin from "@/mixins/segmentEvents";
 import {mapActions, mapGetters} from "vuex";
 
