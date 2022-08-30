@@ -38,13 +38,14 @@
       <div class="pa-5">
         <section v-if="images.length" class="mb-3">
           <div class="subtitle">Submitted Image:</div>
-          <v-carousel height="300">
+          <v-carousel
+              cycle
+              height="300"
+          >
             <v-carousel-item
                 v-for="(image,i) in images"
                 :key="i"
                 :src="image.url"
-                reverse-transition="fade-transition"
-                transition="fade-transition"
             ></v-carousel-item>
           </v-carousel>
         </section>
@@ -196,7 +197,7 @@ export default {
     },
 
     fetchAllDocumentImages() {
-      const imageArray = JSON.parse(this.Document.uploads)
+      const imageArray = this.Document.uploads
       if (!imageArray || !imageArray.length) return
       Promise.all(
           imageArray.map(image => {
@@ -233,7 +234,7 @@ export default {
         this.fetchAllDocumentImages()
       }).catch(error => {
         flash({
-          message: error.data.message,
+          message: error,
           color: '#e74c3c',
         })
         throw error
