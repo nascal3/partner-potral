@@ -57,59 +57,85 @@
                 </div>
               </section>
             </v-col>
-            <v-col cols="12" md="3" class="pl-md-10">
-              <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.price_for_order') }}</div>
-                <div class="bold-text dark-grey-text">
-                  {{ orderDetails.order_currency }} {{ thousandSeparator(orderDetails.partner_amount) }}
-                </div>
-              </section>
-              <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.distance_covered') }}</div>
-                <div class="bold-text dark-grey-text">{{ orderDetails.distance }} KM</div>
-              </section>
-              <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.name_of_driver') }}</div>
-                <div class="bold-text blue-text">{{ orderDetails.rider_details.name }}</div>
-              </section>
-            </v-col>
-            <v-col cols="12" md="3">
-              <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.order_status') }}</div>
-                <v-chip
-                    :color="setChipColor(orderDetails.status)"
-                    :text-color="setChipTextColor (orderDetails.status)"
-                    light
-                    small
-                >
-                  {{ orderDetails.status }}
-                </v-chip>
-              </section>
-              <section class="info-section">
-                <div class="grey-text bold-text">{{ $t('orders.vehicle_assigned') }}</div>
-                <div class="bold-text dark-grey-text upper-case">
-                  {{ orderDetails.vehicle_details.registration_no }}
-                </div>
-              </section>
+            <v-col cols="12" md="6" class="pl-0">
+              <v-row>
+                <v-col cols="12" md="4">
+                  <section class="info-section">
+                    <div class="grey-text bold-text">{{ $t('orders.vehicle_assigned') }}</div>
+                    <div class="bold-text dark-grey-text upper-case">
+                      {{ orderDetails.vehicle_details.registration_no }}
+                    </div>
+                  </section>
+                </v-col>
+                <v-col cols="12" md="4">
+                  <section class="info-section">
+                    <div class="grey-text bold-text">{{ $t('orders.order_status') }}</div>
+                    <v-chip
+                        :color="setChipColor(orderDetails.status)"
+                        :text-color="setChipTextColor (orderDetails.status)"
+                        light
+                        small
+                    >
+                      {{ orderDetails.status }}
+                    </v-chip>
+                  </section>
+                </v-col>
+                <v-col cols="12" md="4">
+                  <section class="info-section">
+                    <div class="grey-text bold-text">{{ $t('orders.name_of_driver') }}</div>
+                    <div class="bold-text blue-text">{{ orderDetails.rider_details.name }}</div>
+                  </section>
+                </v-col>
+              </v-row>
+              <v-row >
+                <v-col class="pt-0" cols="12" md="12">
+                  <div class="grey-text bold-text">{{ $t('orders.order_items') }}</div>
+                  <v-expansion-panels focusable>
+                    <v-expansion-panel v-for="(item, index) in orderItems" :key="index">
+                      <v-expansion-panel-header>{{item.name}} - {{item.waypoint_type}}</v-expansion-panel-header>
+                      <v-expansion-panel-content class="pt-4" v-if="item.order_items && item.order_items.length">
+                        <div v-for="item in getAllItems(item.order_items)" :key="item.id">
+
+                          <v-row>
+                            <v-col cols="12" md="2">
+                              <v-img
+                                  max-width="40"
+                                  :src="item.display_img_link"
+                              ></v-img>
+                            </v-col>
+                            <v-col cols="12" md="6">{{item.display_name}}</v-col>
+                            <v-col cols="12" md="4" class="grey-text bold-text">
+                              {{ $t('orders.quantity') }}: {{item.quantity}}
+                            </v-col>
+                          </v-row>
+                        </div>
+                      </v-expansion-panel-content>
+                      <v-expansion-panel-content v-else>
+                        {{ $t('orders.no_order_items') }}
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-container>
       </v-tab-item>
 <!--      orders tab-->
-      <v-tab-item>
-        <v-container fluid>
-          <v-row>
-            <v-col cols="12" md="2">
-              <div class="grey-text bold-text">{{ $t('orders.price_per_order') }}</div>
-              <div class="bold-text dark-grey-text">KES 139</div>
-            </v-col>
-            <v-col cols="12" md="10">
-              <div class="grey-text bold-text">{{ $t('orders.total_orders') }}</div>
-              <div class="bold-text dark-grey-text">KES 13,609</div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-tab-item>
+<!--      <v-tab-item>-->
+<!--        <v-container fluid>-->
+<!--          <v-row>-->
+<!--            <v-col cols="12" md="2">-->
+<!--              <div class="grey-text bold-text">{{ $t('orders.price_per_order') }}</div>-->
+<!--              <div class="bold-text dark-grey-text">KES 139</div>-->
+<!--            </v-col>-->
+<!--            <v-col cols="12" md="10">-->
+<!--              <div class="grey-text bold-text">{{ $t('orders.total_orders') }}</div>-->
+<!--              <div class="bold-text dark-grey-text">KES 13,609</div>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
+<!--        </v-container>-->
+<!--      </v-tab-item>-->
     </v-tabs>
   </v-card>
 </template>
@@ -142,7 +168,8 @@ export default {
       showDetails: false,
       showError: false,
       locations: [],
-      selectedLocationIndex: null
+      selectedLocationIndex: null,
+      orderItems: []
     }
   },
 
@@ -153,7 +180,8 @@ export default {
   },
 
   watch: {
-    orderDetails() {
+    orderDetails(newDetails) {
+      this.setOrderItemsDetails(newDetails.path)
       this.setLocationsDisplay()
     },
 
@@ -165,33 +193,25 @@ export default {
 
   methods: {
     setChipColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return '#FDDB97'
+      const colorMap = {
+        'pending': '#FBDECF',
+        'failed': '#FBDECF',
+        'confirmed': '#CCEFFF',
+        'delivered': '#DEFAD2',
+        'in transit': '#FDDB97'
       }
-      if (orderStatus === 'confirmed') {
-        return '#CCEFFF'
-      }
-      if (orderStatus === 'delivered') {
-        return '#DEFAD2'
-      }
-      if (orderStatus === 'in transit') {
-        return '#FDDB97'
-      }
+      return colorMap[orderStatus]
     },
 
     setChipTextColor (orderStatus) {
-      if (orderStatus === 'pending') {
-        return  '#9B101C'
+      const colorMap = {
+        'pending': '#9B101C',
+        'failed': '#9B101C',
+        'confirmed': '#006492',
+        'delivered': '#116F28',
+        'in transit': '#9D5004'
       }
-      if (orderStatus === 'confirmed') {
-        return '#006492'
-      }
-      if (orderStatus === 'delivered') {
-        return '#116F28'
-      }
-      if (orderStatus === 'in transit') {
-        return '#9D5004'
-      }
+      return colorMap[orderStatus]
     },
 
     firstLocation(index) {
@@ -216,6 +236,18 @@ export default {
 
     showDetailsLocations(index) {
       this.selectedLocationIndex = index
+    },
+
+    setOrderItemsDetails(orderItems) {
+      this.orderItems = orderItems
+    },
+
+    getAllItems(itemsArray) {
+      if (!itemsArray.length) return
+      const newItemArray = itemsArray.map(item => {
+        return item.checklist_items
+      })
+      return newItemArray.flat()
     },
 
     setLocationsDisplay () {
