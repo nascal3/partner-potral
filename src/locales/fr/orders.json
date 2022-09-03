@@ -36,5 +36,8 @@
   "to_date": "À ce jour",
   "total_orders": "Montant total réalisé pour toutes les commandes ",
   "vehicle_assigned": "Véhicule attribué",
-  "weight_of_order": "Poids de la commande"
+  "weight_of_order": "Poids de la commande",
+  "order_items": "Items commandés",
+  "no_order_items": "Pas d'objet",
+  "quantity": "quantité"
 }

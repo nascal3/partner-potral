@@ -256,9 +256,11 @@ export default {
     setChipColor (orderStatus) {
       const colorMap = {
         'pending': '#FBDECF',
+        'failed': '#FBDECF',
         'confirmed': '#CCEFFF',
         'delivered': '#DEFAD2',
-        'in transit': '#FDDB97'
+        'in transit': '#FDDB97',
+        'transit': '#FDDB97'
       }
       return colorMap[orderStatus]
     },
@@ -266,9 +268,11 @@ export default {
     setChipTextColor (orderStatus) {
       const colorMap = {
         'pending': '#9B101C',
+        'failed': '#9B101C',
         'confirmed': '#006492',
         'delivered': '#116F28',
-        'in transit': '#9D5004'
+        'in transit': '#9D5004',
+        'transit': '#9D5004'
       }
       return colorMap[orderStatus]
     },
