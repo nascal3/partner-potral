@@ -37,10 +37,10 @@
   "table_status": "Statut",
   "title": "Pour une authentification sécurisée, ",
   "to_date": "À ce jour",
+  "total_distance": "Distance totale parcourue",
+  "total_earning": "Revenu total",
+  "total_num_orders": "Nombre total de commandes",
   "total_orders": "Montant total réalisé pour toutes les commandes ",
   "vehicle_assigned": "Véhicule attribué",
-  "weight_of_order": "Poids de la commande",
-  "total_num_orders": "Nombre total de commandes",
-  "total_earning": "Revenu total",
-  "total_distance": "Distance totale parcourue"
+  "weight_of_order": "Poids de la commande"
 }
