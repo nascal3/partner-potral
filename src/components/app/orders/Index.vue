@@ -64,6 +64,8 @@
 
       <v-spacer></v-spacer>
 
+      <orders-summary :currency="currency" :orders="orders" />
+
       <v-card-text class="px-0">
         <v-data-table
           id="orders-table"
@@ -130,6 +132,7 @@ export default {
   components: {
     'order-details': () => import('./partials/OrderDetails'),
     'date-range': () => import('@/components/core/DateRange.vue'),
+    'orders-summary': () => import('./partials/OrdersSummary'),
   },
 
   data () {
