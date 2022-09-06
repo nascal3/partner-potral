@@ -27,7 +27,8 @@
       <v-spacer></v-spacer>
 
       <div class="col-sm-12 col-md-4 col pl-0">
-        <v-list>
+
+        <v-list v-if="legalDocuments.data.length">
           <template v-for="(vd, index) in legalDocuments.data">
             <v-list-item
                 :key="`document-${index}`"
@@ -60,6 +61,9 @@
             </v-list-item>
           </template>
         </v-list>
+        <div v-else>
+          {{ $t('documents.no_required_documents') }}
+        </div>
       </div>
     </v-card-text>
 
