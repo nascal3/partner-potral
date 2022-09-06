@@ -78,7 +78,7 @@
           <div><span class="subtitle">{{ $t('documents.phone') }}:</span> {{ driver.phone }}</div>
         </section>
 
-        <section v-if="reviews && reviews.length" class="mb-4">
+        <section v-if="showReviews" class="mb-4">
           <div class="subtitle">{{ $t('documents.comments') }}:</div>
           <div>{{ reviews[0].comments }}</div>
         </section>
@@ -153,6 +153,10 @@ export default {
 
     reviews () {
       if (this.initialised) return this.Document.reviews
+    },
+
+    showReviews () {
+      return this.reviews && this.reviews.length && this.documentDetails.status === 'rejected'
     },
 
     driver () {
