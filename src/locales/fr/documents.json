@@ -25,6 +25,7 @@
   "legal_documents": "Documents le'gaux",
   "name": "Nom et prénom *",
   "no_documents_found": "Aucun document trouvé",
+  "no_required_documents": "Aucun document requis",
   "no_results_found": "Aucun résultat trouvé !",
   "ok": "D'accord",
   "phone": "Numéro de téléphone ",
@@ -51,6 +52,5 @@
   "submit_document": "Soumettre",
   "subtitle": "Enregistrer les détails du véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir",
-  "no_required_documents": "Aucun document requis"
+  "view_document": "Voir"
 }
