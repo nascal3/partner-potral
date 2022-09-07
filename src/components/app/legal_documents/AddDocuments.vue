@@ -139,7 +139,7 @@ export default {
     setCrumbs() {
       const { legal_entity_type } = this.partnerProps
       const pageName = legal_entity_type === 'individual'
-          ? $t('documents.add_required_documents') : $t('documents.add_business_documents')
+          ? this.$t('documents.add_required_documents') : this.$t('documents.add_business_documents')
       this.crumbs.push({ text: pageName , disabled: true })
     },
 
