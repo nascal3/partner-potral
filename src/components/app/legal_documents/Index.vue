@@ -12,7 +12,10 @@
           class="ttn body-2"
           @click="addNewDocs"
       >
-        {{ $t('documents.add_required_documents') }}
+        {{
+          entityType === 'individual'
+              ? $t('documents.add_required_documents') : $t('documents.add_business_documents')
+        }}
       </v-btn>
     </v-card-title>
 
@@ -94,6 +97,7 @@ export default {
         {resourceLabel: this.$t('documents.resource_business'), resourceValue: 'business'},
         {resourceLabel: this.$t('documents.resource_driver'), resourceValue: 'driver'},
         {resourceLabel: this.$t('documents.resource_vehicle'), resourceValue: 'vehicle'},
+        {resourceLabel: this.$t('documents.resource_individual'), resourceValue: 'individual'},
       ],
       page: 1,
       headers: [
@@ -107,7 +111,11 @@ export default {
   computed: {
     ...mapGetters({
       countries: "getCountries"
-    })
+    }),
+
+    entityType () {
+      return auth.retrieve('partner').legal_entity_type
+    }
   },
 
   methods: {

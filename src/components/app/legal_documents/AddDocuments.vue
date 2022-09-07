@@ -95,8 +95,7 @@ export default {
       documentData: null,
       documentInvalid: false,
       crumbs: [
-        { text: this.$t('documents.legal_documents'), to: 'legal-documents' },
-        { text: this.$t('documents.required_documents') , disabled: true }
+        { text: this.$t('documents.legal_documents'), to: 'legal-documents' }
       ]
     }
   },
@@ -109,6 +108,10 @@ export default {
     initialised () {
       return this.legalDocuments.data && this.legalDocuments.data.length >= 1
     },
+
+    partnerProps() {
+      return auth.retrieve('partner')
+    }
   },
 
   watch: {
@@ -133,15 +136,23 @@ export default {
       })
     },
 
+    setCrumbs() {
+      const { legal_entity_type } = this.partnerProps
+      const pageName = legal_entity_type === 'individual'
+          ? this.$t('documents.add_required_documents') : this.$t('documents.add_business_documents')
+      this.crumbs.push({ text: pageName , disabled: true })
+    },
+
     loadDocuments () {
       this.loading = true
-      const { id } = auth.retrieve('partner')
+      const { id, legal_entity_type } = this.partnerProps
+      const document_resource = legal_entity_type === 'individual' ? 'individual' : 'business'
       this.setLegalDocuments({
         routes: {
           partner: id
         },
         params: {
-          document_resource:  'business|driver'
+          document_resource
         }
       }).catch(error => {
         flash({
@@ -156,6 +167,7 @@ export default {
   },
 
   mounted () {
+    this.setCrumbs()
     this.loadDocuments()
   }
 

@@ -1,4 +1,5 @@
 {
+  "add_business_documents": "Ajouter des documents commerciaux",
   "add_required_documents": "Ajouter les documents requis",
   "cancel": "Annuler",
   "comments": "Commentaires",
@@ -40,6 +41,7 @@
   "resource_document_rejected": "Rejetée",
   "resource_document_submitted": "Soumise",
   "resource_driver": "Chauffeur",
+  "resource_individual": "Individuelle",
   "resource_type": "Type de ressource",
   "resource_vehicle": "Véhicule",
   "reupload_document": "Re-télécharger le document",
