@@ -53,5 +53,6 @@
   "add_business_documents": "Add business documents",
   "required_documents": "Required documents",
   "document_is_unverified": "Ensure the required documents are verified",
-  "no_required_documents": "No required documents"
+  "no_required_documents": "No documents required",
+  "business_documents": "Business documents"
 }
