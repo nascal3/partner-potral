@@ -32,6 +32,7 @@
   "resource_business": "Business",
   "resource_driver": "Driver",
   "resource_vehicle": "Vehicle",
+  "resource_individual": "Individual",
   "resource_document_pending": "Pending",
   "resource_document_submitted": "Submitted",
   "resource_document_rejected": "Rejected",
@@ -49,6 +50,7 @@
   "submit_document": "Submit",
   "reupload_document": "Re-upload document",
   "add_required_documents": "Add required documents",
+  "add_business_documents": "Add business documents",
   "required_documents": "Required documents",
   "document_is_unverified": "Ensure the required documents are verified",
   "no_required_documents": "No required documents"
