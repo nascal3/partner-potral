@@ -33,7 +33,11 @@
         >
           {{ $t('documents.submit_document') }}
         </v-btn>
-        <document-details v-else :document-details = item />
+        <document-details
+            v-else
+            @click="setSegmentEvent('Select view driver document details')"
+            :document-details = item
+        />
 
         <document-edit
             :vehicle-document="documentData"
@@ -61,17 +65,13 @@ export default {
     status: {
       type: String,
       default: () => null
-    },
-    resource: {
-      type: Array,
-      default: () => []
     }
   },
 
   mixins: [segmentMixin],
 
   components: {
-    'document-details': () => import('./document_details/DocumentDetailsModal.vue'),
+    'document-details': () => import('./DocumentDetailsModal.vue'),
     'document-edit': () => import('@/components/app/vehicle_documents/Edit')
 
   },
@@ -100,18 +100,12 @@ export default {
     status() {
       this.setQueryParams()
       this.loadDocuments()
-    },
-
-    resource(resourcesArray) {
-      this.resourcesQuery = this.formatResources(resourcesArray)
-      this.setQueryParams()
-      this.loadDocuments()
     }
   },
 
   computed: {
     ...mapGetters({
-      legalDocuments: 'getLegalDocuments',
+      legalDocuments: 'getIndividualLegalDocuments',
       countries: 'getCountries'
     }),
 
@@ -125,7 +119,7 @@ export default {
 
   methods: {
     ...mapActions([
-      'setLegalDocuments'
+      'setIndividualLegalDocuments'
     ]),
 
     updated () {
@@ -133,17 +127,10 @@ export default {
       this.documentData = null
     },
 
-    viewDocument (item) {
-      this.setSegmentEvent('Select view legal document')
-      if (item.status === 'pending') return flash({
-        message: "You cannot view a document whose status is not 'submitted'."
-      })
-    },
-
     setQueryParams () {
       const params = {
         status: this.status,
-        document_resource:  this.resourcesQuery
+        document_resource:  'individual'
       }
       Object.keys(params).forEach((k) => params[k] == null && delete params[k]);
       this.queryParams = params
@@ -183,16 +170,10 @@ export default {
       this.loadDocuments()
     },
 
-    formatResources(resourcesArray) {
-      const resourcesText = resourcesArray.toString()
-      const results = resourcesText.replaceAll(',', '|')
-      return results === '' ? null : results
-    },
-
     loadDocuments () {
       this.loading = true
       const { id } = auth.retrieve('partner')
-      this.setLegalDocuments({
+      this.setIndividualLegalDocuments({
         routes: {
           partner: id
         },
@@ -210,7 +191,9 @@ export default {
   },
 
   mounted() {
+    this.setQueryParams()
     this.loadDocuments()
+    this.setSegmentEvent('View driver documents')
   }
 
 }

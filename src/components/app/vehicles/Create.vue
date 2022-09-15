@@ -1,6 +1,5 @@
 <template>
   <v-dialog
-
     v-model="dialogLaunch"
     width="400"
     persistent

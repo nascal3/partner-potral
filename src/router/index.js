@@ -202,12 +202,6 @@ const routes = [
       },
 
       {
-        path: 'legal-documents/add-documents',
-        name: 'document-details.addDocuments',
-        component: () => import('@/components/app/legal_documents/AddDocuments.vue')
-      },
-
-      {
         path: 'notifications',
         name: 'notifications.index',
         component: () => import('@/components/app/notifications/Index.vue')

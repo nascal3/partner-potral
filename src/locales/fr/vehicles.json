@@ -12,7 +12,7 @@
   "drivers": "Chauffeurs",
   "jurisdiction": "Sélectionnez juridiction(s) *",
   "jurisdiction_message": "Veuillez sélectionner toutes les juridictions dans lesquelles vous opérerez afin d'assurer une vérification rapide",
-  "legal_Documents": "Documents juridiques ",
+  "legal_Documents": "Documents du véhicule ",
   "manage_vehicle": "Gérer véhicule ",
   "no": "Non",
   "operational_jurisdiction": "Juridiction opérationnelle",
@@ -28,7 +28,7 @@
   "vehicle_is_unverified": "Le véhicule n'est pas vérifié. Assurez-vous que les documents requis sont vérifiés",
   "vehicle_management": "Gestion des véhicules ",
   "vehicles": "Véhicules ",
-  "vendor_type": "Type de vendeur",
+  "vendor_type": "Type de véhicule",
   "verified": "Vérifié ",
   "warning": "<b>ATTENTION !</b> Une fois enregistré, les détails du véhicule ne peuvent pas être modifiés",
   "yes": "Oui "

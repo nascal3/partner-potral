@@ -12,7 +12,7 @@
   "drivers": "Drivers",
   "jurisdiction": "Select jurisdiction(s) *",
   "jurisdiction_message": "Please select all jurisdictions in which you will be operating in order to ensure quick verification",
-  "legal_Documents": "Legal Documents",
+  "legal_Documents": "Vehicle documents",
   "manage_vehicle": "Manage vehicle",
   "no": "No",
   "operational_jurisdiction": "Operational Jurisdiction",
@@ -28,7 +28,7 @@
   "vehicle_is_unverified": "The vehicle is unverified. Ensure the required documents are verified",
   "vehicle_management": "Vehicle Management",
   "vehicles": "Vehicles",
-  "vendor_type": "Vendor type",
+  "vendor_type": "Vehicle type",
   "verified": "Verified",
   "warning": "<b>WARNING!</b> Once saved, vehicle details cannot be changed",
   "yes": "Yes"
