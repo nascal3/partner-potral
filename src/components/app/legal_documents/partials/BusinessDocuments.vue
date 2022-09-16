@@ -130,7 +130,7 @@ export default {
     setQueryParams () {
       const params = {
         status: this.status,
-        document_resource:  'individual'
+        document_resource:  'business'
       }
       Object.keys(params).forEach((k) => params[k] == null && delete params[k]);
       this.queryParams = params
