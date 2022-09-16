@@ -59,5 +59,7 @@
   "tab_individual": "Individuel",
   "tab_vehicle": "Véhicule",
   "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir"
+  "view_document": "Voir",
+  "submitted_image": "Image soumise",
+  "expiry_date": "Date d'expiration"
 }

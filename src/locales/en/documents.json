@@ -58,5 +58,7 @@
   "tab_vehicle": "Vehicle",
   "tab_driver": "Driver",
   "tab_individual": "Individual",
-  "tab_business": "Business"
+  "tab_business": "Business",
+  "submitted_image": "Submitted Image",
+  "expiry_date": "Expiry date"
 }

@@ -37,7 +37,7 @@
 
       <div class="pa-5">
         <section v-if="images.length" class="mb-3">
-          <div class="subtitle">Submitted Image:</div>
+          <div class="subtitle">{{ $t('documents.submitted_image') }}:</div>
           <v-carousel
               cycle
               height="300"
@@ -66,7 +66,7 @@
             <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
             <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
             <div v-if="expirable" >
-              <span class="subtitle">Expiry date:</span> {{ Document.expires_at }}
+              <span class="subtitle">{{ $t('documents.expiry_date') }}:</span> {{ Document.expires_at }}
             </div>
           </div>
         </section>
