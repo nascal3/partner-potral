@@ -54,10 +54,10 @@
   "submission_status": "État de la soumission",
   "submit_document": "Soumettre",
   "subtitle": "Enregistrer les détails du véhicule",
-  "title": "Pour une authentification sécurisée, ",
-  "view_document": "Voir",
-  "tab_vehicle": "Véhicule",
+  "tab_business": "Entreprise",
   "tab_driver": "Chauffeur",
   "tab_individual": "Individuel",
-  "tab_business": "Entreprise"
+  "tab_vehicle": "Véhicule",
+  "title": "Pour une authentification sécurisée, ",
+  "view_document": "Voir"
 }
