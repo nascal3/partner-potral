@@ -7,23 +7,13 @@
         </h1>
       </div>
       <v-spacer></v-spacer>
-      <v-btn
-          color="primary"
-          class="ttn body-2"
-          @click="addNewDocs"
-      >
-        {{
-          entityType === 'individual'
-              ? $t('documents.add_required_documents') : $t('documents.add_business_documents')
-        }}
-      </v-btn>
     </v-card-title>
 
     <v-divider></v-divider>
 
     <v-row class="mt-5 mb-1">
       <v-col md="6" cols="12">
-        <v-row class="date-filters">
+        <v-row class="data-filters">
           <v-col cols="12" md="4">
             <v-select
                 v-model="status"
@@ -37,34 +27,48 @@
             ></v-select>
           </v-col>
           <v-col cols="12" md="6">
-            <v-select
-                v-model="resource"
-                :items="resource_type"
-                :label="$t('documents.resource_type')"
-                item-text="resourceLabel"
-                item-value="resourceValue"
-                multiple
-                dense
-                outlined
-                clearable
-            >
-              <template v-slot:selection="{ item, index }">
-                <v-chip small>
-                  <span>{{ item.resourceLabel }}</span>
-                </v-chip>
-              </template>
-            </v-select>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
 
-    <v-spacer></v-spacer>
+    <v-card-text class="px-0 pt-0">
+      <v-tabs
+          id="documents-tabs"
+          color="#324BA8"
+          left
+      >
+        <v-tab>{{ $t('documents.tab_vehicle') }}</v-tab>
+        <v-tab>{{ $t('documents.tab_driver') }}</v-tab>
+        <v-tab v-if="entityType === 'individual'">{{ $t('documents.tab_individual') }}</v-tab>
+        <v-tab v-if="entityType === 'business'">{{ $t('documents.tab_business') }}</v-tab>
 
-    <legal-documents
-        :status="status"
-        :resource="resource"
-    />
+        <!--      vehicle documents tab-->
+        <v-tab-item>
+          <v-container fluid>
+            <vehicles-documents :status="status"/>
+          </v-container>
+        </v-tab-item>
+        <!--      driver documents tab-->
+        <v-tab-item>
+          <v-container fluid>
+            <drivers-documents :status="status"/>
+          </v-container>
+        </v-tab-item>
+        <!--      individual documents tab-->
+        <v-tab-item v-if="entityType === 'individual'">
+          <v-container fluid>
+            <individual-documents :status="status"/>
+          </v-container>
+        </v-tab-item>
+        <!--      business documents tab-->
+        <v-tab-item v-if="entityType === 'business'">
+          <v-container fluid>
+            <business-documents :status="status"/>
+          </v-container>
+        </v-tab-item>
+      </v-tabs>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -74,7 +78,10 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
-    'legal-documents': () => import('./Show.vue')
+    'vehicles-documents': () => import('./partials/VehiclesDocuments.vue'),
+    'drivers-documents': () => import('./partials/DriversDocuments'),
+    'individual-documents': () => import('./partials/IndividualDocuments.vue'),
+    'business-documents': () => import('./partials/BusinessDocuments.vue')
   },
 
   mixins: [segmentMixin],
@@ -91,13 +98,6 @@ export default {
         {label: this.$t('documents.resource_document_rejected'), value: 'rejected'},
         {label: this.$t('documents.resource_document_approved'), value: 'approved'},
         {label: this.$t('documents.resource_document_expired'), value: 'expired'},
-      ],
-      resource: [],
-      resource_type: [
-        {resourceLabel: this.$t('documents.resource_business'), resourceValue: 'business'},
-        {resourceLabel: this.$t('documents.resource_driver'), resourceValue: 'driver'},
-        {resourceLabel: this.$t('documents.resource_vehicle'), resourceValue: 'vehicle'},
-        {resourceLabel: this.$t('documents.resource_individual'), resourceValue: 'individual'},
       ],
       page: 1,
       headers: [
@@ -123,11 +123,6 @@ export default {
       "setCountries"
     ]),
 
-    addNewDocs() {
-      this.setSegmentEvent('Click on add required documents')
-      this.$router.push('legal-documents/add-documents')
-    },
-
     fetchCountries() {
       this.setCountries()
     }
@@ -141,8 +136,42 @@ export default {
 
 <style lang="scss">
 #documents-tabs {
+  .v-tabs-slider-wrapper {
+    .v-tabs-slider {
+      background-color: transparent;
+    }
+  }
+  .v-tab.v-tab {
+    color: #909399;
+    height: 38px;
+    &--active {
+      color: inherit;
+    }
+  }
   .v-item-group {
     margin-bottom: 30px;
+  }
+  .v-chip {
+    .v-chip__content {
+      padding-top: 2px;
+      display: inline-block !important;
+      &:first-letter {
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+</style>
+<style lang="scss" scoped>
+.v-tabs {
+  //margin-top: 20px;
+}
+.v-tab {
+  text-transform: none !important;
+  font-weight: 700;
+  &--active {
+    background: #F0F3F7;
+    border-radius: 6px;
   }
 }
 </style>

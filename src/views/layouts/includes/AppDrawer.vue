@@ -122,14 +122,15 @@ export default {
 
         'APPLICATION': [
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
-          {
-            name: this.$t('finance.finance'),
-            icon: 'cash-multiple',
-              children: [
-                { name: this.$t('finance.payments'), icon: '', to: '/payments', permission: 'payments.index' },
-                // { name: this.$t('finance.banks'), icon: '', to: '/banks', permission: 'banks.index' },
-              ]
-          },
+          { name: this.$t('finance.payments'), icon: 'cash-multiple', to: '/payments', permission: 'payments.index' },
+          // {
+          //   name: this.$t('finance.finance'),
+          //   icon: 'cash-multiple',
+          //     children: [
+          //       { name: this.$t('finance.payments'), icon: '', to: '/payments', permission: 'payments.index' },
+          //       { name: this.$t('finance.banks'), icon: '', to: '/banks', permission: 'banks.index' },
+          //     ]
+          // },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'legal-documents.index' },
           // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'notifications.index' }

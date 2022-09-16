@@ -54,5 +54,11 @@
   "required_documents": "Required documents",
   "document_is_unverified": "Ensure the required documents are verified",
   "no_required_documents": "No documents required",
-  "business_documents": "Business documents"
+  "business_documents": "Business documents",
+  "tab_vehicle": "Vehicle",
+  "tab_driver": "Driver",
+  "tab_individual": "Individual",
+  "tab_business": "Business",
+  "submitted_image": "Submitted Image",
+  "expiry_date": "Expiry date"
 }

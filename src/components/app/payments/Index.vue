@@ -70,6 +70,7 @@
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
+
           <!--      savings tab-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
@@ -82,6 +83,7 @@
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
+
           <!--      uncleared earnings summary tab-->
           <v-tab-item>
             <v-container fluid>
