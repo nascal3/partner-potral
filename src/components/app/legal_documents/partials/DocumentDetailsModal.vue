@@ -73,7 +73,7 @@
 
         <section v-if="driver && Object.keys(driver).length" class="mb-4">
           <div class="subtitle">{{ $t('documents.driver_details') }}:</div>
-          <div><span class="subtitle">{{ $t('documents.name') }}:</span> {{ driver.name }}</div>
+          <div><span class="subtitle">{{ $t('documents.driver_name') }}:</span> {{ driver.name }}</div>
           <div><span class="subtitle">{{ $t('documents.email') }}:</span> {{ driver.email }}</div>
           <div><span class="subtitle">{{ $t('documents.phone') }}:</span> {{ driver.phone }}</div>
         </section>
