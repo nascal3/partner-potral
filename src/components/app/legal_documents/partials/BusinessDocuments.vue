@@ -193,7 +193,7 @@ export default {
   mounted() {
     this.setQueryParams()
     this.loadDocuments()
-    this.setSegmentEvent('View driver documents')
+    this.setSegmentEvent('View business documents')
   }
 
 }
