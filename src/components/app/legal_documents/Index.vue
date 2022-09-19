@@ -40,8 +40,8 @@
       >
         <v-tab>{{ $t('documents.tab_vehicle') }}</v-tab>
         <v-tab>{{ $t('documents.tab_driver') }}</v-tab>
-        <v-tab v-if="entityType === 'individual'">{{ $t('documents.tab_individual') }}</v-tab>
-        <v-tab v-if="entityType === 'business'">{{ $t('documents.tab_business') }}</v-tab>
+        <v-tab v-if="showIndividualTab">{{ $t('documents.tab_individual') }}</v-tab>
+        <v-tab v-if="showBusinessTab">{{ $t('documents.tab_business') }}</v-tab>
 
         <!--      vehicle documents tab-->
         <v-tab-item>
@@ -56,13 +56,13 @@
           </v-container>
         </v-tab-item>
         <!--      individual documents tab-->
-        <v-tab-item v-if="entityType === 'individual'">
+        <v-tab-item v-if="showIndividualTab">
           <v-container fluid>
             <individual-documents :status="status"/>
           </v-container>
         </v-tab-item>
         <!--      business documents tab-->
-        <v-tab-item v-if="entityType === 'business'">
+        <v-tab-item v-if="showBusinessTab">
           <v-container fluid>
             <business-documents :status="status"/>
           </v-container>
@@ -115,6 +115,14 @@ export default {
 
     entityType () {
       return auth.retrieve('partner').legal_entity_type
+    },
+
+    showIndividualTab() {
+      return this.entityType === 'individual'
+    },
+
+    showBusinessTab() {
+      return this.entityType === 'business' || this.entityType === 'company'
     }
   },
 
