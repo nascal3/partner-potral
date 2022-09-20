@@ -31,7 +31,7 @@ describe('The order feature works', () => {
     })
 
     it('The order has more order details available', () => {
-        cy.get('table tbody tr td').eq(7).click()
+        cy.get('table tbody tr td').eq(6).click()
         cy.wait('@ordersDetails').then((interception) => {
             expect(interception.response.statusCode).to.equal( 200)
             cy.get('.main-location-text').eq(0).as("destination")
