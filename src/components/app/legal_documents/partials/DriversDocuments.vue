@@ -20,6 +20,9 @@
           {{ item.status }}
         </v-chip>
       </template>
+      <template v-slot:item.driver_details="{ item }">
+        {{ JSON.parse(item.driver_details).name }}
+      </template>
       <template v-slot:item.document.country_id="{ item }">
         {{ getCountryName(item.document.country_id) }}
       </template>
@@ -85,6 +88,7 @@ export default {
       headers: [
         { text: this.$t('documents.document_active_status'), value: 'status' },
         { text: this.$t('documents.document_name'), value: 'document.label' },
+        { text: this.$t('documents.document_driver'), value: 'driver_details' },
         { text: this.$t('documents.document_country'), value: 'document.country_id' },
         { text: this.$t('documents.document_resource'), value: 'document.resource' },
         { text: this.$t('documents.document_updated_on'), value: 'created_at' },
