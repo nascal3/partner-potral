@@ -23,6 +23,9 @@
       <template v-slot:item.document.country_id="{ item }">
         {{ getCountryName(item.document.country_id) }}
       </template>
+      <template v-slot:item.created_at="{ item }">
+        {{ documentsDateFormat(item.created_at) }}
+      </template>
       <template v-slot:item.action="{ item }">
         <v-btn
             v-if="item.status === 'pending'"
@@ -56,8 +59,9 @@
 </template>
 
 <script>
-import segmentMixin from "@/mixins/segmentEvents";
-import {mapActions, mapGetters} from "vuex";
+import segmentMixin from "@/mixins/segmentEvents"
+import dateFormat from "@/mixins/dateFormat"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
 
@@ -68,7 +72,7 @@ export default {
     }
   },
 
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, dateFormat],
 
   components: {
     'document-details': () => import('./DocumentDetailsModal.vue'),

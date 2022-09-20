@@ -33,6 +33,14 @@ const dateFormat = {
             })
             return `${day} ${separator} 11am`
         },
+
+        documentsDateFormat(date) {
+            // format date result e.g 20th September 2021
+            if (!date) return
+            return format(new Date(date), ' dd LLLL yyy', {
+                locale: locales[setLanguage]
+            })
+        },
     },
 };
 
