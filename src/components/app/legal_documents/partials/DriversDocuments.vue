@@ -20,8 +20,14 @@
           {{ item.status }}
         </v-chip>
       </template>
+      <template v-slot:item.driver_details="{ item }">
+        {{ JSON.parse(item.driver_details).name }}
+      </template>
       <template v-slot:item.document.country_id="{ item }">
         {{ getCountryName(item.document.country_id) }}
+      </template>
+      <template v-slot:item.created_at="{ item }">
+        {{ documentsDateFormat(item.created_at) }}
       </template>
       <template v-slot:item.action="{ item }">
         <v-btn
@@ -57,6 +63,7 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents";
+import dateFormat from "@/mixins/dateFormat"
 import {mapActions, mapGetters} from "vuex";
 
 export default {
@@ -68,7 +75,7 @@ export default {
     }
   },
 
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, dateFormat],
 
   components: {
     'document-details': () => import('./DocumentDetailsModal.vue'),
@@ -85,6 +92,7 @@ export default {
       headers: [
         { text: this.$t('documents.document_active_status'), value: 'status' },
         { text: this.$t('documents.document_name'), value: 'document.label' },
+        { text: this.$t('documents.document_driver'), value: 'driver_details' },
         { text: this.$t('documents.document_country'), value: 'document.country_id' },
         { text: this.$t('documents.document_resource'), value: 'document.resource' },
         { text: this.$t('documents.document_updated_on'), value: 'created_at' },

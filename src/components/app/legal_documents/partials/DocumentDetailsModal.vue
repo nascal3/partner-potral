@@ -63,10 +63,10 @@
           </div>
 
           <div>
-            <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
-            <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentsDateFormat(documentDetails.created_at) }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ documentsDateFormat(documentDetails.updated_at) }}</div>
             <div v-if="expirable" >
-              <span class="subtitle">{{ $t('documents.expiry_date') }}:</span> {{ Document.expires_at }}
+              <span class="subtitle">{{ $t('documents.expiry_date') }}:</span> {{ documentsDateFormat(Document.expires_at) }}
             </div>
           </div>
         </section>
