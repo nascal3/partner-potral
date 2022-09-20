@@ -92,9 +92,6 @@
           <template v-slot:item.updated_at="{ item }">
             {{ ordersDateFormat(item.updated_at) }}
           </template>
-          <template v-slot:item.cost="{ item }">
-            {{ item.currency || currency }} {{ thousandSeparator(item.cost) }}
-          </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
               {{ item.status }}
@@ -164,7 +161,6 @@ export default {
         { text: this.$t('orders.table_destination'), value: 'destinations' },
         { text: this.$t('orders.table_distance'), value: 'distance' },
         { text: this.$t('orders.table_pickup_date'), value: 'updated_at' },
-        { text: this.$t('orders.table_price'), value: 'cost' },
         { text: this.$t('orders.table_status'), value: 'status' },
         { text: '', value: 'data-table-expand' }
       ],

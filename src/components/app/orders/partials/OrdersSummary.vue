@@ -8,13 +8,6 @@
         </div>
       </v-col>
       <v-col cols="12" md="4">
-        <div class="total-earnings d-flex align-center justify-space-around">
-          <div class="large-text d-flex align-center">
-            <span class="mr-2">{{ currency }}</span> {{ thousandSeparator(totalEarnings) }}</div>
-          <div class="grey-text">{{ $t('orders.total_earning') }}</div>
-        </div>
-      </v-col>
-      <v-col cols="12" md="4">
         <div class="total-distance d-flex align-center justify-space-around">
           <div class="large-text d-flex align-center">
             {{ thousandSeparator(totalDistance) }} <span class="ml-2">KM</span>
@@ -22,6 +15,13 @@
           <div class="grey-text">{{ $t('orders.total_distance') }}</div>
         </div>
       </v-col>
+<!--      <v-col cols="12" md="4">-->
+<!--        <div class="total-earnings d-flex align-center justify-space-around">-->
+<!--          <div class="large-text d-flex align-center">-->
+<!--            <span class="mr-2">{{ currency }}</span> {{ thousandSeparator(totalEarnings) }}</div>-->
+<!--          <div class="grey-text">{{ $t('orders.total_earning') }}</div>-->
+<!--        </div>-->
+<!--      </v-col>-->
     </v-row>
   </section>
 </template>
