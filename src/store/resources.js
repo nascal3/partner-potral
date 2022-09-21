@@ -17,6 +17,11 @@ export const resources = [
   { name: 'unclearedEarnings', url: `partners/:partner/finances/uncleared-earnings` },
   { name: 'withdrawals', url: `partners/:partner/finances/withdrawals` },
   { name: 'paymentMethods', url: `partners/:partner/finances/payment-methods` },
+  { name: 'legalDocuments', url: `partners/:partner/document-submissions` },
+  { name: 'vehicleLegalDocuments', url: `partners/:partner/document-submissions` },
+  { name: 'driverLegalDocuments', url: `partners/:partner/document-submissions` },
+  { name: 'individualLegalDocuments', url: `partners/:partner/document-submissions` },
+  { name: 'businessLegalDocuments', url: `partners/:partner/document-submissions` }
 ];
 
 export const helpers = {

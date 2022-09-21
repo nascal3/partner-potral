@@ -9,7 +9,7 @@ export const fields = {
   code: null,
   identifier: 'Email',
   product_group: 'partner',
-  identification_method: 'email',
+  identification_method: 'phone',
 
   //Register
   business_name: null,

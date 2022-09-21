@@ -64,6 +64,8 @@
 
       <v-spacer></v-spacer>
 
+      <orders-summary :currency="currency" :orders="orders" />
+
       <v-card-text class="px-0">
         <v-data-table
           id="orders-table"
@@ -89,9 +91,6 @@
           </template>
           <template v-slot:item.updated_at="{ item }">
             {{ ordersDateFormat(item.updated_at) }}
-          </template>
-          <template v-slot:item.cost="{ item }">
-            {{ item.currency || currency }} {{ thousandSeparator(item.cost) }}
           </template>
           <template v-slot:item.status="{ item }">
             <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
@@ -130,6 +129,7 @@ export default {
   components: {
     'order-details': () => import('./partials/OrderDetails'),
     'date-range': () => import('@/components/core/DateRange.vue'),
+    'orders-summary': () => import('./partials/OrdersSummary'),
   },
 
   data () {
@@ -161,7 +161,6 @@ export default {
         { text: this.$t('orders.table_destination'), value: 'destinations' },
         { text: this.$t('orders.table_distance'), value: 'distance' },
         { text: this.$t('orders.table_pickup_date'), value: 'updated_at' },
-        { text: this.$t('orders.table_price'), value: 'cost' },
         { text: this.$t('orders.table_status'), value: 'status' },
         { text: '', value: 'data-table-expand' }
       ],
@@ -256,9 +255,11 @@ export default {
     setChipColor (orderStatus) {
       const colorMap = {
         'pending': '#FBDECF',
+        'failed': '#FBDECF',
         'confirmed': '#CCEFFF',
         'delivered': '#DEFAD2',
-        'in transit': '#FDDB97'
+        'in transit': '#FDDB97',
+        'transit': '#FDDB97'
       }
       return colorMap[orderStatus]
     },
@@ -266,9 +267,11 @@ export default {
     setChipTextColor (orderStatus) {
       const colorMap = {
         'pending': '#9B101C',
+        'failed': '#9B101C',
         'confirmed': '#006492',
         'delivered': '#116F28',
-        'in transit': '#9D5004'
+        'in transit': '#9D5004',
+        'transit': '#9D5004'
       }
       return colorMap[orderStatus]
     },

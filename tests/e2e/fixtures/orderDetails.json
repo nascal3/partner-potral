@@ -1,0 +1,494 @@
+{
+  "data": {
+    "order_no": "AJ74G4773-NJM",
+    "date_time": "2022-06-28 10:43:32.0.000",
+    "status": "delivered",
+    "distance": 0,
+    "order_currency": "KES",
+    "order_amount": 200,
+    "partner_amount": 200,
+    "payment_method_id": 11,
+    "payment_method_name": "Running Balance",
+    "path": [
+      {
+        "notes": "",
+        "original_order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-AEB-9648_1638273469157_26dfd3d7-dfe5-46ac-b8b3-e5961be53b413931356406695412001.jpg",
+                "item_id": "VLI-WHN-3557",
+                "description": "IPhone 11 Pro ",
+                "id": 7483,
+                "display_name": "IPhone 11 Pro "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://s3.eu-west-1.amazonaws.com/sendy-partner-docs/fulfillment_products/B-AEB-9648_1634543004898_image_picker_254DACC4-5844-4D17-89ED-D164DEAF6561-11577-00000A2C2B3F339F.jpg",
+                "item_id": "VLI-UWL-3621",
+                "description": "White",
+                "id": 7484,
+                "display_name": "Black Board Chalk"
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://s3.eu-west-1.amazonaws.com/sendy-partner-docs/fulfillment_products/B-AEB-9648_1634363011226_image_picker_1FF0E2A1-23A6-435D-A789-0BF201C6D057-9861-0000089B133B3B26.jpg",
+                "item_id": "VLI-GJX-3170",
+                "description": "Ceramic",
+                "id": 7485,
+                "display_name": "Ceramic Plate"
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-AEB-9648_1634563771922_cc740691-c22a-4d43-a87f-f8254a1fc6a48352328891121107953.jpg",
+                "item_id": "VLI-QBX-6391",
+                "description": "strawberry",
+                "id": 7486,
+                "display_name": "Univerval"
+              }
+            ],
+            "ref_no": "D-SRM-9284"
+          },
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-RJE-0695",
+                "description": "Imagine me ",
+                "id": 7487,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-IWZ-8050",
+                "description": "shoes ",
+                "id": 7488,
+                "display_name": "shoes "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1642744516967_image_picker6119815851694999637.jpg",
+                "item_id": "VLI-UCD-9342",
+                "description": "Yellow yellow",
+                "id": 7489,
+                "display_name": "Yellow yellow"
+              }
+            ],
+            "ref_no": "D-YKU-4684"
+          },
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-YQM-7215",
+                "description": "Imagine me ",
+                "id": 7490,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-KSU-4011",
+                "description": "shoes ",
+                "id": 7491,
+                "display_name": "shoes "
+              }
+            ],
+            "ref_no": "D-KHV-6785"
+          }
+        ],
+        "more": {
+          "Otherdescription": "",
+          "Typed": "ROOFTOP",
+          "Address": "10 Kahawa Wendani, Nairobi, Kenya",
+          "FlatName": "Kahawa Wendani",
+          "Estate": "Not indicated",
+          "viewport": {
+            "southwest": {
+              "lng": 36.9239124197085,
+              "lat": -1.203073280291502
+            },
+            "northeast": {
+              "lng": 36.9266103802915,
+              "lat": -1.200375319708498
+            }
+          },
+          "Road": "Kahawa Wendani",
+          "Vicinity": "Kahawa Wendani",
+          "Label": "",
+          "HouseDoor": "Not indicated",
+          "place_idcustom": "ChIJFzTFEcc_LxgRfh-iIyk4j7E",
+          "landmark": "No landmark"
+        },
+        "waypoint_details_status": true,
+        "coordinates": "-1.2017712,36.9252784",
+        "locality": {
+          "coordinates": "-1.201724,36.925261",
+          "name": "Nairobi"
+        },
+        "quantities_edited": false,
+        "reference_number": null,
+        "notify": false,
+        "payment_collection_details": null,
+        "country_code": "KE",
+        "waypoint_type": "PICKUP",
+        "is_return": false,
+        "order_items_editable": false,
+        "name": "Kahawa Wendani",
+        "waypoint_id": "BT-ZDA-9270",
+        "recipient_name": "K. Wendani",
+        "return": null,
+        "order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-AEB-9648_1638273469157_26dfd3d7-dfe5-46ac-b8b3-e5961be53b413931356406695412001.jpg",
+                "item_id": "VLI-WHN-3557",
+                "description": "IPhone 11 Pro ",
+                "id": 7483,
+                "display_name": "IPhone 11 Pro "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://s3.eu-west-1.amazonaws.com/sendy-partner-docs/fulfillment_products/B-AEB-9648_1634543004898_image_picker_254DACC4-5844-4D17-89ED-D164DEAF6561-11577-00000A2C2B3F339F.jpg",
+                "item_id": "VLI-UWL-3621",
+                "description": "White",
+                "id": 7484,
+                "display_name": "Black Board Chalk"
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://s3.eu-west-1.amazonaws.com/sendy-partner-docs/fulfillment_products/B-AEB-9648_1634363011226_image_picker_1FF0E2A1-23A6-435D-A789-0BF201C6D057-9861-0000089B133B3B26.jpg",
+                "item_id": "VLI-GJX-3170",
+                "description": "Ceramic",
+                "id": 7485,
+                "display_name": "Ceramic Plate"
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-AEB-9648_1634563771922_cc740691-c22a-4d43-a87f-f8254a1fc6a48352328891121107953.jpg",
+                "item_id": "VLI-QBX-6391",
+                "description": "strawberry",
+                "id": 7486,
+                "display_name": "Univerval"
+              }
+            ],
+            "ref_no": "D-SRM-9284"
+          },
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-RJE-0695",
+                "description": "Imagine me ",
+                "id": 7487,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-IWZ-8050",
+                "description": "shoes ",
+                "id": 7488,
+                "display_name": "shoes "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1642744516967_image_picker6119815851694999637.jpg",
+                "item_id": "VLI-UCD-9342",
+                "description": "Yellow yellow",
+                "id": 7489,
+                "display_name": "Yellow yellow"
+              }
+            ],
+            "ref_no": "D-YKU-4684"
+          },
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-YQM-7215",
+                "description": "Imagine me ",
+                "id": 7490,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-KSU-4011",
+                "description": "shoes ",
+                "id": 7491,
+                "display_name": "shoes "
+              }
+            ],
+            "ref_no": "D-KHV-6785"
+          }
+        ],
+        "recipient_phone": "+254714454473",
+        "status": "Success"
+      },
+      {
+        "notes": "Please call carol on +254714308420 when you get to Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya : Not set. Additional Instructions : ",
+        "original_order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-RJE-0695",
+                "description": "Imagine me ",
+                "id": 7480,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-IWZ-8050",
+                "description": "shoes ",
+                "id": 7481,
+                "display_name": "shoes "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1642744516967_image_picker6119815851694999637.jpg",
+                "item_id": "VLI-UCD-9342",
+                "description": "Yellow yellow",
+                "id": 7482,
+                "display_name": "Yellow yellow"
+              }
+            ],
+            "ref_no": "D-YKU-4684"
+          }
+        ],
+        "more": {
+          "Otherdescription": "",
+          "Typed": "ROOFTOP",
+          "Address": "QVRG+3FM, Nairobi, Kenya",
+          "FlatName": "Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya",
+          "Estate": "Not indicated",
+          "viewport": {
+            "southwest": {
+              "lng": 36.8748769697085,
+              "lat": -1.211101930291502
+            },
+            "northeast": {
+              "lng": 36.87757493029149,
+              "lat": -1.208403969708498
+            }
+          },
+          "Road": "Not indicated",
+          "Vicinity": "Not indicated",
+          "Label": "",
+          "HouseDoor": "Not indicated",
+          "place_idcustom": "ChIJz0uWdQU-LxgRvaApacY1Vlo",
+          "landmark": "No landmark"
+        },
+        "waypoint_details_status": true,
+        "coordinates": "-1.2100891,36.8756695",
+        "locality": {
+          "coordinates": "-1.209763,36.876191",
+          "name": "Nairobi"
+        },
+        "quantities_edited": false,
+        "reference_number": null,
+        "notify": false,
+        "payment_collection_details": null,
+        "country_code": "KE",
+        "waypoint_type": "DELIVERY",
+        "is_return": false,
+        "order_items_editable": false,
+        "name": "Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya",
+        "waypoint_id": "D-YKU-4684",
+        "recipient_name": "carol",
+        "return": null,
+        "order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-RJE-0695",
+                "description": "Imagine me ",
+                "id": 7480,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-IWZ-8050",
+                "description": "shoes ",
+                "id": 7481,
+                "display_name": "shoes "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1642744516967_image_picker6119815851694999637.jpg",
+                "item_id": "VLI-UCD-9342",
+                "description": "Yellow yellow",
+                "id": 7482,
+                "display_name": "Yellow yellow"
+              }
+            ],
+            "ref_no": "D-YKU-4684"
+          }
+        ],
+        "recipient_phone": "+254714308420",
+        "status": "Success"
+      },
+      {
+        "notes": "Please call carol on +254714308420 when you get to Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya : Not set. Additional Instructions : ",
+        "original_order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-YQM-7215",
+                "description": "Imagine me ",
+                "id": 7492,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-KSU-4011",
+                "description": "shoes ",
+                "id": 7493,
+                "display_name": "shoes "
+              }
+            ],
+            "ref_no": "D-KHV-6785"
+          }
+        ],
+        "more": {
+          "Otherdescription": "",
+          "Typed": "ROOFTOP",
+          "Address": "QVRG+3FM, Nairobi, Kenya",
+          "FlatName": "Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya",
+          "Estate": "Not indicated",
+          "viewport": {
+            "southwest": {
+              "lng": 36.8748769697085,
+              "lat": -1.211101930291502
+            },
+            "northeast": {
+              "lng": 36.87757493029149,
+              "lat": -1.208403969708498
+            }
+          },
+          "Road": "Not indicated",
+          "Vicinity": "Not indicated",
+          "Label": "",
+          "HouseDoor": "Not indicated",
+          "place_idcustom": "ChIJz0uWdQU-LxgRvaApacY1Vlo",
+          "landmark": "No landmark"
+        },
+        "waypoint_details_status": true,
+        "coordinates": "-1.2100891,36.8756695",
+        "locality": {
+          "coordinates": "-1.209763,36.876191",
+          "name": "Nairobi"
+        },
+        "quantities_edited": false,
+        "reference_number": null,
+        "notify": false,
+        "payment_collection_details": null,
+        "country_code": "KE",
+        "waypoint_type": "DELIVERY",
+        "is_return": false,
+        "order_items_editable": false,
+        "name": "Eden Bliss Gardens - Thome, Northern Bypass Road, Nairobi, Kenya",
+        "waypoint_id": "D-KHV-6785",
+        "recipient_name": "carol",
+        "return": null,
+        "order_items": [
+          {
+            "checklist_items": [
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652787595962_image_picker7987958869076391758.jpg_compressed.jpg",
+                "item_id": "VLI-YQM-7215",
+                "description": "Imagine me ",
+                "id": 7492,
+                "display_name": "Imagine me "
+              },
+              {
+                "quantity": 1,
+                "display_img_link": "https://sendy-partner-docs.s3.eu-west-1.amazonaws.com/fulfillment_products/B-EFL-5916_1652788329576_image_picker6457782883853520497.jpg_compressed.jpg",
+                "item_id": "VLI-KSU-4011",
+                "description": "shoes ",
+                "id": 7493,
+                "display_name": "shoes "
+              }
+            ],
+            "ref_no": "D-KHV-6785"
+          }
+        ],
+        "recipient_phone": "+254714308420",
+        "status": "Success"
+      }
+    ],
+    "rider_details": {
+      "phone_no": "+254103910991",
+      "phone_no_1": "+254103910991",
+      "photo": "helment_head-2.png",
+      "vendor_type": 1,
+      "name": "Sendy Driver"
+    },
+    "vehicle_details": {
+      "registration_no": "KAT752S",
+      "id": 2743
+    },
+    "time_metrics": {
+      "actual_delivery_duration": 0,
+      "lifetime_delay": 24002,
+      "estimated_delivery_duration": 57,
+      "estimated_lifetime": 106,
+      "pickup_delay": -49,
+      "delivery_delay": -57,
+      "actual_lifetime": 24108,
+      "actual_pickup_duration": 0,
+      "estimated_pickup_duration": 49
+    },
+    "ecommerce_order": "FULFILMENT_DELIVERY",
+    "cash_status": 0,
+    "delivery_verification": {
+      "delivery_image_status": true,
+      "security_code": [
+        {
+          "value": "1234"
+        }
+      ],
+      "physical_delivery_note_status": false,
+      "location_proximity": [
+        {
+          "pick_up": 2
+        },
+        {
+          "destination": 2
+        }
+      ],
+      "security_code_status": false,
+      "location_proximity_status": true,
+      "delivery_image": [
+        {
+          "document_tag": "delivery_note",
+          "name": "Delivery Note"
+        }
+      ]
+    },
+    "user_details": {
+      "user_name": "Vaneyck - (Sendy Fulfillment)",
+      "user_id": "11505",
+      "user_email": "vaneyck@sendyit.com",
+      "user_phone": "+254736325800"
+    }
+  }
+}

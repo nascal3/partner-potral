@@ -1,7 +1,7 @@
 <template>
   <div v-if="initialised">
-    <v-card 
-      flat 
+    <v-card
+      flat
       class="ma-0 pa-0"
     >
       <v-card-title>
@@ -35,7 +35,7 @@
             sm="12"
             md="4"
           >
-            <v-container 
+            <v-container
               fluid
               class="px-0"
             >
@@ -76,7 +76,7 @@ export default {
       vehicle: null,
       vehicleObj: new Vehicle(),
       crumbs: [
-        { text: 'Vehicles', to: 'vehicles' },
+        { text: this.$t('vehicles.vehicles'), to: 'vehicles' },
       ],
       navigation: [
         { name: 'Documents', icon: 'card-account-details', to: 'documents' },

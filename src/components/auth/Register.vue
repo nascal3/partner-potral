@@ -115,24 +115,24 @@
         ></v-text-field>
       </div>
 
-      <div>
-        <p class="mb-n4 body-1">
-          {{ $t('register.otp_method') }}
-        </p>
-        <v-radio-group
-            row
-            v-model="authObj.identification_method"
-            @change="preferredLoginTypeChangedEvent"
-        >
-          <v-radio
-              v-for="(ofType, index) in otpMethod"
-              :key="`entity-${index}`"
-              :label="ofType.label"
-              :value="ofType.value"
-              class="body-1"
-          ></v-radio>
-        </v-radio-group>
-      </div>
+<!--      <div>-->
+<!--        <p class="mb-n4 body-1">-->
+<!--          {{ $t('register.otp_method') }}-->
+<!--        </p>-->
+<!--        <v-radio-group-->
+<!--            row-->
+<!--            v-model="authObj.identification_method"-->
+<!--            @change="preferredLoginTypeChangedEvent"-->
+<!--        >-->
+<!--          <v-radio-->
+<!--              v-for="(ofType, index) in otpMethod"-->
+<!--              :key="`entity-${index}`"-->
+<!--              :label="ofType.label"-->
+<!--              :value="ofType.value"-->
+<!--              class="body-1"-->
+<!--          ></v-radio>-->
+<!--        </v-radio-group>-->
+<!--      </div>-->
 
 
     </v-card-text>

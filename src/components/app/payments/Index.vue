@@ -43,11 +43,11 @@
             color="#324BA8"
             left
         >
+          <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
           <v-tab>{{ $t('finance.tab_withdrawals') }}</v-tab>
 <!--          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>-->
 <!--          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>-->
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
-          <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
 
           <div class="account-balance">
             <div class="d-flex flex-column justify-end align-end mr-4">
@@ -64,12 +64,19 @@
             </div>
           </div>
 
+          <!--      transactions summary tab-->
+          <v-tab-item>
+            <v-container fluid>
+              <transactions-table/>
+            </v-container>
+          </v-tab-item>
           <!--      withdrawals summary tab-->
           <v-tab-item>
             <v-container fluid>
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
+
           <!--      savings tab-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
@@ -82,16 +89,11 @@
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
+
           <!--      uncleared earnings summary tab-->
           <v-tab-item>
             <v-container fluid>
               <uncleared-earnings/>
-            </v-container>
-          </v-tab-item>
-          <!--      transactions summary tab-->
-          <v-tab-item>
-            <v-container fluid>
-              <transactions-table/>
             </v-container>
           </v-tab-item>
         </v-tabs>

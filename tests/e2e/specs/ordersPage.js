@@ -1,5 +1,5 @@
 
-describe('The order feature works as expected', () => {
+describe('The order feature works', () => {
     before(() => {
         cy.setTokens()
     })
@@ -23,6 +23,20 @@ describe('The order feature works as expected', () => {
 
         cy.get('.title').as("title")
         cy.get("@title").should("contain", 'Orders')
+    })
+
+    it('Have the first order in the page', () => {
+        cy.get('table tbody tr td').eq(0).as("orderNumber")
+        cy.get("@orderNumber").should("contain", 'AJ74G4773-NJM')
+    })
+
+    it('The order has more order details available', () => {
+        cy.get('table tbody tr td').eq(6).click()
+        cy.wait('@ordersDetails').then((interception) => {
+            expect(interception.response.statusCode).to.equal( 200)
+            cy.get('.main-location-text').eq(0).as("destination")
+            cy.get("@destination").should("contain", 'Kahawa Wendani')
+        })
     })
 
 })
