@@ -49,7 +49,6 @@ import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
 import {mapGetters, mapActions} from "vuex"
-// import mockResponse from '@/libs/app/payments/mockWithdrawalResponce.json'
 
 export default {
   mixins: [segmentMixin, dateFormat, formatNumbers],
@@ -106,7 +105,7 @@ export default {
 
     setColor(status) {
       const colorMap = {
-        'fail': '#FBDECF',
+        'failed': '#FBDECF',
         'pending': '#FDDB97',
         'new': '#CCEFFF'
       }
@@ -115,7 +114,7 @@ export default {
 
     setChipTextColor (orderStatus) {
       const colorMap = {
-        'fail': 'error',
+        'failed': 'error',
         'pending': 'warning',
         'new': 'info'
       }
