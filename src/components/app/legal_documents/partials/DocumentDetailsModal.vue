@@ -56,7 +56,7 @@
             <div><span class="subtitle">{{ $t('documents.document_value') }}:</span> {{ documentDetails.value }}</div>
             <div><span class="subtitle">{{ $t('documents.document_status') }}: </span>
               <v-chip :color="setChipColor(documentDetails.status)" :text-color="setChipTextColor(documentDetails.status)" light small>
-                {{ documentDetails.status.toLowerCase() }}
+                {{ documentDetails.status }}
               </v-chip>
             </div>
             <div><span class="subtitle">{{ $t('documents.resource_type') }}:</span> {{ documentDetails.document.resource }}</div>
