@@ -3,15 +3,16 @@
     <app-loading v-if="loading"/>
     <div v-else class="d-flex flex-row">
       <div class="mr-4">
-        <div><span>{{ $t('finance.payment_method') }}: </span>{{ details.pay_mode }}</div>
-        <div><span>{{ $t('finance.funds_sent_to') }}:</span>{{ details.sent_to }}</div>
-        <div><span>{{ $t('finance.txn_amount') }}:</span>{{details.currency}} {{ thousandSeparator(details.amount) }}</div>
+        <div>{{ $t('finance.payment_method') }}: <span class="small-text">{{ details.pay_mode }}</span></div>
+        <div>{{ $t('finance.funds_sent_to') }}: <span class="small-text">{{ details.sent_to }}</span></div>
+        <div>{{ $t('finance.txn_amount') }}: <span class="small-text">{{details.currency}} {{ thousandSeparator(details.amount) }}</span></div>
       </div>
       <div>
-        <div><span>{{ $t('finance.txn_step') }}: </span>{{ details.step.toLowerCase() }}</div>
-        <div><span>{{ $t('finance.txn_status') }}:</span>
+        <div>{{ $t('finance.txn_step') }}: <span class="small-text">{{ details.step.toLowerCase() }}</span></div>
+        <div>
+          {{ $t('finance.txn_status') }}:
           <v-chip :color="setColor(details.state)" :text-color="setChipTextColor(details.state)" light small>
-            {{ details.state.toLowerCase() }}
+            <span class="small-text">{{ details.state.toLowerCase() }}</span>
           </v-chip>
         </div>
       </div>
@@ -42,6 +43,12 @@ export default {
     }
   },
 
+  // computed: {
+  //   details() {
+  //     return this.data;
+  //   }
+  // },
+
   methods: {
     setColor(status) {
       const colorMap = {
@@ -64,7 +71,7 @@ export default {
     fetchWithdrawalDetails() {
       this.paymentObj.show(this.paymentId)
           .then(response => {
-            this.datails = response
+            this.details = response
           })
           .catch(error => {
             flash({
@@ -93,6 +100,9 @@ section {
     font-weight: 700;
   }
 
+  .small-text {
+    font-weight: normal;
+  }
   .v-chip {
     .v-chip__content {
       padding-top: 2px;
