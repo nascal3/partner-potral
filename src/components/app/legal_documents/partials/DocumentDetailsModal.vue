@@ -35,7 +35,7 @@
 
       <v-divider></v-divider>
 
-      <div class="pa-5">
+      <div class="pa-5" id="details">
         <section v-if="images.length" class="mb-3">
           <div class="subtitle">{{ $t('documents.submitted_image') }}:</div>
           <v-carousel
@@ -56,7 +56,7 @@
             <div><span class="subtitle">{{ $t('documents.document_value') }}:</span> {{ documentDetails.value }}</div>
             <div><span class="subtitle">{{ $t('documents.document_status') }}: </span>
               <v-chip :color="setChipColor(documentDetails.status)" :text-color="setChipTextColor(documentDetails.status)" light small>
-                {{ documentDetails.status.toUpperCase() }}
+                {{ documentDetails.status }}
               </v-chip>
             </div>
             <div><span class="subtitle">{{ $t('documents.resource_type') }}:</span> {{ documentDetails.document.resource }}</div>
@@ -274,16 +274,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
   .subtitle {
     font-weight: 700;
   }
-  .v-chip {
-    .v-chip__content {
-      padding-top: 2px;
-      display: inline-block !important;
-      &:first-letter {
-        text-transform: uppercase;
+  #details {
+    .v-chip {
+      .v-chip__content {
+        padding-top: 2px;
+        display: inline-block !important;
+        &:first-letter {
+          text-transform: uppercase;
+        }
       }
     }
   }
