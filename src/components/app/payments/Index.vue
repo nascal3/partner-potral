@@ -26,11 +26,15 @@
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
 
             <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-              <span class="mr-2 mt-2">{{ currency }}</span>
-                {{ thousandSeparator(balance) }}
+              <span class="mr-2 mt-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
             </div>
             <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-              0
+              <v-progress-circular
+                  :width="3"
+                  :size="20"
+                  indeterminate
+                  color="primary"
+              ></v-progress-circular>
             </div>
 
           </div>
@@ -54,11 +58,15 @@
               <div class="small-text">{{ $t('finance.account_balance') }}</div>
 
               <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-                <span class="mr-2">{{ currency }}</span>
-                {{ thousandSeparator(balance) }}
+                <span class="mr-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
               </div>
               <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-                0
+                <v-progress-circular
+                    :width="3"
+                    :size="20"
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
               </div>
 
             </div>
