@@ -53,7 +53,7 @@
             </template>
           </v-file-input>
 
-           <v-text-field
+          <v-text-field
             dense
             outlined
             persistent-hint
@@ -114,9 +114,8 @@
             block
             large
             color="primary"
-            :dark="!loading"
             :loading="loading"
-            :disabled="loading"
+            :disabled="loading || !documentUploaded"
             class="caption font-weight-bold"
             @click="submit()"
           >
@@ -144,6 +143,7 @@ export default {
       dialog: false,
       loading: false,
       expiryDialog: false,
+      documentUploaded: false,
       acceptedFileTypes: [
         "image/png",
         "image/jpeg",
@@ -181,7 +181,7 @@ export default {
       this.setSegmentEvent('Select upload')
       this.vehicleDocumentObj.upload()
         .then(() => {
-
+          this.documentUploaded = true
         })
 
     },
@@ -194,6 +194,7 @@ export default {
           .then(response => {
             flash({...response, color: '#38c172',})
             this.$emit('updated')
+            this.documentUploaded = false
           }).catch(error => {
           flash({
             message: error.data.message,
