@@ -29,7 +29,7 @@
       <template v-slot:item.action="{ item }">
         <v-btn
             v-if="item.status === 'pending'"
-            small
+            block
             color="primary"
             class="ttn body-2"
             @click="documentData = item, setSegmentEvent(`Select submit document`)"
