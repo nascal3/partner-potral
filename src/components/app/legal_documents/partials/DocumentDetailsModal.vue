@@ -10,7 +10,7 @@
           v-bind="attrs"
           color="primary"
           class="ttn body-2"
-          small
+          block
           @click="setSegmentEvent('Select view legal document')"
       >
         {{ $t('documents.view_document') }}

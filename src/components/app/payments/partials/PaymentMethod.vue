@@ -37,6 +37,7 @@
         </v-radio>
         <v-radio
             v-if="paymentOptions('banks')"
+            :disabled="!bankDetails"
             :value="paymentMethods.banks.payment_method"
             class="rounded-lg"
             :class="{ active: selectedPaymentMethod === paymentMethods.banks.paymentMethod }"
@@ -48,7 +49,10 @@
               </div>
               <div class="d-flex flex-column method-text">
                 <div>Bank Transfer</div>
-                <div>
+                <div v-if="!bankDetails">
+                  {{ bankName }}
+                </div>
+                <div v-else>
                   {{ bankName }} | {{ hideSensitiveData(bankAccountNumber) }}
                 </div>
               </div>
@@ -121,9 +125,6 @@ export default {
       selectedPaymentMethod: null,
       paymentReference: null,
       phoneNumber: this.getUserPhoneNumber() || this.paymentMethods.mobile_money.phone_number,
-      bankName: this.paymentMethods.banks.bankAccounts[0].bank.name,
-      bankAccountNumber: this.paymentMethods.banks.bankAccounts[0].account_no,
-      bankPaybill: this.paymentMethods.banks.bankAccounts[0].bank.paybill,
       animationObject:{
         classes: 'slideInRight',
         delay: 0,
@@ -151,6 +152,25 @@ export default {
   computed: {
     errors() {
       return this.inputErrors
+    },
+
+    bankDetails() {
+      return this.paymentMethods.banks.bankAccounts.length > 1
+    },
+
+    bankName() {
+      if (!this.bankDetails) return 'Missing bank details'
+      return this.paymentMethods.banks.bankAccounts[0].bank.name
+    },
+
+    bankAccountNumber() {
+      if (!this.bankDetails) return 'Missing bank number'
+      return this.paymentMethods.banks.bankAccounts[0].account_no
+    },
+
+    bankPaybill() {
+      if (!this.bankDetails) return 'missing bank details'
+      return this.paymentMethods.banks.bankAccounts[0].bank.paybill
     }
   },
 
