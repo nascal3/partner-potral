@@ -81,7 +81,7 @@ export default {
     'payment-method': () => import('./partials/PaymentMethod.vue'),
   },
 
-  data () {
+  data() {
     return {
       loading: false,
       dialogLaunch: false,
