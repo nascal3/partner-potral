@@ -169,7 +169,7 @@ export default {
     },
 
     bankPaybill() {
-      if (!this.bankDetails) return 'missing bank details'
+      if (!this.bankDetails) return null
       return this.paymentMethods.banks.bankAccounts[0].bank.paybill
     }
   },
