@@ -29,15 +29,13 @@
               </div>
               <div class="d-flex flex-column method-text">
                 <div>M-PESA</div>
-                <!--            TODO fetch partner mobile number-->
                 <div>{{ hideSensitiveData(phoneNumber) }}</div>
               </div>
             </div>
           </template>
         </v-radio>
         <v-radio
-            v-if="paymentOptions('banks')"
-            :disabled="!bankDetails"
+            v-if="paymentOptions('banks') && bankDetails"
             :value="paymentMethods.banks.payment_method"
             class="rounded-lg"
             :class="{ active: selectedPaymentMethod === paymentMethods.banks.paymentMethod }"
