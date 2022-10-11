@@ -179,11 +179,10 @@ export default {
   methods: {
     uploadDocument () {
       this.setSegmentEvent('Select upload')
-      this.vehicleDocumentObj.upload()
-        .then(() => {
-          this.documentUploaded = true
-        })
-
+      this.vehicleDocumentObj.upload().then(() => {
+      }).finally(() => {
+        this.documentUploaded = true
+      })
     },
 
     submit () {
