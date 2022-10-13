@@ -5,6 +5,7 @@ window.Vue = require('vue')
 window._ = require('lodash')
 window.axios = require('axios')
 window.dayjs = require('dayjs')
+window.mixpanel = require('mixpanel-browser');
 
 window.auth = new Auth()
 window.events = new Vue()
