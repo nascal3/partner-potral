@@ -24,7 +24,7 @@ const segmentMixin = {
 
             if (!this.userIdentity) return
             const { id, email, name, phone } = this.userIdentity
-            this.$mixpanel.track(eventName, {
+            mixpanel.track(eventName, {
                 distinct_id: id,
                 event: eventName,
                 name,
