@@ -35,7 +35,7 @@ Sentry.init({
   tracesSampleRate: 1.0,
   logErrors: true
 })
-mixpanel.init(process.env.MIX_PANEL_TOKEN, {debug: true})
+mixpanel.init(process.env.MIX_PANEL_TOKEN)
 
 const options = {
   defaultCountry: 'ke',
