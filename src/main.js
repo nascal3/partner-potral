@@ -14,6 +14,7 @@ import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/dist/vue-tel-input.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VAnimateCss from 'v-animate-css'
+import VueMixpanel from 'vue-mixpanel'
 
 Vue.config.productionTip = false
 const environment = process.env.DOCKER_ENV
@@ -40,7 +41,7 @@ const options = {
   enabledCountryCode: true,
   mode: 'international',
   inputOptions: {
-    placeholder: 'Phone number *',
+    placeholder: 'Phone number *'
   }
 }
 Vue.use(VueTelInput, options)
@@ -51,7 +52,10 @@ Vue.use(VueGoogleMaps, {
   },
   autobindAllEvents: true
 })
-Vue.use(VAnimateCss);
+Vue.use(VAnimateCss)
+Vue.use(VueMixpanel, {
+  token: process.env.MIX_PANEL_TOKEN
+})
 
 new Vue({
   router,

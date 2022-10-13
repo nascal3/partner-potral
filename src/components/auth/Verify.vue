@@ -58,6 +58,7 @@ import timeCountDown from "@/mixins/timeCountDown";
 
 export default {
   mixins: [segmentMixin, timeCountDown],
+
   data () {
     return {
       loading: false,
