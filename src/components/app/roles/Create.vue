@@ -24,7 +24,11 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
+
 export default {
+  mixins: [segmentMixin],
+
   components: {
     'role-form': () => import('./partials/RoleForm'),
   },
@@ -38,8 +42,13 @@ export default {
   methods: {
     stored () {
       this.dialogLaunch = false
+      this.setSegmentEvent('Save User Role')
       this.$emit('stored')
     }
+  },
+
+  mounted () {
+    this.setSegmentEvent('Select Add Role')
   }
 }
 </script>

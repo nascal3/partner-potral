@@ -1,10 +1,10 @@
 <template>
   <div v-if="initialised">
-    <v-row 
+    <v-row
       v-for="(groupName, index) in Object.keys(groupedPermissions)"
       :key="groupName"
     >
-      <v-col 
+      <v-col
         v-if="group == 'Resourceful'"
         class="py-0"
         cols="12"
@@ -20,10 +20,10 @@
         class="densed"
       >
         <v-row dense>
-          <v-col 
+          <v-col
             cols="12"
           >
-            <v-checkbox 
+            <v-checkbox
               small
               inset
               dense
@@ -36,7 +36,7 @@
           </v-col>
         </v-row>
       </v-col>
-      <v-col 
+      <v-col
         cols="12"
         v-if="index < (Object.keys(groupedPermissions).length - 1)"
       >
@@ -47,10 +47,13 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import Role from "@/libs/app/roles/Role"
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  mixins: [segmentMixin],
+
   props: [
     'role', 'group'
   ],
@@ -65,10 +68,12 @@ export default {
 
   watch: {
     allPermissions ({data}) {
+      this.setSegmentEvent('Select Full Access')
       this.groupPermissions()
     },
 
     group () {
+      this.setSegmentEvent('Select Specify Access')
       this.groupPermissions()
     },
   },
@@ -114,6 +119,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Select Manage Role Permissions')
     this.setPermissions({
       routes: {
         partner: (auth.retrieve('partner')).id
