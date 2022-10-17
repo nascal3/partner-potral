@@ -10,7 +10,7 @@
           v-bind="attrs"
           color="primary"
           class="caption ttn font-weight-bold"
-          @click="setSegmentEvent('Withdraw funds')"
+          @click="setSegmentEvent('Select Withdrawal')"
       >
         {{ $t('finance.withdraw_btn') }}
       </v-btn>
@@ -141,7 +141,7 @@ export default {
     },
 
     submit () {
-      this.setSegmentEvent('Withdraw amount -- Submit')
+      this.setSegmentEvent(`Confirm Withdrawal - ${this.withdrawAmount}`)
       if (!this.loading) {
         this.loading = true
         const { payment_method, bankPaybill, paymentReference } = this.withdrawalMethod
@@ -152,10 +152,12 @@ export default {
 
         this.paymentObj.store()
             .then(response => {
+              this.setSegmentEvent(`Withdrawal Success - ${this.withdrawAmount}`)
               flash({...response, color: '#38c172'})
               this.dialogLaunch = false
             })
             .catch(error => {
+              this.setSegmentEvent(`Withdrawal Failed - ${this.withdrawAmount}`)
               this.loading = false
               flash({
                 message: error.data.message,

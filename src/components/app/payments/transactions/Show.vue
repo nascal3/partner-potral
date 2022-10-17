@@ -120,7 +120,7 @@ export default {
 
   mounted () {
     this.loadTransactions()
-    this.setSegmentEvent('View Partner transactions')
+    this.setSegmentEvent('Select All Transactions Tab')
   }
 
 }

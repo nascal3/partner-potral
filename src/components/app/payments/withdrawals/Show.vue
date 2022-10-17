@@ -146,7 +146,7 @@ export default {
 
   mounted () {
     this.loadWithdrawals()
-    this.setSegmentEvent('View Withdrawals')
+    this.setSegmentEvent('Select Withdrawal Transactions Tab')
   }
 
 }
