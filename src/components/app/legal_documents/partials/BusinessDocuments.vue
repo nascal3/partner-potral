@@ -197,7 +197,7 @@ export default {
   mounted() {
     this.setQueryParams()
     this.loadDocuments()
-    this.setSegmentEvent('View business documents')
+    this.setSegmentEvent('Select Company Documents Tab')
   }
 
 }

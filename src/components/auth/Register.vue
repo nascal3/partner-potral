@@ -86,7 +86,7 @@
         <vue-tel-input
             v-model="authObj.administrator.phone"
             @input="errors.clear('administrator.phone')"
-            @blur="setSegmentEvent('Enter Register Phone Number')"
+            @blur="setSegmentEvent('Enter Sign Up Phone Number')"
             :onlyCountries="validCountries"
             :inputOptions="placeholder"
             styleClasses="registerPhoneInput"
@@ -280,7 +280,7 @@ export default {
      },
 
     submit () {
-      this.setSegmentEvent('Submit Registration Information')
+      this.setSegmentEvent(`Submit Registration Information - ${this.authObj.legal_entity_type}`)
       if (!this.loading) {
         this.loading = true
         this.authObj.administrator.phone = this.authObj.administrator.phone.replace(/\s/g,'')

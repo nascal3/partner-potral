@@ -99,7 +99,7 @@ export default {
     },
 
     verifyCode () {
-      this.setSegmentEvent('Entered OTP')
+      this.setSegmentEvent('Enter Log In OTP')
       this.loading = true
       const { identifier, value } = this.identification
       this.authObj[identifier] = value

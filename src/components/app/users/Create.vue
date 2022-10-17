@@ -24,9 +24,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  mixins: [segmentMixin],
+
   components: {
     'user-form': () => import('./partials/UserForm.vue'),
   },
@@ -40,8 +43,13 @@ export default {
   methods: {
     stored () {
       this.dialogLaunch = false
+      this.setSegmentEvent('Close Add User')
       this.$emit('stored')
     }
+  },
+
+  mounted () {
+    this.setSegmentEvent('Select Add User')
   }
 }
 </script>

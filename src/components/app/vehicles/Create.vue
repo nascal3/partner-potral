@@ -10,7 +10,7 @@
         v-bind="attrs"
         color="primary"
         class="caption ttn"
-        @click="setSegmentEvent('Add new vehicle')"
+        @click="setSegmentEvent('Click Add Asset')"
       >
         {{ $t('vehicles.add_vehicle') }}
       </v-btn>
@@ -62,7 +62,7 @@
             :hint="errors.get('vendor_type_id')"
             :error="errors.has('vendor_type_id')"
             @input="errors.clear('vendor_type_id')"
-            @change="setSegmentEvent('Choose vendor type')"
+            @change="setSegmentEvent('Choose Asset type')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -146,7 +146,7 @@ export default {
     },
 
     submit () {
-    this.setSegmentEvent('Add vehicle -- Submit')
+    this.setSegmentEvent('Submit Asset Details')
       if (!this.loading) {
         this.loading = true
         this.vehicleObj.store()

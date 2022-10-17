@@ -74,7 +74,7 @@
             :hint="errors.get('role_id')"
             :error="errors.has('role_id')"
             @input="errors.clear('role_id')"
-            @change="setSegmentEvent('Assigned new user role')"
+            @change="setSegmentEvent('Select User Role')"
           ></v-select>
         </v-card-text>
         <v-card-actions class="px-4 pb-5">
@@ -166,7 +166,7 @@ export default {
     },
 
     store () {
-      this.setSegmentEvent('Submit new user details')
+      this.setSegmentEvent('Save User Addition')
       this.userObj.store().then(response => {
         flash({...response, color: '#38c172',})
         this.$emit('stored')
@@ -182,7 +182,7 @@ export default {
     },
 
     update () {
-      this.setSegmentEvent('Submit updated user details')
+      this.setSegmentEvent('Edit User information')
     }
   },
 

@@ -197,6 +197,7 @@ export default {
 
   methods: {
     setDateRange({dateFrom, dateTo}) {
+      this.setSegmentEvent('Filter Order Date')
       this.dateFrom = dateFrom
       this.dateTo = dateTo
       this.loadOrders()
@@ -204,7 +205,7 @@ export default {
 
     getOrderDetails ({item, value}) {
       if (!value) return
-      this.setSegmentEvent('Viewed order details')
+      this.setSegmentEvent('Expand Order')
       const { order_no } = item
       this.orderDetailsObj.show(order_no).then( data => {
         this.orderDetails = data.data
@@ -215,7 +216,7 @@ export default {
     },
 
     getSelectedDrivers () {
-      this.setSegmentEvent('Filtered orders by driver')
+      this.setSegmentEvent('Filter Order Driver')
       if (!this.selectedDrivers.length) return
       this.loadOrders()
     },
