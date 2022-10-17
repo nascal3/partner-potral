@@ -177,9 +177,9 @@ export default {
     identifierTypeChangedEvent() {
       const entity = this.authObj.identifier
       if (entity === 'Email') {
-        this.setSegmentEvent('Select get OTP with Email')
+        this.setSegmentEvent('Select get OTP on Email')
       } else {
-        this.setSegmentEvent('Select get OTP with Phone')
+        this.setSegmentEvent('Select get OTP on Phone')
       }
     },
 
