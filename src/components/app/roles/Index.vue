@@ -70,9 +70,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  mixins: [segmentMixin],
+
   components: {
     'roles-create': () => import('./Create.vue'),
     'roles-edit': () => import('./Edit.vue')
@@ -142,6 +145,7 @@ export default {
   },
 
   mounted () {
+    this.setSegmentEvent('Select User Role Page')
     this.loadRoles()
   }
 }

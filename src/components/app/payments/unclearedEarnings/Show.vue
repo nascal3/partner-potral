@@ -130,7 +130,7 @@ export default {
 
   mounted () {
     this.loadEarnings()
-    this.setSegmentEvent('View Uncleared earnings')
+    this.setSegmentEvent('Select Unclear Earnings Tab')
   }
 
 }

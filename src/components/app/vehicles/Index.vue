@@ -67,7 +67,7 @@
               color="deep-orange"
               class="ttn body-2"
               :to="`vehicles/${item.id}/documents`"
-              @click="setSegmentEvent('Select Manage vehicle')"
+              @click="setSegmentEvent('Select Manage Assets')"
             >
               {{ $t('vehicles.manage_vehicle') }}
             </v-btn>

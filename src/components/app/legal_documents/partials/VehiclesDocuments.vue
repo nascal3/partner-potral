@@ -32,13 +32,13 @@
             block
             color="primary"
             class="ttn body-2"
-            @click="documentData = item, setSegmentEvent(`Select submit document`)"
+            @click="documentData = item, setSegmentEvent(`Select Pending Document ${item.document.label}`)"
         >
           {{ $t('documents.submit_document') }}
         </v-btn>
         <document-details
             v-else
-            @click="setSegmentEvent('Select view vehicle legal document')"
+            @click="setSegmentEvent(`Select View Document ${item.document.label}`)"
             :document-details = item
         />
 

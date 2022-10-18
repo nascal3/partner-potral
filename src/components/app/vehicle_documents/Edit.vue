@@ -64,7 +64,7 @@
             :hint="errors.get('value')"
             :error="errors.has('value')"
             @input="errors.clear('value')"
-            @change="setSegmentEvent(`Enter ${vehicleDocument.document.label}`)"
+            @change="setSegmentEvent(`Enter Document Value ${vehicleDocument.document.label}`)"
           ></v-text-field>
 
           <v-dialog
@@ -179,22 +179,32 @@ export default {
   methods: {
     uploadDocument () {
       this.setSegmentEvent('Select upload')
-      this.vehicleDocumentObj.upload().then(() => {
+      this.vehicleDocumentObj.upload().then((res) => {
+        const { message } = res
+        if (message === 'File uploaded successfully') {
+          this.setSegmentEvent(`Upload Success - ${this.vehicleDocument.document.label}`)
+          flash({...res, color: '#38c172'})
+        } else {
+          this.setSegmentEvent(`Upload Fail - ${this.vehicleDocument.document.label}`)
+          flash({...res, color: '#e74c3c'})
+        }
       }).finally(() => {
         this.documentUploaded = true
       })
     },
 
     submit () {
-      this.setSegmentEvent(`Submit ${this.vehicleDocument.document.label}`)
+      this.setSegmentEvent(`Submit Document ${this.vehicleDocument.document.label}`)
       if (!this.loading) {
         this.loading = true
         this.vehicleDocumentObj.update(this.vehicleDocument.id)
           .then(response => {
+            this.setSegmentEvent(`Document ${this.vehicleDocument.document.label} Submit Success`)
             flash({...response, color: '#38c172',})
             this.$emit('updated')
             this.documentUploaded = false
           }).catch(error => {
+          this.setSegmentEvent(`Document ${this.vehicleDocument.document.label} Submit Fail`)
           flash({
             message: error.data.message,
             color: '#e74c3c',

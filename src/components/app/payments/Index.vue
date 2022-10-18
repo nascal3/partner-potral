@@ -191,8 +191,8 @@ export default {
 
 
   mounted () {
+    this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
-    this.setSegmentEvent('Opened Payments feature')
   }
 }
 </script>
