@@ -148,7 +148,7 @@ export default {
         this.paymentObj.paybill = bankPaybill
         this.paymentObj.payment_method = payment_method
         this.paymentObj.payment_reference = paymentReference
-        this.paymentObj.amount = this.withdrawAmount
+        this.paymentObj.amount = parseInt(this.withdrawAmount)
 
         this.paymentObj.store()
             .then(response => {
