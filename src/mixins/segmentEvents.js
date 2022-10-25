@@ -7,7 +7,7 @@ const segmentMixin = {
 
     methods: {
         setSegmentIdentity({user}) {
-            if (process.env.DOCKER_ENV === 'development') return
+            // if (process.env.DOCKER_ENV === 'development') return
             const { id, email, name, phone } = user
             analytics.identify(id, {
                 name,
@@ -16,21 +16,23 @@ const segmentMixin = {
             })
         },
 
-        setSegmentEvent(eventName) {
-            if (process.env.DOCKER_ENV === 'development') return
+        setSegmentEvent(eventName, additionalProps = {}) {
+            // if (process.env.DOCKER_ENV === 'development') return
             analytics.track(eventName, {
                 event: eventName
             });
 
             if (!this.userIdentity) return
             const { id, email, name, phone } = this.userIdentity
-            mixpanel.track(eventName, {
+            const payload = {
                 distinct_id: id,
                 event: eventName,
                 name,
                 email,
-                phone
-            })
+                phone,
+                ...additionalProps
+            }
+            mixpanel.track(eventName, payload)
         },
     },
 };
