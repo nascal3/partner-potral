@@ -184,12 +184,11 @@ export default {
         if (message === 'File uploaded successfully') {
           this.setSegmentEvent(`Upload Success - ${this.vehicleDocument.document.label}`)
           flash({...res, color: '#38c172'})
+          this.documentUploaded = true
         } else {
           this.setSegmentEvent(`Upload Fail - ${this.vehicleDocument.document.label}`)
           flash({...res, color: '#e74c3c'})
         }
-      }).finally(() => {
-        this.documentUploaded = true
       })
     },
 
