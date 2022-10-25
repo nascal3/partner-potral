@@ -149,15 +149,21 @@ export default {
         this.paymentObj.payment_method = payment_method
         this.paymentObj.payment_reference = paymentReference
         this.paymentObj.amount = parseInt(this.withdrawAmount)
+        const params = {
+          paybill: bankPaybill,
+          payment_method: payment_method,
+          payment_reference: paymentReference,
+          amount: parseInt(this.withdrawAmount)
+        }
 
         this.paymentObj.store()
             .then(response => {
-              this.setSegmentEvent(`Withdrawal Success - ${this.withdrawAmount}`)
+              this.setSegmentEvent(`Withdrawal Success - ${this.withdrawAmount}`, params)
               flash({...response, color: '#38c172'})
               this.dialogLaunch = false
             })
             .catch(error => {
-              this.setSegmentEvent(`Withdrawal Failed - ${this.withdrawAmount}`)
+              this.setSegmentEvent(`Withdrawal Failed - ${this.withdrawAmount}`, {...params, message: error.data.message})
               this.loading = false
               flash({
                 message: error.data.message,
