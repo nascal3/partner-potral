@@ -7,7 +7,7 @@ const segmentMixin = {
 
     methods: {
         setSegmentIdentity({user}) {
-            // if (process.env.DOCKER_ENV === 'development') return
+            if (process.env.DOCKER_ENV === 'development') return
             const { id, email, name, phone } = user
             analytics.identify(id, {
                 name,
@@ -17,7 +17,7 @@ const segmentMixin = {
         },
 
         setSegmentEvent(eventName, additionalProps = {}) {
-            // if (process.env.DOCKER_ENV === 'development') return
+            if (process.env.DOCKER_ENV === 'development') return
             analytics.track(eventName, {
                 event: eventName
             });
