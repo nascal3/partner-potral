@@ -16,7 +16,7 @@ const segmentMixin = {
             })
         },
 
-        setSegmentEvent(eventName) {
+        setSegmentEvent(eventName, additionalProps = {}) {
             if (process.env.DOCKER_ENV === 'development') return
             analytics.track(eventName, {
                 event: eventName
@@ -24,13 +24,15 @@ const segmentMixin = {
 
             if (!this.userIdentity) return
             const { id, email, name, phone } = this.userIdentity
-            mixpanel.track(eventName, {
+            const payload = {
                 distinct_id: id,
                 event: eventName,
                 name,
                 email,
-                phone
-            })
+                phone,
+                ...additionalProps
+            }
+            mixpanel.track(eventName, payload)
         },
     },
 };
