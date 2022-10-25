@@ -180,8 +180,7 @@ export default {
     uploadDocument () {
       this.setSegmentEvent('Select upload')
       this.vehicleDocumentObj.upload().then((res) => {
-        const { message } = res
-        if (message === 'File uploaded successfully') {
+        if (res.message === 'File uploaded successfully') {
           this.setSegmentEvent(`Upload Success - ${this.vehicleDocument.document.label}`)
           flash({...res, color: '#38c172'})
           this.documentUploaded = true
