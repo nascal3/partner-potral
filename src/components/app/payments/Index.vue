@@ -147,8 +147,7 @@ export default {
     },
 
     allowWithdraw() {
-      // return this.accountBalance.withdrawal_day
-      return true
+      return this.accountBalance.withdrawal_day
     },
 
     currency() {
