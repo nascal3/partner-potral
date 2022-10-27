@@ -37,7 +37,6 @@ import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
 import formatNumbers from "@/mixins/formatNumbers"
 import {mapGetters, mapActions} from "vuex"
-// import mockResponse from '@/libs/app/payments/mockTransactionsResponce.json'
 
 export default {
   mixins: [segmentMixin, dateFormat, formatNumbers],
