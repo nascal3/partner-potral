@@ -148,12 +148,12 @@ export default {
         this.paymentObj.paybill = bankPaybill
         this.paymentObj.payment_method = payment_method
         this.paymentObj.payment_reference = paymentReference
-        this.paymentObj.amount = parseInt(this.withdrawAmount)
+        this.paymentObj.amount = this.formatAmountToNumber(this.withdrawAmount)
         const params = {
           paybill: bankPaybill,
           payment_method: payment_method,
           payment_reference: paymentReference,
-          amount: parseInt(this.withdrawAmount)
+          amount: this.withdrawAmount
         }
 
         this.paymentObj.store()
