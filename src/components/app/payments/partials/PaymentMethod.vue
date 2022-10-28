@@ -152,6 +152,11 @@ export default {
       return this.inputErrors
     },
 
+    getUserPhoneNumber () {
+      const { phone } = auth.retrieve('partner')
+      return phone
+    },
+
     mobileMoney() {
       return Object.keys(this.paymentMethods.mobile_money).length >= 1
     },
@@ -187,11 +192,6 @@ export default {
       if (paymentType === 1) return this.phoneNumber
       else if (paymentType === 2) return this.bankAccountNumber
       else return null
-    },
-
-    getUserPhoneNumber () {
-      const { phone } = auth.retrieve('user')
-      return phone
     },
 
     hideSensitiveData (value) {
