@@ -152,8 +152,12 @@ export default {
       return this.inputErrors
     },
 
+    mobileMoney() {
+      return Object.keys(this.paymentMethods.mobile_money).length >= 1
+    },
+
     bankDetails() {
-      return this.paymentMethods.banks.bankAccounts.length > 1
+      return this.paymentMethods.banks.bankAccounts.length >= 1
     },
 
     bankName() {
