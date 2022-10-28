@@ -23,7 +23,7 @@ COPY . .
 RUN yarn run build
 
 #########################################################################################################
-FROM sendy-docker-local.jfrog.io/distroless-nginx-base
+FROM sendy-docker-local.jfrog.io/nginx:base_frontend
 
 WORKDIR /usr/src/app
 
