@@ -176,6 +176,7 @@ export default {
     },
 
     friendlyDateFormat() {
+      if (!this.initialised) return '...'
       const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
       const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
       //Correctly format date
