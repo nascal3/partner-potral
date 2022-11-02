@@ -13,50 +13,33 @@
 
     <v-card-text class="py-0">
       <v-radio-group v-model="selectedPaymentMethod">
-        <v-radio
-            v-if="paymentOptions('mobile_money')"
-            :value="paymentMethods.mobile_money.payment_method"
-            class="rounded-lg"
-            :class="{ active: selectedPaymentMethod === paymentMethods.mobile_money.paymentMethod }"
-        >
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select mpesa payment method')">
-              <div class="method-icon rounded pa-1 mr-2">
-                <v-img
-                    max-width="45"
-                    :src="require('@/assets/mpesa-logo.png')"
-                ></v-img>
-              </div>
-              <div class="d-flex flex-column method-text">
-                <div>M-PESA</div>
-                <div>{{ hideSensitiveData(phoneNumber) }}</div>
-              </div>
-            </div>
-          </template>
-        </v-radio>
-        <v-radio
-            v-if="paymentOptions('banks') && bankDetails"
-            :value="paymentMethods.banks.payment_method"
-            class="rounded-lg"
-            :class="{ active: selectedPaymentMethod === paymentMethods.banks.paymentMethod }"
-        >
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
-              <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
-                <v-icon>mdi-bank</v-icon>
-              </div>
-              <div class="d-flex flex-column method-text">
-                <div>Bank Transfer</div>
-                <div v-if="!bankDetails">
-                  {{ bankName }}
+        <section v-if="paymentOptions && paymentOptions.length">
+          <v-radio
+              v-for="(account, index) in paymentOptions"
+              :key="index"
+              v-if="account.status"
+              :value="account"
+              class="rounded-lg"
+              :class="{ active: selectedPaymentMethod && selectedPaymentMethod.paymentReference === account.paymentReference }"
+          >
+            <template v-slot:label>
+              <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
+                <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
+                  <v-img
+                      v-if="account.method_name === 'Mobile Money'"
+                      max-width="45"
+                      :src="require('@/assets/mpesa-logo.png')"
+                  ></v-img>
+                  <v-icon v-if="account.method_name === 'Bank Transfer'">mdi-bank</v-icon>
                 </div>
-                <div v-else>
-                  {{ bankName }} | {{ hideSensitiveData(bankAccountNumber) }}
+                <div class="d-flex flex-column method-text">
+                  <div>{{ account.method_name }}</div>
+                  <div>{{ account.bank_name }} | {{ hideSensitiveData(account.paymentReference) }}</div>
                 </div>
               </div>
-            </div>
-          </template>
-        </v-radio>
+            </template>
+          </v-radio>
+        </section>
       </v-radio-group>
     </v-card-text>
     <v-card-actions class="d-flex flex-column px-4 pb-5">
@@ -88,7 +71,6 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
-import split from "split";
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -121,9 +103,9 @@ export default {
       disabled: true,
       withdrawAmount: null,
       selectedPaymentMethod: null,
-      paymentReference: null,
+      paymentOptions: [],
       phoneNumber: this.getUserPhoneNumber() || this.paymentMethods.mobile_money.phone_number,
-      animationObject:{
+      animationObject: {
         classes: 'slideInRight',
         delay: 0,
         duration: 300
@@ -137,11 +119,12 @@ export default {
     },
 
     selectedPaymentMethod (value) {
-      this.disabled = !value
+      this.disabled = false
+      const { payment_method, bankPaybill, paymentReference } = value
       const paymentData = {
-        payment_method: value,
-        bankPaybill: this.bankPaybill,
-        paymentReference: this.setPaymentReference(value)
+        payment_method,
+        bankPaybill,
+        paymentReference
       }
       this.$emit('selectedPaymentMethod', paymentData)
     }
@@ -152,46 +135,44 @@ export default {
       return this.inputErrors
     },
 
+    mobileMoney() {
+      return Object.keys(this.paymentMethods.mobile_money)
+    },
+
+    bankAccounts() {
+      return this.paymentMethods.banks.bankAccounts
+    }
+  },
+
+  methods: {
     getUserPhoneNumber () {
       const { phone } = auth.retrieve('partner')
       return phone
     },
 
-    mobileMoney() {
-      return Object.keys(this.paymentMethods.mobile_money).length >= 1
-    },
+    setPaymentOptions () {
+       if (this.mobileMoney.length) {
+         this.paymentOptions.push({
+           payment_method: this.paymentMethods.mobile_money.payment_method,
+           paymentReference: this.phoneNumber,
+           status: true,
+           method_name: 'Mobile Money'
+         })
+       }
 
-    bankDetails() {
-      return this.paymentMethods.banks.bankAccounts.length >= 1
-    },
-
-    bankName() {
-      if (!this.bankDetails) return 'Missing bank details'
-      return this.paymentMethods.banks.bankAccounts[0].bank.name
-    },
-
-    bankAccountNumber() {
-      if (!this.bankDetails) return 'Missing bank number'
-      return this.paymentMethods.banks.bankAccounts[0].account_no
-    },
-
-    bankPaybill() {
-      if (!this.bankDetails) return null
-      return this.paymentMethods.banks.bankAccounts[0].bank.paybill
-    }
-  },
-
-  methods: {
-    paymentOptions (paymentType) {
-      const paymentOptions = Object.keys(this.paymentMethods)
-      return paymentOptions.includes(paymentType)
-    },
-
-    setPaymentReference (paymentType) {
-      if (!paymentType) return null
-      if (paymentType === 1) return this.phoneNumber
-      else if (paymentType === 2) return this.bankAccountNumber
-      else return null
+       if (this.bankAccounts.length) {
+         this.bankAccounts.forEach( bankAccount => {
+           const { account_no, bank, status } = bankAccount
+           this.paymentOptions.push({
+             payment_method: this.paymentMethods.banks.payment_method,
+             bankPaybill: bank.paybill,
+             paymentReference: account_no,
+             status,
+             method_name: 'Bank Transfer',
+             bank_name: bank.name
+           })
+         })
+       }
     },
 
     hideSensitiveData (value) {
@@ -205,6 +186,10 @@ export default {
       this.$emit('proceed', false)
     }
   },
+
+  mounted() {
+    this.setPaymentOptions()
+  }
 }
 </script>
 
@@ -219,6 +204,8 @@ export default {
 }
 .method-icon {
   border: 1px solid #D9D9D9;
+  max-height: 50px;
+  margin: auto;
   .v-icon {
     color: #314BAB;
   }

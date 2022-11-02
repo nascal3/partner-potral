@@ -111,6 +111,8 @@
 </template>
 
 <script>
+import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz'
+import compareAsc from 'date-fns/compareAsc'
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import dateFormat from "@/mixins/dateFormat"
@@ -146,8 +148,25 @@ export default {
       return account.includes('current_balance')
     },
 
+    isWithdrawalDate() {
+      if (!this.initialised) return false
+      // Compare the two dates and return 1 if the first date is after the second,
+      // -1 if the first date is before the second or 0 if dates are equal.
+      const currentTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
+      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+
+      //Correctly format dates to be compared
+      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+      const currentZonedTime = utcToZonedTime(new Date(), currentTimeZone)
+
+      // Compare the two dates
+      const result = compareAsc(currentZonedTime, withdrawalZonedTime)
+      return result === 0 || result === 1
+    },
+
     allowWithdraw() {
-      return this.accountBalance.withdrawal_day
+      return this.accountBalance.withdrawal_day && this.isWithdrawalDate
     },
 
     currency() {
@@ -157,7 +176,13 @@ export default {
     },
 
     friendlyDateFormat() {
-      return this.withdrawalDateFormat(this.accountBalance.next_withdrawal_day, this.$t('finance.from'))
+      if (!this.initialised) return '...'
+      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
+      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      //Correctly format date
+      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+
+      return this.withdrawalDateFormat(withdrawalZonedTime, this.$t('finance.from'))
     },
 
     balance() {
