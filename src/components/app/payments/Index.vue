@@ -162,7 +162,7 @@ export default {
 
       // Compare the two dates
       const result = compareAsc(currentZonedTime, withdrawalZonedTime)
-      return result === 0
+      return result === 0 || result === 1
     },
 
     allowWithdraw() {
