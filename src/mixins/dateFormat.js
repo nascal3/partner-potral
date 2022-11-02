@@ -31,7 +31,7 @@ const dateFormat = {
             const time = format(new Date(date), 'h aaa', {
                 locale: locales[setLanguage]
             })
-            return `${day} ${separator} 11am`
+            return `${day} ${separator} ${time}`
         },
 
         documentsDateFormat(date) {
