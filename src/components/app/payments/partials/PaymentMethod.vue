@@ -23,7 +23,7 @@
               :class="{ active: selectedPaymentMethod && selectedPaymentMethod.paymentReference === account.paymentReference }"
           >
             <template v-slot:label>
-              <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
+              <div class="d-flex" @click="setSegmentEvent(`Select ${account.method_name} payment method`)">
                 <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
                   <v-img
                       v-if="account.method_name === 'Mobile Money'"
