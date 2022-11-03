@@ -1,0 +1,46 @@
+{
+  "data": {
+    "mobile_money": {
+      "payment_method": 1
+    },
+    "banks": {
+      "payment_method": 2,
+      "bankAccounts": [
+        {
+          "owner_bank_account_id": 592,
+          "owner_id": 6160,
+          "status": true,
+          "account_no": "0106079949700",
+          "payment_bank_id": 2,
+          "account_name": "MVAK CARCO LIMITED",
+          "bank_branch": "Chiromo",
+          "admin_approval": "Approved",
+          "decline_reason": null,
+          "bank": {
+            "payment_bank_id": 2,
+            "name": "STANDARD CHARTERED",
+            "status": true,
+            "paybill": 329329
+          }
+        },
+        {
+          "owner_bank_account_id": 593,
+          "owner_id": 6160,
+          "status": true,
+          "account_no": "0106079949799",
+          "payment_bank_id": 2,
+          "account_name": "MVAK CARCO LIMITED",
+          "bank_branch": "Kiambu",
+          "admin_approval": "Approved",
+          "decline_reason": null,
+          "bank": {
+            "payment_bank_id": 2,
+            "name": "EQUITY BANK",
+            "status": true,
+            "paybill": 329320
+          }
+        }
+      ]
+    }
+  }
+}
