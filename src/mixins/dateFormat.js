@@ -1,7 +1,7 @@
 import { format } from "date-fns";
-import { en, fr, ar } from 'date-fns/locale'
+import { enGB, fr, ar } from 'date-fns/locale'
 
-const locales = { en, fr, ar }
+const locales = { enGB, fr, ar }
 const setLanguage = localStorage.getItem('setLanguage')
 
 const dateFormat = {
