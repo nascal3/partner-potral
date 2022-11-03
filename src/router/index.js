@@ -57,7 +57,7 @@ const routes = [
       {
         path: 'contract',
         name: 'contract',
-        component: () => import('@/components/app/partner_contract/Index.vue'),
+        component: () => import('@/components/auth/partner_contract/Index.vue'),
       },
     ]
   },

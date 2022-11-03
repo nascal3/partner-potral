@@ -75,6 +75,19 @@ export default class Auth extends Base {
     })
   }
 
+  sign () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields(['identification_no', 'signature_name'])
+        const response = await this.form.submit('post', url('sign-contract'), data)
+        this.encrypt(response.data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   abilities () {
     return new Promise(async (resolve, reject) => {
       try {
