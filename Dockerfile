@@ -1,4 +1,4 @@
-FROM sendy-docker-local.jfrog.io/node:16.18.0-alpine AS BUILD
+FROM sendy-docker-local.jfrog.io/node:alpine AS BUILD
 
 ARG DOCKER_ENV
 ARG VUE_APP_PORTAL
