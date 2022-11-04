@@ -171,7 +171,6 @@ export default {
 
 <style lang="scss">
 .vue-pdf-embed > div {
-  //box-shadow: 0 2px 8px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 10px;
 }
 #sign-contract {
@@ -186,7 +185,6 @@ export default {
           font-size: 20px !important;
         }
       }
-
     }
 
     &__text {
