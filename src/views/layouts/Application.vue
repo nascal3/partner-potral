@@ -1,17 +1,17 @@
 <template>
   <div class="align-center app--full-height">
-    <app-drawer 
+    <app-drawer
       :show-drawer="showDrawer"
       @closed="showDrawer = false"
     />
 
     <div class="app--main-content">
-      <app-bar 
-        @drawer="showDrawer = true" 
+      <app-bar
+        @drawer="showDrawer = true"
       />
 
-      <v-container 
-        class="app--content-container" 
+      <v-container
+        class="app--content-container"
         fluid
       >
         <router-view />
@@ -47,3 +47,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.container.container {
+  background-color: #FFFFFF;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  min-height: 100%;
+}
+.clip {
+  height: 0;
+}
+</style>
