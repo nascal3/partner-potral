@@ -1,11 +1,11 @@
 {
   "code": 200,
-  "next_withdrawal_day": "2022-11-02",
-  "owner_id": 1092,
-  "pay_hour": "10:00:00",
+  "next_withdrawal_day": "2022-11-11",
+  "owner_id": 3928,
+  "pay_hour": "12:00:00",
   "primary_account": {
     "currency": "KES",
-    "current_balance": 10000
+    "current_balance": 19176
   },
   "time_zone": "Africa/Nairobi",
   "withdrawal_day": true,
