@@ -8,27 +8,27 @@ variables:
   MIX_PANEL_TOKEN: ce3d573d8a523759617f9d21792b1a4f
 
 stages:
-  - test
+#  - test
   - buildpush
 
-test:staging:
-  image: cypress/base:14.16.0
-  stage: test
-  tags:
-    - docker
-  cache:
-    paths:
-      - .npm
-      - /root/.cache/Cypress
-
-  script:
-    - npm ci --prefer-offline
-    - npx cypress cache path
-    - npx cypress cache list
-    - npm run test
-    - npm run coverage
-  only:
-    - staging
+#test:staging:
+#  image: cypress/base:14.16.0
+#  stage: test
+#  tags:
+#    - docker
+#  cache:
+#    paths:
+#      - .npm
+#      - /root/.cache/Cypress
+#
+#  script:
+#    - npm ci --prefer-offline
+#    - npx cypress cache path
+#    - npx cypress cache list
+#    - npm run test
+#    - npm run coverage
+#  only:
+#    - staging
 
 buildpush:staging:
   stage: buildpush
