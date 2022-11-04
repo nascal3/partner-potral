@@ -1,5 +1,4 @@
-const webpack = require('webpack');
-const variables = require(`./config/variables`);
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   transpileDependencies: [
@@ -8,8 +7,9 @@ module.exports = {
 
   configureWebpack: {
     plugins: [
-      new webpack.NormalModuleReplacementPlugin(/^mqtt$/, 'mqtt/dist/mqtt.js'),
-      new webpack.EnvironmentPlugin(variables)
-    ],
+      new Dotenv({
+        path: '.env.local',
+      })
+    ]
   }
 }

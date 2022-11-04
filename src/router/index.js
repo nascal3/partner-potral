@@ -9,7 +9,7 @@ const routes = [
     component: () => import('@/views/layouts/Authentication.vue'),
     beforeEnter: (to, from, next) => {
       if (!auth.retrieve('user')) {
-        const authRoutes = ['register', 'generate', 'verify']
+        const authRoutes = ['register', 'generate', 'verify', 'contract']
         if (authRoutes.includes(to.name)) {
           next()
         } else {
@@ -53,6 +53,11 @@ const routes = [
         path: 'accounts',
         name: 'accounts',
         component: () => import('@/components/auth/Accounts.vue'),
+      },
+      {
+        path: 'contract',
+        name: 'contract',
+        component: () => import('@/components/auth/partner_contract/Index.vue'),
       },
     ]
   },

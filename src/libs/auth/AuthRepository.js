@@ -21,6 +21,10 @@ export const fields = {
     phone: null,
   },
 
+  //Partner contract
+  identification_no: null,
+  signature_name: null,
+
   //Access control
   ...crypt,
   ...guard,

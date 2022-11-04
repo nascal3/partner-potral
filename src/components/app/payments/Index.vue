@@ -117,6 +117,7 @@ import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import dateFormat from "@/mixins/dateFormat"
 import {mapGetters, mapActions} from "vuex"
+// import mockResponse from "../../../../tests/e2e/fixtures/accountBalance.json"
 
 export default {
   mixins: [segmentMixin, formatNumbers, dateFormat],
@@ -166,7 +167,7 @@ export default {
     },
 
     allowWithdraw() {
-      return this.accountBalance.withdrawal_day && this.isWithdrawalDate
+      return this.accountBalance.withdrawal_day
     },
 
     currency() {

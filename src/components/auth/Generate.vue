@@ -1,97 +1,102 @@
 <template>
-  <v-row class="mt-5">
-    <v-col
-      cols="12"
-      class="mb-n4"
-    >
-      <p class="mb-n2 body-1">
-        {{ $t('generate.send_authentication_code') }}
-      </p>
+  <section class="d-flex justify-center">
+    <v-card max-width="500" outlined flat>
+      <v-row class="mt-5">
+        <v-col
+            cols="12"
+            class="mb-n4"
+        >
+          <p class="mb-n2 body-1">
+            {{ $t('generate.send_authentication_code') }}
+          </p>
 
-      <v-radio-group
-        row
-        mandatory
-        persistent-hint
-        v-model="authObj.identifier"
-        @change="identifierTypeChangedEvent"
-      >
-        <v-radio
-          v-for="(identifier, index) in authType"
-          :key="`identifier-${index}`"
-          :label="identifier.label"
-          :value="identifier.value"
-          class="body-1"
-        ></v-radio>
-      </v-radio-group>
-    </v-col>
+          <v-radio-group
+              row
+              mandatory
+              persistent-hint
+              v-model="authObj.identifier"
+              @change="identifierTypeChangedEvent"
+          >
+            <v-radio
+                v-for="(identifier, index) in authType"
+                :key="`identifier-${index}`"
+                :label="identifier.label"
+                :value="identifier.value"
+                class="body-1"
+            ></v-radio>
+          </v-radio-group>
+        </v-col>
 
-    <v-col cols="12">
-      <div v-if="authObj.identifier == 'Email'">
-        <p class="mb-1 body-1">
-          {{ $t('generate.enter_your_email_address') }}
-        </p>
-        <v-text-field
-            outlined
-            persistent-hint
-            class="body-1"
-            placeholder="johndoe@knowhere.com"
-            v-model="authObj.email"
-            :hint="errors.get('email')"
-            :error="errors.has('email')"
-            @input="errors.clear('email')"
-            @change="setSegmentEvent('Enter Login Email')"
-        ></v-text-field>
-      </div>
+        <v-col cols="12">
+          <div v-if="authObj.identifier == 'Email'">
+            <p class="mb-1 body-1">
+              {{ $t('generate.enter_your_email_address') }}
+            </p>
+            <v-text-field
+                outlined
+                persistent-hint
+                class="body-1"
+                placeholder="johndoe@knowhere.com"
+                v-model="authObj.email"
+                :hint="errors.get('email')"
+                :error="errors.has('email')"
+                @input="errors.clear('email')"
+                @change="setSegmentEvent('Enter Login Email')"
+            ></v-text-field>
+          </div>
 
-      <div class="mb-7" v-if="authObj.identifier == 'Phone'">
-        <p class="mb-1 body-1">
-          {{ $t('generate.login_phone_number') }}
-        </p>
-        <vue-tel-input
-            v-model="authObj.phone"
-            @input="errors.clear('phone')"
-            @blur="setSegmentEvent('Enter Login Phone Number')"
-            :onlyCountries="validCountries"
-            :inputOptions="placeholder"
-            styleClasses="loginPhoneInput"
-            :class="{ 'input-error': errors.get('phone') }"
-        ></vue-tel-input>
-        <span class="input-error-message" v-if="errors.has('phone')">
+          <div class="mb-7" v-if="authObj.identifier == 'Phone'">
+            <p class="mb-1 body-1">
+              {{ $t('generate.login_phone_number') }}
+            </p>
+            <vue-tel-input
+                v-model="authObj.phone"
+                @input="errors.clear('phone')"
+                @blur="setSegmentEvent('Enter Login Phone Number')"
+                :onlyCountries="validCountries"
+                :inputOptions="placeholder"
+                styleClasses="loginPhoneInput"
+                :class="{ 'input-error': errors.get('phone') }"
+            ></vue-tel-input>
+            <span class="input-error-message" v-if="errors.has('phone')">
           {{errors.get('phone')}}
         </span>
-      </div>
-    </v-col>
+          </div>
+        </v-col>
 
-    <v-col cols="12">
-      <v-btn
-        block
-        x-large
-        color="primary"
-        class="caption font-weight-bold"
-        :dark="!loading"
-        :loading="loading"
-        :disabled="loading"
-        @click="generateCode()"
-      >
-        {{ $t('generate.request_verification_code') }}
-      </v-btn>
-    </v-col>
+        <v-col cols="12">
+          <v-btn
+              block
+              x-large
+              color="primary"
+              class="caption font-weight-bold"
+              :dark="!loading"
+              :loading="loading"
+              :disabled="loading"
+              @click="generateCode()"
+          >
+            {{ $t('generate.request_verification_code') }}
+          </v-btn>
+        </v-col>
 
-    <v-col cols="12">
-      <p class="body-1 text-center" @click="setSegmentEvent('Click Sign Up Link')">
-        {{ $t('generate.dont_have_an_account') }}
-        <router-link
-          class="deep-orange--text"
-          to="/auth/register"
-        >
-          {{ $t('generate.become_a_partner') }}
-        </router-link>
-      </p>
-    </v-col>
-    <v-col cols="12">
-      <language-selector @setLanguage="setLanguage"/>
-    </v-col>
-  </v-row>
+        <v-col cols="12">
+          <p class="body-1 text-center" @click="setSegmentEvent('Click Sign Up Link')">
+            {{ $t('generate.dont_have_an_account') }}
+            <router-link
+                class="deep-orange--text"
+                to="/auth/register"
+            >
+              {{ $t('generate.become_a_partner') }}
+            </router-link>
+          </p>
+        </v-col>
+
+        <v-col cols="12">
+          <language-selector @setLanguage="setLanguage"/>
+        </v-col>
+      </v-row>
+    </v-card>
+  </section>
 </template>
 
 <script>
@@ -233,6 +238,16 @@ export default {
   ::placeholder {
     font-size: 16px;
     opacity: .5;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+section {
+  .v-card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 0 40px 40px 40px;
   }
 }
 </style>
