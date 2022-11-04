@@ -1,4 +1,4 @@
-image: node:14.19.0-alpine
+image: sendy-docker-local.jfrog.io/node:10.24.0-alpine AS BUILD
 
 variables:
   REIMAGINED_STAGING_IMAGE_NAME: sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:latest_$CI_COMMIT_SHORT_SHA
