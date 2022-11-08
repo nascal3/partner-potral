@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="auth-container">
     <v-img
         class="ml-n1"
         max-width="100"
@@ -66,16 +66,18 @@ export default {
 </script>
 
 <style lang="scss">
- .container.container {
-   background-color: #F8F9FC;
-   min-height: 100%;
+.container.container {
+  background-color: #F8F9FC;
+  min-height: 100%;
+}
+
+ .auth-container {
    z-index: 1;
 
    .content-box {
      position: relative;
      z-index: 1;
    }
-
  }
 
 </style>
