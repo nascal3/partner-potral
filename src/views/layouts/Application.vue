@@ -51,6 +51,10 @@ export default {
 <style lang="scss">
 .container.container {
   background-color: #FFFFFF;
+  min-height: 100%;
+}
+.app--content-container {
+  background-color: #FFFFFF;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   min-height: 100%;
 }
