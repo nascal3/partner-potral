@@ -54,9 +54,7 @@ export default {
   min-height: 100%;
 }
 .app--content-container {
-  background-color: #FFFFFF;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  min-height: 100%;
 }
 .clip {
   height: 0;

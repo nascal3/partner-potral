@@ -72,8 +72,6 @@ export default {
 }
 
  .auth-container {
-   background-color: #F8F9FC;
-   min-height: 100%;
    z-index: 1;
 
    .content-box {
