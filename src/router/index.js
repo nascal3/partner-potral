@@ -211,6 +211,12 @@ const routes = [
         name: 'notifications.index',
         component: () => import('@/components/app/notifications/Index.vue')
       },
+
+      {
+        path: 'partner-contract',
+        name: 'partner-contract.index',
+        component: () => import('@/components/app/partner_contract/Index.vue')
+      },
     ],
   },
 ]
