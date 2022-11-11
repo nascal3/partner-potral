@@ -1,31 +1,43 @@
 <template>
-  <v-card-text class="pt-6 pl-0 pr-0 pb-0">
-    <div class="message-container pa-4">
-      <div class="message-container__text">
-        <v-icon color="#116F28">mdi-check-circle</v-icon>
-        {{ $t('auth.successfully_signed') }}
+  <section v-animate-css="animationObject">
+    <v-card-text class="pt-6 pl-0 pr-0 pb-0">
+      <div class="message-container pa-4">
+        <div class="message-container__text">
+          <v-icon color="#116F28">mdi-check-circle</v-icon>
+          {{ $t('auth.successfully_signed') }}
+        </div>
+
+        <div class="message-container__subtext mt-5">
+          {{ $t('auth.successfully_signed_message') }}
+        </div>
       </div>
 
-      <div class="message-container__subtext mt-5">
-        {{ $t('auth.successfully_signed_message') }}
+      <div class="d-flex justify-end mt-6">
+        <v-btn
+            large
+            color="primary"
+            class="font-weight-bold"
+            @click="redirect"
+        >
+          {{ $t('auth.ok_go') }}
+        </v-btn>
       </div>
-    </div>
-
-    <div class="d-flex justify-end mt-6">
-      <v-btn
-          large
-          color="primary"
-          class="font-weight-bold"
-          @click="redirect"
-      >
-        {{ $t('auth.ok_go') }}
-      </v-btn>
-    </div>
-  </v-card-text>
+    </v-card-text>
+  </section>
 </template>
 
 <script>
 export default {
+
+  data() {
+    return {
+      animationObject: {
+        classes: 'slideInRight',
+        delay: 0,
+        duration: 300
+      }
+    }
+  },
 
   methods: {
     redirect() {

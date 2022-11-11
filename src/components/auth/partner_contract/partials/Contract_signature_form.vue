@@ -1,45 +1,47 @@
 <template>
-  <form @submit.prevent="submit()">
-    <v-card-text class="pt-6 pl-0 pr-0 pb-0">
-      <v-text-field
-          outlined
-          persistent-hint
-          class="body-2"
-          :label="$t('auth.identification_number')"
-          v-model="authObj.identification_no"
-          :hint="errors.get('identification_no')"
-          :error="errors.has('identification_no')"
-          @input="errors.clear('identification_no')"
-          @change="setSegmentEvent('Enter identification number as signature')"
-      ></v-text-field>
+  <section v-animate-css="animationObject">
+    <form @submit.prevent="submit()">
+      <v-card-text class="pt-6 pl-0 pr-0 pb-0">
+        <v-text-field
+            outlined
+            persistent-hint
+            class="body-2"
+            :label="$t('auth.identification_number')"
+            v-model="authObj.identification_no"
+            :hint="errors.get('identification_no')"
+            :error="errors.has('identification_no')"
+            @input="errors.clear('identification_no')"
+            @change="setSegmentEvent('Enter identification number as signature')"
+        ></v-text-field>
 
-      <v-text-field
-          outlined
-          persistent-hint
-          class="body-2"
-          :label="$t('auth.signature_name')"
-          v-model="authObj.signature_name"
-          :hint="errors.get('signature_name')"
-          :error="errors.has('signature_name')"
-          @input="errors.clear('signature_name')"
-          @change="setSegmentEvent('Enter full name as signature')"
-      ></v-text-field>
+        <v-text-field
+            outlined
+            persistent-hint
+            class="body-2"
+            :label="$t('auth.signature_name')"
+            v-model="authObj.signature_name"
+            :hint="errors.get('signature_name')"
+            :error="errors.has('signature_name')"
+            @input="errors.clear('signature_name')"
+            @change="setSegmentEvent('Enter full name as signature')"
+        ></v-text-field>
 
-    </v-card-text>
+      </v-card-text>
 
-    <v-card-actions class="pa-0">
-      <v-btn
-          large
-          type="submit"
-          color="primary"
-          class="caption font-weight-bold"
-          :loading="loading"
-          :disabled="loading || !valid"
-      >
-        {{ $t('auth.sign_contract_submit') }}
-      </v-btn>
-    </v-card-actions>
-  </form>
+      <v-card-actions class="pa-0">
+        <v-btn
+            large
+            type="submit"
+            color="primary"
+            class="caption font-weight-bold"
+            :loading="loading"
+            :disabled="loading || !valid"
+        >
+          {{ $t('auth.sign_contract_submit') }}
+        </v-btn>
+      </v-card-actions>
+    </form>
+  </section>
 </template>
 
 <script>
@@ -52,7 +54,12 @@ export default {
   data() {
     return {
       loading: false,
-      authObj: new Auth()
+      authObj: new Auth(),
+      animationObject:{
+        classes: 'slideInLeft',
+        delay: 0,
+        duration: 300
+      }
     }
   },
 
