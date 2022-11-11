@@ -95,7 +95,7 @@ export default {
 
   .height {
     display: inline-block;
-    max-height: 300px;
+    max-height: 650px;
     padding: 24px 16px;
     background-color: #959595;
   }

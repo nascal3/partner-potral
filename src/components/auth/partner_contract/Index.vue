@@ -35,6 +35,7 @@
           </div>
           <v-spacer></v-spacer>
           <v-btn
+              v-if="showForm"
               icon
               small
               @click="closeDialog"
@@ -42,55 +43,14 @@
             <v-icon small>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-
-        <form @submit.prevent="submit()">
-          <v-card-text class="pt-6 pl-0 pr-0 pb-0">
-            <v-text-field
-              outlined
-              persistent-hint
-              class="body-2"
-              :label="$t('auth.identification_number')"
-              v-model="authObj.identification_no"
-              :hint="errors.get('identification_no')"
-              :error="errors.has('identification_no')"
-              @input="errors.clear('identification_no')"
-              @change="setSegmentEvent('Enter identification number as signature')"
-            ></v-text-field>
-
-            <v-text-field
-              outlined
-              persistent-hint
-              class="body-2"
-              :label="$t('auth.signature_name')"
-              v-model="authObj.signature_name"
-              :hint="errors.get('signature_name')"
-              :error="errors.has('signature_name')"
-              @input="errors.clear('signature_name')"
-              @change="setSegmentEvent('Enter full name as signature')"
-            ></v-text-field>
-
-          </v-card-text>
-
-          <v-card-actions class="pa-0">
-            <v-btn
-                large
-                type="submit"
-                color="primary"
-                class="caption font-weight-bold"
-                :loading="loading"
-                :disabled="loading || !valid"
-            >
-              {{ $t('auth.sign_contract_submit') }}
-            </v-btn>
-          </v-card-actions>
-        </form>
+        <signature-form v-if="showForm" @showMessage="showMessage" />
+        <signature-message v-else @closeDialog="closeDialog" />
       </v-card>
     </v-dialog>
   </section>
 </template>
 
 <script>
-import Auth from "@/libs/auth/Auth"
 import segmentMixin from "@/mixins/segmentEvents"
 import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
 
@@ -99,19 +59,19 @@ export default {
 
   data() {
     return {
-      loading: false,
       rendering: true,
-      hideDocument: false,
+      showForm: true,
       page: null,
       pdfSource: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf',
       accept: false,
-      dialogLaunch: false,
-      authObj: new Auth()
+      dialogLaunch: false
     }
   },
 
   components: {
     VuePdfEmbed,
+    'signature-form': () => import('./partials/Contract_signature_form'),
+    'signature-message': () => import('./partials/Signature_message'),
   },
 
   computed: {
@@ -131,32 +91,12 @@ export default {
   },
 
   methods: {
-    handleDocumentRender() {
+    handleDocumentRender () {
       this.rendering = false
     },
 
-    submit () {
-      this.loading = true
-      this.setSegmentEvent('Submit contract signature')
-      this.authObj.sign()
-          .then(response => {
-            flash({
-              ...response,
-              color: '#38c172'
-            })
-            this.$router.push({ name: 'orders.index' })
-          })
-          .catch((error) => {
-            flash({
-              message: error.data.message,
-              color: '#e74c3c',
-            })
-          })
-          .finally(() => {
-            this.accept = false
-            this.loading = false
-            this.dialogLaunch = false
-          })
+    showMessage (value) {
+      this.showForm = false
     },
 
     closeDialog() {
