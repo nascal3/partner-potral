@@ -9,11 +9,17 @@ const routes = [
     component: () => import('@/views/layouts/Authentication.vue'),
     beforeEnter: (to, from, next) => {
       if (!auth.retrieve('user')) {
-        const authRoutes = ['register', 'generate', 'verify', 'contract']
+        const authRoutes = ['register', 'generate', 'verify']
         if (authRoutes.includes(to.name)) {
           next()
         } else {
           next('/auth/generate')
+        }
+      } else if (auth.retrieve('partner')) {
+        if (to.name == 'contract') {
+          next()
+        } else {
+          next('/')
         }
       } else {
         if (!auth.retrieve('partner')) {
@@ -210,6 +216,12 @@ const routes = [
         path: 'notifications',
         name: 'notifications.index',
         component: () => import('@/components/app/notifications/Index.vue')
+      },
+
+      {
+        path: 'partner-contract',
+        name: 'partner-contract.index',
+        component: () => import('@/components/app/partner_contract/Show.vue')
       },
     ],
   },

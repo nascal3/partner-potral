@@ -7,6 +7,6 @@
     "current_balance": 26741
   },
   "time_zone": "Africa/Nairobi",
-  "withdrawal_day": false,
+  "withdrawal_day": true,
   "status": true
 }

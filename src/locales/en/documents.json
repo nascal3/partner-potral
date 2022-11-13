@@ -61,5 +61,8 @@
   "tab_individual": "Individual",
   "tab_business": "Business",
   "submitted_image": "Submitted Image",
-  "expiry_date": "Expiry date"
+  "expiry_date": "Expiry date",
+  "contract_title": "Partner contract",
+  "download_contract": "Download contract",
+  "contract_unavailable": "No contract available!"
 }
