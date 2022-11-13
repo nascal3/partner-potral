@@ -7,9 +7,10 @@
       <v-card-text :class="{ height : !rendering }">
         <vue-pdf-embed
             ref="pdfRef"
-            :source="pdfSource"
+            :source="contractSource"
             :page="page"
             @rendered="handleDocumentRender"
+            @rendering-failed="documentRenderFail"
         />
       </v-card-text>
       <v-card-actions>
@@ -43,7 +44,7 @@
             <v-icon small>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <signature-form v-if="showForm" @showMessage="showMessage" />
+        <signature-form v-if="showForm" :contract-id="contractId" @showMessage="showMessage" />
         <signature-message v-else @closeDialog="closeDialog" />
       </v-card>
     </v-dialog>
@@ -52,17 +53,20 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
+import LegalDoc from "@/libs/app/legal_documents/LegalDocument"
 import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   mixins: [segmentMixin],
 
   data() {
     return {
+      legalObj: new LegalDoc(),
       rendering: true,
       showForm: true,
+      contractId: null,
       page: null,
-      pdfSource: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf',
       accept: false,
       dialogLaunch: false
     }
@@ -75,12 +79,19 @@ export default {
   },
 
   computed: {
-    valid () {
-      return this.authObj.identification_no && this.authObj.signature_name
+    ...mapGetters({
+      pendingContracts: 'getPendingContractDocuments',
+    }),
+
+    initialised () {
+      return this.pendingContracts && this.pendingContracts.data
     },
 
-    errors () {
-      return this.authObj.form.errors
+    contractSource () {
+      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      const { contracts } = this.pendingContracts.data
+      this.contractId = contracts.at(-1).id
+      return contracts.at(-1).contract
     }
   },
 
@@ -91,8 +102,19 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'setPendingContractDocuments'
+    ]),
+
     handleDocumentRender () {
       this.rendering = false
+    },
+
+    documentRenderFail (value) {
+      flash({
+        ...value.message,
+        color: '#e74c3c',
+      })
     },
 
     showMessage (value) {
@@ -102,7 +124,29 @@ export default {
     closeDialog() {
       this.dialogLaunch = false
       this.accept = false
-    }
+    },
+
+    loadDocuments () {
+      this.loading = true
+      const { id } = auth.retrieve('partner')
+      this.setPendingContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+  },
+
+  mounted() {
+    this.loadDocuments()
   }
 }
 </script>

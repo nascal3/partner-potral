@@ -7,11 +7,11 @@
             persistent-hint
             class="body-2"
             :label="$t('auth.identification_number')"
-            v-model="authObj.identification_no"
+            v-model="legalObj.identification_no"
             :hint="errors.get('identification_no')"
             :error="errors.has('identification_no')"
             @input="errors.clear('identification_no')"
-            @change="setSegmentEvent('Enter identification number as signature')"
+            @change="setSegmentEvent('Enter identification number for contract')"
         ></v-text-field>
 
         <v-text-field
@@ -19,11 +19,11 @@
             persistent-hint
             class="body-2"
             :label="$t('auth.signature_name')"
-            v-model="authObj.signature_name"
+            v-model="legalObj.signature_name"
             :hint="errors.get('signature_name')"
             :error="errors.has('signature_name')"
             @input="errors.clear('signature_name')"
-            @change="setSegmentEvent('Enter full name as signature')"
+            @change="setSegmentEvent('Enter full name for contract')"
         ></v-text-field>
 
       </v-card-text>
@@ -45,16 +45,24 @@
 </template>
 
 <script>
-import Auth from "@/libs/auth/Auth"
+import LegalDoc from "@/libs/app/legal_documents/LegalDocument"
 import segmentMixin from "@/mixins/segmentEvents"
+import dateMixin from "@/mixins/dateFormat"
 
 export default {
-  mixins: [segmentMixin],
+  props: {
+    contractId: {
+      type: Number,
+      default: null
+    },
+  },
+
+  mixins: [segmentMixin, dateMixin],
 
   data() {
     return {
       loading: false,
-      authObj: new Auth(),
+      legalObj: new LegalDoc(),
       animationObject:{
         classes: 'slideInLeft',
         delay: 0,
@@ -65,11 +73,11 @@ export default {
 
   computed: {
     valid () {
-      return this.authObj.identification_no && this.authObj.signature_name
+      return this.legalObj.identification_no && this.legalObj.signature_name
     },
 
     errors () {
-      return this.authObj.form.errors
+      return this.legalObj.form.errors
     }
   },
 
@@ -77,7 +85,8 @@ export default {
     submit () {
       this.loading = true
       this.setSegmentEvent('Submit contract signature')
-      this.authObj.sign()
+      this.legalObj.signed_at = new Date()
+      this.legalObj.sign()
           .then(response => {
             this.setSegmentEvent('Submit contract signature successfully')
             flash({
@@ -97,6 +106,12 @@ export default {
             this.loading = false
           })
     }
+  },
+
+  mounted () {
+    this.setSegmentEvent('Opened partner contract to be signed')
+    this.legalObj.viewed_at = new Date()
+    this.legalObj.contract_id = this.contractId
   }
 }
 </script>
