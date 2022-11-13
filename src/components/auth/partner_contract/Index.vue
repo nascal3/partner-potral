@@ -2,9 +2,11 @@
   <section>
     <v-card :loading="rendering" max-height="800" outlined flat>
       <v-card-title class="mb-6 pa-0"> {{ $t('auth.partner_contract') }}</v-card-title>
-      <v-card-subtitle v-if="rendering" class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
+      <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
-      <v-card-text :class="{ height : !rendering }">
+
+      <v-alert v-if="!initialised && !rendering" class="mt-5" type="warning">{{ $t('documents.contract_unavailable') }}</v-alert>
+      <v-card-text v-else :class="{ height : !rendering }">
         <vue-pdf-embed
             ref="pdfRef"
             :source="contractSource"
@@ -15,7 +17,7 @@
       </v-card-text>
       <v-card-actions>
         <v-checkbox
-            v-if="!rendering"
+            v-if="!rendering && initialised"
             v-model="accept"
             :label="$t('auth.contract_confirm')"
         >
@@ -55,7 +57,7 @@
 import segmentMixin from "@/mixins/segmentEvents"
 import LegalDoc from "@/libs/app/legal_documents/LegalDocument"
 import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   mixins: [segmentMixin],
@@ -84,11 +86,11 @@ export default {
     }),
 
     initialised () {
-      return this.pendingContracts && this.pendingContracts.data
+      return this.pendingContracts && this.pendingContracts.data && Object.keys(this.pendingContracts.data).length > 0
     },
 
     contractSource () {
-      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.initialised) return null
       const { contracts } = this.pendingContracts.data
       this.contractId = contracts.at(-1).id
       return contracts.at(-1).contract
@@ -98,6 +100,10 @@ export default {
   watch: {
     accept(value) {
       this.dialogLaunch = value
+    },
+
+    initialised(newValue) {
+      this.rendering = newValue
     }
   },
 
@@ -142,7 +148,7 @@ export default {
       }).finally(() => {
         this.loading = false
       })
-    },
+    }
   },
 
   mounted() {

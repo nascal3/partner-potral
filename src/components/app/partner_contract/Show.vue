@@ -17,18 +17,21 @@
 
      <app-loading v-if="rendering" />
 
-     <v-card-text class="mt-8" :class="{ height : !rendering }">
+     <v-alert v-if="!initialised" type="warning" class="mt-5" dense>{{ $t('documents.contract_unavailable') }}</v-alert>
+
+     <v-card-text v-else class="mt-8" :class="{ height : !rendering }">
        <vue-pdf-embed
            ref="pdfRef"
-           :source="pdfSource"
+           :source="contractSource"
            :page="page"
            @rendered="handleDocumentRender"
+           @rendering-failed="documentRenderFail"
        />
      </v-card-text>
 
      <v-card-actions>
        <v-btn
-         v-if="!rendering"
+         v-if="!rendering && initialised"
          large
          type="submit"
          color="primary"
@@ -45,17 +48,15 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import VuePdfEmbed from 'vue-pdf-embed/dist/vue2-pdf-embed'
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   mixins: [segmentMixin],
 
   data() {
     return {
-      loading: false,
       rendering: true,
-      hideDocument: false,
-      page: null,
-      pdfSource: 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf',
+      page: null
     }
   },
 
@@ -63,19 +64,68 @@ export default {
     VuePdfEmbed,
   },
 
+  computed: {
+    ...mapGetters({
+      partnerContracts: 'getPartnerContractDocuments',
+    }),
+
+    initialised () {
+      return this.partnerContracts && this.partnerContracts.data && this.partnerContracts.data.length > 1
+    },
+
+    contractSource () {
+      if (!this.initialised) return null
+      const { contracts } = this.partnerContracts.data
+      return contracts.at(-1).contract
+    }
+  },
+
+  watch: {
+    initialised(newValue) {
+      this.rendering = newValue
+    }
+  },
+
   methods: {
+    ...mapActions([
+      'setPartnerContractDocuments'
+    ]),
+
     handleDocumentRender() {
       this.rendering = false
     },
 
+    documentRenderFail (value) {
+      flash({
+        ...value.message,
+        color: '#e74c3c',
+      })
+    },
+
+    loadDocument () {
+      const { id } = auth.retrieve('partner')
+      this.setPartnerContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    },
+
     downloadContract() {
       this.setSegmentEvent('Downloaded signed partner contract')
-      window.open(this.pdfSource)
+      window.open(this.contractSource)
     }
   },
 
   mounted () {
     this.setSegmentEvent('Viewed signed partner contract')
+    this.loadDocument()
   }
 }
 </script>
