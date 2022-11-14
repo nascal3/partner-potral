@@ -85,7 +85,7 @@ export default {
     submit () {
       this.loading = true
       this.setSegmentEvent('Submit contract signature')
-      this.legalObj.signed_at = this.contractDateFormat(new Date())
+      this.legalObj.signed_at = new Date()
       this.legalObj.sign()
           .then(response => {
             this.setSegmentEvent('Contract signature successfully')
@@ -109,7 +109,7 @@ export default {
   },
 
   mounted () {
-    this.legalObj.viewed_at = this.contractDateFormat(new Date())
+    this.legalObj.viewed_at = new Date()
     this.legalObj.contract_id = this.contractId
   }
 }
