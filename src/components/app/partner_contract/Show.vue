@@ -70,13 +70,12 @@ export default {
     }),
 
     initialised () {
-      return this.partnerContracts && this.partnerContracts.data && this.partnerContracts.data.length > 1
+      return this.partnerContracts && this.partnerContracts.data && this.partnerContracts.data.length > 0
     },
 
     contractSource () {
-      if (!this.initialised) return null
-      const { contracts } = this.partnerContracts.data
-      return contracts.at(-1).contract
+      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      return this.partnerContracts.data.at(-1).contract
     }
   },
 
