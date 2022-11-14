@@ -5,16 +5,16 @@
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
-      <v-alert v-if="!initialised && !rendering" class="mt-5" type="warning">{{ $t('documents.contract_unavailable') }}</v-alert>
-      <v-card-text v-else :class="{ height : !rendering }">
-        <vue-pdf-embed
-            ref="pdfRef"
-            :source="contractSource"
-            :page="page"
-            @rendered="handleDocumentRender"
-            @rendering-failed="documentRenderFail"
-        />
-      </v-card-text>
+        <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
+        <v-card-text v-if="hasPendingContract" class="height">
+          <vue-pdf-embed
+              ref="pdfRef"
+              :source="contractSource"
+              :page="page"
+              @rendered="handleDocumentRender"
+              @rendering-failed="documentRenderFail"
+          />
+        </v-card-text>
       <v-card-actions>
         <v-checkbox
             v-if="!rendering && initialised"
@@ -25,7 +25,6 @@
 
       </v-card-actions>
     </v-card>
-
     <v-dialog
         v-model="dialogLaunch"
         max-width="376"
@@ -89,11 +88,17 @@ export default {
       return this.pendingContracts && this.pendingContracts.data && Object.keys(this.pendingContracts.data).length > 0
     },
 
+    hasPendingContract () {
+      if (!this.initialised) return false
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
+
     contractSource () {
       if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
       const { contracts } = this.pendingContracts.data
-      this.contractId = contracts.at(-1).id
-      return contracts.at(-1).contract
+      this.contractId = contracts[contracts.length - 1].id
+      return contracts[contracts.length - 1].contract
     }
   },
 
