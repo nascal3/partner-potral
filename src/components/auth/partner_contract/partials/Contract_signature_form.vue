@@ -7,10 +7,10 @@
             persistent-hint
             class="body-2"
             :label="$t('auth.identification_number')"
-            v-model="legalObj.identification_no"
-            :hint="errors.get('identification_no')"
-            :error="errors.has('identification_no')"
-            @input="errors.clear('identification_no')"
+            v-model="legalObj.identification_number"
+            :hint="errors.get('identification_number')"
+            :error="errors.has('identification_number')"
+            @input="errors.clear('identification_number')"
             @change="setSegmentEvent('Enter identification number for contract')"
         ></v-text-field>
 
@@ -73,7 +73,7 @@ export default {
 
   computed: {
     valid () {
-      return this.legalObj.identification_no && this.legalObj.signature_name
+      return this.legalObj.identification_number && this.legalObj.signature_name
     },
 
     errors () {

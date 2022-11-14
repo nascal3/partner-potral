@@ -90,7 +90,7 @@ export default {
     },
 
     contractSource () {
-      if (!this.initialised) return null
+      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
       const { contracts } = this.pendingContracts.data
       this.contractId = contracts.at(-1).id
       return contracts.at(-1).contract
