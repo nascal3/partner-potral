@@ -66,5 +66,6 @@
   "view_document": "Voir",
   "contract_title": "Contrat partenaire",
   "download_contract": "Télécharger le contrat",
-  "contract_unavailable": "Aucun contrat disponible !"
+  "contract_unavailable": "Aucun contrat disponible !",
+  "contract_signed": "Contrat signé"
 }

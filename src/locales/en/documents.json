@@ -64,5 +64,6 @@
   "expiry_date": "Expiry date",
   "contract_title": "Partner contract",
   "download_contract": "Download contract",
-  "contract_unavailable": "No contract available!"
+  "contract_unavailable": "No contract available!",
+  "contract_signed": "Contract signed"
 }
