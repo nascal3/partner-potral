@@ -6,7 +6,7 @@
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
         <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
-        <v-card-text v-if="hasPendingContract" class="height">
+        <v-card-text v-if="hasPendingContract">
           <vue-pdf-embed
               ref="pdfRef"
               :source="contractSource"
@@ -213,19 +213,13 @@ export default {
       font-weight: 400;
     }
 
-    .height {
+    &__text {
       display: inline-block;
-      max-height: 300px;
       padding: 24px 16px;
       background-color: #959595;
-    }
-
-    &__text {
-      padding-top: 0;
-      background-color: #FFFFFF;
       overflow-y: auto;
       overflow-x: hidden;
-      max-height: 0;
+      max-height: 300px;
       border-radius: 0;
     }
 
