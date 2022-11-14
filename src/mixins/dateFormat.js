@@ -41,6 +41,14 @@ const dateFormat = {
                 locale: locales[setLanguage]
             })
         },
+
+        contractDateFormat(date) {
+            // format date result e.g 20th September 2021 | 8am
+            if (!date) return
+            return format(new Date(date), ' do LLL yyy | hh:mm aaa', {
+                locale: locales[setLanguage]
+            })
+        },
     },
 };
 

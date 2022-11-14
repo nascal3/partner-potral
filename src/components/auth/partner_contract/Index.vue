@@ -5,24 +5,24 @@
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
-        <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
-        <v-card-text v-if="hasPendingContract">
-          <vue-pdf-embed
-              ref="pdfRef"
-              :source="contractSource"
-              :page="page"
-              @rendered="handleDocumentRender"
-              @rendering-failed="documentRenderFail"
-          />
-        </v-card-text>
-      <v-card-actions>
+      <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
+      <v-card-text v-if="hasPendingContract">
+        <vue-pdf-embed
+            ref="pdfRef"
+            :source="contractSource"
+            :page="page"
+            @rendered="handleDocumentRender"
+            @rendering-failed="documentRenderFail"
+        />
+      </v-card-text>
+
+      <v-card-actions v-if="hasPendingContract">
         <v-checkbox
             v-if="!rendering && initialised"
             v-model="accept"
             :label="$t('auth.contract_confirm')"
         >
         </v-checkbox>
-
       </v-card-actions>
     </v-card>
     <v-dialog
@@ -95,7 +95,9 @@ export default {
     },
 
     contractSource () {
+      this.rendering = false
       if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.hasPendingContract) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
       const { contracts } = this.pendingContracts.data
       this.contractId = contracts[contracts.length - 1].id
       return contracts[contracts.length - 1].contract
@@ -105,10 +107,6 @@ export default {
   watch: {
     accept(value) {
       this.dialogLaunch = value
-    },
-
-    initialised(newValue) {
-      this.rendering = newValue
     }
   },
 
