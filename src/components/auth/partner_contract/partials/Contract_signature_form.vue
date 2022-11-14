@@ -85,7 +85,7 @@ export default {
     submit () {
       this.loading = true
       this.setSegmentEvent('Submit contract signature')
-      this.legalObj.signed_at = new Date()
+      this.legalObj.signed_at = this.contractDateFormat(new Date())
       this.legalObj.sign()
           .then(response => {
             this.setSegmentEvent('Submit contract signature successfully')
@@ -98,7 +98,7 @@ export default {
           .catch((error) => {
             this.setSegmentEvent('Submit contract signature failed')
             flash({
-              message: error.data.message,
+              ...error,
               color: '#e74c3c',
             })
           })
@@ -110,7 +110,7 @@ export default {
 
   mounted () {
     this.setSegmentEvent('Opened partner contract to be signed')
-    this.legalObj.viewed_at = new Date()
+    this.legalObj.viewed_at = this.contractDateFormat(new Date())
     this.legalObj.contract_id = this.contractId
   }
 }

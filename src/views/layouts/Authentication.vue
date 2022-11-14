@@ -11,14 +11,6 @@
         cols="12"
         md="12"
       >
-<!--        <div>-->
-<!--          <h1 class="subtitle-1 font-weight-black mb-5">-->
-<!--            {{ headline }}-->
-<!--          </h1>-->
-<!--          <h2 class="subtitle-2 font-weight-light mt-n3">-->
-<!--            {{ subtitle }}-->
-<!--          </h2>-->
-<!--        </div>-->
         <router-view />
       </v-col>
     </v-row>
@@ -27,41 +19,7 @@
 
 <script>
 export default {
-  computed: {
-    headline () {
-      switch (this.$route.name) {
-        case 'register':
-          return this.$t('auth.register_partner_account')
-        case 'generate':
-          return this.$t('auth.login_to_the_portal')
-        case 'verify':
-          return this.$t('auth.enter_your_passcode')
-        case 'accounts':
-          return this.$t('auth.choose_a_partner_account')
-        case 'contract':
-          return this.$t('auth.partner_contract')
-        default:
-          return this.$t('auth.welcome_to_the_partner_portal')
-      }
-    },
 
-    subtitle () {
-      switch (this.$route.name) {
-        case 'register':
-          return this.$t('auth.register_partner_account')
-        case 'generate':
-          return this.$t('auth.login_to_the_portal')
-        case 'verify':
-          return this.$t('auth.enter_your_passcode')
-        case 'accounts':
-          return this.$t('auth.choose_a_partner_account')
-        case 'contract':
-          return this.$t('auth.contract_subtitle')
-        default:
-          return this.$t('auth.welcome_to_the_partner_portal')
-      }
-    },
-  }
 }
 </script>
 
