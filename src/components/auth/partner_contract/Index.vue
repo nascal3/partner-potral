@@ -214,7 +214,6 @@ export default {
     }
 
     &__text {
-      display: inline-block;
       padding: 24px 16px;
       background-color: #959595;
       overflow-y: auto;
