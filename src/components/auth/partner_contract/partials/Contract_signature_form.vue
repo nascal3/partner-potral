@@ -18,11 +18,11 @@
             outlined
             persistent-hint
             class="body-2"
-            :label="$t('auth.signature_name')"
-            v-model="legalObj.signature_name"
-            :hint="errors.get('signature_name')"
-            :error="errors.has('signature_name')"
-            @input="errors.clear('signature_name')"
+            :label="$t('auth.name')"
+            v-model="legalObj.name"
+            :hint="errors.get('name')"
+            :error="errors.has('name')"
+            @input="errors.clear('name')"
             @change="setSegmentEvent('Enter full name for contract')"
         ></v-text-field>
 
@@ -73,7 +73,7 @@ export default {
 
   computed: {
     valid () {
-      return this.legalObj.identification_number && this.legalObj.signature_name
+      return this.legalObj.identification_number && this.legalObj.name
     },
 
     errors () {

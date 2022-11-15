@@ -6,10 +6,10 @@
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
       <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
-      <v-card-text v-if="hasPendingContract">
+      <v-card-text>
         <vue-pdf-embed
             ref="pdfRef"
-            :source="contractSource"
+            :source="contractUrl"
             :page="page"
             @rendered="handleDocumentRender"
             @rendering-failed="documentRenderFail"
@@ -66,7 +66,6 @@ export default {
       legalObj: new LegalDoc(),
       rendering: true,
       showForm: true,
-      contractId: null,
       page: null,
       accept: false,
       dialogLaunch: false
@@ -82,6 +81,7 @@ export default {
   computed: {
     ...mapGetters({
       pendingContracts: 'getPendingContractDocuments',
+      signedContract: 'getPartnerContractDocuments',
     }),
 
     initialised () {
@@ -94,12 +94,19 @@ export default {
       return has_pending
     },
 
-    contractSource () {
-      this.rendering = false
-      if (!this.initialised) return 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
-      if (!this.hasPendingContract) return 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
+    contractId () {
+      if (!this.initialised) return null
+      const dataKeys = Object.keys(this.pendingContracts.data)
+      if(!dataKeys.includes('contracts')) return null
       const { contracts } = this.pendingContracts.data
-      this.contractId = contracts[contracts.length - 1].id
+      return contracts[contracts.length - 1].id
+    },
+
+    contractUrl () {
+      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.hasPendingContract) return this.$router.push({ name: 'partner-contract.index'})
+
+      const { contracts } = this.pendingContracts.data
       return contracts[contracts.length - 1].contract
     }
   },
@@ -112,8 +119,23 @@ export default {
 
   methods: {
     ...mapActions([
-      'setPendingContractDocuments'
+      'setPendingContractDocuments',
+      'setPartnerContractDocuments'
     ]),
+
+    setContractDocSource () {
+      if (!this.initialised) return this.contractUrl =  'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.hasPendingContract) {
+
+        console.log('>>>', this.signedContract)
+        this.contractUrl = this.signedContract.data[0].contract
+        return
+      }
+
+      const { contracts } = this.pendingContracts.data
+      this.contractUrl = contracts[contracts.length - 1].contract
+      this.rendering = false
+    },
 
     handleDocumentRender () {
       this.rendering = false
@@ -133,6 +155,21 @@ export default {
     closeDialog() {
       this.dialogLaunch = false
       this.accept = false
+    },
+
+    signedContractDocument () {
+      const { id } = auth.retrieve('partner')
+      this.setPartnerContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
     },
 
     loadDocuments () {
