@@ -74,7 +74,7 @@ export default {
     },
 
     contractSource () {
-      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.initialised) return 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
       return this.partnerContracts.data.at(-1).contract
     }
   },
