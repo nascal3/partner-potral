@@ -96,8 +96,8 @@ export default {
 
     contractSource () {
       this.rendering = false
-      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
-      if (!this.hasPendingContract) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.initialised) return 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
+      if (!this.hasPendingContract) return 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
       const { contracts } = this.pendingContracts.data
       this.contractId = contracts[contracts.length - 1].id
       return contracts[contracts.length - 1].contract
