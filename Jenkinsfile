@@ -46,7 +46,7 @@ pipeline {
             steps {
               script {
                 
-                if(env.BRANCH_NAME == "master") {
+                if(env.BRANCH_NAME == "main") {
                           env.ENV_TAG = "prod"
                     } else {
                           env.ENV_TAG = "dev"
