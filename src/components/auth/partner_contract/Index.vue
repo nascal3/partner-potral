@@ -143,21 +143,6 @@ export default {
       this.accept = false
     },
 
-    signedContractDocument () {
-      const { id } = auth.retrieve('partner')
-      this.setPartnerContractDocuments({
-        routes: {
-          partner: id
-        }
-      }).catch(error => {
-        flash({
-          message: error.data.message,
-          color: '#e74c3c',
-        })
-        throw error
-      })
-    },
-
     loadDocuments () {
       this.loading = true
       const { id } = auth.retrieve('partner')
