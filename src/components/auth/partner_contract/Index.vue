@@ -5,7 +5,7 @@
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
-      <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
+      <v-alert  class="mt-5" v-if="!hasPendingContract" type="success">{{ $t('documents.contract_signed') }}</v-alert>
       <v-card-text v-if="hasPendingContract">
         <vue-pdf-embed
             ref="pdfRef"
@@ -104,11 +104,7 @@ export default {
 
     contractUrl () {
       if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
-
-      if (!this.hasPendingContract) {
-        this.rendering = false
-        return this.$router.push({name: 'partner-contract.index'})
-      }
+      if (!this.hasPendingContract) return this.$router.push({name: 'partner-contract.index'})
 
       const { contracts } = this.pendingContracts.data
       return contracts[contracts.length - 1].contract
