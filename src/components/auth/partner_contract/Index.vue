@@ -1,6 +1,6 @@
 <template>
   <section>
-    <v-card :loading="rendering" max-height="800" outlined flat>
+    <v-card :loading="rendering" min-height="800" outlined flat>
       <v-card-title class="mb-6 pa-0"> {{ $t('auth.partner_contract') }}</v-card-title>
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
@@ -240,7 +240,7 @@ export default {
       background-color: #959595;
       overflow-y: auto;
       overflow-x: hidden;
-      max-height: 300px;
+      max-height: 600px;
       border-radius: 0;
     }
 
