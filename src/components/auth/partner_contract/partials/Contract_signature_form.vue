@@ -84,6 +84,7 @@ export default {
   methods: {
     submit () {
       this.loading = true
+      this.$emit('isLoading', true)
       this.setSegmentEvent('Submit contract signature')
       this.legalObj.signed_at = new Date()
       this.legalObj.sign()

@@ -37,7 +37,7 @@
           </div>
           <v-spacer></v-spacer>
           <v-btn
-              v-if="showForm"
+              v-if="showForm || !loading"
               icon
               small
               @click="closeDialog"
@@ -45,7 +45,7 @@
             <v-icon small>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <signature-form v-if="showForm" :contract-id="contractId" @showMessage="showMessage" />
+        <signature-form v-if="showForm" :contract-id="contractId" @showMessage="showMessage" @isLoading="isLoading" />
         <signature-message v-else @closeDialog="closeDialog" />
       </v-card>
     </v-dialog>
@@ -63,6 +63,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       legalObj: new LegalDoc(),
       rendering: true,
       showForm: true,
@@ -136,6 +137,10 @@ export default {
 
     showMessage (value) {
       this.showForm = false
+    },
+
+    isLoading (value) {
+      this.loading = value
     },
 
     closeDialog() {
