@@ -18,7 +18,7 @@
             outlined
             persistent-hint
             class="body-2"
-            :label="$t('auth.name')"
+            :label="$t('auth.signature_name')"
             v-model="legalObj.name"
             :hint="errors.get('name')"
             :error="errors.has('name')"
@@ -104,6 +104,7 @@ export default {
             })
           })
           .finally(() => {
+            this.$emit('isLoading', false)
             this.loading = false
           })
     }

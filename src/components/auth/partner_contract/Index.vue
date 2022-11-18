@@ -37,7 +37,7 @@
           </div>
           <v-spacer></v-spacer>
           <v-btn
-              v-if="showForm || !loading"
+              v-if="showForm && !loading"
               icon
               small
               @click="closeDialog"
@@ -135,7 +135,7 @@ export default {
       })
     },
 
-    showMessage (value) {
+    showMessage () {
       this.showForm = false
     },
 
