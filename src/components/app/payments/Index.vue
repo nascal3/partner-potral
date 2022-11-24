@@ -154,11 +154,10 @@ export default {
       // Compare the two dates and return 1 if the first date is after the second,
       // -1 if the first date is before the second or 0 if dates are equal.
       const currentTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
-      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      const { next_withdrawal_day, time_zone } = this.accountBalance
 
       //Correctly format dates to be compared
-      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+      const withdrawalZonedTime = zonedTimeToUtc(next_withdrawal_day, time_zone)
       const currentZonedTime = utcToZonedTime(new Date(), currentTimeZone)
 
       // Compare the two dates
@@ -178,8 +177,8 @@ export default {
 
     friendlyDateFormat() {
       if (!this.initialised) return '...'
-      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
-      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      const { next_withdrawal_day, time_zone } = this.accountBalance
+      const withdrawalTime = `${next_withdrawal_day}, ${time_zone}`
       //Correctly format date
       const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
 

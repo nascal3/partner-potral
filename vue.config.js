@@ -8,7 +8,8 @@ module.exports = {
   configureWebpack: {
     plugins: [
       new Dotenv({
-        path: '.env.local',
+        path: '.env',
+        systemvars: true
       })
     ]
   }

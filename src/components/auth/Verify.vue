@@ -88,6 +88,10 @@ export default {
       return JSON.parse(localStorage.getItem('sendy:identification'))
     },
 
+    hasPendingContract() {
+      return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
+    },
+
     preferredLoginMethod () {
       let loginMethod = null
       loginMethod = this.contactMethod
@@ -125,8 +129,8 @@ export default {
 
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
+          if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
           this.$router.push({ name: 'orders.index' })
-          this.loading = false
         })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]

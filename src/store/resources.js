@@ -21,7 +21,9 @@ export const resources = [
   { name: 'vehicleLegalDocuments', url: `partners/:partner/document-submissions` },
   { name: 'driverLegalDocuments', url: `partners/:partner/document-submissions` },
   { name: 'individualLegalDocuments', url: `partners/:partner/document-submissions` },
-  { name: 'businessLegalDocuments', url: `partners/:partner/document-submissions` }
+  { name: 'businessLegalDocuments', url: `partners/:partner/document-submissions` },
+  { name: 'partnerContractDocuments', url: `partners/:partner/contract-signatures` },
+  { name: 'pendingContractDocuments', url: `partners/:partner/contracts/pending` }
 ];
 
 export const helpers = {
