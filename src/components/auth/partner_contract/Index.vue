@@ -9,6 +9,7 @@
           v-if="!hasPendingContract"
           class="mt-5"
           type="success"
+          border="left"
           text
           prominent
       >

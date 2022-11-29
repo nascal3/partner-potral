@@ -23,6 +23,7 @@
           prominent
           type="warning"
           class="mt-5"
+          border="left"
           dense
      >
        {{ $t('documents.contract_unavailable') }}

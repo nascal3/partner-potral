@@ -20,6 +20,7 @@
             prominent
             type="error"
             icon="mdi-cloud-alert"
+            border="left"
         >
           Praesent blandit laoreet nibh. Praesent nonummy mi in odio. Phasellus tempus. Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Duis leo.
         </v-alert>
