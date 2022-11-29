@@ -23,7 +23,8 @@ export const resources = [
   { name: 'individualLegalDocuments', url: `partners/:partner/document-submissions` },
   { name: 'businessLegalDocuments', url: `partners/:partner/document-submissions` },
   { name: 'partnerContractDocuments', url: `partners/:partner/contract-signatures` },
-  { name: 'pendingContractDocuments', url: `partners/:partner/contracts/pending` }
+  { name: 'pendingContractDocuments', url: `partners/:partner/contracts/pending` },
+  { name: 'sanctions', url: `partners/:partner/sanctions`}
 ];
 
 export const helpers = {

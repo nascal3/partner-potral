@@ -14,6 +14,15 @@
         class="app--content-container"
         fluid
       >
+        <v-alert
+            v-if="isSanctioned"
+            text
+            prominent
+            type="error"
+            icon="mdi-cloud-alert"
+        >
+          Praesent blandit laoreet nibh. Praesent nonummy mi in odio. Phasellus tempus. Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Duis leo.
+        </v-alert>
         <router-view />
       </v-container>
     </div>
@@ -36,14 +45,44 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      sanction: 'getSanctions',
+    }),
+
+    isSanctioned () {
+      return this.sanction && this.sanction.sanction
+    },
+
     isTiny () {
       const name = this.$vuetify.breakpoint.name
       return name == 'xs' || name == 'sm'
     }
   },
 
+  methods: {
+    ...mapActions([
+        'setSanctions',
+    ]),
+
+    fetchSanction() {
+      const { id } = auth.retrieve('partner')
+      this.setSanctions({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    }
+  },
+
   mounted () {
     this.showDrawer = !this.isTiny
+    this.fetchSanction()
   }
 }
 </script>

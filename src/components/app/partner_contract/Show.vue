@@ -17,7 +17,16 @@
 
      <app-loading v-if="rendering" />
 
-     <v-alert v-if="!initialised && !rendering" type="warning" class="mt-5" dense>{{ $t('documents.contract_unavailable') }}</v-alert>
+     <v-alert
+          v-if="!initialised && !rendering"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          dense
+     >
+       {{ $t('documents.contract_unavailable') }}
+     </v-alert>
 
      <v-card-text v-else class="mt-8" :class="{ height : !rendering }">
        <vue-pdf-embed
