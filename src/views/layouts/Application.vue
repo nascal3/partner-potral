@@ -16,13 +16,12 @@
       >
         <v-alert
             v-if="isSanctioned"
-            text
             prominent
             type="error"
-            icon="mdi-cloud-alert"
+            icon="mdi-alert-octagon-outline"
             border="left"
         >
-          Praesent blandit laoreet nibh. Praesent nonummy mi in odio. Phasellus tempus. Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Duis leo.
+          {{ sanctionMessage }}
         </v-alert>
         <router-view />
       </v-container>
@@ -41,7 +40,9 @@ export default {
 
   data () {
     return {
-      showDrawer: false
+      showDrawer: false,
+      sanctionMessage: null,
+      isSanctioned: false
     }
   },
 
@@ -49,10 +50,6 @@ export default {
     ...mapGetters({
       sanction: 'getSanctions',
     }),
-
-    isSanctioned () {
-      return this.sanction && this.sanction.sanction
-    },
 
     isTiny () {
       const name = this.$vuetify.breakpoint.name
@@ -72,6 +69,8 @@ export default {
           partner: id
         }
       }).catch(error => {
+        this.isSanctioned = true
+        this.sanctionMessage = error.response.data.message
         flash({
           message: error.data.message,
           color: '#e74c3c',
@@ -98,5 +97,13 @@ export default {
 }
 .clip {
   height: 0;
+}
+</style>
+
+<style lang="scss" scoped>
+.v-alert {
+  z-index: 3;
+  position: fixed;
+  top: 100px;
 }
 </style>
