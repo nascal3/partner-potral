@@ -72,33 +72,35 @@
             </div>
           </div>
 
-          <!--      transactions summary tab-->
+          <!--      #####transactions summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <transactions-table/>
             </v-container>
           </v-tab-item>
-          <!--      withdrawals summary tab-->
+
+          <!--      #####withdrawals summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
 
-          <!--      savings tab-->
-<!--          <v-tab-item>-->
-<!--            <v-container fluid>-->
-<!--              <withdrawal-table/>-->
-<!--            </v-container>-->
-<!--          </v-tab-item>-->
-          <!--      repayments summary tab-->
+          <!--      #####savings tab####-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
 
-          <!--      uncleared earnings summary tab-->
+          <!--      #####repayments summary tab#####-->
+<!--          <v-tab-item>-->
+<!--            <v-container fluid>-->
+<!--              <withdrawal-table/>-->
+<!--            </v-container>-->
+<!--          </v-tab-item>-->
+
+          <!--      #####uncleared earnings summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <uncleared-earnings/>
