@@ -12,7 +12,6 @@ pipeline {
            HOME="."
            DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
     }
-
     stages {
         stage('Test') {
             agent { docker { 
