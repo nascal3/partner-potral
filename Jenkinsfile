@@ -14,16 +14,6 @@ pipeline {
     }
 
     stages {
-        stage('eslint') {
-            agent { docker { image 'node:10.24.0-alpine' } }
-            steps {
-                sh '''
-                    npm i eslint
-                    node_modules/eslint/bin/eslint.js --fix . --ext .js,.vue ./src
-                '''
-            }
-        }
-
         stage('Test') {
             agent { docker { 
                 image 'cypress/browsers:node12.4.0-chrome76' 
