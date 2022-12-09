@@ -1,15 +1,24 @@
 <template>
   <section>
-    <v-card :loading="rendering" max-height="800" outlined flat>
+    <v-card :loading="rendering" min-height="800" outlined flat>
       <v-card-title class="mb-6 pa-0"> {{ $t('auth.partner_contract') }}</v-card-title>
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
-      <v-alert  class="mt-5" v-if="!hasPendingContract && !rendering" type="success">{{ $t('documents.contract_signed') }}</v-alert>
+      <v-alert
+          v-if="!hasPendingContract"
+          class="mt-5"
+          type="success"
+          border="left"
+          text
+          prominent
+      >
+        {{ $t('documents.contract_signed') }}
+      </v-alert>
       <v-card-text v-if="hasPendingContract">
         <vue-pdf-embed
             ref="pdfRef"
-            :source="contractSource"
+            :source="contractUrl"
             :page="page"
             @rendered="handleDocumentRender"
             @rendering-failed="documentRenderFail"
@@ -37,7 +46,7 @@
           </div>
           <v-spacer></v-spacer>
           <v-btn
-              v-if="showForm"
+              v-if="showForm && !loading"
               icon
               small
               @click="closeDialog"
@@ -45,7 +54,7 @@
             <v-icon small>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <signature-form v-if="showForm" :contract-id="contractId" @showMessage="showMessage" />
+        <signature-form v-if="showForm" :contract-id="contractId" @showMessage="showMessage" @isLoading="isLoading" />
         <signature-message v-else @closeDialog="closeDialog" />
       </v-card>
     </v-dialog>
@@ -63,10 +72,10 @@ export default {
 
   data() {
     return {
+      loading: false,
       legalObj: new LegalDoc(),
       rendering: true,
       showForm: true,
-      contractId: null,
       page: null,
       accept: false,
       dialogLaunch: false
@@ -82,6 +91,7 @@ export default {
   computed: {
     ...mapGetters({
       pendingContracts: 'getPendingContractDocuments',
+      signedContract: 'getPartnerContractDocuments',
     }),
 
     initialised () {
@@ -94,12 +104,19 @@ export default {
       return has_pending
     },
 
-    contractSource () {
-      this.rendering = false
-      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
-      if (!this.hasPendingContract) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+    contractId () {
+      if (!this.initialised) return null
+      const dataKeys = Object.keys(this.pendingContracts.data)
+      if(!dataKeys.includes('contracts')) return null
       const { contracts } = this.pendingContracts.data
-      this.contractId = contracts[contracts.length - 1].id
+      return contracts[contracts.length - 1].id
+    },
+
+    contractUrl () {
+      if (!this.initialised) return 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'
+      if (!this.hasPendingContract) return this.$router.push({name: 'partner-contract.index'})
+
+      const { contracts } = this.pendingContracts.data
       return contracts[contracts.length - 1].contract
     }
   },
@@ -112,7 +129,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'setPendingContractDocuments'
+      'setPendingContractDocuments',
+      'setPartnerContractDocuments'
     ]),
 
     handleDocumentRender () {
@@ -126,8 +144,12 @@ export default {
       })
     },
 
-    showMessage (value) {
+    showMessage () {
       this.showForm = false
+    },
+
+    isLoading (value) {
+      this.loading = value
     },
 
     closeDialog() {
@@ -217,7 +239,7 @@ export default {
       background-color: #959595;
       overflow-y: auto;
       overflow-x: hidden;
-      max-height: 300px;
+      max-height: 600px;
       border-radius: 0;
     }
 

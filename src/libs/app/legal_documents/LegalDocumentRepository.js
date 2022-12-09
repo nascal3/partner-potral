@@ -7,5 +7,6 @@ export const fields = {
   identification_number: null,
   contract_id: null,
   viewed_at: null,
-  signed_at: null
+  signed_at: null,
+  name: null
 }
