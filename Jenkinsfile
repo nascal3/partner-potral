@@ -14,38 +14,29 @@ pipeline {
     }
 
     stages {
-        stage('eslint') {
-            agent { docker { image 'node:10.24.0-alpine' } }
-            steps {
-                sh '''
-                    npm i eslint
-                    node_modules/eslint/bin/eslint.js --fix . --ext .js,.vue ./src
-                '''
-            }
-        }
-
         stage('Test') {
-            agent { docker { 
-                image 'cypress/browsers:node12.4.0-chrome76' 
-                args '--ipc=host -v /dev/shm:/dev/shm'
-                } } 
+            agent {
+                docker {
+                    image 'cypress/browsers:node12.4.0-chrome76'
+                    args '--ipc=host -v /dev/shm:/dev/shm'
+                }
+            }
             steps {
                 cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
-                arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
+                    arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
                 ]) {
                     sh '''
                         npm ci
                         npm run test
                     '''
                 }
-               
+
             }
         }
 
         stage('Docker Build & Push Image') {
             steps {
               script {
-                
                 if(env.BRANCH_NAME == "main") {
                           env.ENV_TAG = "prod"
                     } else {

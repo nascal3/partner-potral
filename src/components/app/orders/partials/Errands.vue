@@ -18,11 +18,9 @@
       :loading="loading"
       :loading-text="$t('core.system_loading')"
   >
-    <template v-slot:item.destinations="{ item }">
-      {{ getLastStop(item.destinations) }}
-    </template>
-    <template v-slot:item.updated_at="{ item }">
-      {{ ordersDateFormat(item.updated_at) }}
+
+    <template v-slot:item.date="{ item }">
+      {{ notificationsDateFormat(item.date) }}
     </template>
     <template v-slot:item.status="{ item }">
       <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
@@ -31,7 +29,11 @@
     </template>
     <template v-slot:expanded-item="{ headers, item }">
       <td :colspan="headers.length">
-        <errand-details :order-details-error="errandDetailsError" :errand-details="initialised"/>
+        <errand-details
+            :errand-details-error="errandDetailsError"
+            :errand-details="errandDetailsData"
+            :loading="loadingDetails"
+        />
       </td>
     </template>
   </v-data-table>
@@ -40,11 +42,13 @@
 <script>
 import {mapGetters, mapActions} from "vuex"
 import segmentMixin from "@/mixins/segmentEvents"
+import dateFormat from "@/mixins/dateFormat"
 import Order from '@/libs/app/orders/Order'
 import OrderDetails from '@/libs/app/order_details/OrderDetails'
+// import mockErrandsResponse from "../../../../../tests/e2e/fixtures/errands.json"
 
 export default {
-  mixins: [segmentMixin],
+  mixins: [segmentMixin, dateFormat],
 
   props: {
     errands: {
@@ -66,7 +70,9 @@ export default {
   data () {
     return {
       expanded: [],
+      loadingDetails: true,
       errandDetailsError: {},
+      errandDetailsData: {},
       chipColor: 'error',
       chipTextColor: '#FFFFFF',
       page: 1,
@@ -76,7 +82,8 @@ export default {
         { text: this.$t('orders.table_errand_date'), value: 'date' },
         { text: this.$t('orders.table_errand_status'), value: 'status' },
         { text: '', value: 'data-table-expand' }
-      ]
+      ],
+      // errands: mockErrandsResponse
     }
   },
 
@@ -90,6 +97,7 @@ export default {
     }),
 
     initialised() {
+      this.errandDetailsData = this.errandDetails.data
       return this.errandDetails.data
     }
   },
@@ -101,7 +109,8 @@ export default {
 
     getErrandDetails ({item, value}) {
       if (!value) return
-      this.setSegmentEvent('Expand errand')
+      this.setSegmentEvent('View errand details')
+      this.loadingDetails = true
       const { errandId } = item
       const { id } = auth.retrieve('partner')
       this.setErrand({
@@ -110,12 +119,15 @@ export default {
           errand_id: errandId
         }
       }).then(() => {
-        this.loading = false
+        this.loadingDetails = false
       }).catch((error) => {
-        this.loading = false
-        this.errandDetailsError = error
+        this.loadingDetails = false
+        this.errandDetailsError = {
+          status: error.response.status,
+          data: error.response.data
+        }
         flash({
-          message: error.response.data.message,
+          message: error.response,
           color: '#e74c3c'
         })
       })

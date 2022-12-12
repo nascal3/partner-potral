@@ -236,10 +236,10 @@ export default {
     ]),
 
     setDateRange({dateFrom, dateTo}) {
-      this.setSegmentEvent('Filter Order Date')
+      this.setSegmentEvent('Filter Order/Errand Date')
       this.dateFrom = dateFrom
       this.dateTo = dateTo
-      this.loadOrders()
+      this.tab === 1 ? this.loadErrands() : this.loadOrders()
     },
 
     getOrderDetails ({item, value}) {
@@ -371,7 +371,6 @@ export default {
       this.loadingErrands = true
       const { id } = auth.retrieve('partner')
       this.getDriverIds().then(driverIds => {
-        console.log(driverIds)
         this.setErrands({
           routes: {
             partner: id

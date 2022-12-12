@@ -69,7 +69,7 @@ export default {
           partner: id
         }
       }).catch(error => {
-        this.isSanctioned = true
+        if (error.response.status === 403) this.isSanctioned = true
         this.sanctionMessage = error.response.data.message
         flash({
           message: error.data.message,

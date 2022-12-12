@@ -1,0 +1,109 @@
+{
+  "code": 200,
+  "data": {
+    "carrierTypes": [
+      "closed",
+      "boxed"
+    ],
+    "distanceLimit": "20 km",
+    "errandId": "E-RSA-37107-WHZ",
+    "instructions": [
+      {
+        "actions": [
+          {
+            "amount": 1000,
+            "currency": "KES",
+            "priority": 2,
+            "reference": "0100",
+            "status": "CREATED",
+            "type": "PAYMENT_COLLECTION"
+          },
+          {
+            "items": [
+              {
+                "itemId": "sal001",
+                "metadata": {
+                  "description": "Sal",
+                  "displayImageLink": "http://sal_image.com"
+                },
+                "quantity": 3
+              },
+              {
+                "itemId": "azucar001",
+                "metadata": {
+                  "description": "Azucar",
+                  "displayImageLink": "http://azucar_image.com"
+                },
+                "quantity": 3
+              }
+            ],
+            "priority": 1,
+            "reference": "0099",
+            "status": "CREATED",
+            "type": "DROP_OFF"
+          }
+        ],
+        "lastUpdated": "2022-11-23T16:17:23Z[UTC]",
+        "location": {
+          "coordinates": "-1.2987,36.79376",
+          "name": "Yaya Centre",
+          "note": "3rd floor"
+        },
+        "priority": 0,
+        "reference": "002",
+        "status": "COMPLETE"
+      },
+      {
+        "actions": [
+          {
+            "items": [
+              {
+                "itemId": "sal001",
+                "metadata": {
+                  "description": "Sal",
+                  "displayImageLink": "http://sal_image.com"
+                },
+                "quantity": 3
+              },
+              {
+                "itemId": "azucar001",
+                "metadata": {
+                  "description": "Azucar",
+                  "displayImageLink": "http://azucar_image.com"
+                },
+                "quantity": 3
+              }
+            ],
+            "reference": "0099",
+            "status": "CREATED",
+            "type": "PICKUP"
+          }
+        ],
+        "lastUpdated": "2022-11-23T16:17:19Z[UTC]",
+        "location": {
+          "coordinates": "-1.299321,36.7619560",
+          "name": "Michaels Bouquet",
+          "note": "3rd floor"
+        },
+        "priority": 0,
+        "reference": "001",
+        "status": "COMPLETE"
+      }
+    ],
+    "lastUpdated": "2022-11-23T16:17:51Z[UTC]",
+    "pricing": {
+      "cost": 377,
+      "currency": "KES",
+      "driverDeliveryCost": 317,
+      "pricingType": "DISTANCE_PRICING",
+      "sendyCommission": 20,
+      "vatAmount": 52
+    },
+    "region": "KE",
+    "status": "COMPLETE",
+    "vehicleType": 1
+  },
+  "errors": [],
+  "message": "Errand retrieves successfully",
+  "status": true
+}
