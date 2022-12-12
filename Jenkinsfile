@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
     parameters {
         string(name: 'ENV_TAG', defaultValue: 'dev')
