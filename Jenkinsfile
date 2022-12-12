@@ -11,28 +11,29 @@ pipeline {
            IMAGE_BASE_NAME = "${CI_REGISTRY}/${APP_NAME}"
            HOME="."    }
     stages {
-        // stage('Test') {
-        //     agent { docker { 
-        //         image 'cypress/browsers:node12.4.0-chrome76' 
-        //         args '--ipc=host -v /dev/shm:/dev/shm'
-        //         } } 
-        //     steps {
-        //         cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
-        //         arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
-        //         ]) {
-        //             sh '''
-        //                 npm ci
-        //                 npm run test
-        //             '''
-        //         }
-               
-        //     }
-        // }
+        stage('Test') {
+            agent {
+                docker {
+                    image 'cypress/browsers:node12.4.0-chrome76'
+                    args '--ipc=host -v /dev/shm:/dev/shm'
+                }
+            }
+            steps {
+                cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
+                    arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
+                ]) {
+                    sh '''
+                        npm ci
+                        npm run test
+                    '''
+                }
+
+            }
+        }
 
         stage('Docker Build & Push Image') {
             steps {
               script {
-                
                 if(env.BRANCH_NAME == "main") {
                           env.ENV_TAG = "prod"
                     } else {
