@@ -6,11 +6,11 @@ pipeline {
     }
 
     environment {
-           npm_config_cache = 'npm-cache'
+        //    npm_config_cache = 'npm-cache'
            APP_NAME = "vue-partner-portal-reimagined"
            IMAGE_BASE_NAME = "${CI_REGISTRY}/${APP_NAME}"
-           HOME="."
-           DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
+        //    HOME="."
+        //    DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
     }
 
     stages {
@@ -45,7 +45,6 @@ pipeline {
                 sh '''
                     IMAGE_TAG="${ENV_TAG}_$(date +%Y-%m-%d-%H-%M)"
                     IMAGE_NAME="${IMAGE_BASE_NAME}:${IMAGE_TAG}"
-                    echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                     docker build --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF=https://partner-bff.sendyit.com/api/v1/  --build-arg MAPS_API_KEY='AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww' --build-arg MIX_PANEL_TOKEN='ce3d573d8a523759617f9d21792b1a4f'  -f Dockerfile -t $IMAGE_NAME .
                     docker push $IMAGE_NAME
                 '''
