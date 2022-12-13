@@ -98,7 +98,7 @@ export default {
     }),
 
     initialised () {
-      return this.paymentMethods.data && Object.keys(this.paymentMethods.data).length >= 1
+      return this.paymentMethods.data && Object.keys(this.paymentMethods.data).length > 0
     },
 
     errors () {

@@ -42,6 +42,7 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -87,6 +88,19 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      partnerContracts: 'getPartnerContractDocuments',
+    }),
+
+    contractsDataInitialised () {
+      return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
+    },
+
+    pendingContracts () {
+      if (!this.contractsDataInitialised) return true
+      return this.partnerContracts.data.has_pending
+    },
+
     btnDisabled() {
       return this.disabled || !this.paymentMethodsInit
     },
@@ -101,11 +115,38 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'setPartnerContractDocuments'
+    ]),
+
+    loadDocument () {
+      const { id } = auth.retrieve('partner')
+      this.setPartnerContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    },
+
     proceedToWithdraw() {
       this.setSegmentEvent('Proceed to withdraw amount')
+      if (this.pendingContracts) {
+        this.setSegmentEvent('Redirected to sign partner contract')
+        return this.$router.push({ name: 'contract' })
+      }
       this.$emit('proceed', true)
     }
   },
+
+  mounted () {
+    this.loadDocument()
+  }
 }
 </script>
 

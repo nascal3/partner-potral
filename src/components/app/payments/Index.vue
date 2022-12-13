@@ -72,33 +72,35 @@
             </div>
           </div>
 
-          <!--      transactions summary tab-->
+          <!--      #####transactions summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <transactions-table/>
             </v-container>
           </v-tab-item>
-          <!--      withdrawals summary tab-->
+
+          <!--      #####withdrawals summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
 
-          <!--      savings tab-->
-<!--          <v-tab-item>-->
-<!--            <v-container fluid>-->
-<!--              <withdrawal-table/>-->
-<!--            </v-container>-->
-<!--          </v-tab-item>-->
-          <!--      repayments summary tab-->
+          <!--      #####savings tab####-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
 
-          <!--      uncleared earnings summary tab-->
+          <!--      #####repayments summary tab#####-->
+<!--          <v-tab-item>-->
+<!--            <v-container fluid>-->
+<!--              <withdrawal-table/>-->
+<!--            </v-container>-->
+<!--          </v-tab-item>-->
+
+          <!--      #####uncleared earnings summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <uncleared-earnings/>
@@ -117,6 +119,7 @@ import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import dateFormat from "@/mixins/dateFormat"
 import {mapGetters, mapActions} from "vuex"
+// import mockResponse from "../../../../tests/e2e/fixtures/accountBalance.json"
 
 export default {
   mixins: [segmentMixin, formatNumbers, dateFormat],
@@ -153,11 +156,10 @@ export default {
       // Compare the two dates and return 1 if the first date is after the second,
       // -1 if the first date is before the second or 0 if dates are equal.
       const currentTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
-      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      const { next_withdrawal_day, time_zone } = this.accountBalance
 
       //Correctly format dates to be compared
-      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+      const withdrawalZonedTime = zonedTimeToUtc(next_withdrawal_day, time_zone)
       const currentZonedTime = utcToZonedTime(new Date(), currentTimeZone)
 
       // Compare the two dates
@@ -166,7 +168,7 @@ export default {
     },
 
     allowWithdraw() {
-      return this.accountBalance.withdrawal_day && this.isWithdrawalDate
+      return this.accountBalance.withdrawal_day
     },
 
     currency() {
@@ -177,8 +179,8 @@ export default {
 
     friendlyDateFormat() {
       if (!this.initialised) return '...'
-      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
-      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      const { next_withdrawal_day, time_zone } = this.accountBalance
+      const withdrawalTime = `${next_withdrawal_day}, ${time_zone}`
       //Correctly format date
       const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
 

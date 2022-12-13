@@ -77,7 +77,6 @@ export default {
   components: {
     'document-details': () => import('./DocumentDetailsModal.vue'),
     'document-edit': () => import('@/components/app/vehicle_documents/Edit')
-
   },
 
   data () {
