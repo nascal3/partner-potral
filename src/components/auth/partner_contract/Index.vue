@@ -101,6 +101,7 @@ export default {
     hasPendingContract () {
       if (!this.initialised) return false
       const { has_pending } = this.pendingContracts.data
+      if (!has_pending) this.$router.push({name: 'partner-contract.index'})
       return has_pending
     },
 
