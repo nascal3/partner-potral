@@ -88,18 +88,19 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      partnerContracts: 'getPartnerContractDocuments',
-    }),
+    // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
+    // ...mapGetters({
+    //   partnerContracts: 'getPartnerContractDocuments',
+    // }),
 
-    contractsDataInitialised () {
-      return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
-    },
+    // contractsDataInitialised () {
+    //   return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
+    // },
 
-    pendingContracts () {
-      if (!this.contractsDataInitialised) return true
-      return this.partnerContracts.data.has_pending
-    },
+    // pendingContracts () {
+    //   if (!this.contractsDataInitialised) return true
+    //   return this.partnerContracts.data.has_pending
+    // },
 
     btnDisabled() {
       return this.disabled || !this.paymentMethodsInit
@@ -136,10 +137,11 @@ export default {
 
     proceedToWithdraw() {
       this.setSegmentEvent('Proceed to withdraw amount')
-      if (this.pendingContracts) {
-        this.setSegmentEvent('Redirected to sign partner contract')
-        return this.$router.push({ name: 'contract' })
-      }
+      // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
+      // if (this.pendingContracts) {
+      //   this.setSegmentEvent('Redirected to sign partner contract')
+      //   return this.$router.push({ name: 'contract' })
+      // }
       this.$emit('proceed', true)
     }
   },
