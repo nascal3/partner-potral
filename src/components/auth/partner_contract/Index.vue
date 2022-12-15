@@ -5,16 +5,6 @@
       <v-card-subtitle v-if="rendering" class="mt -6 mb-10 pa-0"> {{ $t('auth.contract_loading') }}</v-card-subtitle>
       <v-card-subtitle v-else class="mt-6 mb-10 pa-0"> {{ $t('auth.contract_subtitle') }}</v-card-subtitle>
 
-      <v-alert
-          v-if="!hasPendingContract"
-          class="mt-5"
-          type="success"
-          border="left"
-          text
-          prominent
-      >
-        {{ $t('documents.contract_signed') }}
-      </v-alert>
       <v-card-text v-if="hasPendingContract">
         <vue-pdf-embed
             ref="pdfRef"

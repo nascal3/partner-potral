@@ -42,7 +42,7 @@ export default {
   methods: {
     redirect() {
       this.$emit('closeDialog', true)
-      this.$router.push({ name: 'orders.index' })
+      this.$router.push({name: 'partner-contract.index'})
     }
   }
 }
