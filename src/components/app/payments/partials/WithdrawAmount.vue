@@ -89,20 +89,21 @@ export default {
 
   computed: {
     ...mapGetters({
-      partnerContracts: 'getPartnerContractDocuments',
+      pendingContracts: 'getPendingContractDocuments',
     }),
 
     contractsDataInitialised () {
-      return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
     },
 
-    pendingContracts () {
-      if (!this.contractsDataInitialised) return true
-      return this.partnerContracts.data.has_pending
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
     },
 
     btnDisabled() {
-      return this.disabled || !this.paymentMethodsInit || this.pendingContracts
+      return this.disabled || !this.paymentMethodsInit || this.pendingUnsignedContracts
     },
 
     errors() {

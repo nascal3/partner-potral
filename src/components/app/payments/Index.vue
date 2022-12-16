@@ -19,7 +19,7 @@
       <v-divider></v-divider>
 
         <v-alert
-            v-if="pendingContracts"
+            v-if="pendingUnsignedContracts"
             text
             prominent
             type="warning"
@@ -161,16 +161,17 @@ export default {
   computed: {
     ...mapGetters({
       accountBalance: 'getAccountBalance',
-      partnerContracts: 'getPartnerContractDocuments',
+      pendingContracts: 'getPendingContractDocuments',
     }),
 
     contractsDataInitialised () {
-      return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
     },
 
-    pendingContracts () {
-      if (!this.contractsDataInitialised) return true
-      return this.partnerContracts.data.has_pending
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
     },
 
     initialised () {
@@ -226,7 +227,7 @@ export default {
   methods: {
     ...mapActions([
       'setAccountBalance',
-      'setPartnerContractDocuments'
+      'setPendingContractDocuments',
     ]),
 
     signContract() {
@@ -234,9 +235,10 @@ export default {
       this.$router.push({ name: 'contract' })
     },
 
-    loadContractDocument () {
+    loadDocuments () {
+      this.loading = true
       const { id } = auth.retrieve('partner')
-      this.setPartnerContractDocuments({
+      this.setPendingContractDocuments({
         routes: {
           partner: id
         }
@@ -246,6 +248,8 @@ export default {
           color: '#e74c3c',
         })
         throw error
+      }).finally(() => {
+        this.loading = false
       })
     },
 
@@ -271,7 +275,7 @@ export default {
   mounted () {
     this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
-    this.loadContractDocument()
+    this.loadDocuments()
   }
 }
 </script>
