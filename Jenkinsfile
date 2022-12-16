@@ -6,31 +6,31 @@ pipeline {
     }
 
     environment {
-           npm_config_cache = 'npm-cache'
+//            npm_config_cache = 'npm-cache'
            APP_NAME = "vue-partner-portal-reimagined"
            IMAGE_BASE_NAME = "${CI_REGISTRY}/${APP_NAME}"
-           HOME="."
-           DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
+//            HOME="."
+//            DOCKERHUB_CREDENTIALS=credentials('docker-credentials')
     }
 
     stages {
-//         stage('Test') {
-//             agent { docker {
-//                 image 'cypress/browsers:node12.4.0-chrome76'
-//                 args '--ipc=host -v /dev/shm:/dev/shm'
-//                 } }
-//             steps {
-//                 cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
-//                 arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
-//                 ]) {
-//                     sh '''
-//                         npm ci
-//                         npm run test
-//                     '''
-//                 }
-//
-//             }
-//         }
+        stage('Test') {
+            agent { docker {
+                image 'cypress/browsers:node12.4.0-chrome76'
+                args '--ipc=host -v /dev/shm:/dev/shm'
+                } }
+            steps {
+                cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
+                arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
+                ]) {
+                    sh '''
+                        npm ci
+                        npm run test
+                    '''
+                }
+
+            }
+        }
 
         stage('Docker Build & Push Image') {
             steps {
