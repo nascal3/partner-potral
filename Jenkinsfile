@@ -14,23 +14,23 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
-            agent { docker {
-                image 'cypress/browsers:node12.4.0-chrome76'
-                args '--ipc=host -v /dev/shm:/dev/shm'
-                } }
-            steps {
-                cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
-                arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
-                ]) {
-                    sh '''
-                        npm ci
-                        npm run test
-                    '''
-                }
-
-            }
-        }
+//         stage('Test') {
+//             agent { docker {
+//                 image 'cypress/browsers:node12.4.0-chrome76'
+//                 args '--ipc=host -v /dev/shm:/dev/shm'
+//                 } }
+//             steps {
+//                 cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
+//                 arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
+//                 ]) {
+//                     sh '''
+//                         npm ci
+//                         npm run test
+//                     '''
+//                 }
+//
+//             }
+//         }
 
         stage('Docker Build & Push Image') {
             steps {
@@ -46,7 +46,7 @@ pipeline {
                               docker build --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF=https://partner-bff.sendyit.com/api/v1/  --build-arg MAPS_API_KEY='AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww' --build-arg MIX_PANEL_TOKEN='ce3d573d8a523759617f9d21792b1a4f'  -f Dockerfile -t $IMAGE_NAME .
                               docker push $IMAGE_NAME
                           '''
-                    } else {
+                } else {
                           env.ENV_TAG = "dev"
 
                           sh '''
