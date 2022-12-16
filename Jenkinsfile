@@ -14,23 +14,23 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
-            agent { docker {
-                image 'cypress/browsers:node12.4.0-chrome76'
-                args '--ipc=host -v /dev/shm:/dev/shm'
-                } }
-            steps {
-                cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
-                arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
-                ]) {
-                    sh '''
-                        npm ci
-                        npm run test
-                    '''
-                }
-
-            }
-        }
+//         stage('Test') {
+//             agent { docker {
+//                 image 'cypress/browsers:node12.4.0-chrome76'
+//                 args '--ipc=host -v /dev/shm:/dev/shm'
+//                 } }
+//             steps {
+//                 cache(maxCacheSize: 900, defaultBranch: 'staging', caches: [
+//                 arbitraryFileCache(path: '.cache/Cypress/',compressionMethod: 'NONE')
+//                 ]) {
+//                     sh '''
+//                         npm ci
+//                         npm run test
+//                     '''
+//                 }
+//
+//             }
+//         }
 
         stage('Docker Build & Push Image') {
             steps {
