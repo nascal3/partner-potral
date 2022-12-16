@@ -74,5 +74,7 @@
   "payment_method": "Payment method",
   "funds_sent_to": "Funds sent to",
   "next_withdrawal_date": "Next withdrawal is on",
-  "from": "from"
+  "from": "from",
+  "unsigned_contract_warning": "Your contract needs to be signed to be able to do a withdrawal",
+  "sign_contract": "Sign contract"
 }
