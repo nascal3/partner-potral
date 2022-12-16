@@ -88,10 +88,9 @@ export default {
       return JSON.parse(localStorage.getItem('sendy:identification'))
     },
 
-    // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
-    // hasPendingContract() {
-    //   return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
-    // },
+    hasPendingContract() {
+      return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
+    },
 
     preferredLoginMethod () {
       let loginMethod = null
