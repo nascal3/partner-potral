@@ -51,6 +51,7 @@ pipeline {
                         docker build --build-arg VUE_APP_PORTAL='sendy:partner' --build-arg VUE_APP_PARTNER_BFF=${env.BFF_URL}  --build-arg MAPS_API_KEY=${env.MAPS_KEY}  --build-arg MIX_PANEL_TOKEN='ce3d573d8a523759617f9d21792b1a4f' -f Dockerfile -t $IMAGE_NAME .
                         docker push $IMAGE_NAME
                     '''
+                 }
             }
         }
     }
