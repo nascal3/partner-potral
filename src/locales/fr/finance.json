@@ -77,5 +77,7 @@
   "withdrawal_state": "État de retrait",
   "withdrawals": "Retraits",
   "withdrawals_title": "Retraits",
-  "your_earnings": "Vos gains"
+  "your_earnings": "Vos gains",
+  "unsigned_contract_warning": "Votre contrat doit être signé pour pouvoir effectuer un retrait",
+  "sign_contract": "Signer le contrat"
 }

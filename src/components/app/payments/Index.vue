@@ -18,6 +18,26 @@
 
       <v-divider></v-divider>
 
+        <v-alert
+            v-if="pendingContracts"
+            text
+            prominent
+            type="warning"
+            class="mt-5"
+            border="left"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              {{ $t('finance.unsigned_contract_warning') }}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn color="warning" @click="signContract">
+                {{ $t('finance.sign_contract') }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
@@ -140,8 +160,18 @@ export default {
 
   computed: {
     ...mapGetters({
-      accountBalance: 'getAccountBalance'
+      accountBalance: 'getAccountBalance',
+      partnerContracts: 'getPartnerContractDocuments',
     }),
+
+    contractsDataInitialised () {
+      return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
+    },
+
+    pendingContracts () {
+      if (!this.contractsDataInitialised) return true
+      return this.partnerContracts.data.has_pending
+    },
 
     initialised () {
       let account = []
@@ -195,8 +225,29 @@ export default {
 
   methods: {
     ...mapActions([
-      'setAccountBalance'
+      'setAccountBalance',
+      'setPartnerContractDocuments'
     ]),
+
+    signContract() {
+      this.setSegmentEvent('Redirected to sign partner contract')
+      this.$router.push({ name: 'contract' })
+    },
+
+    loadContractDocument () {
+      const { id } = auth.retrieve('partner')
+      this.setPartnerContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    },
 
     loadAccountBalance () {
       const { id } = auth.retrieve('partner')
@@ -220,6 +271,7 @@ export default {
   mounted () {
     this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
+    this.loadContractDocument()
   }
 }
 </script>
