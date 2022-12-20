@@ -10,9 +10,9 @@
           v-bind="attrs"
           color="primary"
           class="caption ttn"
-          @click="setSegmentEvent('Add bank account')"
+          @click="setSegmentEvent('Add financial account')"
       >
-        {{ $t('finance.add_bank') }}
+        {{ $t('finance.add_account') }}
       </v-btn>
     </template>
 
@@ -20,7 +20,7 @@
       <form @submit.prevent="submit()">
         <v-card-title>
           <h2 class="subtitle-1">
-            {{ $t('finance.add_bank') }}
+            {{ $t('finance.add_account') }}
           </h2>
           <v-spacer></v-spacer>
           <v-btn
@@ -35,20 +35,28 @@
 
         <v-divider></v-divider>
 
-        <bank-details
-            v-if="!proceed"
-            :input-errors="errors"
-            @amount="amount"
-            @proceed="proceedToWithdraw"
-        />
-
-        <get-otp
+        <select-account
             v-if="proceed"
             :input-errors="errors"
             :amount="withdrawAmount"
             @paymentMethod="paymentMethod"
             @proceed="proceedToWithdraw"
         />
+
+<!--        <account-details-->
+<!--            v-if="!proceed"-->
+<!--            :input-errors="errors"-->
+<!--            @amount="amount"-->
+<!--            @proceed="proceedToWithdraw"-->
+<!--        />-->
+<!--        -->
+<!--        <get-otp-->
+<!--            v-if="proceed"-->
+<!--            :input-errors="errors"-->
+<!--            :amount="withdrawAmount"-->
+<!--            @paymentMethod="paymentMethod"-->
+<!--            @proceed="proceedToWithdraw"-->
+<!--        />-->
 
       </form>
     </v-card>
@@ -64,7 +72,8 @@ import formatNumbers from "@/mixins/formatNumbers";
 export default {
   mixins: [segmentMixin, formatNumbers],
   components: {
-    'bank-details': () => import('./BankDetails.vue'),
+    'account-details': () => import('./AccountDetails.vue'),
+    'select-account': () => import('./SelectAccount.vue'),
     'get-otp': () => import('./GetOTP.vue'),
   },
 

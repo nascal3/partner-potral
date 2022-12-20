@@ -4,12 +4,12 @@
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
-            {{ $t('finance.bank_title') }}
+            {{ $t('finance.accounts_title') }}
           </h1>
         </div>
         <v-spacer></v-spacer>
 
-        <bank-modal/>
+        <add-account-modal/>
 
       </v-card-title>
 
@@ -56,7 +56,7 @@ export default {
   mixins: [segmentMixin, formatNumbers],
 
   components: {
-    'bank-modal': () => import('./bankModal/BankModal.vue')
+    'add-account-modal': () => import('./addAccountModal/accountModal.vue')
   },
 
   data() {
@@ -64,12 +64,11 @@ export default {
       banks: [],
       loading: true,
       headers: [
-        { text: this.$t('finance.tbl_bank'), value: 'bank_name' },
-        { text: this.$t('finance.tbl_bank_branch'), value: 'bank_branch' },
+        { text: this.$t('finance.tbl_account_type'), value: 'bank_branch' },
         { text: this.$t('finance.tbl_account_name'), value: 'account_name' },
         { text: this.$t('finance.tbl_account_number'), value: 'account_number' },
         { text: this.$t('finance.tbl_status'), value: 'status' },
-        { text: this.$t('finance.tbl_status'), value: '' }
+        { text: this.$t('finance.tbl_action'), value: '' }
       ]
     }
   },

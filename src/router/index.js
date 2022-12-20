@@ -201,9 +201,9 @@ const routes = [
       },
 
       {
-        path: 'banks',
-        name: 'banks.index',
-        component: () => import('@/components/app/payments/banks/Index.vue')
+        path: 'accounts',
+        name: 'accounts.index',
+        component: () => import('@/components/app/payments/accounts/Index.vue')
       },
 
       {
