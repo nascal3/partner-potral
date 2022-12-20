@@ -55,6 +55,8 @@ Vue.use(VueGoogleMaps, {
 })
 Vue.use(VAnimateCss)
 
+console.log('===>>', process.env)
+
 new Vue({
   router,
   store,
