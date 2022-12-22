@@ -40,6 +40,7 @@
   "tbl_order_completed_on": "Order Completed on",
   "tbl_order_id": "Order ID",
   "tbl_bank_branch": "Bank branch",
+  "tbl_account": "Account",
   "tbl_account_name": "Account name",
   "tbl_account_type": "Account type",
   "tbl_account_number": "Account number",
@@ -48,6 +49,7 @@
   "tbl_from": "From",
   "tbl_to": "To",
   "tbl_earnings": "Earnings",
+  "tbl_active": "Active",
   "withdraw_btn": "Withdraw Cash",
   "txn_id": "Transaction Id",
   "txn_date": "Completed on",
@@ -77,5 +79,16 @@
   "next_withdrawal_date": "Next withdrawal is on",
   "from": "from",
   "unsigned_contract_warning": "Your contract needs to be signed to be able to do a withdrawal",
-  "sign_contract": "Sign contract"
+  "sign_contract": "Sign contract",
+  "select_payout_method": "Select payment method",
+  "insert_account_details": "Insert account details",
+  "edit_details": "Edit details",
+  "delete_account": "Delete account",
+  "account_name": "Enter bank account name*",
+  "account_number": "Enter bank account number*",
+  "select_bank": "Select bank*",
+  "insert_otp": "Insert OTP send to your email address",
+  "validate_otp": "Validate OTP",
+  "passcode_expired": "OTP code expired?",
+  "account_success": "Account successfully added!"
 }

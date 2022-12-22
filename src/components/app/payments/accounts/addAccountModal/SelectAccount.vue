@@ -1,103 +1,60 @@
 <template>
   <section v-animate-css="animationObject">
-    <div class="d-flex justify-space-between pa-4">
-      <div>{{ $t('finance.amount_label') }}</div>
-      <div>
-        <span>KES</span>
-        {{ amount }}
-      </div>
-    </div>
-
-    <v-divider class="mx-4"></v-divider>
 
     <div class="px-4 pt-4">
-      {{ $t('finance.withdraw_method_question') }}
+      {{ $t('finance.select_payout_method') }}
     </div>
 
     <v-card-text class="py-0">
-      <v-radio-group v-model="paymentMethod">
-        <v-radio value="mpesa" class="rounded-lg" :class="{ active: paymentMethod === 'mpesa' }">
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select mpesa payment method')">
-              <div class="method-icon rounded pa-1 mr-2">
-                <v-img
-                    max-width="45"
-                    :src="require('@/assets/mpesa-logo.png')"
-                ></v-img>
+      <v-radio-group v-model="selectedPaymentMethod">
+        <section v-if="paymentMethods && paymentMethods.length">
+          <v-radio
+              v-for="(method, index) in paymentMethods"
+              :key="index"
+              :value="method"
+              class="rounded-lg"
+              :class="{ active: selectedPaymentMethod?.payment_method_id === method.payment_method_id }"
+              @click="setSegmentEvent(`Select ${method.name} payout method`)"
+          >
+            <template v-slot:label>
+              <div class="d-flex">
+                <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
+                  <v-img
+                      v-if="method.category.toLowerCase() === 'mobile'"
+                      max-width="45"
+                      :src=" method.localised_names === 'M-PESA' ? mpesaLogo :mobileMoneyLogo"
+                  ></v-img>
+                  <v-icon v-if="method.name === 'Bank'">mdi-bank</v-icon>
+                </div>
+                <div class="d-flex flex-column method-text">
+                  <div>{{ method.category }}</div>
+                  <div>{{ selectDisplayText(method.localised_names) }}</div>
+                </div>
               </div>
-              <div class="d-flex flex-column method-text">
-                <div>M-PESA</div>
-                <!--            TODO fetch partner mobile number-->
-                <div>**** 7659</div>
-              </div>
-            </div>
-          </template>
-        </v-radio>
-        <v-radio value="bank" class="rounded-lg" :class="{ active: paymentMethod === 'bank' }">
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
-              <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
-                <v-icon>mdi-bank</v-icon>
-              </div>
-              <div class="d-flex flex-column method-text">
-                <div>Bank Transfer</div>
-                <!--            TODO fetch partner bank number-->
-                <div>ABSA | ****9098</div>
-              </div>
-            </div>
-          </template>
-        </v-radio>
+            </template>
+          </v-radio>
+        </section>
       </v-radio-group>
     </v-card-text>
-    <v-card-actions class="d-flex flex-column px-4 pb-5">
-      <v-btn
-          block
-          large
-          type="submit"
-          color="primary"
-          class="caption font-weight-bold mb-4"
-          :dark="!disabled"
-          :disabled="disabled"
-      >
-        {{ $t('finance.withdraw') }}
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
-          block
-          large
-          text
-          class="caption font-weight-bold"
-          @click="navigateBack"
-      >
-        {{ $t('finance.btn_back') }}
-      </v-btn>
-    </v-card-actions>
   </section>
 </template>
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
-import formatNumbers from "@/mixins/formatNumbers"
+import mockData from '../../../../../../tests/e2e/fixtures/payOutMethods.json'
 
 export default {
-  mixins: [segmentMixin, formatNumbers],
-
-  props: {
-    inputErrors: {
-      type: Object,
-      default: () => {}
-    },
-    amount: {
-      type: String,
-      default: () => '0'
-    },
-  },
+  mixins: [segmentMixin],
 
   data() {
     return {
       disabled: true,
-      withdrawAmount: null,
-      paymentMethod: null,
+      loading: false,
+      mpesaLogo: require('@/assets/mpesa-logo.png'),
+      mobileMoneyLogo: require('@/assets/mobile-money-logo.jpeg'),
+      selectedPaymentMethod: null,
+      locale: localStorage.getItem('setLanguage'),
+      paymentMethods: mockData.payment_methods,
       animationObject:{
         classes: 'slideInRight',
         delay: 0,
@@ -107,27 +64,26 @@ export default {
   },
 
   watch: {
-    amount (value) {
-      this.withdrawAmount = this.formatAmountToNumber(value)
-    },
-
-    paymentMethod (value) {
-      this.disabled = !value
-      this.$emit('paymentMethod', value)
+    selectedPaymentMethod (value) {
+      this.$emit('selectedPaymentMethod', value)
     }
   },
 
   computed: {
-    errors() {
-      return this.inputErrors
-    }
+
   },
 
   methods: {
-    navigateBack () {
-      this.setSegmentEvent('Navigate back to payment amount')
-      this.$emit('proceed', false)
-    }
+    selectDisplayText (value) {
+      if (!value) return ''
+      try {
+        const nameObj = JSON.parse(value)
+        return nameObj[this.locale]
+      } catch (e) {
+        return value
+      }
+    },
+
   },
 }
 </script>

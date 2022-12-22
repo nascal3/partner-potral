@@ -1,0 +1,36 @@
+[
+  {
+    "operator_name": "NATIONAL BANK OF KENYA",
+    "operator_id": 38,
+    "psp_account_no": "247247",
+    "user_account_no": "0987654321",
+    "user_id": "538",
+    "country_code": "KE",
+    "entity_id": 5,
+    "psp": "SAFARICOM",
+    "entity": "PARTNER",
+    "country": "Kenya",
+    "id": "294e5c9a-c6ef-4857-8d6f-f825f6463019",
+    "account_name": "kujiseti na miti",
+    "pay_direction": "PAY_OUT",
+    "isactive": true,
+    "active": true
+  },
+  {
+    "operator_name": "MPESA",
+    "operator_id": 1,
+    "psp_account_no": "null",
+    "user_account_no": "254718769663",
+    "user_id": "538",
+    "country_code": "KE",
+    "entity_id": 5,
+    "psp": "SAFARICOM",
+    "entity": "PARTNER",
+    "country": "Kenya",
+    "id": "347b3e46-eeee-42c9-af07-319ef442acd8",
+    "account_name": "254718769663",
+    "pay_direction": "PAY_OUT",
+    "isactive": true,
+    "active": true
+  }
+]

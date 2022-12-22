@@ -32,6 +32,7 @@
               class="body-2"
               persistent-hint
               v-model="authObj.code"
+              :disabled="loading"
               :hint="errors.get('code')"
               :error="errors.has('code')"
               @input="errors.clear('code')"

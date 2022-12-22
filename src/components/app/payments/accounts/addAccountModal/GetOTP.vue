@@ -1,103 +1,78 @@
 <template>
   <section v-animate-css="animationObject">
-    <div class="d-flex justify-space-between pa-4">
-      <div>{{ $t('finance.amount_label') }}</div>
-      <div>
-        <span>KES</span>
-        {{ amount }}
-      </div>
+
+    <div v-if="!success" class="px-4 pt-4 mb-4">
+      {{ $t('finance.insert_otp') }}
     </div>
 
-    <v-divider class="mx-4"></v-divider>
-
-    <div class="px-4 pt-4">
-      {{ $t('finance.withdraw_method_question') }}
-    </div>
+    <v-spacer></v-spacer>
 
     <v-card-text class="py-0">
-      <v-radio-group v-model="paymentMethod">
-        <v-radio value="mpesa" class="rounded-lg" :class="{ active: paymentMethod === 'mpesa' }">
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select mpesa payment method')">
-              <div class="method-icon rounded pa-1 mr-2">
-                <v-img
-                    max-width="45"
-                    :src="require('@/assets/mpesa-logo.png')"
-                ></v-img>
-              </div>
-              <div class="d-flex flex-column method-text">
-                <div>M-PESA</div>
-                <!--            TODO fetch partner mobile number-->
-                <div>**** 7659</div>
-              </div>
-            </div>
-          </template>
-        </v-radio>
-        <v-radio value="bank" class="rounded-lg" :class="{ active: paymentMethod === 'bank' }">
-          <template v-slot:label>
-            <div class="d-flex" @click="setSegmentEvent('Select bank payment method')">
-              <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
-                <v-icon>mdi-bank</v-icon>
-              </div>
-              <div class="d-flex flex-column method-text">
-                <div>Bank Transfer</div>
-                <!--            TODO fetch partner bank number-->
-                <div>ABSA | ****9098</div>
-              </div>
-            </div>
-          </template>
-        </v-radio>
-      </v-radio-group>
+      <section v-if="!success">
+        <div v-if="loading" class="d-flex align-center">
+          <v-progress-circular
+              indeterminate
+              size="15"
+              width="2"
+              color="deep-orange"
+              class="mr-2"
+          ></v-progress-circular>
+          <div class="deep-orange--text">
+            {{ $t('verify.verifying_code') }}
+          </div>
+        </div>
+        <v-otp-input
+            length="6"
+            class="body-2"
+            persistent-hint
+            v-model="paymentObj.code"
+            :disabled="loading"
+            :hint="errors.get('code')"
+            :error="errors.has('code')"
+            @input="errors.clear('code')"
+            @finish="verifyCode()"
+        ></v-otp-input>
+        <div v-if="counter > 0">
+          {{ $t('verify.time_to_expired') }}
+          <span class="count-text">{{counter}} sec</span>
+        </div>
+      </section>
+
+      <section v-else>
+        <div class="message-container pa-4" :class="{'border-success': success }">
+          <div class="message-container__text">
+            <v-icon color="#116F28">mdi-check-circle</v-icon>
+            <span :class="{'successful': success }">{{ $t('finance.account_success') }}</span>
+          </div>
+        </div>
+      </section>
     </v-card-text>
-    <v-card-actions class="d-flex flex-column px-4 pb-5">
-      <v-btn
-          block
-          large
-          type="submit"
-          color="primary"
-          class="caption font-weight-bold mb-4"
-          :dark="!disabled"
-          :disabled="disabled"
-      >
-        {{ $t('finance.withdraw') }}
-      </v-btn>
-      <v-spacer></v-spacer>
-      <v-btn
-          block
-          large
-          text
-          class="caption font-weight-bold"
-          @click="navigateBack"
-      >
-        {{ $t('finance.btn_back') }}
-      </v-btn>
+
+    <v-card-actions v-if="!success" class="px-4">
+      <p class="body-1">
+        {{ $t('finance.passcode_expired') }}
+        <span class="deep-orange--text" @click="navigateBack">
+          {{ $t('verify.request_another_one') }}
+        </span>
+      </p>
     </v-card-actions>
   </section>
 </template>
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
-import formatNumbers from "@/mixins/formatNumbers"
+import timeCountDown from "@/mixins/timeCountDown";
+import Payment from '@/libs/app/payments/Payment'
 
 export default {
-  mixins: [segmentMixin, formatNumbers],
-
-  props: {
-    inputErrors: {
-      type: Object,
-      default: () => {}
-    },
-    amount: {
-      type: String,
-      default: () => '0'
-    },
-  },
+  mixins: [segmentMixin, timeCountDown],
 
   data() {
     return {
+      loading: false,
       disabled: true,
-      withdrawAmount: null,
-      paymentMethod: null,
+      success: false,
+      paymentObj: new Payment(),
       animationObject:{
         classes: 'slideInRight',
         delay: 0,
@@ -119,45 +94,89 @@ export default {
 
   computed: {
     errors() {
-      return this.inputErrors
+      return this.paymentObj.form.errors
     }
   },
 
   methods: {
+    setCountDown () {
+      const ExpiryTime = 5 * 60
+      this.timeCountDown(ExpiryTime)
+    },
+
     navigateBack () {
-      this.setSegmentEvent('Navigate back to payment amount')
+      this.setSegmentEvent('Navigate back to set payment details')
       this.$emit('proceed', false)
+    },
+
+    verifyCode () {
+      this.loading = true
+      this.paymentObj.verify().then(data => {
+        this.setSegmentEvent('Successfully added a payout account ')
+        this.success = true
+        // TODO: run method to fetch payout account in order to refresh table data
+
+        setTimeout(() =>{
+          this.emit('closeDialog', true)
+        }, 2500)
+      }).catch(error => {
+        this.setSegmentEvent('Failed to add a payout account ')
+        console.log(error)
+      }).finally(() => {
+        this.loading = false
+      })
     }
   },
+
+  mounted () {
+    this.setCountDown()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.method-text {
-  & div:first-child {
-    color: black;
+.message-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+
+  &.border-success {
+    //border: 1px solid #116F28;
   }
-  & div {
-    color: #83868C;
+
+  &.border-fail {
+    //border: 1px solid #9B101C;
   }
-}
-.method-icon {
-  border: 1px solid #D9D9D9;
-  .v-icon {
-    color: #314BAB;
+
+  &__text {
+    text-align: center;
+    .v-icon {
+      margin-right: 5px;
+      font-size: 25px;
+    }
+    span {
+      &.successful {
+        color: #116F28;
+      }
+      &.fail {
+        color: #9B101C;
+      }
+    }
+    font-size: 18px;
+    font-weight: 700;
   }
-}
-.v-radio {
-  border: 1px solid #E2E7ED;
-  padding: 16px;
-  margin-bottom: 16px !important;
+
+  &__subtext {
+    font-weight: 400;
+    color: #909399;
+    text-align: center;
+  }
 }
 .v-card__actions {
-  button {
-
+  span {
+    cursor: pointer;
   }
-}
-.active {
-  border: 2px solid #314BAB;
 }
 </style>

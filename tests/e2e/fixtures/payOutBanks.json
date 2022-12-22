@@ -1,0 +1,126 @@
+[
+  {
+    "operator_id": 29,
+    "name": "KENYA COMMERCIAL BANK LTD",
+    "country_code": "KE",
+    "code": "522522",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 30,
+    "name": "STANDARD CHARTERED",
+    "country_code": "KE",
+    "code": "329329",
+    "supported_currencies": [
+      "USD",
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 31,
+    "name": "BARCLAYS BANK",
+    "country_code": "KE",
+    "code": "303030",
+    "supported_currencies": [
+      "EUR",
+      "GBP",
+      "USD",
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 32,
+    "name": "COMMERCIAL BANK OF AFRICA LTD",
+    "country_code": "KE",
+    "code": "880100",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 33,
+    "name": "CO-OPERATIVE BANK",
+    "country_code": "KE",
+    "code": "400200",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 34,
+    "name": "NATIONAL BANK OF KENYA",
+    "country_code": "KE",
+    "code": "625625",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 35,
+    "name": "BANK OF AFRICA KENYA LTD",
+    "country_code": "KE",
+    "code": "972900",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 36,
+    "name": "NIC BANK",
+    "country_code": "KE",
+    "code": "488488",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 37,
+    "name": "INVESTMENTS AND MORTGAGES",
+    "country_code": "KE",
+    "code": "542542",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 38,
+    "name": "EQUITY BANK",
+    "country_code": "KE",
+    "code": "247247",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 39,
+    "name": "FAMILY BANK",
+    "country_code": "KE",
+    "code": "222111",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  },
+  {
+    "operator_id": 40,
+    "name": "FIRST COMMUNITY BANK",
+    "country_code": "KE",
+    "code": "919700",
+    "supported_currencies": [
+      "KES"
+    ],
+    "country_name": "KENYA"
+  }
+]

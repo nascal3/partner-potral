@@ -26,21 +26,35 @@
             :no-data-text="$t('finance.txn_no_statement_found')"
             :no-results-text="$t('finance.txn_no_results_found')"
             :headers="headers"
-            :items="banks"
+            :items="accounts"
             item-key="txn_no"
             :loading="loading"
             :loading-text="$t('core.system_loading')"
         >
-          <template v-slot:item.status="{ item }">
-            <v-chip :color="setColor(item.status)" outlined small>
-              {{ item.status }}
+          <template v-slot:item.isactive="{ item }">
+            <v-chip :color="setChipColor(item.isactive)" :text-color="setChipTextColor(item.isactive)" outlined small>
+              {{ item.isactive }}
             </v-chip>
           </template>
-          <template v-slot:item.date="{ item }">
-            {{ notificationsDateFormat(item.date) }}
-          </template>
-          <template v-slot:item.amount="{ item }">
-            {{ thousandSeparator(item.amount) }}
+
+          <template v-slot:item.actions="{ item }">
+            <v-btn
+                color="primary"
+                class="ttn caption my-3"
+                @click="sanction = item, openDialog('edit')"
+                outlined
+                block
+            >
+              {{ $t('finance.edit_details') }}
+            </v-btn>
+            <v-btn
+                color="primary"
+                class="ttn caption my-3"
+                @click="sanction = item, openDialog('unsanction')"
+                block
+            >
+              {{ $t('finance.delete_account') }}
+            </v-btn>
           </template>
         </v-data-table>
       </v-card-text>
@@ -51,26 +65,54 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers";
+import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
 
 export default {
   mixins: [segmentMixin, formatNumbers],
 
   components: {
-    'add-account-modal': () => import('./addAccountModal/accountModal.vue')
+    'add-account-modal': () => import('./addAccountModal/AccountModal.vue')
   },
 
   data() {
     return {
-      banks: [],
+      accounts: mockData,
       loading: true,
       headers: [
-        { text: this.$t('finance.tbl_account_type'), value: 'bank_branch' },
+        { text: this.$t('finance.tbl_account'), value: 'operator_name' },
         { text: this.$t('finance.tbl_account_name'), value: 'account_name' },
-        { text: this.$t('finance.tbl_account_number'), value: 'account_number' },
-        { text: this.$t('finance.tbl_status'), value: 'status' },
-        { text: this.$t('finance.tbl_action'), value: '' }
+        { text: this.$t('finance.tbl_account_number'), value: 'user_account_no' },
+        { text: this.$t('finance.tbl_active'), value: 'isactive' },
+        { text: this.$t('finance.tbl_action'), value: 'actions' }
       ]
     }
+  },
+
+  methods: {
+    setChipColor (orderStatus) {
+      const colorMap = {
+        'pending': '#FBDECF',
+        'failed': '#FBDECF',
+        'confirmed': '#CCEFFF',
+        'delivered': '#DEFAD2',
+        'in transit': '#FDDB97',
+        'transit': '#FDDB97'
+      }
+      return colorMap[orderStatus]
+    },
+
+    setChipTextColor (orderStatus) {
+      const colorMap = {
+        'pending': '#9B101C',
+        'failed': '#9B101C',
+        'confirmed': '#006492',
+        'delivered': '#116F28',
+        'in transit': '#9D5004',
+        'transit': '#9D5004'
+      }
+      return colorMap[orderStatus]
+    },
+
   },
 }
 </script>

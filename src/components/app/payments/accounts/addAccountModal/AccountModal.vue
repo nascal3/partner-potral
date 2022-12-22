@@ -16,9 +16,8 @@
       </v-btn>
     </template>
 
-    <v-card v-if="initialised">
-      <form @submit.prevent="submit()">
-        <v-card-title>
+    <v-card>
+      <v-card-title>
           <h2 class="subtitle-1">
             {{ $t('finance.add_account') }}
           </h2>
@@ -27,50 +26,34 @@
               icon
               small
               color="red"
-              @click="dialogLaunch = false"
+              @click="closeDialog"
           >
             <v-icon small color="red">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
 
-        <v-divider></v-divider>
+      <v-divider></v-divider>
 
-        <select-account
-            v-if="proceed"
-            :input-errors="errors"
-            :amount="withdrawAmount"
-            @paymentMethod="paymentMethod"
-            @proceed="proceedToWithdraw"
-        />
+      <select-account v-if="!selectedPaymentMethod" @selectedPaymentMethod="paymentMethod"/>
 
-<!--        <account-details-->
-<!--            v-if="!proceed"-->
-<!--            :input-errors="errors"-->
-<!--            @amount="amount"-->
-<!--            @proceed="proceedToWithdraw"-->
-<!--        />-->
-<!--        -->
-<!--        <get-otp-->
-<!--            v-if="proceed"-->
-<!--            :input-errors="errors"-->
-<!--            :amount="withdrawAmount"-->
-<!--            @paymentMethod="paymentMethod"-->
-<!--            @proceed="proceedToWithdraw"-->
-<!--        />-->
+      <account-details
+          v-if="selectedPaymentMethod && !proceed"
+          :payment-method="selectedPaymentMethod"
+          @navigateBack="navigateBack"
+          @proceed="proceedToOTP"
+      />
 
-      </form>
+      <get-otp v-if="proceed" @proceed="proceedToOTP" @closeDialog="closeDialog" />
     </v-card>
   </v-dialog>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
 import Vehicle from '@/libs/app/vehicles/Vehicle'
-import segmentMixin from "@/mixins/segmentEvents";
-import formatNumbers from "@/mixins/formatNumbers";
+import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
-  mixins: [segmentMixin, formatNumbers],
+  mixins: [segmentMixin],
   components: {
     'account-details': () => import('./AccountDetails.vue'),
     'select-account': () => import('./SelectAccount.vue'),
@@ -81,6 +64,8 @@ export default {
     return {
       loading: false,
       dialogLaunch: false,
+      selectedAccount: null,
+      selectedPaymentMethod: null,
       proceed: false,
       withdrawAmount: null,
       withdrawalMethod: null,
@@ -92,63 +77,56 @@ export default {
 
   },
 
-  computed: {
-    initialised () {
-      return true
-    },
-
-    errors () {
-      return this.vehicleObj.form.errors
-    }
-  },
-
   methods: {
-    amount (value) {
-      this.withdrawAmount = value
+    navigateBack () {
+      this.selectedPaymentMethod = null
     },
 
     paymentMethod(method) {
-      this.withdrawalMethod = method
+      this.selectedPaymentMethod = method
     },
 
-    loadPartnerBalance () {
-      // this.setVendorTypes({
-      //   routes: {
-      //     partner: this.partner.id
-      //   },
-      //   params: {
-      //     country_id: this.partner.country_id,
-      //   },
-      // })
-    },
-
-    proceedToWithdraw (proceedStatus) {
+    proceedToOTP (proceedStatus) {
       this.proceed = proceedStatus
     },
 
-    submit () {
-      this.setSegmentEvent('Withdraw amount -- Submit')
-      console.log(this.withdrawAmount, this.withdrawalMethod)
-      // if (!this.loading) {
-      //   this.loading = true
-      //   this.vehicleObj.store()
-      //       .then(response => {
-      //         flash(response)
-      //         this.$emit('stored')
-      //         this.dialogLaunch = false
-      //       })
-      //       .finally(() => {
-      //         this.loading = false
-      //       })
-      // }
-    },
-  },
-
-  mounted () {
-
+    closeDialog() {
+      this.selectedPaymentMethod = null
+      this.proceed = false
+      this.dialogLaunch = false
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.method-text {
+  & div:first-child {
+    color: black;
+  }
+  & div {
+    color: #83868C;
+  }
+}
+.method-icon {
+  border: 1px solid #D9D9D9;
+  max-height: 50px;
+  margin: auto;
+  .v-icon {
+    color: #314BAB;
+  }
+}
+.v-radio {
+  border: 1px solid #E2E7ED;
+  padding: 16px;
+  margin-bottom: 16px !important;
+}
+.v-card__actions {
+  button {
+
+  }
+}
+.active {
+  border: 2px solid #314BAB;
+}
 </style>

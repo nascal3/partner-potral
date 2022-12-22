@@ -35,13 +35,17 @@ export default {
     ]),
 
     changeLanguage(languageCode) {
-      localStorage.setItem('setLanguage', languageCode)
+      this.storeLanguage(languageCode)
       this.$emit('setLanguage', languageCode)
       this.$nextTick(() => {
         this.$i18n.locale = languageCode
         this.activeLanguage = languageCode
         this.changeRTL (languageCode)
       })
+    },
+
+    storeLanguage(languageCode) {
+      localStorage.setItem('setLanguage', languageCode)
     },
 
     changeRTL (languageCode) {
@@ -51,6 +55,7 @@ export default {
 
   mounted () {
     this.setLanguages()
+    this.storeLanguage(this.activeLanguage)
   }
 }
 </script>

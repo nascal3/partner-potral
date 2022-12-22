@@ -73,7 +73,7 @@
             color="#324BA8"
             left
         >
-          <v-tab>{{ $t('orders.orders_tab') }}</v-tab>
+          <v-tab>{{ $t('orders.orders') }}</v-tab>
           <v-tab>{{ $t('orders.errand_tab') }}</v-tab>
 
           <!--      #####orders summary tab#####-->
