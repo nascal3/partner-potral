@@ -18,19 +18,19 @@
 
     <v-card>
       <v-card-title>
-          <h2 class="subtitle-1">
-            {{ $t('finance.add_account') }}
-          </h2>
-          <v-spacer></v-spacer>
-          <v-btn
-              icon
-              small
-              color="red"
-              @click="closeDialog"
-          >
-            <v-icon small color="red">mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
+        <h2 class="subtitle-1">
+          {{ $t('finance.add_account') }}
+        </h2>
+        <v-spacer></v-spacer>
+        <v-btn
+          icon
+          small
+          color="red"
+          @click="closeDialog"
+        >
+          <v-icon small color="red">mdi-close</v-icon>
+        </v-btn>
+      </v-card-title>
 
       <v-divider></v-divider>
 
