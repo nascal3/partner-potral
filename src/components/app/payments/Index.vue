@@ -18,6 +18,26 @@
 
       <v-divider></v-divider>
 
+        <v-alert
+          v-if="pendingUnsignedContracts"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          border="left"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              {{ $t('finance.unsigned_contract_warning') }}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn color="warning" @click="signContract">
+                {{ $t('finance.sign_contract') }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
