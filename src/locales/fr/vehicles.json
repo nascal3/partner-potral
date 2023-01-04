@@ -2,6 +2,7 @@
   "add_vehicle": "Ajouter véhicule ",
   "allocate": "Attribuer",
   "allocate_driver": "Attribuer un chauffeur",
+  "detach_driver": "Détacher le pilote",
   "available_drivers": "Chauffeurs disponibles ",
   "current_driver": "Conducteur actuel",
   "deallocate_driver": "Désaffecter le pilote",

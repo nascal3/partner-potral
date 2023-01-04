@@ -160,8 +160,19 @@ export default {
 
   computed: {
     ...mapGetters({
-      accountBalance: 'getAccountBalance'
+      accountBalance: 'getAccountBalance',
+      pendingContracts: 'getPendingContractDocuments',
     }),
+
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
+
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
 
     initialised () {
       let account = []
@@ -215,8 +226,32 @@ export default {
 
   methods: {
     ...mapActions([
-      'setAccountBalance'
+      'setAccountBalance',
+      'setPendingContractDocuments',
     ]),
+
+    signContract() {
+      this.setSegmentEvent('Redirected to sign partner contract')
+      this.$router.push({ name: 'contract' })
+    },
+
+    loadDocuments () {
+      this.loading = true
+      const { id } = auth.retrieve('partner')
+      this.setPendingContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
 
     loadAccountBalance () {
       const { id } = auth.retrieve('partner')
@@ -240,6 +275,7 @@ export default {
   mounted () {
     this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
+    this.loadDocuments()
   }
 }
 </script>
