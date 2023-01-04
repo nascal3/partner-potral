@@ -30,7 +30,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-card
               class="d-flex justify-space-between align-center px-8 py-2 mt-3"
-              max-width="500">
+              max-width="550">
             <div class="d-flex align-center">
               <v-icon color="error" x-large>mdi-alert-circle</v-icon>
               <v-card-text>
