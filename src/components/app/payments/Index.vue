@@ -19,12 +19,12 @@
       <v-divider></v-divider>
 
         <v-alert
-            v-if="pendingUnsignedContracts"
-            text
-            prominent
-            type="warning"
-            class="mt-5"
-            border="left"
+          v-if="pendingUnsignedContracts"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          border="left"
         >
           <v-row align="center">
             <v-col class="grow">
