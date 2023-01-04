@@ -100,6 +100,80 @@
 
       <v-divider></v-divider>
 
+      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length > 0" :key="index"
+                max-width="600" transition="dialog-top-transition">
+        <template v-slot:activator="{ on, attrs }">
+          <v-card
+              class="d-flex justify-space-between align-center px-8 py-2 mt-3"
+              max-width="600">
+            <div class="d-flex align-center">
+              <v-icon color="error" x-large>mdi-alert-circle</v-icon>
+              <v-card-text>
+                <p class="body-2 font-weight-bold pa-0 ma-0 pt-4">
+                  {{ index === "expired" ? $t('orders.expiring_document') : $t('orders.new_document_required') }}</p>
+                <p>{{ index === "expired" ? $t('orders.upload', { expiry: topExpiryDate }) : $t('orders.last_day', { deadline: topPendingDate }) }}</p>
+              </v-card-text>
+            </div>
+            <v-btn color="error" v-bind="attrs" v-on="on">
+              {{ $t('orders.more_details') }}
+            </v-btn>
+          </v-card>
+        </template>
+        <template v-slot:default="dialog">
+          <v-card class="pa-8" width="800">
+            <div class="d-flex align-center">
+              <v-icon class="pr-4" color="error" x-large>mdi-alert-circle</v-icon>
+              <v-card-title class="text-h6 pa-0 font-weight-bold">{{
+                  index === "expired" ? $t('orders.expiring_document') : $t('orders.new_document_required')
+                }}
+              </v-card-title>
+            </div>
+            <v-card-text>
+              <p class="body-1 black--text pt-4">{{ partnerName }}</p>
+              <p v-if="index === 'expired'" class="body-1 black--text">
+                {{ $t('orders.expire_message') }}
+              </p>
+              <div v-else>
+                <p class="body-1 font-weight-medium black--text">
+                  {{ $t('orders.explanation_message') }}
+                </p>
+                <p class="body-2 black--text">{{ $t('orders.reason_message') }}</p>
+              </div>
+              <div v-for="(doc,index) in document" class="d-flex align-center py-2">
+                <v-icon class="pr-5" color="success"
+                >mdi-check-circle-outline
+                </v-icon>
+                <div class="pb-2">
+                  <p class="body-2 black--text ma-0">{{ doc.name }}</p>
+                  <p class="body-2 black--text ma-0">{{ $t('orders.expiry:', { date: doc.date }) }}</p>
+                </div>
+              </div>
+              <p class="body-1 black--text">
+                {{ $t('orders.please') }} {{ index === "expired" ? $t('orders.renew_them') : "" }} {{ $t('orders.submit_before') }}
+                {{ index === "expired" ? topExpiryDate : topPendingDate }} {{ $t('orders.otherwise') }}
+              </p>
+            </v-card-text>
+            <v-card-actions class="justify-end d-flex flex-column">
+              <v-btn
+                  class="body-2 px-14 py-5 my-4 text-capitalize"
+                  text
+                  @click="dialog.value = false"
+              >
+                {{ $t('orders.remind_me_later') }}
+              </v-btn>
+              <v-btn
+                  class="body-2 px-14 py-5 text-capitalize"
+                  color="primary"
+                  large
+                  @click="redirectToUpload"
+              >
+                {{ $t('orders.upload_document') }}
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </template>
+      </v-dialog>
+
       <v-row class="mt-5 mb-1">
         <v-col cols="12" md="6">
           <v-row class="date-filters">
@@ -325,10 +399,10 @@ export default {
         oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
         for (const obj of res.data) {
           if (obj.expires_at < oneMonthFromNow) {
-            if (!obj.expires_at === null) {
+            if (obj.expires_at !== null) {
               this.notificationDocuments.expired.push({
                 name: obj.document.label,
-                date: obj.expires_at
+                date: this.documentsDateFormat(obj.expires_at)
               })
               this.topExpiryDate = this.notificationDocuments.expired[0].date
             }
@@ -345,7 +419,7 @@ export default {
             const date = new Date(obj.created_at) // specific date
             this.notificationDocuments.pending.push({
               name: obj.document.label,
-              date: new Date(date.setMonth(date.getMonth() + 1)).toLocaleDateString() // add one month
+              date: this.documentsDateFormat( new Date(date.setMonth(date.getMonth() + 1)) )// add one month
             })
             this.topPendingDate = this.notificationDocuments.pending[0].date
           }

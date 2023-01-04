@@ -51,5 +51,20 @@
   "total_num_orders": "Nombre total de commandes",
   "total_orders": "Montant total réalisé pour toutes les commandes ",
   "vehicle_assigned": "Véhicule attribué",
-  "weight_of_order": "Poids de la commande"
+  "weight_of_order": "Poids de la commande",
+  "expiring_document": "Document expirant",
+  "new_document_required": "Nouveau document requis",
+  "more_details": "Plus de détails",
+  "expire_message": "Les documents suivants expireront bientôt:",
+  "explanation_message": "Pour vous offrir, à vous, à notre partenaire et à nos clients, le meilleur service possible, nous devons nous assurer que nous avons les bonnes personnes et les bons types de véhicules pour l'entretien des commandes.",
+  "reason_message": "Nous avons donc besoin que vous fournissiez les éléments suivants pour vérification:",
+  "please": "S'il vous plaît",
+  "renew_them": "les renouveler et",
+  "submit_before": "soumettre avant",
+  "otherwise": "sinon, vous ne pourrez pas traiter les commandes Sendy.",
+  "remind_me_later": "Rappelez-moi plus tard",
+  "upload_document": "Télécharger un document",
+  "last_day": "Date limite: {deadline}",
+  "upload": "Télécharger par: {expiry}",
+  "expiry:": "Expiration: {date}"
 }
