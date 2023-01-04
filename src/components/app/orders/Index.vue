@@ -22,81 +22,6 @@
               @change="setSegmentEvent('Searched an order phrase')"></v-text-field>
         </div>
       </v-card-title>
-      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length > 0" :key="index"
-                max-width="600" transition="dialog-top-transition">
-        <template v-slot:activator="{ on, attrs }">
-          <v-card
-              class="d-flex justify-space-between align-center px-8 py-2 mb-3"
-              width="500">
-            <div class="d-flex align-center">
-              <v-icon color="error" x-large>mdi-alert-circle</v-icon>
-              <v-card-text>
-                <p class="body-2 font-weight-bold pa-0 ma-0 pt-4">
-                  {{ index === "expired" ? "Expiring Document" : "New Document Required" }}</p>
-                <p>{{ index === "expired" ? "Upload by:" + topExpiryDate : "Deadline:" + topPendingDate }}</p>
-              </v-card-text>
-            </div>
-            <v-btn color="error" v-bind="attrs" v-on="on">
-              More Details
-            </v-btn>
-          </v-card>
-        </template>
-        <template v-slot:default="dialog">
-          <v-card class="pa-8" width="800">
-            <div class="d-flex align-center">
-              <v-icon class="pr-4" color="error" x-large>mdi-alert-circle</v-icon>
-              <v-card-title class="text-h6 pa-0 font-weight-bold">{{
-                  index === "expired" ? "Expiring Document" : "New Documents Required"
-                }}
-              </v-card-title>
-            </div>
-            <v-card-text>
-              <p class="body-1 black--text pt-4">{{ partnerName }}</p>
-              <p v-if="index === 'expired'" class="body-1 black--text">
-                The following documents will be expiring soon:
-              </p>
-              <div v-else>
-                <p class="body-1 font-weight-medium black--text">
-                  To offer you, our partner, and customers the best service possible, we need to ensure that we have the
-                  right people and vehicle types servicing orders.</p>
-                <p class="body-2 black--text">We therefore need you to provide the following for verification:</p>
-              </div>
-              <div v-for="(doc,index) in document" class="d-flex align-center py-2">
-                <v-icon class="pr-5" color="success"
-                >mdi-check-circle-outline
-                </v-icon
-                >
-                <div class="pb-2">
-                  <p class="body-2 black--text ma-0">{{ doc.name }}</p>
-                  <p class="body-2 black--text ma-0">Expiry: {{ doc.date }}</p>
-                </div>
-              </div>
-              <p class="body-1 black--text">
-                Please {{ index === "expired" ? "renew them and" : "" }} submit before
-                {{ index === "expired" ? topExpiryDate : topPendingDate }} otherwise you
-                will not be able to service Sendy orders.
-              </p>
-            </v-card-text>
-            <v-card-actions class="justify-end d-flex flex-column">
-              <v-btn
-                  class="body-2 px-14 py-5 my-4 text-capitalize"
-                  text
-                  @click="dialog.value = false"
-              >Remind me later
-              </v-btn
-              >
-              <v-btn
-                  class="body-2 px-14 py-5 text-capitalize"
-                  color="primary"
-                  large
-                  @click="redirectToUpload"
-              >Upload Document
-              </v-btn
-              >
-            </v-card-actions>
-          </v-card>
-        </template>
-      </v-dialog>
 
       <v-divider></v-divider>
 
@@ -105,7 +30,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-card
               class="d-flex justify-space-between align-center px-8 py-2 mt-3"
-              max-width="600">
+              max-width="550">
             <div class="d-flex align-center">
               <v-icon color="error" x-large>mdi-alert-circle</v-icon>
               <v-card-text>
