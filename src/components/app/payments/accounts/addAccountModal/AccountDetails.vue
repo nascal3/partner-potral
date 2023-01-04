@@ -204,7 +204,7 @@ export default {
     },
 
     getBankAccounts() {
-      //TODO: Add code to request the banks available
+      //TODO: Add code to call endpoint with request for banks available
       this.banks = mockBankData
     },
 
@@ -226,7 +226,7 @@ export default {
     generateOTP() {
       this.paymentObj.company_code = `FF${this.countryCode}`
       this.paymentObj.email = this.userEmail
-      //TODO: Add code to send the OTP request
+      //TODO: Add code to send the OTP request to endpoint
 
       return true
     },

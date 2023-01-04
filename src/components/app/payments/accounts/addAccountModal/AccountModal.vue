@@ -33,9 +33,10 @@
       </v-card-title>
 
       <v-divider></v-divider>
-
+      <!--      #### Modal with account types that can be selected ###-->
       <select-account v-if="!selectedPaymentMethod" @selectedPaymentMethod="paymentMethod"/>
 
+      <!--      #### Modal to add account details needed ###-->
       <account-details
           v-if="selectedPaymentMethod && !proceed"
           :payment-method="selectedPaymentMethod"
@@ -43,6 +44,7 @@
           @proceed="proceedToOTP"
       />
 
+      <!--      #### Modal to insert OTP needed to save details ###-->
       <get-otp v-if="proceed" @proceed="proceedToOTP" @closeDialog="closeDialog" />
     </v-card>
   </v-dialog>

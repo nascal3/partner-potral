@@ -11,6 +11,39 @@
       {{ $t('finance.withdraw_method_question') }}
     </div>
 
+<!--    TODO integrate the new accounts picking from payments API-->
+<!--    <v-card-text class="py-0">-->
+<!--      <v-radio-group v-model="selectedPaymentMethod">-->
+<!--        <section v-if="paymentOptions2 && paymentOptions2.length">-->
+<!--          <v-radio-->
+<!--              v-for="method in paymentOptions2"-->
+<!--              :key="method.id"-->
+<!--              :value="method"-->
+<!--              class="rounded-lg"-->
+<!--              :class="{ active: selectedPaymentMethod?.payment_method_id === method.payment_method_id }"-->
+<!--              @click="setSegmentEvent(`Select ${method.name} payment method`)"-->
+<!--          >-->
+<!--            <template v-slot:label>-->
+<!--              <div class="d-flex">-->
+<!--                <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">-->
+<!--                  <v-img-->
+<!--                      v-if="method.category.toLowerCase() === 'mobile'"-->
+<!--                      max-width="45"-->
+<!--                      :src=" method.localised_names === 'M-PESA' ? mpesaLogo :mobileMoneyLogo"-->
+<!--                  ></v-img>-->
+<!--                  <v-icon v-if="method.name === 'Bank'">mdi-bank</v-icon>-->
+<!--                </div>-->
+<!--                <div class="d-flex flex-column method-text">-->
+<!--                  <div>{{ method.category }}</div>-->
+<!--                  <div>{{ selectDisplayText(method.localised_names) }}</div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </v-radio>-->
+<!--        </section>-->
+<!--      </v-radio-group>-->
+<!--    </v-card-text>-->
+
     <v-card-text class="py-0">
       <v-radio-group v-model="selectedPaymentMethod">
         <section v-if="paymentOptions && paymentOptions.length">
@@ -29,7 +62,7 @@
                   <v-img
                       v-if="account.method_name === 'Mobile Money'"
                       max-width="45"
-                      :src="require('@/assets/mpesa-logo.png')"
+                      :src="mpesaLogo"
                   ></v-img>
                   <v-icon v-if="account.method_name === 'Bank Transfer'">mdi-bank</v-icon>
                 </div>
@@ -72,6 +105,7 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
+import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -105,6 +139,9 @@ export default {
       withdrawAmount: null,
       selectedPaymentMethod: null,
       paymentOptions: [],
+      paymentOptions2: mockData,
+      mpesaLogo: require('@/assets/mpesa-logo.png'),
+      mobileMoneyLogo: require('@/assets/mobile-money-logo.jpeg'),
       phoneNumber: this.getUserPhoneNumber() || this.paymentMethods.mobile_money.phone_number,
       animationObject: {
         classes: 'slideInRight',
@@ -152,28 +189,28 @@ export default {
     },
 
     setPaymentOptions () {
-       if (this.mobileMoney.length) {
-         this.paymentOptions.push({
-           payment_method: this.paymentMethods.mobile_money.payment_method,
-           paymentReference: this.phoneNumber,
-           status: true,
-           method_name: 'Mobile Money'
-         })
-       }
+      if (this.mobileMoney.length) {
+        this.paymentOptions.push({
+          payment_method: this.paymentMethods.mobile_money.payment_method,
+          paymentReference: this.phoneNumber,
+          status: true,
+          method_name: 'Mobile Money'
+        })
+      }
 
-       if (this.bankAccounts.length) {
-         this.bankAccounts.forEach( bankAccount => {
-           const { account_no, bank, status } = bankAccount
-           this.paymentOptions.push({
-             payment_method: this.paymentMethods.banks.payment_method,
-             bankPaybill: bank.paybill,
-             paymentReference: account_no,
-             status,
-             method_name: 'Bank Transfer',
-             bank_name: bank.name
-           })
-         })
-       }
+      if (this.bankAccounts.length) {
+        this.bankAccounts.forEach( bankAccount => {
+          const { account_no, bank, status } = bankAccount
+          this.paymentOptions.push({
+            payment_method: this.paymentMethods.banks.payment_method,
+            bankPaybill: bank.paybill,
+            paymentReference: account_no,
+            status,
+            method_name: 'Bank Transfer',
+            bank_name: bank.name
+          })
+        })
+      }
     },
 
     hideSensitiveData (value) {
