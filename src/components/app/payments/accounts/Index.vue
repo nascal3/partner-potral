@@ -47,14 +47,8 @@
             >
               {{ $t('finance.edit_details') }}
             </v-btn>
-            <v-btn
-                color="primary"
-                class="ttn caption my-3"
-                @click="sanction = item, openDialog('unsanction')"
-                block
-            >
-              {{ $t('finance.delete_account') }}
-            </v-btn>
+
+            <delete-account-modal :selected-account="item" />
           </template>
         </v-data-table>
       </v-card-text>
@@ -71,7 +65,8 @@ export default {
   mixins: [segmentMixin, formatNumbers],
 
   components: {
-    'add-account-modal': () => import('./addAccountModal/AccountModal.vue')
+    'add-account-modal': () => import('./addAccountModal/AccountModal.vue'),
+    'delete-account-modal': () => import('./deleteAccountModal/DeleteAccountModal.vue')
   },
 
   data() {

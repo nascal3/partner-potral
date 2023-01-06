@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import Vehicle from '@/libs/app/vehicles/Vehicle'
 import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
@@ -68,10 +67,7 @@ export default {
       dialogLaunch: false,
       selectedAccount: null,
       selectedPaymentMethod: null,
-      proceed: false,
-      withdrawAmount: null,
-      withdrawalMethod: null,
-      vehicleObj: new Vehicle(),
+      proceed: false
     }
   },
 

@@ -90,5 +90,7 @@
   "insert_otp": "Insert OTP send to your email address",
   "validate_otp": "Validate OTP",
   "passcode_expired": "OTP code expired?",
-  "account_success": "Account successfully added!"
+  "account_success": "Account successfully added!",
+  "delete_warning": "Are you sure you want to delete account: {account} - {accountNo}.",
+  "delete_danger": "The following action can not be reversed!"
 }
