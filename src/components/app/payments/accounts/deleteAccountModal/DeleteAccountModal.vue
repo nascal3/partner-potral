@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
@@ -97,10 +98,10 @@ export default {
     },
 
     reloadAccountList () {
-      // TODO fetch all accounts
+      // TODO fetch all partners saved accounts
 
       flash({
-        message: 'Successfully deleted account',
+        message: this.$t('finance.successful_delete_account'),
         color: 'green',
       })
 

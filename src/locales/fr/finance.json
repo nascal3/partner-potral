@@ -96,5 +96,6 @@
   "passcode_expired": "Code OTP expiré ?",
   "account_success": "Compte ajouté avec succès !",
   "delete_warning": "AÊtes-vous sûr de vouloir supprimer le compte: {account} - {accountNo}.",
-  "delete_danger": "L'action suivante ne peut pas être annulée !"
+  "delete_danger": "L'action suivante ne peut pas être annulée !",
+  "successful_delete_account": "Compte supprimé avec succès"
 }

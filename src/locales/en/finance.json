@@ -92,5 +92,6 @@
   "passcode_expired": "OTP code expired?",
   "account_success": "Account successfully added!",
   "delete_warning": "Are you sure you want to delete account: {account} - {accountNo}.",
-  "delete_danger": "The following action can not be reversed!"
+  "delete_danger": "The following action can not be reversed!",
+  "successful_delete_account": "Successfully deleted account"
 }
