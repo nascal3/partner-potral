@@ -26,8 +26,10 @@
                 max-width="600" transition="dialog-top-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-card
-              class="d-flex justify-space-between align-center px-8 py-2 mb-3"
-              width="500">
+              class="d-flex justify-space-between align-center px-8 py-2 mb-3 "
+              elevation="1"
+              tile
+              width="480">
             <div class="d-flex align-center">
               <v-icon color="error" x-large>mdi-alert-circle</v-icon>
               <v-card-text>
@@ -36,7 +38,7 @@
                 <p>{{ index === "expired" ? "Upload by:" + topExpiryDate : "Deadline:" + topPendingDate }}</p>
               </v-card-text>
             </div>
-            <v-btn color="error" v-bind="attrs" v-on="on">
+            <v-btn class="text-capitalize font-weight-medium" color="error" v-bind="attrs" v-on="on">
               More Details
             </v-btn>
           </v-card>
