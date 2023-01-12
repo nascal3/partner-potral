@@ -46,5 +46,18 @@ export default class LegalDocument extends Base {
       }
     })
   }
+
+  fetchAll() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/document-submissions`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

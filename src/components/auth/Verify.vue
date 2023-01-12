@@ -88,10 +88,9 @@ export default {
       return JSON.parse(localStorage.getItem('sendy:identification'))
     },
 
-    // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
-    // hasPendingContract() {
-    //   return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
-    // },
+    hasPendingContract() {
+      return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
+    },
 
     preferredLoginMethod () {
       let loginMethod = null
@@ -130,8 +129,7 @@ export default {
 
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
-          // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
-          // if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
+          if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
           this.$router.push({ name: 'orders.index' })
         })
       }).catch(({ data, status }) => {

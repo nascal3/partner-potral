@@ -88,22 +88,22 @@ export default {
   },
 
   computed: {
-    // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
-    // ...mapGetters({
-    //   partnerContracts: 'getPartnerContractDocuments',
-    // }),
+    ...mapGetters({
+      pendingContracts: 'getPendingContractDocuments',
+    }),
 
-    // contractsDataInitialised () {
-    //   return this.partnerContracts && this.partnerContracts.data && Object.keys(this.partnerContracts.data).length > 0
-    // },
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
 
-    // pendingContracts () {
-    //   if (!this.contractsDataInitialised) return true
-    //   return this.partnerContracts.data.has_pending
-    // },
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
 
     btnDisabled() {
-      return this.disabled || !this.paymentMethodsInit
+      return this.disabled || !this.paymentMethodsInit || this.pendingUnsignedContracts
     },
 
     errors() {
@@ -116,38 +116,10 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'setPartnerContractDocuments'
-    ]),
-
-    loadDocument () {
-      const { id } = auth.retrieve('partner')
-      this.setPartnerContractDocuments({
-        routes: {
-          partner: id
-        }
-      }).catch(error => {
-        flash({
-          message: error.data.message,
-          color: '#e74c3c',
-        })
-        throw error
-      })
-    },
-
     proceedToWithdraw() {
       this.setSegmentEvent('Proceed to withdraw amount')
-      // TODO ENABLE ONCE READY TO DEPLOY CONTRACTS
-      // if (this.pendingContracts) {
-      //   this.setSegmentEvent('Redirected to sign partner contract')
-      //   return this.$router.push({ name: 'contract' })
-      // }
       this.$emit('proceed', true)
     }
-  },
-
-  mounted () {
-    this.loadDocument()
   }
 }
 </script>
