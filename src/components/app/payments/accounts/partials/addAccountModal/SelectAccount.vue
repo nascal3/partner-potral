@@ -41,7 +41,7 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
-import mockData from '../../../../../../tests/e2e/fixtures/payOutMethods.json'
+import mockData from '../../../../../../../tests/e2e/fixtures/payOutMethods.json'
 
 export default {
   mixins: [segmentMixin],

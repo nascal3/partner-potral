@@ -114,7 +114,7 @@
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import Payment from '@/libs/app/payments/Payment'
-import mockBankData from '../../../../../../tests/e2e/fixtures/payOutBanks.json'
+import mockBankData from '../../../../../../../tests/e2e/fixtures/payOutBanks.json'
 import {mapActions, mapGetters} from "vuex";
 
 export default {

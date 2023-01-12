@@ -17,7 +17,7 @@
 
       <v-card-text class="px-0">
         <v-data-table
-            id="statement-table"
+            id="#accounts-table"
             fixed-header
             disable-sort
             class="title"
@@ -32,21 +32,13 @@
             :loading-text="$t('core.system_loading')"
         >
           <template v-slot:item.isactive="{ item }">
-            <v-chip :color="setChipColor(item.isactive)" :text-color="setChipTextColor(item.isactive)" outlined small>
+            <v-chip :color="setChipColor(item.isactive)" :text-color="setChipTextColor(item.isactive)" small>
               {{ item.isactive }}
             </v-chip>
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <v-btn
-                color="primary"
-                class="ttn caption my-3"
-                @click="sanction = item, openDialog('edit')"
-                outlined
-                block
-            >
-              {{ $t('finance.edit_details') }}
-            </v-btn>
+            <edit-account-modal :selected-account="item" />
 
             <delete-account-modal :selected-account="item" />
           </template>
@@ -65,8 +57,9 @@ export default {
   mixins: [segmentMixin, formatNumbers],
 
   components: {
-    'add-account-modal': () => import('./addAccountModal/AccountModal.vue'),
-    'delete-account-modal': () => import('./deleteAccountModal/DeleteAccountModal.vue')
+    'add-account-modal': () => import('./partials/addAccountModal/AccountModal.vue'),
+    'delete-account-modal': () => import('./partials/deleteAccountModal/DeleteAccountModal.vue'),
+    'edit-account-modal': () => import('./partials/editAccountModal/EditAccountModal.vue')
   },
 
   data() {
@@ -86,24 +79,16 @@ export default {
   methods: {
     setChipColor (orderStatus) {
       const colorMap = {
-        'pending': '#FBDECF',
-        'failed': '#FBDECF',
-        'confirmed': '#CCEFFF',
-        'delivered': '#DEFAD2',
-        'in transit': '#FDDB97',
-        'transit': '#FDDB97'
+        'false': '#FBDECF',
+        'true': '#DEFAD2'
       }
       return colorMap[orderStatus]
     },
 
     setChipTextColor (orderStatus) {
       const colorMap = {
-        'pending': '#9B101C',
-        'failed': '#9B101C',
-        'confirmed': '#006492',
-        'delivered': '#116F28',
-        'in transit': '#9D5004',
-        'transit': '#9D5004'
+        'false': '#9B101C',
+        'true': '#116F28'
       }
       return colorMap[orderStatus]
     },
@@ -113,8 +98,7 @@ export default {
 </script>
 
 <style lang="scss">
-#statement-tabs {
-
+#accounts-table {
   .v-chip {
     .v-chip__content {
       padding-top: 2px;
