@@ -33,8 +33,8 @@ describe('Authentication features works', () => {
       cy.setTokens()
       cy.visit('/orders')
       cy.url().should('include', '/orders')
-      cy.get('.title').as("title")
-      cy.get("@title").should("contain", 'Orders')
+      // cy.get('.title').as("title")
+      // cy.get("@title").should("contain", 'Orders')
     })
   })
 

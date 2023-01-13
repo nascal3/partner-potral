@@ -15,6 +15,12 @@ const routes = [
         } else {
           next('/auth/generate')
         }
+      } else if (auth.retrieve('partner')) {
+        if (to.name == 'contract') {
+          next()
+        } else {
+          next('/')
+        }
       } else {
         if (!auth.retrieve('partner')) {
           if (to.name == 'accounts') {
@@ -53,6 +59,11 @@ const routes = [
         path: 'accounts',
         name: 'accounts',
         component: () => import('@/components/auth/Accounts.vue'),
+      },
+      {
+        path: 'contract',
+        name: 'contract',
+        component: () => import('@/components/auth/partner_contract/Index.vue'),
       },
     ]
   },
@@ -202,15 +213,15 @@ const routes = [
       },
 
       {
-        path: 'legal-documents/add-documents',
-        name: 'document-details.addDocuments',
-        component: () => import('@/components/app/legal_documents/AddDocuments.vue')
-      },
-
-      {
         path: 'notifications',
         name: 'notifications.index',
         component: () => import('@/components/app/notifications/Index.vue')
+      },
+
+      {
+        path: 'partner-contract',
+        name: 'partner-contract.index',
+        component: () => import('@/components/app/partner_contract/Show.vue')
       },
     ],
   },

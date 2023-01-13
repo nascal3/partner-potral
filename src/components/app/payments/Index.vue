@@ -18,6 +18,26 @@
 
       <v-divider></v-divider>
 
+        <v-alert
+          v-if="pendingUnsignedContracts"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          border="left"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              {{ $t('finance.unsigned_contract_warning') }}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn color="warning" @click="signContract">
+                {{ $t('finance.sign_contract') }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
@@ -26,11 +46,15 @@
             <div class="small-text">{{ $t('finance.account_balance') }}</div>
 
             <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-              <span class="mr-2 mt-2">{{ currency }}</span>
-                {{ thousandSeparator(balance) }}
+              <span class="mr-2 mt-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
             </div>
             <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-              0
+              <v-progress-circular
+                  :width="3"
+                  :size="20"
+                  indeterminate
+                  color="primary"
+              ></v-progress-circular>
             </div>
 
           </div>
@@ -43,55 +67,63 @@
             color="#324BA8"
             left
         >
+          <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
           <v-tab>{{ $t('finance.tab_withdrawals') }}</v-tab>
 <!--          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>-->
 <!--          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>-->
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
-          <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
 
           <div class="account-balance">
             <div class="d-flex flex-column justify-end align-end mr-4">
               <div class="small-text">{{ $t('finance.account_balance') }}</div>
 
               <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-                <span class="mr-2">{{ currency }}</span>
-                {{ thousandSeparator(balance) }}
+                <span class="mr-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
               </div>
               <div v-else class="d-flex currency-text" v-animate-css.click="'rubberBand'">
-                0
+                <v-progress-circular
+                    :width="3"
+                    :size="20"
+                    indeterminate
+                    color="primary"
+                ></v-progress-circular>
               </div>
 
             </div>
           </div>
 
-          <!--      withdrawals summary tab-->
+          <!--      #####transactions summary tab#####-->
+          <v-tab-item>
+            <v-container fluid>
+              <transactions-table/>
+            </v-container>
+          </v-tab-item>
+
+          <!--      #####withdrawals summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
-          <!--      savings tab-->
+
+          <!--      #####savings tab####-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
-          <!--      repayments summary tab-->
+
+          <!--      #####repayments summary tab#####-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
-          <!--      uncleared earnings summary tab-->
+
+          <!--      #####uncleared earnings summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <uncleared-earnings/>
-            </v-container>
-          </v-tab-item>
-          <!--      transactions summary tab-->
-          <v-tab-item>
-            <v-container fluid>
-              <transactions-table/>
             </v-container>
           </v-tab-item>
         </v-tabs>
@@ -101,10 +133,13 @@
 </template>
 
 <script>
+import { zonedTimeToUtc, utcToZonedTime } from 'date-fns-tz'
+import compareAsc from 'date-fns/compareAsc'
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import dateFormat from "@/mixins/dateFormat"
 import {mapGetters, mapActions} from "vuex"
+// import mockResponse from "../../../../tests/e2e/fixtures/accountBalance.json"
 
 export default {
   mixins: [segmentMixin, formatNumbers, dateFormat],
@@ -125,8 +160,19 @@ export default {
 
   computed: {
     ...mapGetters({
-      accountBalance: 'getAccountBalance'
+      accountBalance: 'getAccountBalance',
+      pendingContracts: 'getPendingContractDocuments',
     }),
+
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
+
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
 
     initialised () {
       let account = []
@@ -134,6 +180,22 @@ export default {
         account = Object.keys(this.accountBalance.primary_account)
       }
       return account.includes('current_balance')
+    },
+
+    isWithdrawalDate() {
+      if (!this.initialised) return false
+      // Compare the two dates and return 1 if the first date is after the second,
+      // -1 if the first date is before the second or 0 if dates are equal.
+      const currentTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const { next_withdrawal_day, time_zone } = this.accountBalance
+
+      //Correctly format dates to be compared
+      const withdrawalZonedTime = zonedTimeToUtc(next_withdrawal_day, time_zone)
+      const currentZonedTime = utcToZonedTime(new Date(), currentTimeZone)
+
+      // Compare the two dates
+      const result = compareAsc(currentZonedTime, withdrawalZonedTime)
+      return result === 0 || result === 1
     },
 
     allowWithdraw() {
@@ -147,7 +209,13 @@ export default {
     },
 
     friendlyDateFormat() {
-      return this.withdrawalDateFormat(this.accountBalance.next_withdrawal_day, this.$t('finance.from'))
+      if (!this.initialised) return '...'
+      const { next_withdrawal_day, time_zone } = this.accountBalance
+      const withdrawalTime = `${next_withdrawal_day}, ${time_zone}`
+      //Correctly format date
+      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+
+      return this.withdrawalDateFormat(withdrawalZonedTime, this.$t('finance.from'))
     },
 
     balance() {
@@ -158,8 +226,32 @@ export default {
 
   methods: {
     ...mapActions([
-      'setAccountBalance'
+      'setAccountBalance',
+      'setPendingContractDocuments',
     ]),
+
+    signContract() {
+      this.setSegmentEvent('Redirected to sign partner contract')
+      this.$router.push({ name: 'contract' })
+    },
+
+    loadDocuments () {
+      this.loading = true
+      const { id } = auth.retrieve('partner')
+      this.setPendingContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
 
     loadAccountBalance () {
       const { id } = auth.retrieve('partner')
@@ -181,8 +273,9 @@ export default {
 
 
   mounted () {
+    this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
-    this.setSegmentEvent('Opened Payments feature')
+    this.loadDocuments()
   }
 }
 </script>

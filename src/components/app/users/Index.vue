@@ -63,9 +63,12 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  mixins: [segmentMixin],
+
   components: {
     'users-create': () => import('./Create.vue'),
     'users-edit': () => import('./Edit.vue')
@@ -117,6 +120,7 @@ export default {
 
 
   mounted () {
+    this.setSegmentEvent('Select Manage Users Tab')
     this.loadUsers()
   }
 }

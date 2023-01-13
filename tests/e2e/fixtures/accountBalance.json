@@ -1,0 +1,12 @@
+{
+  "code": 200,
+  "next_withdrawal_day": "2022-11-15 08:00:00",
+  "owner_id": 599,
+  "primary_account": {
+    "currency": "KES",
+    "current_balance": 26741
+  },
+  "time_zone": "Africa/Nairobi",
+  "withdrawal_day": true,
+  "status": true
+}

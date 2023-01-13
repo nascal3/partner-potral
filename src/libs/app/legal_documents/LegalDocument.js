@@ -34,5 +34,30 @@ export default class LegalDocument extends Base {
       }
     })
   }
+
+  sign () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields(['identification_number', 'contract_id', 'signed_at', 'viewed_at', 'name'])
+        const response = await this.form.submit('post', url(`partners/${this.group.id}/contract-signatures`), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  fetchAll() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("get", url(
+            `partners/${this.group.id}/document-submissions`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
 

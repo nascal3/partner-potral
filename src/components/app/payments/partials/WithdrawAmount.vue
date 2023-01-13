@@ -42,6 +42,7 @@
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
+import {mapActions, mapGetters} from "vuex"
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -87,8 +88,22 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      pendingContracts: 'getPendingContractDocuments',
+    }),
+
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
+
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
+
     btnDisabled() {
-      return this.disabled || !this.paymentMethodsInit
+      return this.disabled || !this.paymentMethodsInit || this.pendingUnsignedContracts
     },
 
     errors() {
@@ -105,7 +120,7 @@ export default {
       this.setSegmentEvent('Proceed to withdraw amount')
       this.$emit('proceed', true)
     }
-  },
+  }
 }
 </script>
 

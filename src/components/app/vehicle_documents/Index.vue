@@ -11,6 +11,7 @@
           :key="`document-${index}`"
           class="elevation-1 mb-5"
           ripple
+          :disabled="disabledUpload(vd.status)"
           @click="vehicleDocument = vd, setSegmentEvent(`Select ${vd.document.label}`)"
         >
           <!-- <v-list-item-avatar>
@@ -93,6 +94,11 @@ export default {
     ...mapActions([
       'setVehicleDocuments'
     ]),
+
+    disabledUpload(documentStatus) {
+      const status = ['submitted', 'approved']
+      return status.includes(documentStatus)
+    },
 
     loadVehicleDocuments () {
       this.setVehicleDocuments({

@@ -1,7 +1,7 @@
 import { format } from "date-fns";
-import { en, fr, ar } from 'date-fns/locale'
+import { enGB, fr, ar } from 'date-fns/locale'
 
-const locales = { en, fr, ar }
+const locales = { enGB, fr, ar }
 const setLanguage = localStorage.getItem('setLanguage')
 
 const dateFormat = {
@@ -23,7 +23,7 @@ const dateFormat = {
         },
 
         withdrawalDateFormat(date, separator) {
-            // format date result e.g Saturday from 8am
+            // format date result to e.g Saturday from 8am
             if (!date) return '...'
             const day = format(new Date(date), 'iiii', {
                 locale: locales[setLanguage]
@@ -32,6 +32,22 @@ const dateFormat = {
                 locale: locales[setLanguage]
             })
             return `${day} ${separator} ${time}`
+        },
+
+        documentsDateFormat(date) {
+            // format date result e.g 20th September 2021
+            if (!date) return
+            return format(new Date(date), ' dd LLLL yyy', {
+                locale: locales[setLanguage]
+            })
+        },
+
+        contractDateFormat(date) {
+            // format date result e.g 20th September 2021 | 8am
+            if (!date) return
+            return format(new Date(date), ' do LLL yyy | hh:mm aaa', {
+                locale: locales[setLanguage]
+            })
         },
     },
 };

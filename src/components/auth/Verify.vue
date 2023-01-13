@@ -1,54 +1,62 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <p class="body-1 pb-0">
-        {{ $t('verify.title') }} {{ preferredLoginMethod }}
-      </p>
-    </v-col>
-
-    <v-col
-      cols="12"
+  <section class="d-flex justify-center">
+    <v-card
+        max-width="500"
+        outlined
+        flat
     >
-      <div v-if="loading" class="d-flex align-center">
-        <v-progress-circular
-            indeterminate
-            size="15"
-            width="2"
-            color="deep-orange"
-            class="mr-2"
-        ></v-progress-circular>
-        <div class="deep-orange--text">
-          {{ $t('verify.verifying_code') }}
-        </div>
-      </div>
-      <v-otp-input
-        length="4"
-        class="body-2"
-        persistent-hint
-        v-model="authObj.code"
-        :hint="errors.get('code')"
-        :error="errors.has('code')"
-        @input="errors.clear('code')"
-        @finish="verifyCode()"
-      ></v-otp-input>
-      <div v-if="counter > 0">
-        {{ $t('verify.time_to_expired') }}
-        <span class="count-text">{{counter}} sec</span>
-      </div>
-    </v-col>
+      <v-row>
+        <v-col cols="12">
+          <p class="body-1 pb-0">
+            {{ $t('verify.title') }} {{ preferredLoginMethod }}
+          </p>
+        </v-col>
 
-    <v-col cols="12">
-      <p class="body-1">
-        {{ $t('verify.passcode_expired') }}
-        <router-link
-          class="deep-orange--text"
-          to="/auth/generate"
+        <v-col
+            cols="12"
         >
-          {{ $t('verify.request_another_one') }}
-        </router-link>
-      </p>
-    </v-col>
-  </v-row>
+          <div v-if="loading" class="d-flex align-center">
+            <v-progress-circular
+                indeterminate
+                size="15"
+                width="2"
+                color="deep-orange"
+                class="mr-2"
+            ></v-progress-circular>
+            <div class="deep-orange--text">
+              {{ $t('verify.verifying_code') }}
+            </div>
+          </div>
+          <v-otp-input
+              length="4"
+              class="body-2"
+              persistent-hint
+              v-model="authObj.code"
+              :hint="errors.get('code')"
+              :error="errors.has('code')"
+              @input="errors.clear('code')"
+              @finish="verifyCode()"
+          ></v-otp-input>
+          <div v-if="counter > 0">
+            {{ $t('verify.time_to_expired') }}
+            <span class="count-text">{{counter}} sec</span>
+          </div>
+        </v-col>
+
+        <v-col cols="12">
+          <p class="body-1">
+            {{ $t('verify.passcode_expired') }}
+            <router-link
+                class="deep-orange--text"
+                to="/auth/generate"
+            >
+              {{ $t('verify.request_another_one') }}
+            </router-link>
+          </p>
+        </v-col>
+      </v-row>
+    </v-card>
+  </section>
 </template>
 
 <script>
@@ -58,6 +66,7 @@ import timeCountDown from "@/mixins/timeCountDown";
 
 export default {
   mixins: [segmentMixin, timeCountDown],
+
   data () {
     return {
       loading: false,
@@ -79,6 +88,10 @@ export default {
       return JSON.parse(localStorage.getItem('sendy:identification'))
     },
 
+    hasPendingContract() {
+      return JSON.parse(localStorage.getItem('sendy:partner')).partner.has_pending_contracts
+    },
+
     preferredLoginMethod () {
       let loginMethod = null
       loginMethod = this.contactMethod
@@ -98,7 +111,7 @@ export default {
     },
 
     verifyCode () {
-      this.setSegmentEvent('Entered OTP')
+      this.setSegmentEvent('Enter Log In OTP')
       this.loading = true
       const { identifier, value } = this.identification
       this.authObj[identifier] = value
@@ -116,8 +129,8 @@ export default {
 
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
+          if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
           this.$router.push({ name: 'orders.index' })
-          this.loading = false
         })
       }).catch(({ data, status }) => {
         const codes = [400, 404, 409, 500]
@@ -143,5 +156,13 @@ export default {
 <style lang="scss" scoped>
 .count-text {
   color: #324BAB;
+}
+
+section {
+  .v-card {
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 40px 40px 40px;
+  }
 }
 </style>

@@ -37,9 +37,12 @@ export default class VehicleDocument extends Base {
           'Content-Type': 'multipart/form-data'
         })
         this.setFields(fields)
-        flash({...response, color: '#38c172'})
         resolve(response)
       } catch (err) {
+        flash({
+          message: err.message,
+          color: '#e74c3c'
+        })
         reject(err)
       }
     })

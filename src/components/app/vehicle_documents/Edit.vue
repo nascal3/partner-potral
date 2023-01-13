@@ -53,7 +53,7 @@
             </template>
           </v-file-input>
 
-           <v-text-field
+          <v-text-field
             dense
             outlined
             persistent-hint
@@ -64,7 +64,7 @@
             :hint="errors.get('value')"
             :error="errors.has('value')"
             @input="errors.clear('value')"
-            @change="setSegmentEvent(`Enter ${vehicleDocument.document.label}`)"
+            @change="setSegmentEvent(`Enter Document Value ${vehicleDocument.document.label}`)"
           ></v-text-field>
 
           <v-dialog
@@ -114,9 +114,8 @@
             block
             large
             color="primary"
-            :dark="!loading"
             :loading="loading"
-            :disabled="loading"
+            :disabled="loading || !documentUploaded"
             class="caption font-weight-bold"
             @click="submit()"
           >
@@ -144,6 +143,7 @@ export default {
       dialog: false,
       loading: false,
       expiryDialog: false,
+      documentUploaded: false,
       acceptedFileTypes: [
         "image/png",
         "image/jpeg",
@@ -179,22 +179,30 @@ export default {
   methods: {
     uploadDocument () {
       this.setSegmentEvent('Select upload')
-      this.vehicleDocumentObj.upload()
-        .then(() => {
-
-        })
-
+      this.vehicleDocumentObj.upload().then((res) => {
+        if (res.message === 'File uploaded successfully') {
+          this.setSegmentEvent(`Upload Success - ${this.vehicleDocument.document.label}`)
+          flash({...res, color: '#38c172'})
+          this.documentUploaded = true
+        } else {
+          this.setSegmentEvent(`Upload Fail - ${this.vehicleDocument.document.label}`)
+          flash({...res, color: '#e74c3c'})
+        }
+      })
     },
 
     submit () {
-      this.setSegmentEvent(`Submit ${this.vehicleDocument.document.label}`)
+      this.setSegmentEvent(`Submit Document ${this.vehicleDocument.document.label}`)
       if (!this.loading) {
         this.loading = true
         this.vehicleDocumentObj.update(this.vehicleDocument.id)
           .then(response => {
+            this.setSegmentEvent(`Document ${this.vehicleDocument.document.label} Submit Success`)
             flash({...response, color: '#38c172',})
             this.$emit('updated')
+            this.documentUploaded = false
           }).catch(error => {
+          this.setSegmentEvent(`Document ${this.vehicleDocument.document.label} Submit Fail`)
           flash({
             message: error.data.message,
             color: '#e74c3c',

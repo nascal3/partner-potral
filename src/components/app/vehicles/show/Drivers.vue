@@ -5,6 +5,7 @@
     ></app-loading>
 
     <div v-if="initialised">
+
 <!--      <driver-deallocate-->
 <!--        v-if="transporter"-->
 <!--        :transporter="transporter"-->

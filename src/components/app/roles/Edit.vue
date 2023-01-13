@@ -10,11 +10,15 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
+
 export default {
+  mixins: [segmentMixin],
+
   props: [
     "role"
   ],
-  
+
   components: {
     'role-form': () => import('./partials/RoleForm'),
   },
@@ -48,6 +52,10 @@ export default {
       this.dialogLaunch = false
       this.$emit('updated')
     }
+  },
+
+  mounted () {
+    this.setSegmentEvent('Select Edit Role')
   }
 }
 </script>

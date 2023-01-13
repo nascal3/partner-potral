@@ -10,7 +10,7 @@
           v-bind="attrs"
           color="primary"
           class="ttn body-2"
-          small
+          block
           @click="setSegmentEvent('Select view legal document')"
       >
         {{ $t('documents.view_document') }}
@@ -35,16 +35,18 @@
 
       <v-divider></v-divider>
 
-      <div class="pa-5">
+      <div class="pa-5" id="details">
         <section v-if="images.length" class="mb-3">
-          <div class="subtitle">Submitted Image:</div>
-          <v-carousel height="300">
+          <div class="subtitle">{{ $t('documents.submitted_image') }}:</div>
+          <v-carousel
+              cycle
+              height="300"
+              show-arrows-on-hover
+          >
             <v-carousel-item
                 v-for="(image,i) in images"
                 :key="i"
                 :src="image.url"
-                reverse-transition="fade-transition"
-                transition="fade-transition"
             ></v-carousel-item>
           </v-carousel>
         </section>
@@ -54,29 +56,29 @@
             <div><span class="subtitle">{{ $t('documents.document_value') }}:</span> {{ documentDetails.value }}</div>
             <div><span class="subtitle">{{ $t('documents.document_status') }}: </span>
               <v-chip :color="setChipColor(documentDetails.status)" :text-color="setChipTextColor(documentDetails.status)" light small>
-                {{ documentDetails.status.toUpperCase() }}
+                {{ documentDetails.status }}
               </v-chip>
             </div>
             <div><span class="subtitle">{{ $t('documents.resource_type') }}:</span> {{ documentDetails.document.resource }}</div>
           </div>
 
           <div>
-            <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentDetails.created_at }}</div>
-            <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ ordersDateFormat(documentDetails.updated_at) }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_created') }}:</span> {{ documentsDateFormat(documentDetails.created_at) }}</div>
+            <div><span class="subtitle">{{ $t('documents.document_updated') }}:</span> {{ documentsDateFormat(documentDetails.updated_at) }}</div>
             <div v-if="expirable" >
-              <span class="subtitle">Expiry date:</span> {{ Document.expires_at }}
+              <span class="subtitle">{{ $t('documents.expiry_date') }}:</span> {{ documentsDateFormat(Document.expires_at) }}
             </div>
           </div>
         </section>
 
         <section v-if="driver && Object.keys(driver).length" class="mb-4">
           <div class="subtitle">{{ $t('documents.driver_details') }}:</div>
-          <div><span class="subtitle">{{ $t('documents.name') }}:</span> {{ driver.name }}</div>
+          <div><span class="subtitle">{{ $t('documents.driver_name') }}:</span> {{ driver.name }}</div>
           <div><span class="subtitle">{{ $t('documents.email') }}:</span> {{ driver.email }}</div>
           <div><span class="subtitle">{{ $t('documents.phone') }}:</span> {{ driver.phone }}</div>
         </section>
 
-        <section v-if="reviews && reviews.length" class="mb-4">
+        <section v-if="showReviews" class="mb-4">
           <div class="subtitle">{{ $t('documents.comments') }}:</div>
           <div>{{ reviews[0].comments }}</div>
         </section>
@@ -153,6 +155,10 @@ export default {
       if (this.initialised) return this.Document.reviews
     },
 
+    showReviews () {
+      return this.reviews && this.reviews.length && this.documentDetails.status === 'rejected'
+    },
+
     driver () {
       if (this.initialised) {
         const driverDetails = this.Document.driver_details
@@ -196,7 +202,7 @@ export default {
     },
 
     fetchAllDocumentImages() {
-      const imageArray = JSON.parse(this.Document.uploads)
+      const imageArray = this.Document.uploads
       if (!imageArray || !imageArray.length) return
       Promise.all(
           imageArray.map(image => {
@@ -233,7 +239,7 @@ export default {
         this.fetchAllDocumentImages()
       }).catch(error => {
         flash({
-          message: error.data.message,
+          message: error,
           color: '#e74c3c',
         })
         throw error
@@ -268,16 +274,18 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
   .subtitle {
     font-weight: 700;
   }
-  .v-chip {
-    .v-chip__content {
-      padding-top: 2px;
-      display: inline-block !important;
-      &:first-letter {
-        text-transform: uppercase;
+  #details {
+    .v-chip {
+      .v-chip__content {
+        padding-top: 2px;
+        display: inline-block !important;
+        &:first-letter {
+          text-transform: uppercase;
+        }
       }
     }
   }

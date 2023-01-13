@@ -1,14 +1,18 @@
-FROM sendy-docker-local.jfrog.io/node:10.24.0-alpine AS BUILD
+FROM node:alpine AS BUILD
 
 ARG DOCKER_ENV
 ARG VUE_APP_PORTAL
 ARG VUE_APP_PARTNER_BFF
 ARG MAPS_API_KEY
+ARG MIX_PANEL_TOKEN
+ARG VUE_APP_CONVOY_API
 
 ENV DOCKER_ENV=$DOCKER_ENV
 ENV VUE_APP_PORTAL=$VUE_APP_PORTAL
 ENV VUE_APP_PARTNER_BFF=$VUE_APP_PARTNER_BFF
 ENV MAPS_API_KEY=$MAPS_API_KEY
+ENV MIX_PANEL_TOKEN=$MIX_PANEL_TOKEN
+ENV VUE_APP_CONVOY_API=$VUE_APP_CONVOY_API
 
 WORKDIR /build
 
@@ -20,8 +24,8 @@ COPY . .
 
 RUN yarn run build
 
-#########################################################################################################
-FROM sendy-docker-local.jfrog.io/distroless-nginx-base
+#################################################################################################
+FROM sendy-docker-local.jfrog.io/nginx:base_frontend
 
 WORKDIR /usr/src/app
 

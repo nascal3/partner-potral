@@ -14,10 +14,11 @@ import VueTelInput from 'vue-tel-input'
 import 'vue-tel-input/dist/vue-tel-input.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VAnimateCss from 'v-animate-css'
+import mixpanel from 'mixpanel-browser'
 
 Vue.config.productionTip = false
 const environment = process.env.DOCKER_ENV
-const dns = environment === 'production'
+const dns = environment !== 'development'
     ? "https://2a1ed506f7124aaba8d015b8e0e4b9a6@o32379.ingest.sentry.io/6179395"
     : null
 
@@ -33,14 +34,15 @@ Sentry.init({
   environment: environment,
   tracesSampleRate: 1.0,
   logErrors: true
-});
+})
+mixpanel.init(process.env.MIX_PANEL_TOKEN)
 
 const options = {
   defaultCountry: 'ke',
   enabledCountryCode: true,
   mode: 'international',
   inputOptions: {
-    placeholder: 'Phone number *',
+    placeholder: 'Phone number *'
   }
 }
 Vue.use(VueTelInput, options)
@@ -51,7 +53,7 @@ Vue.use(VueGoogleMaps, {
   },
   autobindAllEvents: true
 })
-Vue.use(VAnimateCss);
+Vue.use(VAnimateCss)
 
 new Vue({
   router,

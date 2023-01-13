@@ -10,11 +10,15 @@
 </template>
 
 <script>
+import segmentMixin from "@/mixins/segmentEvents"
+
 export default {
+  mixins: [segmentMixin],
+
   props: [
     'user'
   ],
-  
+
   components: {
     'user-form': () => import('./partials/UserForm.vue'),
   },
@@ -33,6 +37,7 @@ export default {
 
   methods: {
     close () {
+      this.setSegmentEvent('Close Add User')
       this.dialogLaunch = false
       this.$emit('close')
     },

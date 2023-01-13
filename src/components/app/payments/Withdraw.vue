@@ -10,7 +10,7 @@
           v-bind="attrs"
           color="primary"
           class="caption ttn font-weight-bold"
-          @click="setSegmentEvent('Withdraw funds')"
+          @click="setSegmentEvent('Select Withdrawal')"
       >
         {{ $t('finance.withdraw_btn') }}
       </v-btn>
@@ -81,7 +81,7 @@ export default {
     'payment-method': () => import('./partials/PaymentMethod.vue'),
   },
 
-  data () {
+  data() {
     return {
       loading: false,
       dialogLaunch: false,
@@ -98,7 +98,7 @@ export default {
     }),
 
     initialised () {
-      return this.paymentMethods.data && Object.keys(this.paymentMethods.data).length >= 1
+      return this.paymentMethods.data && Object.keys(this.paymentMethods.data).length > 0
     },
 
     errors () {
@@ -141,21 +141,29 @@ export default {
     },
 
     submit () {
-      this.setSegmentEvent('Withdraw amount -- Submit')
+      this.setSegmentEvent(`Confirm Withdrawal - ${this.withdrawAmount}`)
       if (!this.loading) {
         this.loading = true
         const { payment_method, bankPaybill, paymentReference } = this.withdrawalMethod
         this.paymentObj.paybill = bankPaybill
         this.paymentObj.payment_method = payment_method
         this.paymentObj.payment_reference = paymentReference
-        this.paymentObj.amount = this.withdrawAmount
+        this.paymentObj.amount = this.formatAmountToNumber(this.withdrawAmount)
+        const params = {
+          paybill: bankPaybill,
+          payment_method: payment_method,
+          payment_reference: paymentReference,
+          amount: this.withdrawAmount
+        }
 
         this.paymentObj.store()
             .then(response => {
+              this.setSegmentEvent(`Withdrawal Success - ${this.withdrawAmount}`, params)
               flash({...response, color: '#38c172'})
               this.dialogLaunch = false
             })
             .catch(error => {
+              this.setSegmentEvent(`Withdrawal Failed - ${this.withdrawAmount}`, {...params, message: error.data.message})
               this.loading = false
               flash({
                 message: error.data.message,

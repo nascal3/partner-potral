@@ -1,10 +1,11 @@
-image: node:14.19.0-alpine
+image: sendy-docker-local.jfrog.io/node:10.24.0-alpine AS BUILD
 
 variables:
   REIMAGINED_STAGING_IMAGE_NAME: sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:latest_$CI_COMMIT_SHORT_SHA
   VUE_APP_PORTAL: sendy:partner
   VUE_APP_PARTNER_BFF: https://partner-bff-test.sendyit.com/api/v1/
   MAPS_API_KEY: AIzaSyBWMVg9uhO7-BieEMUB3cVzm9O78RGtugo
+  MIX_PANEL_TOKEN: ce3d573d8a523759617f9d21792b1a4f
 
 stages:
   - test
@@ -36,7 +37,7 @@ buildpush:staging:
   before_script:
     - export REIMAGINED_STAGING_IMAGE_FLUX="sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:dev_$(date +%Y-%m-%d-%H-%M)"
   script:
-    - docker build  --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF='https://partner-bff-test.sendyit.com/api/v1/' --build-arg MAPS_API_KEY='AIzaSyBClCBMpwB-uisYlmoKlDMF-X8bY4MoXqc' -t $REIMAGINED_STAGING_IMAGE_NAME -t $REIMAGINED_STAGING_IMAGE_FLUX -f Dockerfile .
+    - docker build  --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF='https://partner-bff-test.sendyit.com/api/v1/'  --build-arg MAPS_API_KEY='AIzaSyBClCBMpwB-uisYlmoKlDMF-X8bY4MoXqc' --build-arg MIX_PANEL_TOKEN='ce3d573d8a523759617f9d21792b1a4f' -t $REIMAGINED_STAGING_IMAGE_NAME -t $REIMAGINED_STAGING_IMAGE_FLUX -f Dockerfile .
     - docker push $REIMAGINED_STAGING_IMAGE_NAME
     - docker push $REIMAGINED_STAGING_IMAGE_FLUX
   only:
@@ -52,7 +53,7 @@ buildpush:prod:
     - export REIMAGINED_PROD_IMAGE_FLUX="sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:prod_$(date +%Y-%m-%d-%H-%M)"
     - export REIMAGINED_PROD_IMAGE_NAME="sendy-docker-local.jfrog.io/vue-partner-portal-reimagined:prod_$(date +%Y-%m-%d-%H-%M)"
   script:
-    - docker build  --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF=https://partner-bff.sendyit.com/api/v1/ --build-arg MAPS_API_KEY='AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww' -t $REIMAGINED_PROD_IMAGE_NAME -t $REIMAGINED_PROD_IMAGE_FLUX -f Dockerfile .
+    - docker build  --build-arg VUE_APP_PORTAL='sendy:partner'  --build-arg VUE_APP_PARTNER_BFF=https://partner-bff.sendyit.com/api/v1/  --build-arg MAPS_API_KEY='AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww' --build-arg MIX_PANEL_TOKEN='ce3d573d8a523759617f9d21792b1a4f' -t $REIMAGINED_PROD_IMAGE_NAME -t $REIMAGINED_PROD_IMAGE_FLUX -f Dockerfile .
     - docker push $REIMAGINED_PROD_IMAGE_NAME
     - docker push $REIMAGINED_PROD_IMAGE_FLUX
   only:
