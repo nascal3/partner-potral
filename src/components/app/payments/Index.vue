@@ -18,6 +18,26 @@
 
       <v-divider></v-divider>
 
+        <v-alert
+          v-if="pendingUnsignedContracts"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          border="left"
+        >
+          <v-row align="center">
+            <v-col class="grow">
+              {{ $t('finance.unsigned_contract_warning') }}
+            </v-col>
+            <v-col class="shrink">
+              <v-btn color="warning" @click="signContract">
+                {{ $t('finance.sign_contract') }}
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-alert>
+
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
         </v-col>
@@ -72,33 +92,35 @@
             </div>
           </div>
 
-          <!--      transactions summary tab-->
+          <!--      #####transactions summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <transactions-table/>
             </v-container>
           </v-tab-item>
-          <!--      withdrawals summary tab-->
+
+          <!--      #####withdrawals summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <withdrawal-table/>
             </v-container>
           </v-tab-item>
 
-          <!--      savings tab-->
-<!--          <v-tab-item>-->
-<!--            <v-container fluid>-->
-<!--              <withdrawal-table/>-->
-<!--            </v-container>-->
-<!--          </v-tab-item>-->
-          <!--      repayments summary tab-->
+          <!--      #####savings tab####-->
 <!--          <v-tab-item>-->
 <!--            <v-container fluid>-->
 <!--              <withdrawal-table/>-->
 <!--            </v-container>-->
 <!--          </v-tab-item>-->
 
-          <!--      uncleared earnings summary tab-->
+          <!--      #####repayments summary tab#####-->
+<!--          <v-tab-item>-->
+<!--            <v-container fluid>-->
+<!--              <withdrawal-table/>-->
+<!--            </v-container>-->
+<!--          </v-tab-item>-->
+
+          <!--      #####uncleared earnings summary tab#####-->
           <v-tab-item>
             <v-container fluid>
               <uncleared-earnings/>
@@ -138,8 +160,19 @@ export default {
 
   computed: {
     ...mapGetters({
-      accountBalance: 'getAccountBalance'
+      accountBalance: 'getAccountBalance',
+      pendingContracts: 'getPendingContractDocuments',
     }),
+
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
+
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
 
     initialised () {
       let account = []
@@ -154,11 +187,10 @@ export default {
       // Compare the two dates and return 1 if the first date is after the second,
       // -1 if the first date is before the second or 0 if dates are equal.
       const currentTimeZone =  Intl.DateTimeFormat().resolvedOptions().timeZone;
-      const { pay_hour, next_withdrawal_day, time_zone } = this.accountBalance
-      const withdrawalTime = `${next_withdrawal_day} ${pay_hour}`
+      const { next_withdrawal_day, time_zone } = this.accountBalance
 
       //Correctly format dates to be compared
-      const withdrawalZonedTime = zonedTimeToUtc(withdrawalTime, time_zone)
+      const withdrawalZonedTime = zonedTimeToUtc(next_withdrawal_day, time_zone)
       const currentZonedTime = utcToZonedTime(new Date(), currentTimeZone)
 
       // Compare the two dates
@@ -194,8 +226,32 @@ export default {
 
   methods: {
     ...mapActions([
-      'setAccountBalance'
+      'setAccountBalance',
+      'setPendingContractDocuments',
     ]),
+
+    signContract() {
+      this.setSegmentEvent('Redirected to sign partner contract')
+      this.$router.push({ name: 'contract' })
+    },
+
+    loadDocuments () {
+      this.loading = true
+      const { id } = auth.retrieve('partner')
+      this.setPendingContractDocuments({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      }).finally(() => {
+        this.loading = false
+      })
+    },
 
     loadAccountBalance () {
       const { id } = auth.retrieve('partner')
@@ -219,6 +275,7 @@ export default {
   mounted () {
     this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
+    this.loadDocuments()
   }
 }
 </script>

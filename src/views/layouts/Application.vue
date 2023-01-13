@@ -14,6 +14,15 @@
         class="app--content-container"
         fluid
       >
+        <v-alert
+            v-if="isSanctioned"
+            prominent
+            type="error"
+            icon="mdi-alert-octagon-outline"
+            border="left"
+        >
+          {{ sanctionMessage }}
+        </v-alert>
         <router-view />
       </v-container>
     </div>
@@ -31,19 +40,49 @@ export default {
 
   data () {
     return {
-      showDrawer: false
+      showDrawer: false,
+      sanctionMessage: null,
+      isSanctioned: false
     }
   },
 
   computed: {
+    ...mapGetters({
+      sanction: 'getSanctions',
+    }),
+
     isTiny () {
       const name = this.$vuetify.breakpoint.name
       return name == 'xs' || name == 'sm'
     }
   },
 
+  methods: {
+    ...mapActions([
+        'setSanctions',
+    ]),
+
+    fetchSanction() {
+      const { id } = auth.retrieve('partner')
+      this.setSanctions({
+        routes: {
+          partner: id
+        }
+      }).catch(error => {
+        if (error.response.status === 403) this.isSanctioned = true
+        this.sanctionMessage = error.response.data.message
+        flash({
+          message: error.data.message,
+          color: '#e74c3c',
+        })
+        throw error
+      })
+    }
+  },
+
   mounted () {
     this.showDrawer = !this.isTiny
+    this.fetchSanction()
   }
 }
 </script>
@@ -58,5 +97,13 @@ export default {
 }
 .clip {
   height: 0;
+}
+</style>
+
+<style lang="scss" scoped>
+.v-alert {
+  z-index: 3;
+  position: fixed;
+  top: 100px;
 }
 </style>

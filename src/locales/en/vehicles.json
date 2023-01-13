@@ -2,6 +2,7 @@
   "add_vehicle": "Add Vehicle",
   "allocate": "Allocate",
   "allocate_driver": "Allocate driver",
+  "detach_driver": "Detach driver",
   "current_driver": "Current driver",
   "deallocate_driver": "Deallocate Driver",
   "deallocate_driver_message": "Are you sure you want to remove {name} from the vehicle {registration_number} ",

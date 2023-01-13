@@ -132,7 +132,15 @@ export default {
           //     ]
           // },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-          { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'legal-documents.index' },
+          {
+            name: this.$t('navigation.legal_documents'),
+            icon: 'file-document-multiple-outline',
+            children: [
+              { name: this.$t('navigation.legal_documents'), icon: 'file-document-multiple-outline', to: '/legal-documents', permission: 'legal-documents.index' },
+              { name: this.$t('navigation.partner_contract'), icon: 'mdi-text', to: '/partner-contract', permission: 'legal-documents.index' },
+            ]
+
+          },
           // { name: this.$t('navigation.notifications'), icon: 'bell-outline', to: '/notifications', permission: 'notifications.index' }
         ],
 

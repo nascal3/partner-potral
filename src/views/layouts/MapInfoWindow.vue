@@ -2,8 +2,8 @@
     <div class="info-window">
       <div class="info-window-title">{{ $t('map.location_name') }}:</div>
       <div class="info-window-text">{{locationDetails.name}}</div>
-      <div class="info-window-title">{{ $t('map.waypoint-type') }}:</div>
-      <div class="info-window-text">{{locationDetails.waypoint_type}}</div>
+      <div v-if="locationDetails.waypoint_type" class="info-window-title">{{ $t('map.waypoint-type') }}:</div>
+      <div v-if="locationDetails.waypoint_type" class="info-window-text">{{locationDetails.waypoint_type}}</div>
     </div>
 </template>
 
