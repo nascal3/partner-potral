@@ -25,12 +25,13 @@
 
       <v-divider></v-divider>
 
-      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length > 0" :key="index"
+      <!--      ##### Required/expired documents message #####-->
+      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length" :key="index"
                 max-width="600" transition="dialog-top-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-card
-              class="d-flex justify-space-between align-center px-8 py-2 mt-3"
-              max-width="550">
+              class="d-flex justify-space-between align-center px-8 py-2 mt-3 required-documents"
+              max-width="550" flat>
             <div class="d-flex align-center">
               <v-icon color="error" x-large>mdi-alert-circle</v-icon>
               <v-card-text>
@@ -39,7 +40,7 @@
                 <p>{{ index === "expired" ? $t('orders.upload', { expiry: topExpiryDate }) : $t('orders.last_day', { deadline: topPendingDate }) }}</p>
               </v-card-text>
             </div>
-            <v-btn color="error" v-bind="attrs" v-on="on">
+            <v-btn class="text-capitalize" color="error" v-bind="attrs" v-on="on">
               {{ $t('orders.more_details') }}
             </v-btn>
           </v-card>
@@ -318,6 +319,7 @@ export default {
     redirectToUpload() {
       this.$router.push('/legal-documents')
     },
+
     getExpiringDocuments() {
       this.LegalDocumentObj.fetchAll().then(res => {
         const oneMonthFromNow = new Date();
@@ -336,6 +338,7 @@ export default {
         this.getPendingDocuments()
       })
     },
+
     getPendingDocuments() {
       let pendingDocuments = []
       this.LegalDocumentObj.fetchAll().then(res => {
@@ -351,6 +354,7 @@ export default {
         }
       })
     },
+
     setDateRange({dateFrom, dateTo}) {
       this.setSegmentEvent("Filter Order/Errand Date");
       this.dateFrom = dateFrom;
@@ -496,8 +500,8 @@ export default {
     },
 
     loadErrands() {
-      this.loadingErrands = true;
-      const {id} = auth.retrieve("partner");
+      this.loadingErrands = true
+      const {id} = auth.retrieve("partner")
       this.getDriverIds()
           .then((driverIds) => {
             this.setErrands({
@@ -510,11 +514,7 @@ export default {
                 drivers: driverIds,
               },
             })
-                .then(() => {
-                  this.loadingErrands = false;
-                })
                 .catch((error) => {
-                  this.loadingErrands = false;
                   flash({
                     message: error.response.data.message,
                     color: "#e74c3c",
@@ -528,7 +528,9 @@ export default {
               color: "#e74c3c",
             });
             throw error;
-          });
+          }).finally(() => {
+              this.loadingErrands = false
+          })
     },
   },
 
@@ -645,6 +647,10 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.required-documents {
+  border: solid 1px #FF6160;
+}
+
 .v-tabs {
   //margin-top: 20px;
 }

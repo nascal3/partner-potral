@@ -38,12 +38,14 @@ pipeline {
             steps {
               script {
 
-                if(env.BRANCH_NAME == "main") {  
+                if(env.BRANCH_NAME == "main") {
                         env.ENV_TAG = "prod"
                         env.BFF_URL = "https://partner-bff.sendyit.com/api/v1/"
                         env.MAPS_KEY = 'AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww'
                     } else {
                         env.ENV_TAG = "dev"
+                        env.BFF_URL = "https://partner-bff-test.sendyit.com/api/v1/"
+                        env.MAPS_KEY = 'AIzaSyAhkxyTtJznhU-kZ9wc1u6AXxChFu44Zww'
                 }
 
                 sh '''
