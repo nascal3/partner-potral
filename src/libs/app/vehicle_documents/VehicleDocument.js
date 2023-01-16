@@ -1,6 +1,7 @@
 import Base from '@/libs/core/Base'
 import Form from '@/libs/core/Form'
 import { fields } from './VehicleDocumentRepository'
+import { format, add } from 'date-fns'
 
 export default class VehicleDocument extends Base {
   constructor () {
@@ -10,7 +11,12 @@ export default class VehicleDocument extends Base {
   }
 
   update (vehicleDocumentId) {
-    const data = this.getFields(['value', 'expires_at'])
+    const { value } = this.getFields(['value'])
+    const result = add(new Date(),{days: 7})
+    const data = {
+      value,
+      expires_at: format(result, 'yyyy-MM-dd')
+    }
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.form.submit("patch", url(`partners/${this.group.id}/document-submissions/${vehicleDocumentId}`), data)
