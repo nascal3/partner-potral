@@ -83,7 +83,7 @@
           <div>{{ reviews[0].comments }}</div>
         </section>
 
-        <section v-if="documentDetails.status === 'rejected'">
+        <section v-if="showResubmitButton">
           <v-btn
               dark
               block
@@ -145,6 +145,11 @@ export default {
 
     initialised () {
       return this.Document
+    },
+
+    showResubmitButton () {
+      const { status } = this.documentDetails
+      return status === 'rejected' || status === 'expired'
     },
 
     expirable () {
