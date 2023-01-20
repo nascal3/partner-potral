@@ -67,6 +67,7 @@ export default {
       accounts: mockData,
       loading: true,
       headers: [
+        { text: this.$t('finance.tbl_account_type'), value: 'category' },
         { text: this.$t('finance.tbl_account'), value: 'operator_name' },
         { text: this.$t('finance.tbl_account_name'), value: 'account_name' },
         { text: this.$t('finance.tbl_account_number'), value: 'user_account_no' },

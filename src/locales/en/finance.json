@@ -84,6 +84,7 @@
   "insert_account_details": "Insert account details",
   "edit_details": "Edit details",
   "delete_account": "Delete account",
+  "update_account": "Update account",
   "account_name": "Enter bank account name*",
   "account_number": "Enter bank account number*",
   "select_bank": "Select bank*",

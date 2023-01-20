@@ -90,6 +90,7 @@
   "insert_account_details": "Insérer les détails du compte",
   "edit_details": "Modifier les détails",
   "delete_account": "Supprimer le compte",
+  "update_account": "Compte mis à jour",
   "select_bank": "Sélectionnez la banque*",
   "insert_otp": "Insérer OTP envoyer à votre adresse e-mail",
   "validate_otp": "Valider OTP",

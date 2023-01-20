@@ -174,7 +174,7 @@ export default {
 
     userId() {
       const { id } = auth.retrieve('partner')
-      return `p_${id}`
+      return `p-${id}`
     },
 
     userEmail() {
