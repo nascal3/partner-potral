@@ -9,9 +9,9 @@
       :no-data-text="$t('orders.no_orders_found')"
       :no-results-text="$t('orders.no_results_found')"
       :headers="headers"
-      :items="errands"
+      :items="errands.data"
       :search="searchPhrase"
-      item-key="errandId"
+      item-key="errands[0].errandId"
       :expanded.sync="expanded"
       show-expand
       @item-expanded="getErrandDetails"
@@ -19,12 +19,19 @@
       :loading-text="$t('core.system_loading')"
   >
 
+    <template v-slot:item.errandId="{ item }">
+      {{ item.errands[0].errandId }}
+    </template>
     <template v-slot:item.date="{ item }">
-      {{ notificationsDateFormat(item.date) }}
+      {{ notificationsDateFormat(item.errands[0].date) }}
     </template>
     <template v-slot:item.status="{ item }">
-      <v-chip :color="setChipColor(item.status)" :text-color="setChipTextColor(item.status)" light small>
-        {{ item.status }}
+      <v-chip
+          :color="setChipColor(item.errands[0].status)"
+          :text-color="setChipTextColor(item.errands[0].status)"
+          small
+      >
+        {{ item.errands[0].status }}
       </v-chip>
     </template>
     <template v-slot:expanded-item="{ headers, item }">
@@ -43,8 +50,6 @@
 import {mapGetters, mapActions} from "vuex"
 import segmentMixin from "@/mixins/segmentEvents"
 import dateFormat from "@/mixins/dateFormat"
-import Order from '@/libs/app/orders/Order'
-import OrderDetails from '@/libs/app/order_details/OrderDetails'
 // import mockErrandsResponse from "../../../../../tests/e2e/fixtures/errands.json"
 
 export default {
@@ -52,8 +57,8 @@ export default {
 
   props: {
     errands: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => {}
     },
 
     searchPhrase: {
@@ -111,7 +116,7 @@ export default {
       if (!value) return
       this.setSegmentEvent('View errand details')
       this.loadingDetails = true
-      const { errandId } = item
+      const { errandId } = item.errands[0]
       const { id } = auth.retrieve('partner')
       this.setErrand({
         routes: {
@@ -138,11 +143,11 @@ export default {
         'pending': '#FBDECF',
         'failed': '#FBDECF',
         'confirmed': '#CCEFFF',
-        'delivered': '#DEFAD2',
+        'complete': '#DEFAD2',
         'in transit': '#FDDB97',
         'transit': '#FDDB97'
       }
-      return colorMap[orderStatus]
+      return colorMap[orderStatus.toLowerCase()]
     },
 
     setChipTextColor (orderStatus) {
@@ -150,11 +155,11 @@ export default {
         'pending': '#9B101C',
         'failed': '#9B101C',
         'confirmed': '#006492',
-        'delivered': '#116F28',
+        'complete': '#116F28',
         'in transit': '#9D5004',
         'transit': '#9D5004'
       }
-      return colorMap[orderStatus]
+      return colorMap[orderStatus.toLowerCase()]
     },
   },
 
