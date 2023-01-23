@@ -35,7 +35,7 @@
               <v-card-text>
                 <p class="body-2 font-weight-bold pa-0 ma-0 pt-4">
                   {{ index === "expired" ? "Expiring Document" : "New Document Required" }}</p>
-                <p>{{ index === "expired" ? "Upload by:" + topExpiryDate : "Deadline:" + topPendingDate }}</p>
+                <p>{{ index === "expired" ? "Upload by: " + topExpiryDate : "Deadline: " + topPendingDate }}</p>
               </v-card-text>
             </div>
             <v-btn class="text-capitalize font-weight-medium" color="error" v-bind="attrs" v-on="on">
@@ -61,16 +61,16 @@
                 <p class="body-1 font-weight-medium black--text">
                   To offer you, our partner, and customers the best service possible, we need to ensure that we have the
                   right people and vehicle types servicing orders.</p>
-                <p class="body-2 black--text">We therefore need you to provide the following for verification:</p>
+                <p class="body-1 black--text">We therefore need you to provide the following for verification:</p>
               </div>
-              <div v-for="(doc,index) in document" class="d-flex align-center py-2">
+              <div v-for="(doc,key) in document" class="d-flex align-center py-2">
                 <v-icon class="pr-5" color="success"
                 >mdi-check-circle-outline
-                </v-icon
-                >
+                </v-icon>
+
                 <div class="pb-2">
                   <p class="body-2 black--text ma-0">{{ doc.name }}</p>
-                  <p class="body-2 black--text ma-0">Expiry: {{ doc.date }}</p>
+                  <p class="body-2 black--text ma-0">{{ index ==='expired' ? 'Expiring on: ': 'Upload by: '}}{{ doc.date }}</p>
                 </div>
               </div>
               <p class="body-1 black--text">
@@ -79,6 +79,16 @@
                 will not be able to service Sendy orders.
               </p>
             </v-card-text>
+            <div v-if="index !== 'expired'">
+              <v-alert
+                  class="lime lighten-4 text-center"
+                  outlined
+                  text
+              >
+                <b>Note:</b> You are receiving this because we are cleaning up our data to serve you better in the
+                future.
+              </v-alert>
+            </div>
             <v-card-actions class="justify-end d-flex flex-column">
               <v-btn
                   class="body-2 px-14 py-5 my-4 text-capitalize"
@@ -321,37 +331,26 @@ export default {
     redirectToUpload() {
       this.$router.push('/legal-documents')
     },
-    getExpiringDocuments() {
-      this.LegalDocumentObj.fetchAll().then(res => {
-        const oneMonthFromNow = new Date();
-        oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+    statusDocuments() {
+      this.LegalDocumentObj.fetchExpiredDocuments().then(res => {
         for (const obj of res.data) {
-          if (obj.expires_at < oneMonthFromNow) {
-            if (!obj.expires_at === null) {
-              this.notificationDocuments.expired.push({
-                name: obj.document.label,
-                date: obj.expires_at
-              })
-              this.topExpiryDate = this.notificationDocuments.expired[0].date
-            }
-          }
+          this.notificationDocuments.expired.push({
+            name: obj.document.label,
+            date: new Date(obj.expires_at).toDateString()
+          })
+          this.topExpiryDate = this.notificationDocuments.expired[0].date
         }
-        this.getPendingDocuments()
-      })
-    },
-    getPendingDocuments() {
-      let pendingDocuments = []
-      this.LegalDocumentObj.fetchAll().then(res => {
-        for (const obj of res.data) {
-          if (obj.status === "pending") {
-            const date = new Date(obj.created_at) // specific date
+
+      }).then(res => {
+        this.LegalDocumentObj.fetchPendingDocuments().then(res => {
+          for (const obj of res.data) {
             this.notificationDocuments.pending.push({
               name: obj.document.label,
-              date: new Date(date.setMonth(date.getMonth() + 1)).toLocaleDateString() // add one month
+              date: obj.submission_deadline
             })
             this.topPendingDate = this.notificationDocuments.pending[0].date
           }
-        }
+        })
       })
     },
     setDateRange({dateFrom, dateTo}) {
@@ -538,7 +537,7 @@ export default {
   mounted() {
     this.setSegmentEvent("Visited orders page");
     this.loadOrders();
-    this.getExpiringDocuments();
+    this.statusDocuments()
   },
 };
 </script>
