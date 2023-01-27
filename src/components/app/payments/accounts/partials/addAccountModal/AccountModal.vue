@@ -64,7 +64,7 @@ export default {
   components: {
     'account-details': () => import('./AccountDetails.vue'),
     'select-account': () => import('./SelectAccount.vue'),
-    'get-otp': () => import('./GetOTP.vue'),
+    'get-otp': () => import('../GetOTP.vue')
   },
 
   data () {

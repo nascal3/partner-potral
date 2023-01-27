@@ -83,8 +83,6 @@ export default {
     }
   },
 
-
-
   methods: {
     ...mapActions([
       "setSavedPayoutAccounts"
@@ -111,17 +109,18 @@ export default {
       this.loading = true
       const id = this.selectedAccount.id
       this.paymentObj.deletePayoutAccount(id).then(result => {
+        this.setSegmentEvent(`Account: ${this.selectedAccount.operator_name} deleted successfully`)
         this.reloadAccountList()
         flash({
           message: this.$t('finance.successful_delete_account'),
-          color: 'green',
+          color: '#38c172',
         })
       }).catch( error => {
+        this.setSegmentEvent(`Account: ${this.selectedAccount.operator_name} deleted failed`)
         flash({
           message: 'An error occurred. Please try again',
           color: '#e74c3c',
         })
-        return false
       }).finally(() => {
         this.loading = false
       })

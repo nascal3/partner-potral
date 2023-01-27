@@ -65,7 +65,7 @@
 import segmentMixin from "@/mixins/segmentEvents"
 import timeCountDown from "@/mixins/timeCountDown";
 import Payment from '@/libs/app/payments/Payment'
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   props: {
@@ -95,22 +95,7 @@ export default {
     }
   },
 
-  watch: {
-    amount (value) {
-      this.withdrawAmount = this.formatAmountToNumber(value)
-    },
-
-    paymentMethod (value) {
-      this.disabled = !value
-      this.$emit('paymentMethod', value)
-    }
-  },
-
   computed: {
-    ...mapGetters({
-      savedPayoutAccounts: 'getSavedPayoutAccounts'
-    }),
-
     create () {
       return this.processType === 'create'
     },
@@ -121,6 +106,10 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      "setSavedPayoutAccounts"
+    ]),
+
     setCountDown () {
       const ExpiryTime = 5 * 60
       this.timeCountDown(ExpiryTime)
@@ -160,7 +149,7 @@ export default {
         const status = response.data.status
         flash({
           message: status ? this.$t('finance.otp_code_valid') : this.$t('finance.otp_code_invalid'),
-          color: status ? 'green' : '#e74c3c'
+          color: status ? '#38c172' : '#e74c3c'
         })
         if (status) this.create ? this.createAccount() : this.editAccount()
       }).catch(error => {
@@ -186,10 +175,10 @@ export default {
 
       this.paymentObj.operator_id = operator_id
       this.paymentObj.operator_name = operator_name
-      this.paymentObj.user_account_no = user_account_no
-      this.paymentObj.operator_name = account_name
-      this.paymentObj.userId = user_id
-      this.paymentObj.countryCode = country_code
+      this.paymentObj.user_account_no = user_account_no.replace(/\s/g, '')
+      this.paymentObj.account_name = account_name
+      this.paymentObj.user_id = user_id
+      this.paymentObj.country_code = country_code
     },
 
     createAccount () {
@@ -198,7 +187,10 @@ export default {
         this.success = response.data.status
         this.setSegmentEvent('Successfully added a payout account ')
         this.loadPayoutAccounts()
-        this.emit('closeDialog', true)
+
+        setTimeout (() => {
+          this.$emit('closeDialog', true)
+        }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
         console.error(error)
@@ -214,7 +206,10 @@ export default {
         this.success = response.data.status
         this.setSegmentEvent('Successfully updated a payout account ')
         this.loadPayoutAccounts()
-        this.emit('closeDialog', true)
+
+        setTimeout (() => {
+          this.$emit('closeDialog', true)
+        }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to updated a payout account ')
         console.error(error)

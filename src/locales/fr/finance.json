@@ -101,5 +101,5 @@
   "delete_danger": "L'action suivante ne peut pas être annulée !",
   "successful_delete_account": "Compte supprimé avec succès",
   "otp_code_valid": "Validation OTP réussie",
-  "otp_code_invalid": "Le code OTP n'est pas valide"
+  "otp_code_invalid": "Le code OTP est invalide ou a expiré"
 }

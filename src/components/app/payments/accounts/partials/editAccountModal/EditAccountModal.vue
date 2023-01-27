@@ -36,7 +36,7 @@
 
       <v-divider></v-divider>
 
-      <v-card-text class="pt-5">
+      <v-card-text v-if="!proceed" class="pt-5" v-animate-css="animationObject">
         <div v-if="bankMethod">
           <div>
             <p class="mb-1 body-1">
@@ -108,7 +108,16 @@
         </div>
       </v-card-text>
 
-      <v-card-actions class="d-flex flex-column px-4 pb-5">
+      <!--      #### Modal to insert OTP needed to save details ###-->
+      <get-otp
+          v-if="proceed"
+          :process-type="'update'"
+          :account-details="updatedAccountValues"
+          @proceed="proceedToOTP"
+          @closeDialog="closeDialog"
+      />
+
+      <v-card-actions v-if="!proceed" class="d-flex flex-column px-4 pb-5">
         <v-btn
             color="primary"
             class="caption my-3"
@@ -141,17 +150,26 @@ export default {
 
   mixins: [segmentMixin],
 
+  components: {
+    'get-otp': () => import('../../partials/GetOTP.vue')
+  },
+
   data () {
     return {
       loading: false,
       dialogLaunch: false,
       validCountries: [],
-      banks: [],
-      paymentBank: {},
+      proceed: false,
+      updatedAccountValues: {},
       paymentObj: new Payment(),
       placeholder: {
         placeholder: this.$t('register.phone_number'),
       },
+      animationObject:{
+        classes: 'slideInRight',
+        delay: 0,
+        duration: 300
+      }
     }
   },
 
@@ -178,6 +196,16 @@ export default {
       return this.selectedAccount.category.toLowerCase() === 'bank'
     },
 
+    countryCode() {
+      const { code } = auth.retrieve('country')
+      return code.toUpperCase()
+    },
+
+    userEmail() {
+      const { email } = auth.retrieve('user')
+      return email
+    },
+
     disabled () {
       if (this.bankMethod) return !this.paymentObj.user_account_no || !this.paymentObj.account_name
       return !this.paymentObj.user_account_no
@@ -196,17 +224,51 @@ export default {
     },
 
     fillCurrentValues () {
-      const { operator_id, operator_name, account_name, user_account_no } = this.selectedAccount
-      this.paymentObj.user_account_no = `+${user_account_no}`
+      const { operator_name, account_name, user_account_no } = this.selectedAccount
+      this.paymentObj.user_account_no = user_account_no
       this.paymentObj.operator_name = operator_name
-      if (this.bankMethod) {
-        this.paymentObj.account_name = account_name
-        this.paymentObj.user_account_no = user_account_no
-      }
+      if (this.bankMethod) this.paymentObj.account_name = account_name
+    },
+
+    generateOTP() {
+      this.paymentObj.country_code = this.countryCode
+      this.paymentObj.email = this.userEmail
+      return this.paymentObj.generateOTP().then(result => {
+        return result.data.status
+      }).catch( error => {
+        flash({
+          message: 'An error occurred. Please try again',
+          color: '#e74c3c',
+        })
+        return false
+      })
     },
 
     updateAccount () {
+      const status = this.generateOTP()
+      if (!status) {
+        return flash({
+          message: 'An error occurred. Please try again',
+          color: '#e74c3c',
+        })
+      }
 
+      this.proceed = true
+      this.updatedAccountValues = {
+        account_id: this.selectedAccount.id,
+        user_account_no: this.paymentObj.user_account_no,
+        account_name: this.paymentObj.account_name,
+        operator_name: this.paymentObj.operator_name
+      }
+    },
+
+    proceedToOTP (proceedStatus) {
+      this.proceed = proceedStatus
+    },
+
+    closeDialog() {
+      this.proceed = false
+      this.dialogLaunch = false
     }
   },
 

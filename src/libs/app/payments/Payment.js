@@ -50,6 +50,7 @@ export default class Payment extends Base {
         let response = await this.form.submit("post", url(
             `partners/${this.group.id}/finances/payout/otp/generate`
         ), data)
+        flash({message: response.data.message, color: '#38c172'})
         resolve(response)
       } catch (err) {
         reject(err)
@@ -101,7 +102,8 @@ export default class Payment extends Base {
       try {
         const data = this.getFields([
           'user_account_no',
-          'account_name'
+          'account_name',
+          'operator_name'
         ])
         let response = await this.form.submit("put", url(
             `partners/${this.group.id}/finances/payout/accounts/${account_id}`

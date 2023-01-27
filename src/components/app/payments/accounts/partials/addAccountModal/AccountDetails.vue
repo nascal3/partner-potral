@@ -214,7 +214,7 @@ export default {
 
         const { name } = this.paymentMethod
         this.paymentObj.operator_name = name
-        this.paymentObj.account_name = undefined
+        this.paymentObj.account_name = 'N/A'
         return this.proceedToOTP()
       }
       this.proceedToOTP()
