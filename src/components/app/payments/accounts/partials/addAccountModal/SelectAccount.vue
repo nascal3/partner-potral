@@ -78,12 +78,14 @@ export default {
       this.paymentObj.showPaymentMethods(code)
           .then(response =>{
             this.paymentMethods = response.data.payment_methods
-          }).catch((error) => {
+          })
+          .catch((error) => {
             flash({
               message: error.response.data.message,
               color: "#e74c3c",
             });
-          }).finally(() => {
+          })
+          .finally(() => {
             this.loading = false
           })
     },
