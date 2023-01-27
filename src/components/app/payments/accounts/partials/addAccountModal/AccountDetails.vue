@@ -243,6 +243,16 @@ export default {
         })
       }
 
+      const payload = {
+        operator_id: this.paymentObj.operator_id ,
+        operator_name: this.paymentObj.operator_name,
+        user_account_no: this.paymentObj.user_account_no,
+        account_name: this.paymentObj.account_name,
+        user_id: this.userId,
+        country_code: this.countryCode
+      }
+
+      this.$emit('accountValues', payload)
       this.$emit('proceed', true)
     }
   },

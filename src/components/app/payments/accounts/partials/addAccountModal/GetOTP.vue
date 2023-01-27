@@ -42,7 +42,9 @@
         <div class="message-container pa-4" :class="{'border-success': success }">
           <div class="message-container__text">
             <v-icon color="#116F28">mdi-check-circle</v-icon>
-            <span :class="{'successful': success }">{{ $t('finance.account_success') }}</span>
+            <span :class="{'successful': success }">
+              {{ $t('finance.account_success') }}
+            </span>
           </div>
         </div>
       </section>
@@ -66,6 +68,13 @@ import Payment from '@/libs/app/payments/Payment'
 import {mapGetters} from "vuex";
 
 export default {
+  props: {
+    accountDetails: {
+      type: Object,
+      default: () => {}
+    },
+  },
+
   mixins: [segmentMixin, timeCountDown],
 
   data() {
@@ -132,7 +141,51 @@ export default {
 
     verifyCode () {
       this.loading = true
+      const {code} = auth.retrieve("country")
+      const {email} = auth.retrieve("user")
+      this.paymentObj.countryCode = code
+      this.paymentObj.email = email
+
       this.paymentObj.validateOTP().then(response => {
+        this.setSegmentEvent('Successful OTP validation for adding payout account')
+        const status = response.data.status
+        flash({
+          message: response.data.message,
+          color: status ? 'green' : '#e74c3c'
+        })
+        this.createAccount()
+      }).catch(error => {
+        this.setSegmentEvent('Failed OTP validation for adding payout account')
+        flash({
+          message: error.data.message,
+          color: '#e74c3c'
+        })
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
+    setupNewAccountValues () {
+      const {
+        operator_id,
+        operator_name,
+        user_account_no,
+        account_name,
+        user_id,
+        country_code
+      } = this.accountDetails
+
+      this.paymentObj.operator_id = operator_id
+      this.paymentObj.operator_name = operator_name
+      this.paymentObj.user_account_no = user_account_no
+      this.paymentObj.operator_name = account_name
+      this.paymentObj.userId = user_id
+      this.paymentObj.countryCode = country_code
+    },
+
+    createAccount () {
+      this.setupNewAccountValues()
+      this.paymentObj.createPayoutAccount().then(response => {
         this.success = response.data.status
         this.setSegmentEvent('Successfully added a payout account ')
         this.loadPayoutAccounts()

@@ -41,11 +41,17 @@
           v-if="selectedPaymentMethod && !proceed"
           :payment-method="selectedPaymentMethod"
           @navigateBack="navigateBack"
+          @accountValues="accountValues"
           @proceed="proceedToOTP"
       />
 
       <!--      #### Modal to insert OTP needed to save details ###-->
-      <get-otp v-if="proceed" @proceed="proceedToOTP" @closeDialog="closeDialog" />
+      <get-otp
+          v-if="proceed"
+          :account-details="newAccountValues"
+          @proceed="proceedToOTP"
+          @closeDialog="closeDialog"
+      />
     </v-card>
   </v-dialog>
 </template>
@@ -67,6 +73,7 @@ export default {
       dialogLaunch: false,
       selectedAccount: null,
       selectedPaymentMethod: null,
+      newAccountValues: {},
       proceed: false
     }
   },
@@ -82,6 +89,10 @@ export default {
 
     paymentMethod(method) {
       this.selectedPaymentMethod = method
+    },
+
+    accountValues (values) {
+      this.newAccountValues = values
     },
 
     proceedToOTP (proceedStatus) {
