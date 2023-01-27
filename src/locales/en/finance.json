@@ -92,7 +92,10 @@
   "validate_otp": "Validate OTP",
   "passcode_expired": "OTP code expired?",
   "account_success": "Account successfully added!",
+  "account_update_success": "Account updated successfully!",
   "delete_warning": "Are you sure you want to delete account: {account} - {accountNo}.",
   "delete_danger": "The following action can not be reversed!",
-  "successful_delete_account": "Successfully deleted account"
+  "successful_delete_account": "Successfully deleted account",
+  "otp_code_valid": "Successful OTP validation",
+  "otp_code_invalid": "OTP code is invalid"
 }

@@ -96,7 +96,10 @@
   "validate_otp": "Valider OTP",
   "passcode_expired": "Code OTP expiré ?",
   "account_success": "Compte ajouté avec succès !",
+  "account_update_success": "Compte mis à jour avec succès!",
   "delete_warning": "AÊtes-vous sûr de vouloir supprimer le compte: {account} - {accountNo}.",
   "delete_danger": "L'action suivante ne peut pas être annulée !",
-  "successful_delete_account": "Compte supprimé avec succès"
+  "successful_delete_account": "Compte supprimé avec succès",
+  "otp_code_valid": "Validation OTP réussie",
+  "otp_code_invalid": "Le code OTP n'est pas valide"
 }

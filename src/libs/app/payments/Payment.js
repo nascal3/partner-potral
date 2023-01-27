@@ -96,6 +96,23 @@ export default class Payment extends Base {
     })
   }
 
+  editPayoutAccount (account_id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'user_account_no',
+          'account_name'
+        ])
+        let response = await this.form.submit("put", url(
+            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   deletePayoutAccount (account_id) {
     return new Promise(async (resolve, reject) => {
       try {

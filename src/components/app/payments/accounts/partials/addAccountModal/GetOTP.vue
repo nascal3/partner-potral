@@ -43,7 +43,7 @@
           <div class="message-container__text">
             <v-icon color="#116F28">mdi-check-circle</v-icon>
             <span :class="{'successful': success }">
-              {{ $t('finance.account_success') }}
+              {{ create ? $t('finance.account_success') : $t('finance.account_update_success') }}
             </span>
           </div>
         </div>
@@ -72,6 +72,10 @@ export default {
     accountDetails: {
       type: Object,
       default: () => {}
+    },
+    processType: {
+      type: String,
+      default: () => 'create'
     },
   },
 
@@ -106,6 +110,10 @@ export default {
     ...mapGetters({
       savedPayoutAccounts: 'getSavedPayoutAccounts'
     }),
+
+    create () {
+      return this.processType === 'create'
+    },
 
     errors() {
       return this.paymentObj.form.errors
@@ -143,19 +151,20 @@ export default {
       this.loading = true
       const {code} = auth.retrieve("country")
       const {email} = auth.retrieve("user")
+      const action = this.create ? "adding" : "updating"
       this.paymentObj.countryCode = code
       this.paymentObj.email = email
 
       this.paymentObj.validateOTP().then(response => {
-        this.setSegmentEvent('Successful OTP validation for adding payout account')
+        this.setSegmentEvent(`Successful OTP validation for ${action} payout account`)
         const status = response.data.status
         flash({
-          message: response.data.message,
+          message: status ? this.$t('finance.otp_code_valid') : this.$t('finance.otp_code_invalid'),
           color: status ? 'green' : '#e74c3c'
         })
-        this.createAccount()
+        if (status) this.create ? this.createAccount() : this.editAccount()
       }).catch(error => {
-        this.setSegmentEvent('Failed OTP validation for adding payout account')
+        this.setSegmentEvent(`Failed OTP validation for ${action} payout account`)
         flash({
           message: error.data.message,
           color: '#e74c3c'
@@ -192,6 +201,22 @@ export default {
         this.emit('closeDialog', true)
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
+        console.error(error)
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
+    editAccount () {
+      this.setupNewAccountValues()
+      const { account_id } = this.accountDetails
+      this.paymentObj.editPayoutAccount(account_id).then(response => {
+        this.success = response.data.status
+        this.setSegmentEvent('Successfully updated a payout account ')
+        this.loadPayoutAccounts()
+        this.emit('closeDialog', true)
+      }).catch(error => {
+        this.setSegmentEvent('Failed to updated a payout account ')
         console.error(error)
       }).finally(() => {
         this.loading = false

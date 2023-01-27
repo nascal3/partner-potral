@@ -78,10 +78,6 @@ export default {
     }
   },
 
-  watch: {
-
-  },
-
   methods: {
     navigateBack () {
       this.selectedPaymentMethod = null

@@ -42,19 +42,14 @@
             <p class="mb-1 body-1">
               {{ $t('finance.select_bank') }}
             </p>
-            <v-select
-                v-model="paymentObj.operator_id"
-                :items="banks"
-                :error="errors.has('operator_id')"
-                :messages="errors.get('operator_id')"
-                item-text="name"
-                item-value="operator_id"
-                :placeholder="$t('finance.select_bank')"
-                outlined
+            <v-text-field
+                v-model="paymentObj.operator_name"
+                class="body-2"
+                :placeholder="$t('finance.account_name')"
+                disabled
                 dense
-                @input="errors.clear('operator_id')"
-                @change="setOperatorName"
-            ></v-select>
+                outlined
+            ></v-text-field>
           </div>
 
           <div>
@@ -135,7 +130,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import Payment from '@/libs/app/payments/Payment'
 import segmentMixin from "@/mixins/segmentEvents"
-import mockBankData from "../../../../../../../tests/e2e/fixtures/payOutBanks.json"
 
 export default {
   props: {
@@ -173,7 +167,7 @@ export default {
     }),
 
     initialised () {
-      return this.countries.data
+      return Object.keys(this.selectedAccount).length > 0
     },
 
     onlyCountries () {
@@ -185,23 +179,8 @@ export default {
     },
 
     disabled () {
-      if (this.bankMethod) return !this.paymentObj.user_account_no || !this.paymentObj.account_name || !this.paymentObj.operator_id
+      if (this.bankMethod) return !this.paymentObj.user_account_no || !this.paymentObj.account_name
       return !this.paymentObj.user_account_no
-    },
-
-    countryCode () {
-      const { code } = auth.retrieve('country')
-      return code.toUpperCase()
-    },
-
-    userId () {
-      const { id } = auth.retrieve('partner')
-      return `p-${id}`
-    },
-
-    userEmail () {
-      const { email } = auth.retrieve('user')
-      return email
     },
 
     errors() {
@@ -210,10 +189,6 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'setCountries'
-    ]),
-
     setValidCountries() {
       this.countries.data.map(country => {
         this.validCountries.push(country.code)
@@ -221,46 +196,21 @@ export default {
     },
 
     fillCurrentValues () {
-      const { operator_id, account_name, user_account_no } = this.selectedAccount
+      const { operator_id, operator_name, account_name, user_account_no } = this.selectedAccount
       this.paymentObj.user_account_no = `+${user_account_no}`
-      this.paymentObj.operator_id = operator_id
+      this.paymentObj.operator_name = operator_name
       if (this.bankMethod) {
         this.paymentObj.account_name = account_name
         this.paymentObj.user_account_no = user_account_no
       }
     },
 
-    getBankAccounts () {
-      //TODO: Add code to call endpoint with request for banks available
-      this.banks = mockBankData
-    },
-
-    setOperatorName () {
-      this.paymentObj.operator_id = this.setBankDetails
-      const bankDetails = this.banks.filter(bank => bank.operator_id === this.paymentObj.operator_id)
-      this.setSegmentEvent(`Updated payout bank name to ${bankDetails[0].name} `)
-      this.paymentObj.operator_name = bankDetails[0].name
-    },
-
     updateAccount () {
 
-    },
-
-    reloadAccountList () {
-      // TODO fetch all partners saved accounts
-
-      flash({
-        message: this.$t('finance.successful_delete_account'),
-        color: 'green',
-      })
-
-      this.dialogLaunch = false
     }
   },
 
   mounted () {
-    this.getBankAccounts()
-    this.setCountries()
     this.fillCurrentValues()
   }
 }
