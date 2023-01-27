@@ -1,73 +1,63 @@
 {
-  "status": true,
-  "payment_methods": [
-    {
-      "payment_method_id": 10,
-      "name": "Bank",
-      "daily_limit": null,
-      "stk_limit": null,
-      "localised_names": "{\n\"en\":\"Bank\",\n\"fr\":\"Banque\"\n}",
-      "minimum_limit": 0,
-      "transaction_limit": 0,
-      "pay_category_id": 4,
-      "category": "Bank",
-      "withdrawal_limit": 0
-    },
-    {
-      "payment_method_id": 1,
-      "name": "M-PESA",
-      "daily_limit": 300000,
-      "stk_limit": 150000,
-      "localised_names": "M-PESA",
-      "minimum_limit": 1,
-      "transaction_limit": 150000,
-      "pay_category_id": 1,
-      "category": "MOBILE",
-      "withdrawal_limit": 150000
-    }
-  ],
-  "saved_payment_methods": [
-    {
-      "user_id": "538",
-      "pay_method_id": 1,
-      "pay_method_details": "254718769663",
-      "pay_detail_id": "347b3e46-eeee-42c9-af07-319ef442acd8",
-      "status": 1,
-      "pay_direction": null,
-      "id": 1424,
-      "pay_method_name": "M-PESA",
-      "default": 0,
-      "psp": "SAFARICOM",
-      "category": "Mobile Money",
-      "stk_limit": 150000,
-      "daily_limit": 300000,
-      "transaction_limit": 150000,
-      "minimum_limit": 1,
-      "withdrawal_limit": 0,
-      "bank_code": null,
-      "bank_name": null,
-      "phonenumber": null
-    },
-    {
-      "user_id": "538",
-      "pay_method_id": 10,
-      "pay_method_details": "0987654321",
-      "pay_detail_id": "294e5c9a-c6ef-4857-8d6f-f825f6463019",
-      "status": 1,
-      "pay_direction": null,
-      "id": 1425,
-      "pay_method_name": "Bank",
-      "default": 1,
-      "psp": "UNKNOWN",
-      "category": "Bank",
-      "stk_limit": 0,
-      "daily_limit": 0,
-      "transaction_limit": 0,
-      "minimum_limit": 0,
-      "withdrawal_limit": 0,
-      "bank_code": null,
-      "bank_name": null,
-      "phonenumber": null
-    }
-  ]
+  "data": {
+    "status": true,
+    "payment_methods": [
+      {
+        "payment_method_id": 10,
+        "name": "Bank",
+        "daily_limit": null,
+        "stk_limit": null,
+        "localised_names": "{\n\"en\":\"Bank\",\n\"fr\":\"Banque\"\n}",
+        "minimum_limit": 0,
+        "transaction_limit": 0,
+        "pay_category_id": 4,
+        "category": "Bank",
+        "withdrawal_limit": 0
+      }
+    ],
+    "saved_payment_methods": [
+      {
+        "user_id": "PA-127",
+        "pay_method_id": 10,
+        "pay_method_details": "254718769662",
+        "pay_detail_id": "0e51ecef-f79a-4764-a4cd-4f9dd4d6ff16",
+        "status": 1,
+        "pay_direction": null,
+        "id": 1503,
+        "pay_method_name": "Bank",
+        "default": 0,
+        "psp": "UNKNOWN",
+        "category": "Bank",
+        "stk_limit": 0,
+        "daily_limit": 0,
+        "transaction_limit": 0,
+        "minimum_limit": 0,
+        "withdrawal_limit": 0,
+        "bank_code": null,
+        "bank_name": null,
+        "phonenumber": null
+      },
+      {
+        "user_id": "PA-127",
+        "pay_method_id": 10,
+        "pay_method_details": "0987654321",
+        "pay_detail_id": "ba1751b1-54de-49f0-8526-2b4e085ffd33",
+        "status": 1,
+        "pay_direction": null,
+        "id": 1504,
+        "pay_method_name": "Bank",
+        "default": 0,
+        "psp": "UNKNOWN",
+        "category": "Bank",
+        "stk_limit": 0,
+        "daily_limit": 0,
+        "transaction_limit": 0,
+        "minimum_limit": 0,
+        "withdrawal_limit": 0,
+        "bank_code": null,
+        "bank_name": null,
+        "phonenumber": null
+      }
+    ]
+  }
 }

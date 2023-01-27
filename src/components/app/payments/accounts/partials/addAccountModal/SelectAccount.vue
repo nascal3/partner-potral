@@ -5,6 +5,7 @@
       {{ $t('finance.select_payout_method') }}
     </div>
 
+    <app-loading v-if="loading"/>
     <v-card-text class="py-0">
       <v-radio-group v-model="selectedPaymentMethod">
         <section v-if="paymentMethods && paymentMethods.length">
@@ -40,8 +41,9 @@
 </template>
 
 <script>
+import Payment from '@/libs/app/payments/Payment'
 import segmentMixin from "@/mixins/segmentEvents"
-import mockData from '../../../../../../../tests/e2e/fixtures/payOutMethods.json'
+// import mockData from '../../../../../../../tests/e2e/fixtures/payOutMethods.json'
 
 export default {
   mixins: [segmentMixin],
@@ -49,12 +51,13 @@ export default {
   data() {
     return {
       disabled: true,
-      loading: false,
+      loading: true,
+      paymentObj: new Payment(),
       mpesaLogo: require('@/assets/mpesa-logo.png'),
       mobileMoneyLogo: require('@/assets/mobile-money-logo.jpeg'),
       selectedPaymentMethod: null,
       locale: localStorage.getItem('setLanguage'),
-      paymentMethods: mockData.payment_methods,
+      paymentMethods: [],
       animationObject:{
         classes: 'slideInRight',
         delay: 0,
@@ -69,11 +72,22 @@ export default {
     }
   },
 
-  computed: {
-
-  },
-
   methods: {
+    loadPayoutMethods() {
+      const {code} = auth.retrieve("country")
+      this.paymentObj.showPaymentMethods(code)
+          .then(response =>{
+            this.paymentMethods = response.data.payment_methods
+          }).catch((error) => {
+            flash({
+              message: error.response.data.message,
+              color: "#e74c3c",
+            });
+          }).finally(() => {
+            this.loading = false
+          })
+    },
+
     selectDisplayText (value) {
       if (!value) return ''
       try {
@@ -83,8 +97,11 @@ export default {
         return value
       }
     }
-
   },
+
+  mounted() {
+    this.loadPayoutMethods()
+  }
 }
 </script>
 

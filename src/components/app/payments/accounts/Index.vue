@@ -26,7 +26,7 @@
             :no-data-text="$t('finance.txn_no_statement_found')"
             :no-results-text="$t('finance.txn_no_results_found')"
             :headers="headers"
-            :items="accounts"
+            :items="savedPayoutAccounts.data"
             item-key="txn_no"
             :loading="loading"
             :loading-text="$t('core.system_loading')"
@@ -50,8 +50,9 @@
 
 <script>
 import segmentMixin from "@/mixins/segmentEvents"
-import formatNumbers from "@/mixins/formatNumbers";
-import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
+import formatNumbers from "@/mixins/formatNumbers"
+import  { mapActions, mapGetters } from "vuex"
+// import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -64,7 +65,6 @@ export default {
 
   data() {
     return {
-      accounts: mockData,
       loading: true,
       headers: [
         { text: this.$t('finance.tbl_account_type'), value: 'category' },
@@ -77,7 +77,18 @@ export default {
     }
   },
 
+  computed: {
+    ...mapGetters({
+      savedPayoutAccounts: 'getSavedPayoutAccounts'
+    })
+  },
+
   methods: {
+    ...mapActions([
+      "setSavedPayoutAccounts",
+      "setPayoutBanks"
+    ]),
+
     setChipColor (orderStatus) {
       const colorMap = {
         'false': '#FBDECF',
@@ -94,7 +105,46 @@ export default {
       return colorMap[orderStatus]
     },
 
+    loadPayoutAccounts() {
+      const {id} = auth.retrieve("partner")
+      this.setSavedPayoutAccounts({
+        routes: {
+          partner: id,
+        }
+      }).catch((error) => {
+        flash({
+          message: error.response.data.message,
+          color: "#e74c3c",
+        });
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
+    loadPayoutBanks() {
+      const {id} = auth.retrieve("partner")
+      const {code} = auth.retrieve("country")
+      this.loading = true
+      this.setPayoutBanks({
+        routes: {
+          partner: id,
+          countryCode: code
+        }
+      }).catch((error) => {
+        flash({
+          message: error.response.data.message,
+          color: "#e74c3c",
+        });
+      }).finally(() => {
+        this.loading = false
+      })
+    }
   },
+
+  mounted() {
+    this.loadPayoutAccounts()
+    this.loadPayoutBanks()
+  }
 }
 </script>
 

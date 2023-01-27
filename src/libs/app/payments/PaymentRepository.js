@@ -11,10 +11,8 @@ export const fields = {
   operator_name: null,
   country_code: null,
   operator_id: null,
-  entity_id: "5",
 
   // OTP process
   email: null,
-  company_code: null,
   code: null,
 }

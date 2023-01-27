@@ -16,7 +16,7 @@
             <v-select
                 v-model="paymentObj.operator_id"
                 :error="errors.has('operator_id')"
-                :items="banks"
+                :items="banks.data"
                 :messages="errors.get('operator_id')"
                 item-text="name"
                 item-value="operator_id"
@@ -114,8 +114,8 @@
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import Payment from '@/libs/app/payments/Payment'
-import mockBankData from '../../../../../../../tests/e2e/fixtures/payOutBanks.json'
-import {mapActions, mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex"
+// import mockBankData from '../../../../../../../tests/e2e/fixtures/payOutBanks.json'
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -132,7 +132,6 @@ export default {
       loading: false,
       validCountries: [],
       paymentObj: new Payment(),
-      banks: [],
       locale: localStorage.getItem('setLanguage'),
       placeholder: {
         placeholder: this.$t('register.phone_number'),
@@ -147,7 +146,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      countries: 'getCountries'
+      countries: 'getCountries',
+      banks: 'getPayoutBanks'
     }),
 
     initialised () {
@@ -174,7 +174,7 @@ export default {
 
     userId() {
       const { id } = auth.retrieve('partner')
-      return `p-${id}`
+      return id
     },
 
     userEmail() {
@@ -198,37 +198,40 @@ export default {
     },
 
     setOperatorName() {
-      const bankDetails = this.banks.filter(bank => bank.operator_id === this.paymentObj.operator_id)
+      const bankDetails = this.banks.data.filter(bank => bank.operator_id === this.paymentObj.operator_id)
       this.setSegmentEvent(`Set payout bank name to ${bankDetails[0].name} `)
       this.paymentObj.operator_name = bankDetails[0].name
     },
 
-    getBankAccounts() {
-      //TODO: Add code to call endpoint with request for banks available
-      this.banks = mockBankData
-    },
-
     setVariableValues() {
-      this.setSegmentEvent('Proceed to insert add account OTP')
+      this.setSegmentEvent('Proceed to insert "Add verification OTP"')
       this.paymentObj.user_id = this.userId
       this.paymentObj.country_code = this.countryCode
 
       if (!this.bankMethod) {
-        const { name } = this.paymentMethod
-        this.paymentObj.operator_name = name
         // TODO make this value for mobile payments (operator_id) dynamic in the future
         this.paymentObj.operator_id = 1
+
+        const { name } = this.paymentMethod
+        this.paymentObj.operator_name = name
+        this.paymentObj.account_name = undefined
         return this.proceedToOTP()
       }
       this.proceedToOTP()
     },
 
     generateOTP() {
-      this.paymentObj.company_code = `FF${this.countryCode}`
+      this.paymentObj.country_code = this.countryCode
       this.paymentObj.email = this.userEmail
-      //TODO: Add code to send the OTP request to endpoint
-
-      return true
+      return this.paymentObj.generateOTP().then(result => {
+        return result.data.status
+      }).catch( error => {
+        flash({
+          message: 'An error occurred. Please try again',
+          color: '#e74c3c',
+        })
+        return false
+      })
     },
 
     proceedToOTP() {
@@ -245,7 +248,6 @@ export default {
   },
 
   mounted () {
-    this.getBankAccounts()
     this.setCountries()
   }
 }

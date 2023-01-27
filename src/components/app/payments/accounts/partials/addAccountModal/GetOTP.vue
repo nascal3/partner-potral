@@ -63,6 +63,7 @@
 import segmentMixin from "@/mixins/segmentEvents"
 import timeCountDown from "@/mixins/timeCountDown";
 import Payment from '@/libs/app/payments/Payment'
+import {mapGetters} from "vuex";
 
 export default {
   mixins: [segmentMixin, timeCountDown],
@@ -93,6 +94,10 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      savedPayoutAccounts: 'getSavedPayoutAccounts'
+    }),
+
     errors() {
       return this.paymentObj.form.errors
     }
@@ -109,19 +114,32 @@ export default {
       this.$emit('proceed', false)
     },
 
+    loadPayoutAccounts() {
+      const {id} = auth.retrieve("partner")
+      this.setSavedPayoutAccounts({
+        routes: {
+          partner: id,
+        }
+      }).catch((error) => {
+        flash({
+          message: error.response.data.message,
+          color: "#e74c3c",
+        });
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
     verifyCode () {
       this.loading = true
-      this.paymentObj.verify().then(data => {
+      this.paymentObj.validateOTP().then(response => {
+        this.success = response.data.status
         this.setSegmentEvent('Successfully added a payout account ')
-        this.success = true
-        // TODO: run method to fetch payout account in order to refresh table data
-
-        setTimeout(() =>{
-          this.emit('closeDialog', true)
-        }, 2500)
+        this.loadPayoutAccounts()
+        this.emit('closeDialog', true)
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
-        console.log(error)
+        console.error(error)
       }).finally(() => {
         this.loading = false
       })

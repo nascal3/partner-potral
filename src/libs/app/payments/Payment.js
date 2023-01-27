@@ -39,4 +39,73 @@ export default class Payment extends Base {
       }
     })
   }
+
+  generateOTP () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'email',
+          'country_code',
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/otp/generate`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  validateOTP () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'email',
+          'country_code',
+          'code'
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/otp/validate`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  createPayoutAccount () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'operator_id',
+          'operator_name',
+          'user_account_no',
+          'account_name',
+          'user_id',
+          'country_code'
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/accounts`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  showPaymentMethods (countryCode) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/methods/${countryCode}`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
 }
