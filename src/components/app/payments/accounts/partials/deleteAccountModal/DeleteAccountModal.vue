@@ -61,8 +61,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import Payment from '@/libs/app/payments/Payment'
 import segmentMixin from "@/mixins/segmentEvents"
+import { mapActions } from "vuex"
 
 export default {
   props: {
@@ -78,34 +79,60 @@ export default {
     return {
       loading: false,
       dialogLaunch: false,
+      paymentObj: new Payment()
     }
   },
 
-  watch: {
 
-  },
 
   methods: {
+    ...mapActions([
+      "setSavedPayoutAccounts"
+    ]),
+
+    loadPayoutAccounts() {
+      const {id} = auth.retrieve("partner")
+      this.setSavedPayoutAccounts({
+        routes: {
+          partner: id,
+        }
+      }).catch((error) => {
+        flash({
+          message: error.response.data.message,
+          color: "#e74c3c",
+        });
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+
     deleteAccount () {
       this.setSegmentEvent(`Confirm delete account: ${this.selectedAccount.operator_name}`)
-      // TODO add code to delete account using account ID in prop data
       this.loading = true
-      setTimeout (() => {
+      const id = this.selectedAccount.id
+      this.paymentObj.deletePayoutAccount(id).then(result => {
         this.reloadAccountList()
+        flash({
+          message: this.$t('finance.successful_delete_account'),
+          color: 'green',
+        })
+      }).catch( error => {
+        flash({
+          message: 'An error occurred. Please try again',
+          color: '#e74c3c',
+        })
+        return false
+      }).finally(() => {
         this.loading = false
-      }, 2000)
-
+      })
     },
 
     reloadAccountList () {
-      // TODO fetch all partners saved accounts
+      this.loadPayoutAccounts()
 
-      flash({
-        message: this.$t('finance.successful_delete_account'),
-        color: 'green',
-      })
-
-      this.dialogLaunch = false
+      setTimeout (() => {
+        this.dialogLaunch = false
+      }, 2000)
     }
   }
 }

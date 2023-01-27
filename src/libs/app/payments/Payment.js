@@ -96,6 +96,19 @@ export default class Payment extends Base {
     })
   }
 
+  deletePayoutAccount (account_id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("delete", url(
+            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   showPaymentMethods (countryCode) {
     return new Promise(async (resolve, reject) => {
       try {
