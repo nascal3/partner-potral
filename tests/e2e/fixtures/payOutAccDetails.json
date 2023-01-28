@@ -1,0 +1,28 @@
+[
+  {
+    "operator_id": 1,
+    "user_account_no": "254718769663",
+    "user_id": "538",
+    "country_code": "KE",
+    "entity_id": 5,
+    "psp": "SAFARICOM",
+    "id": "8d67b615-ff18-4f59-aa3b-45e8bf57f9d4",
+    "account_name": "254718769663",
+    "isactive": true,
+    "active": true
+  },
+  {
+    "operator_name": "EQUITY BANK",
+    "operator_id": 38,
+    "psp_account_no": "247247",
+    "user_account_no": "0987654321",
+    "user_id": "538",
+    "country_code": "KE",
+    "entity_id": 5,
+    "psp": "SAFARICOM",
+    "id": "294e5c9a-c6ef-4857-8d6f-f825f6463019",
+    "account_name": "kujiseti na miti",
+    "isactive": true,
+    "active": true
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "operator_name": "MPESA",
+      "operator_id": 1,
+      "psp_account_no": "null",
+      "user_account_no": "254718769662",
+      "user_id": "PA-127",
+      "country_code": "KE",
+      "entity_id": 5,
+      "psp": "SAFARICOM",
+      "entity": "PARTNER",
+      "country": "Kenya",
+      "id": "0e51ecef-f79a-4764-a4cd-4f9dd4d6ff16",
+      "account_name": "254718769662",
+      "pay_direction": "PAY_OUT",
+      "isactive": true,
+      "active": true,
+      "pay_method_id": 1,
+      "category": "Mobile Money"
+    },
+    {
+      "operator_name": "NATIONAL BANK OF KENYA",
+      "operator_id": 38,
+      "psp_account_no": "247247",
+      "user_account_no": "0987654321",
+      "user_id": "PA-127",
+      "country_code": "KE",
+      "entity_id": 5,
+      "psp": "SAFARICOM",
+      "entity": "PARTNER",
+      "country": "Kenya",
+      "id": "ba1751b1-54de-49f0-8526-2b4e085ffd33",
+      "account_name": "kujiseti na miti",
+      "pay_direction": "PAY_OUT",
+      "isactive": true,
+      "active": true,
+      "pay_method_id": 10,
+      "category": "Bank"
+    }
+  ]
+}

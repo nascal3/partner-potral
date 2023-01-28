@@ -1,0 +1,63 @@
+{
+  "data": {
+    "status": true,
+    "payment_methods": [
+      {
+        "payment_method_id": 10,
+        "name": "Bank",
+        "daily_limit": null,
+        "stk_limit": null,
+        "localised_names": "{\n\"en\":\"Bank\",\n\"fr\":\"Banque\"\n}",
+        "minimum_limit": 0,
+        "transaction_limit": 0,
+        "pay_category_id": 4,
+        "category": "Bank",
+        "withdrawal_limit": 0
+      }
+    ],
+    "saved_payment_methods": [
+      {
+        "user_id": "PA-127",
+        "pay_method_id": 10,
+        "pay_method_details": "254718769662",
+        "pay_detail_id": "0e51ecef-f79a-4764-a4cd-4f9dd4d6ff16",
+        "status": 1,
+        "pay_direction": null,
+        "id": 1503,
+        "pay_method_name": "Bank",
+        "default": 0,
+        "psp": "UNKNOWN",
+        "category": "Bank",
+        "stk_limit": 0,
+        "daily_limit": 0,
+        "transaction_limit": 0,
+        "minimum_limit": 0,
+        "withdrawal_limit": 0,
+        "bank_code": null,
+        "bank_name": null,
+        "phonenumber": null
+      },
+      {
+        "user_id": "PA-127",
+        "pay_method_id": 10,
+        "pay_method_details": "0987654321",
+        "pay_detail_id": "ba1751b1-54de-49f0-8526-2b4e085ffd33",
+        "status": 1,
+        "pay_direction": null,
+        "id": 1504,
+        "pay_method_name": "Bank",
+        "default": 0,
+        "psp": "UNKNOWN",
+        "category": "Bank",
+        "stk_limit": 0,
+        "daily_limit": 0,
+        "transaction_limit": 0,
+        "minimum_limit": 0,
+        "withdrawal_limit": 0,
+        "bank_code": null,
+        "bank_name": null,
+        "phonenumber": null
+      }
+    ]
+  }
+}
