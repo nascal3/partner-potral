@@ -187,17 +187,17 @@ export default {
         this.success = response.data.status
         if (this.success) {
           this.setSegmentEvent('Successfully added a payout account ')
-          return this.loadPayoutAccounts()
+          this.loadPayoutAccounts()
+          setTimeout (() => {
+            this.$emit('closeDialog', true)
+          }, 2000)
+          return
         }
 
         flash({
           message: response.data.message,
           color: '#e74c3c'
         })
-
-        setTimeout (() => {
-          this.$emit('closeDialog', true)
-        }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
         flash({
@@ -216,17 +216,17 @@ export default {
         this.success = response.data.status
         if (this.success) {
           this.setSegmentEvent('Successfully updated a payout account')
-          return this.loadPayoutAccounts()
+          this.loadPayoutAccounts()
+          setTimeout (() => {
+            this.$emit('closeDialog', true)
+          }, 2000)
+          return
         }
 
         flash({
           message: response.data.message,
           color: '#e74c3c'
         })
-
-        setTimeout (() => {
-          this.$emit('closeDialog', true)
-        }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to updated a payout account ')
         flash({
