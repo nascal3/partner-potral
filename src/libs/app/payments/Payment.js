@@ -13,10 +13,11 @@ export default class Payment extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'paybill',
-          'payment_reference',
-          'amount',
+          'operator_name',
           'payment_method',
+          'user_account_no',
+          'operator_id',
+          'amount'
         ])
         let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/withdraw`), data)
         this.setFields(fields)
@@ -32,6 +33,107 @@ export default class Payment extends Base {
       try {
         let response = await this.form.submit("get", url(
             `partners/${this.group.id}/finances/withdrawals/${paymentId}`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  generateOTP () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'email',
+          'country_code',
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/otp/generate`
+        ), data)
+        flash({message: response.data.message, color: '#38c172'})
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  validateOTP () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'email',
+          'country_code',
+          'code'
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/otp/validate`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  createPayoutAccount () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'operator_id',
+          'operator_name',
+          'user_account_no',
+          'account_name',
+          'user_id',
+          'country_code'
+        ])
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/accounts`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  editPayoutAccount (account_id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const data = this.getFields([
+          'user_account_no',
+          'account_name',
+          'operator_name'
+        ])
+        let response = await this.form.submit("put", url(
+            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+        ), data)
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  deletePayoutAccount (account_id) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("delete", url(
+            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+        ))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  showPaymentMethods (countryCode) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit("post", url(
+            `partners/${this.group.id}/finances/payout/methods/${countryCode}`
         ))
         resolve(response)
       } catch (err) {

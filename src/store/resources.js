@@ -27,6 +27,9 @@ export const resources = [
   { name: 'sanctions', url: `partners/:partner/sanctions`},
   { name: 'errands', url: `partners/:partner/errands`},
   { name: 'errand', url: `partners/:partner/errands/:errand_id`},
+  { name: 'payoutBanks', url: `partners/:partner/finances/payout/banks/:countryCode`},
+  { name: 'savedPayoutAccounts', url: `partners/:partner/finances/payout/accounts`},
+
 ];
 
 export const helpers = {

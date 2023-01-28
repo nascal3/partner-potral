@@ -144,15 +144,17 @@ export default {
       this.setSegmentEvent(`Confirm Withdrawal - ${this.withdrawAmount}`)
       if (!this.loading) {
         this.loading = true
-        const { payment_method, bankPaybill, paymentReference } = this.withdrawalMethod
-        this.paymentObj.paybill = bankPaybill
+        const { payment_method, operator_name, operator_id, user_account_no } = this.withdrawalMethod
+        this.paymentObj.operator_name = operator_name
         this.paymentObj.payment_method = payment_method
-        this.paymentObj.payment_reference = paymentReference
+        this.paymentObj.operator_id = operator_id
+        this.paymentObj.user_account_no = user_account_no
         this.paymentObj.amount = this.formatAmountToNumber(this.withdrawAmount)
         const params = {
-          paybill: bankPaybill,
-          payment_method: payment_method,
-          payment_reference: paymentReference,
+          operator_name,
+          payment_method,
+          user_account_no,
+          operator_id,
           amount: this.withdrawAmount
         }
 

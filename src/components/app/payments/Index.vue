@@ -139,7 +139,7 @@ import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
 import dateFormat from "@/mixins/dateFormat"
 import {mapGetters, mapActions} from "vuex"
-// import mockResponse from "../../../../tests/e2e/fixtures/accountBalance.json"
+import mockResponse from "../../../../tests/e2e/fixtures/accountBalance.json"
 
 export default {
   mixins: [segmentMixin, formatNumbers, dateFormat],
