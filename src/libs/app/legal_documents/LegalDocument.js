@@ -51,7 +51,7 @@ export default class LegalDocument extends Base {
         return new Promise(async (resolve, reject) => {
             try {
                 let response = this.form.submit("get", url(
-                    `partners/${this.group.id}/document-submissions?is_expiring=true`
+                    `partners/${this.group.id}/document-submissions?is_expiring=true&relationships=vehicle`
                 ))
                 resolve(response)
             } catch (err) {
@@ -64,7 +64,7 @@ export default class LegalDocument extends Base {
         return new Promise(async (resolve, reject) => {
             try {
                 let response = await this.form.submit("get", url(
-                    `partners/${this.group.id}/document-submissions?status=pending`
+                    `partners/${this.group.id}/document-submissions?status=pending&relationships=vehicle`
                 ))
                 resolve(response)
             } catch (err) {

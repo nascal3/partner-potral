@@ -73,7 +73,7 @@
                 </v-icon>
 
                 <div class="pb-2">
-                  <p class="body-2 black--text ma-0">{{ doc.name }}</p>
+                  <p class="body-2 black--text ma-0">{{ doc.vehicle }} {{ doc.name }}</p>
                   <p class="body-2 black--text ma-0">{{ index ==='expired' ? 'Expiring on: ': 'Upload by: '}}{{ doc.date }}</p>
                 </div>
               </div>
@@ -337,7 +337,8 @@ export default {
         for (const obj of res.data) {
           this.notificationDocuments.expired.push({
             name: obj.document.label,
-            date: new Date(obj.expires_at).toDateString()
+            date: new Date(obj.expires_at).toDateString(),
+            vehicle:obj.vehicle.registration_number
           })
           this.topExpiryDate = this.notificationDocuments.expired[0].date
         }
@@ -347,7 +348,8 @@ export default {
           for (const obj of res.data) {
             this.notificationDocuments.pending.push({
               name: obj.document.label,
-              date: obj.submission_deadline
+              date: obj.submission_deadline,
+              vehicle:obj.vehicle.registration_number
             })
             this.topPendingDate = this.notificationDocuments.pending[0].date
           }
