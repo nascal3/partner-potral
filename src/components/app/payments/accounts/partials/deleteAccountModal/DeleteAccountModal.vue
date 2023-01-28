@@ -131,7 +131,7 @@ export default {
 
       setTimeout (() => {
         this.dialogLaunch = false
-      }, 2000)
+      }, 1000)
     }
   }
 }

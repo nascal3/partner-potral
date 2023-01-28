@@ -100,5 +100,6 @@
   "otp_code_invalid": "OTP code is invalid or expired",
   "add_missing_payout": "To add accounts click",
   "missing_payout": "No accounts found!",
-  "here": "here"
+  "here": "here",
+  "add_extra_account": "+ Add an account"
 }

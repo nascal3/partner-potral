@@ -40,6 +40,9 @@
               </div>
             </template>
           </v-radio>
+          <div class="add-account deep-orange--text" @click="goToAccounts">
+            {{ $t('finance.add_extra_account') }}
+          </div>
         </section>
         <section v-if="initialised && !paymentOptions?.length" class="missing-method">
           <div>{{ $t('finance.missing_payout') }}</div>
@@ -252,5 +255,10 @@ export default {
     cursor: pointer;
     text-decoration: underline;
   }
+}
+
+.add-account {
+  cursor: pointer;
+  font-weight: 700;
 }
 </style>
