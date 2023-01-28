@@ -13,10 +13,11 @@ export default class Payment extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         const data = this.getFields([
-          'paybill',
-          'payment_reference',
-          'amount',
+          'operator_name',
           'payment_method',
+          'user_account_no',
+          'operator_id',
+          'amount'
         ])
         let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/withdraw`), data)
         this.setFields(fields)

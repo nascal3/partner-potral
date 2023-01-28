@@ -10,72 +10,44 @@
     <div class="px-4 pt-4">
       {{ $t('finance.withdraw_method_question') }}
     </div>
-
-<!--    TODO integrate the new accounts picking from payments API-->
-<!--    <v-card-text class="py-0">-->
-<!--      <v-radio-group v-model="selectedPaymentMethod">-->
-<!--        <section v-if="paymentOptions2 && paymentOptions2.length">-->
-<!--          <v-radio-->
-<!--              v-for="method in paymentOptions2"-->
-<!--              :key="method.id"-->
-<!--              :value="method"-->
-<!--              class="rounded-lg"-->
-<!--              :class="{ active: selectedPaymentMethod?.payment_method_id === method.payment_method_id }"-->
-<!--              @click="setSegmentEvent(`Select ${method.name} payment method`)"-->
-<!--          >-->
-<!--            <template v-slot:label>-->
-<!--              <div class="d-flex">-->
-<!--                <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">-->
-<!--                  <v-img-->
-<!--                      v-if="method.category.toLowerCase() === 'mobile'"-->
-<!--                      max-width="45"-->
-<!--                      :src=" method.localised_names === 'M-PESA' ? mpesaLogo :mobileMoneyLogo"-->
-<!--                  ></v-img>-->
-<!--                  <v-icon v-if="method.name === 'Bank'">mdi-bank</v-icon>-->
-<!--                </div>-->
-<!--                <div class="d-flex flex-column method-text">-->
-<!--                  <div>{{ method.category }}</div>-->
-<!--                  <div>{{ selectDisplayText(method.localised_names) }}</div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </template>-->
-<!--          </v-radio>-->
-<!--        </section>-->
-<!--      </v-radio-group>-->
-<!--    </v-card-text>-->
+    <app-loading v-if="!initialised"/>
 
     <v-card-text class="py-0">
       <v-radio-group v-model="selectedPaymentMethod">
-        <section v-if="paymentOptions && paymentOptions.length">
+        <section v-if="paymentOptions?.length">
           <v-radio
-              v-for="(account, index) in paymentOptions"
-              :key="index"
-              v-if="account.status"
-              :value="account"
+              v-for="method in paymentOptions"
+              :key="method.operator_id"
+              :value="method"
               class="rounded-lg"
-              :class="{ active: selectedPaymentMethod && selectedPaymentMethod.paymentReference === account.paymentReference }"
-              @click="setSegmentEvent(`Select ${account.method_name} payment method`)"
+              :class="{ active: selectedPaymentMethod?.operator_id === method.operator_id }"
+              @click="setSegmentEvent(`Select ${method.operator_name} payment method`)"
           >
             <template v-slot:label>
               <div class="d-flex">
                 <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
                   <v-img
-                      v-if="account.method_name === 'Mobile Money'"
+                      v-if="method.category.trim().toLowerCase() === 'mobile money'"
                       max-width="45"
-                      :src="mpesaLogo"
+                      :src="method.operator_name.trim().toLowerCase() === 'm-pesa' ? mpesaLogo :mobileMoneyLogo"
                   ></v-img>
-                  <v-icon v-if="account.method_name === 'Bank Transfer'">mdi-bank</v-icon>
+                  <v-icon v-if="method.category.trim().toLowerCase() === 'bank'">mdi-bank</v-icon>
                 </div>
                 <div class="d-flex flex-column method-text">
-                  <div>{{ account.method_name }}</div>
-                  <div>{{ account.bank_name }} | {{ hideSensitiveData(account.paymentReference) }}</div>
+                  <div>{{ method.operator_name }}</div>
+                  <div>{{ selectDisplayText(method.category) }} | {{ hideSensitiveData(method.user_account_no) }}</div>
                 </div>
               </div>
             </template>
           </v-radio>
         </section>
+        <section v-if="initialised && !paymentOptions?.length" class="missing-method">
+          <div>No accounts found!</div>
+          <div>Please add payout accounts <span @click="goToAccounts">here</span>.</div>
+        </section>
       </v-radio-group>
     </v-card-text>
+
     <v-card-actions class="d-flex flex-column px-4 pb-5">
       <v-btn
           block
@@ -103,9 +75,11 @@
 </template>
 
 <script>
+import Payment from '@/libs/app/payments/Payment'
 import segmentMixin from "@/mixins/segmentEvents"
 import formatNumbers from "@/mixins/formatNumbers"
-import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
+import {mapActions, mapGetters} from 'vuex'
+// import mockData from '../../../../../tests/e2e/fixtures/savePayoutMethods.json'
 
 export default {
   mixins: [segmentMixin, formatNumbers],
@@ -123,10 +97,6 @@ export default {
       type: String,
       default: () => ''
     },
-    paymentMethods: {
-      type: Object,
-      default: () => {}
-    },
     loading: {
       type: Boolean,
       default: () => false
@@ -138,11 +108,9 @@ export default {
       disabled: true,
       withdrawAmount: null,
       selectedPaymentMethod: null,
-      paymentOptions: [],
-      paymentOptions2: mockData,
+      paymentObj: new Payment(),
       mpesaLogo: require('@/assets/mpesa-logo.png'),
       mobileMoneyLogo: require('@/assets/mobile-money-logo.jpeg'),
-      phoneNumber: this.getUserPhoneNumber() || this.paymentMethods.mobile_money.phone_number,
       animationObject: {
         classes: 'slideInRight',
         delay: 0,
@@ -158,60 +126,40 @@ export default {
 
     selectedPaymentMethod (value) {
       this.disabled = false
-      const { payment_method, bankPaybill, paymentReference } = value
+      const { pay_method_id, operator_name, operator_id, user_account_no } = value
       const paymentData = {
-        payment_method,
-        bankPaybill,
-        paymentReference
+        payment_method: pay_method_id,
+        operator_name,
+        operator_id,
+        user_account_no
       }
       this.$emit('selectedPaymentMethod', paymentData)
     }
   },
 
   computed: {
+    ...mapGetters({
+      savedPayoutAccounts: 'getSavedPayoutAccounts'
+    }),
+
+    initialised() {
+      return this.savedPayoutAccounts?.data
+    },
+
+    paymentOptions() {
+      if (this.initialised) return this.savedPayoutAccounts.data
+      return []
+    },
+
     errors() {
       return this.inputErrors
-    },
-
-    mobileMoney() {
-      return Object.keys(this.paymentMethods.mobile_money)
-    },
-
-    bankAccounts() {
-      return this.paymentMethods.banks.bankAccounts
     }
   },
 
   methods: {
-    getUserPhoneNumber () {
-      const { phone } = auth.retrieve('partner')
-      return phone
-    },
-
-    setPaymentOptions () {
-      if (this.mobileMoney.length) {
-        this.paymentOptions.push({
-          payment_method: this.paymentMethods.mobile_money.payment_method,
-          paymentReference: this.phoneNumber,
-          status: true,
-          method_name: 'Mobile Money'
-        })
-      }
-
-      if (this.bankAccounts.length) {
-        this.bankAccounts.forEach( bankAccount => {
-          const { account_no, bank, status } = bankAccount
-          this.paymentOptions.push({
-            payment_method: this.paymentMethods.banks.payment_method,
-            bankPaybill: bank.paybill,
-            paymentReference: account_no,
-            status,
-            method_name: 'Bank Transfer',
-            bank_name: bank.name
-          })
-        })
-      }
-    },
+    ...mapActions([
+      "setSavedPayoutAccounts"
+    ]),
 
     hideSensitiveData (value) {
       if (!value) return '****'
@@ -219,14 +167,42 @@ export default {
       return `**** ${valueArr.slice(-4).join('')}`
     },
 
+    selectDisplayText (value) {
+      if (!value) return ''
+      try {
+        const nameObj = JSON.parse(value)
+        return nameObj[this.locale]
+      } catch (e) {
+        return value
+      }
+    },
+
+    goToAccounts () {
+      this.$router.push({ name: 'accounts.index' })
+    },
+
     navigateBack () {
       this.setSegmentEvent('Navigate back to payment amount')
       this.$emit('proceed', false)
+    },
+
+    loadPayoutAccounts() {
+      const {id} = auth.retrieve("partner")
+      this.setSavedPayoutAccounts({
+        routes: {
+          partner: id,
+        }
+      }).catch((error) => {
+        flash({
+          message: error.response.data.message,
+          color: "#e74c3c",
+        });
+      })
     }
   },
 
   mounted() {
-    this.setPaymentOptions()
+    this.loadPayoutAccounts()
   }
 }
 </script>
@@ -260,5 +236,18 @@ export default {
 }
 .active {
   border: 2px solid #314BAB;
+}
+.missing-method {
+  div:first-child {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e74c3c;
+  }
+
+  div span {
+    color: #314BAB;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 </style>
