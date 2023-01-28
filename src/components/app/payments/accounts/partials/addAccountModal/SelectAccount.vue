@@ -21,11 +21,11 @@
               <div class="d-flex">
                 <div class="d-flex justify-center method-icon rounded pa-1 mr-2" style="width: 55px;">
                   <v-img
-                      v-if="method.category.toLowerCase() === 'mobile'"
+                      v-if="method.category.trim().toLowerCase() === 'mobile'"
                       max-width="45"
-                      :src=" method.localised_names === 'M-PESA' ? mpesaLogo :mobileMoneyLogo"
+                      :src=" method.localised_names.trim().toLowerCase() === 'm-pesa' ? mpesaLogo :mobileMoneyLogo"
                   ></v-img>
-                  <v-icon v-if="method.name === 'Bank'">mdi-bank</v-icon>
+                  <v-icon v-if="method.name.trim().toLowerCase() === 'bank'">mdi-bank</v-icon>
                 </div>
                 <div class="d-flex flex-column method-text">
                   <div>{{ method.category }}</div>
