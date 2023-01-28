@@ -42,8 +42,8 @@
           </v-radio>
         </section>
         <section v-if="initialised && !paymentOptions?.length" class="missing-method">
-          <div>No accounts found!</div>
-          <div>Please add payout accounts <span @click="goToAccounts">here</span>.</div>
+          <div>{{ $t('finance.missing_payout') }}</div>
+          <div>{{ $t('finance.add_missing_payout') }} <span @click="goToAccounts">{{ $t('finance.here') }}</span>.</div>
         </section>
       </v-radio-group>
     </v-card-text>
@@ -238,10 +238,13 @@ export default {
   border: 2px solid #314BAB;
 }
 .missing-method {
+  text-align: center;
+
   div:first-child {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     color: #e74c3c;
+    margin-bottom: 10px;
   }
 
   div span {
