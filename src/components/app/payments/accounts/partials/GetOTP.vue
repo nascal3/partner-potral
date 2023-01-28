@@ -185,15 +185,25 @@ export default {
       this.setupNewAccountValues()
       this.paymentObj.createPayoutAccount().then(response => {
         this.success = response.data.status
-        this.setSegmentEvent('Successfully added a payout account ')
-        this.loadPayoutAccounts()
+        if (this.success) {
+          this.setSegmentEvent('Successfully added a payout account ')
+          return this.loadPayoutAccounts()
+        }
+
+        flash({
+          message: response.data.message,
+          color: '#e74c3c'
+        })
 
         setTimeout (() => {
           this.$emit('closeDialog', true)
         }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
-        console.error(error)
+        flash({
+          message: error.data.message,
+          color: '#e74c3c'
+        })
       }).finally(() => {
         this.loading = false
       })
@@ -204,15 +214,25 @@ export default {
       const { account_id } = this.accountDetails
       this.paymentObj.editPayoutAccount(account_id).then(response => {
         this.success = response.data.status
-        this.setSegmentEvent('Successfully updated a payout account ')
-        this.loadPayoutAccounts()
+        if (this.success) {
+          this.setSegmentEvent('Successfully updated a payout account')
+          return this.loadPayoutAccounts()
+        }
+
+        flash({
+          message: response.data.message,
+          color: '#e74c3c'
+        })
 
         setTimeout (() => {
           this.$emit('closeDialog', true)
         }, 2000)
       }).catch(error => {
         this.setSegmentEvent('Failed to updated a payout account ')
-        console.error(error)
+        flash({
+          message: error.data.message,
+          color: '#e74c3c'
+        })
       }).finally(() => {
         this.loading = false
       })
