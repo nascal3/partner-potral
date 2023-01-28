@@ -224,6 +224,10 @@ export default {
       this.paymentObj.country_code = this.countryCode
       this.paymentObj.email = this.userEmail
       return this.paymentObj.generateOTP().then(result => {
+        flash({
+          message: `OTP send to email: ${this.userEmail}`,
+          color: '#38c172',
+        })
         return result.data.status
       }).catch( error => {
         flash({

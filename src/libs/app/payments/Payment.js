@@ -51,7 +51,6 @@ export default class Payment extends Base {
         let response = await this.form.submit("post", url(
             `partners/${this.group.id}/finances/payout/otp/generate`
         ), data)
-        flash({message: response.data.message, color: '#38c172'})
         resolve(response)
       } catch (err) {
         reject(err)
