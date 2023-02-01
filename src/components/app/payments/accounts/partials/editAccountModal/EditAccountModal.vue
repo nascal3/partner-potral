@@ -234,10 +234,14 @@ export default {
       this.paymentObj.country_code = this.countryCode
       this.paymentObj.email = this.userEmail
       return this.paymentObj.generateOTP().then(result => {
+        flash({
+          message: `${this.$t('finance.otp_sent')} ${this.userEmail}`,
+          color: '#38c172',
+        })
         return result.data.status
       }).catch( error => {
         flash({
-          message: 'An error occurred. Please try again',
+          message: this.$t('finance.process_failed'),
           color: '#e74c3c',
         })
         return false
@@ -248,7 +252,7 @@ export default {
       const status = this.generateOTP()
       if (!status) {
         return flash({
-          message: 'An error occurred. Please try again',
+          message: this.$t('finance.process_failed'),
           color: '#e74c3c',
         })
       }

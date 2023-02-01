@@ -38,7 +38,8 @@
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <edit-account-modal :selected-account="item" />
+<!--            TODO: remove comment when the bug here is fixed-->
+<!--            <edit-account-modal :selected-account="item" />-->
 
             <delete-account-modal :selected-account="item" />
           </template>
