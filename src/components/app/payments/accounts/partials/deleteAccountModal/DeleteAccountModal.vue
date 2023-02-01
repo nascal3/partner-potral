@@ -118,7 +118,7 @@ export default {
       }).catch( error => {
         this.setSegmentEvent(`Account: ${this.selectedAccount.operator_name} deleted failed`)
         flash({
-          message: 'An error occurred. Please try again',
+          message: this.$t('finance.process_failed'),
           color: '#e74c3c',
         })
       }).finally(() => {

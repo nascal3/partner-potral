@@ -105,5 +105,6 @@
   "add_missing_payout": "Pour ajouter des comptes cliquez",
   "missing_payout": "Aucun compte trouvé !",
   "here": "ici",
-  "add_extra_account": "+ Ajouter un compte"
+  "add_extra_account": "+ Ajouter un compte",
+  "process_failed": "Une erreur s'est produite. Veuillez réessayer"
 }
