@@ -17,26 +17,26 @@
       </v-card-title>
 
       <v-divider></v-divider>
-
-        <v-alert
-          v-if="pendingUnsignedContracts"
-          text
-          prominent
-          type="warning"
-          class="mt-5"
-          border="left"
-        >
-          <v-row align="center">
-            <v-col class="grow">
-              {{ $t('finance.unsigned_contract_warning') }}
-            </v-col>
-            <v-col class="shrink">
-              <v-btn color="warning" @click="signContract">
-                {{ $t('finance.sign_contract') }}
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-alert>
+<!--      // TODO: To comment this back in after contracts is fixed-->
+<!--        <v-alert-->
+<!--          v-if="pendingUnsignedContracts"-->
+<!--          text-->
+<!--          prominent-->
+<!--          type="warning"-->
+<!--          class="mt-5"-->
+<!--          border="left"-->
+<!--        >-->
+<!--          <v-row align="center">-->
+<!--            <v-col class="grow">-->
+<!--              {{ $t('finance.unsigned_contract_warning') }}-->
+<!--            </v-col>-->
+<!--            <v-col class="shrink">-->
+<!--              <v-btn color="warning" @click="signContract">-->
+<!--                {{ $t('finance.sign_contract') }}-->
+<!--              </v-btn>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
+<!--        </v-alert>-->
 
       <v-row class="mt-5 mb-1">
         <v-col md="6" cols="12">
@@ -164,15 +164,17 @@ export default {
       pendingContracts: 'getPendingContractDocuments',
     }),
 
-    contractsDataInitialised () {
-      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
-    },
+    // TODO: To comment this back in after contracts is fixed
+    // contractsDataInitialised () {
+    //   return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    // },
 
-    pendingUnsignedContracts () {
-      if (!this.contractsDataInitialised) return
-      const { has_pending } = this.pendingContracts.data
-      return has_pending
-    },
+    // TODO: To comment this back in after contracts is fixed
+    // pendingUnsignedContracts () {
+    //   if (!this.contractsDataInitialised) return
+    //   const { has_pending } = this.pendingContracts.data
+    //   return has_pending
+    // },
 
     initialised () {
       let account = []
@@ -275,7 +277,8 @@ export default {
   mounted () {
     this.setSegmentEvent('Select Payments')
     this.loadAccountBalance()
-    this.loadDocuments()
+    // TODO: To comment this back in after contracts is fixed
+    // this.loadDocuments()
   }
 }
 </script>
