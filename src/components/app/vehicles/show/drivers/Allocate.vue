@@ -1,21 +1,21 @@
 <template>
   <div>
     <v-card-title
-      class="body-1 font-weight-bold px-0 py-0"
+        class="body-1 font-weight-bold px-0 py-0 black--text"
     >
       {{ $t('vehicles.available_drivers') }}
     </v-card-title>
     <v-list>
-      <template v-for="(user, index) in users.data">
+      <template v-for="(user, index) in availableDrivers">
         <v-list-item
-          class="px-0"
-          :key="`driver-${index}`"
-          @click="allocate(user)"
+            :key="`driver-${index}`"
+            class="px-0"
+            @click="allocate(user)"
         >
           <v-list-item-avatar
-            color="primary"
-            size="40"
-            class="body-1 white--text font-weight-bold"
+              class="body-1 white--text font-weight-bold"
+              color="primary"
+              size="40"
           >
             {{ user.name.charAt(0) }}
           </v-list-item-avatar>
@@ -28,19 +28,19 @@
             </v-list-item-subtitle>
           </v-list-item-content>
 
+
           <v-list-item-action>
-            <v-btn icon>
-              <v-icon
-                color="success"
-              >
-                mdi-steering
-              </v-icon>
+            <v-btn
+                class="white--text ml-6 text-capitalize"
+                color="indigo"
+                small
+            > Assign Driver
             </v-btn>
           </v-list-item-action>
         </v-list-item>
         <v-divider
-          :key="`divider-${index}`"
-          v-if="index < users.data.length - 1"
+            v-if="index < availableDrivers.length - 1"
+            :key="`divider-${index}`"
         ></v-divider>
       </template>
     </v-list>
@@ -56,12 +56,14 @@ export default {
 
   props: [
     'users',
-    'vehicle'
+    'vehicle',
+    'transporter',
+    'availableDrivers'
   ],
 
-  data () {
+  data() {
     return {
-      transporterObj: new Transporter()
+      transporterObj: new Transporter(),
     }
   },
 
@@ -82,25 +84,27 @@ export default {
   },
 
   computed: {
-    errors () {
+    errors() {
       return this.transporterObj.form.errors
-    }
+
+    },
   },
 
   methods: {
-    allocate (user) {
+    allocate(user) {
       this.setSegmentEvent('Allocate driver a vehicle')
       this.transporterObj.driver_id = user.id
       this.transporterObj.vehicle_id = this.vehicle.id
       this.transporterObj.store()
-        .then(response => {
-          flash({
-            color: 'success',
-            message: response.message
+          .then(response => {
+            flash({
+              color: 'success',
+              message: response.message
+            })
+            this.$emit('allocated')
           })
-          this.$emit('allocated')
-        })
-    }
-  }
+    },
+
+  },
 }
 </script>
