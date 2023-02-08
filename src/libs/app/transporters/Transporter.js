@@ -11,8 +11,8 @@ export default class Transporter extends Base {
 
   store () {
     const data = {
-      driver_id: `${this.driver_id}`, 
-      vehicle_id: this.vehicle_id, 
+      driver_id: `${this.driver_id}`,
+      vehicle_id: this.vehicle_id,
     }
     return new Promise(async (resolve, reject) => {
       try {
@@ -28,6 +28,17 @@ export default class Transporter extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit('get', url(`partners/${this.group.id}/transporters/${transporterId}`))
+        resolve(response)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
+  showAll () {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let response = await this.form.submit('get', url(`partners/${this.group.id}/transporters`))
         resolve(response)
       } catch (err) {
         reject(err)
