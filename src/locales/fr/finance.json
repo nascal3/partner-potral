@@ -108,5 +108,5 @@
   "add_extra_account": "+ Ajouter un compte",
   "process_failed": "Une erreur s'est produite. Veuillez réessayer",
   "otp_sent": "OTP envoyer à l'e-mail:",
-  "no_banks_available": "Désolé, aucune banque disponible actuellement dans votre région!"
+  "no_banks_available": "Désolé, aucune banque partenaire disponible actuellement dans votre région !"
 }
