@@ -9,60 +9,66 @@
       <v-card-text class="pt-5">
 
         <div v-if="bankMethod">
-          <div>
-            <p class="mb-1 body-1">
-              {{ $t('finance.select_bank') }}
-            </p>
-            <v-select
-                v-model="paymentObj.operator_id"
-                :error="errors.has('operator_id')"
-                :items="banks.data"
-                :messages="errors.get('operator_id')"
-                item-text="name"
-                item-value="operator_id"
-                :placeholder="$t('finance.select_bank')"
-                outlined
-                dense
-                @input="errors.clear('operator_id')"
-                @change="setOperatorName"
-            ></v-select>
-          </div>
+          <section v-if="!banksAvailability" class="bank-availability__error">
+            {{ $t('finance.no_banks_available') }}
+          </section>
 
-          <div>
-            <p class="mb-1 body-1">
-              {{ $t('finance.account_name') }}
-            </p>
-            <v-text-field
-                v-model="paymentObj.account_name"
-                class="body-2"
-                :placeholder="$t('finance.account_name')"
-                :hint="errors.get('account_name')"
-                :error="errors.has('account_name')"
-                @input="errors.clear('account_name')"
-                @change="setSegmentEvent('Enter account name')"
-                dense
-                outlined
-                persistent-hint
-            ></v-text-field>
-          </div>
+          <section v-else>
+            <div>
+              <p class="mb-1 body-1">
+                {{ $t('finance.select_bank') }}
+              </p>
+              <v-select
+                  v-model="paymentObj.operator_id"
+                  :error="errors.has('operator_id')"
+                  :items="banks.data"
+                  :messages="errors.get('operator_id')"
+                  item-text="name"
+                  item-value="operator_id"
+                  :placeholder="$t('finance.select_bank')"
+                  outlined
+                  dense
+                  @input="errors.clear('operator_id')"
+                  @change="setOperatorName"
+              ></v-select>
+            </div>
 
-          <div>
-            <p class="mb-1 body-1">
-              {{ $t('finance.account_number') }}
-            </p>
-            <v-text-field
-                v-model="paymentObj.user_account_no"
-                class="body-2"
-                :placeholder="$t('finance.account_number')"
-                :hint="errors.get('user_account_no')"
-                :error="errors.has('user_account_no')"
-                @input="errors.clear('user_account_no')"
-                @change="setSegmentEvent('Enter payout account number')"
-                dense
-                outlined
-                persistent-hint
-            ></v-text-field>
-          </div>
+            <div>
+              <p class="mb-1 body-1">
+                {{ $t('finance.account_name') }}
+              </p>
+              <v-text-field
+                  v-model="paymentObj.account_name"
+                  class="body-2"
+                  :placeholder="$t('finance.account_name')"
+                  :hint="errors.get('account_name')"
+                  :error="errors.has('account_name')"
+                  @input="errors.clear('account_name')"
+                  @change="setSegmentEvent('Enter account name')"
+                  dense
+                  outlined
+                  persistent-hint
+              ></v-text-field>
+            </div>
+
+            <div>
+              <p class="mb-1 body-1">
+                {{ $t('finance.account_number') }}
+              </p>
+              <v-text-field
+                  v-model="paymentObj.user_account_no"
+                  class="body-2"
+                  :placeholder="$t('finance.account_number')"
+                  :hint="errors.get('user_account_no')"
+                  :error="errors.has('user_account_no')"
+                  @input="errors.clear('user_account_no')"
+                  @change="setSegmentEvent('Enter payout account number')"
+                  dense
+                  outlined
+                  persistent-hint
+              ></v-text-field>
+            </div>
+          </section>
         </div>
 
         <div v-if="!bankMethod">
@@ -152,6 +158,10 @@ export default {
 
     initialised () {
       return this.countries.data
+    },
+
+    banksAvailability() {
+      return this.banks?.data?.length > 0
     },
 
     onlyCountries () {
@@ -268,6 +278,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bank-availability {
+  &__error {
+    color: #EE551A;
+    font-weight: bold;
+    text-align: center;
+  }
+}
 .error-message {
   position: relative;
   color: #EE551A;
