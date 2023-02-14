@@ -129,8 +129,7 @@ export default {
 
         this.authObj.abilities().then(() => {
           this.removeCounterStorage()
-          // TODO: To comment this back in after contracts is fixed
-          // if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
+          if (this.hasPendingContract) return this.$router.push({ name: 'contract' })
           this.$router.push({ name: 'orders.index' })
         })
       }).catch(({ data, status }) => {

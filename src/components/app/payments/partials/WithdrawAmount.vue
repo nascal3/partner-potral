@@ -92,22 +92,18 @@ export default {
       pendingContracts: 'getPendingContractDocuments',
     }),
 
-    // TODO: To comment this back in after contracts is fixed
-    // contractsDataInitialised () {
-    //   return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
-    // },
+    contractsDataInitialised () {
+      return this.pendingContracts?.data && Object.keys(this.pendingContracts.data).length > 0
+    },
 
-    // TODO: To comment this back in after contracts is fixed
-    // pendingUnsignedContracts () {
-    //   if (!this.contractsDataInitialised) return
-    //   const { has_pending } = this.pendingContracts.data
-    //   return has_pending
-    // },
+    pendingUnsignedContracts () {
+      if (!this.contractsDataInitialised) return
+      const { has_pending } = this.pendingContracts.data
+      return has_pending
+    },
 
     btnDisabled() {
-      // TODO: To comment this back in after contracts is fixed
-      // return this.disabled || !this.paymentMethodsInit || this.pendingUnsignedContracts
-      return this.disabled || !this.paymentMethodsInit
+      return this.disabled || !this.paymentMethodsInit || this.pendingUnsignedContracts
     },
 
     errors() {
