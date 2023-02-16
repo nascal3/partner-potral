@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card flat class="ma-0 pa-0">
+    <v-card class="ma-0 pa-0" flat>
       <v-card-title>
         <div>
           <h1 class="title font-weight-bold">
@@ -9,8 +9,8 @@
         </div>
         <v-spacer></v-spacer>
         <vehicles-create
-          v-if="auth.can('vehicles.store')"
-          @stored="loadVehicles"
+            v-if="auth.can('vehicles.store')"
+            @stored="loadVehicles"
         ></vehicles-create>
       </v-card-title>
 
@@ -18,16 +18,16 @@
 
       <v-card-text class="px-0">
         <v-data-table
-          fixed-header
-          disable-sort
-          class="title"
-          hide-default-footer
-          disable-pagination
-          :headers="headers"
-          :items="vehicles.data"
-          :loading="loading"
-          :loading-text="$t('core.system_loading')"
-          style="overflow-x: scroll; width: 100%"
+            :headers="headers"
+            :items="vehicles.data"
+            :loading="loading"
+            :loading-text="$t('core.system_loading')"
+            class="title"
+            disable-pagination
+            disable-sort
+            fixed-header
+            hide-default-footer
+            style="overflow-x: scroll; width: 100%"
         >
           <template v-slot:item.vendor_type="{ item }">
             {{ item.vendor_type.display_name }}
@@ -43,31 +43,30 @@
               class="ttn caption"
               :to="`vehicles/${item.id}/drivers`"
               @click="forAllocation = item; setSegmentEvent('Select allocate vehicle to driver');"
-              :disabled="!item.is_valid"
             >
               {{ $t('vehicles.allocate_driver') }}
             </v-btn>
           </template>
           <template v-slot:item.documents="{ item }">
             <v-btn
-              dark
-              small
-              color="secondary"
-              class="ttn caption"
-              @click="forDocument = item"
+                class="ttn caption"
+                color="secondary"
+                dark
+                small
+                @click="forDocument = item"
             >
               {{ $t('vehicles.documents') }}
             </v-btn>
           </template>
           <template v-slot:item.manage="{ item }">
             <v-btn
-              dark
-              text
-              small
-              color="deep-orange"
-              class="ttn body-2"
-              :to="`vehicles/${item.id}/documents`"
-              @click="setSegmentEvent('Select Manage Assets')"
+                :to="`vehicles/${item.id}/documents`"
+                class="ttn body-2"
+                color="deep-orange"
+                dark
+                small
+                text
+                @click="setSegmentEvent('Select Manage Assets')"
             >
               {{ $t('vehicles.manage_vehicle') }}
             </v-btn>
@@ -79,7 +78,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import segmentMixin from "@/mixins/segmentEvents";
 
 export default {
@@ -89,18 +88,18 @@ export default {
     'vehicles-create': () => import('./Create.vue'),
   },
 
-  data () {
+  data() {
     return {
       loading: true,
       vehicle: null,
       forDocument: null,
       forAllocation: null,
       headers: [
-        { text: this.$t('vehicles.table_registration_number'), value: 'registration_number' },
-        { text: this.$t('vehicles.vendor_type'), value: 'vendor_type' },
-        { text: this.$t('vehicles.verified'), value: 'is_valid' },
-        { text: this.$t('vehicles.vehicle_management'), value: 'manage' },
-        { text: this.$t('vehicles.allocate_driver'), value: 'driver' }
+        {text: this.$t('vehicles.table_registration_number'), value: 'registration_number'},
+        {text: this.$t('vehicles.vendor_type'), value: 'vendor_type'},
+        {text: this.$t('vehicles.verified'), value: 'is_valid'},
+        {text: this.$t('vehicles.vehicle_management'), value: 'manage'},
+        {text: this.$t('vehicles.allocate_driver'), value: 'driver'}
       ],
     }
   },
@@ -124,7 +123,7 @@ export default {
       'setVehicles'
     ]),
 
-    loadVehicles () {
+    loadVehicles() {
       this.setVehicles({
         routes: {
           partner: (auth.retrieve('partner')).id
@@ -140,17 +139,17 @@ export default {
       })
     },
 
-    stored () {
+    stored() {
       this.forDocument = null
       this.loadVehicles()
     },
 
-    allocated () {
+    allocated() {
 
     }
   },
 
-  mounted () {
+  mounted() {
     this.loadVehicles()
   }
 }

@@ -1,29 +1,32 @@
 <template>
   <div>
     <app-loading
-      v-if="!initialised"
+        v-if="!initialised"
     ></app-loading>
 
     <div v-if="initialised">
-
-<!--      <driver-deallocate-->
-<!--        v-if="transporter"-->
-<!--        :transporter="transporter"-->
-<!--        @deallocated="loadTransporters()"-->
-<!--      ></driver-deallocate>-->
+      <driver-deallocate
+          v-if="transporter"
+          :transporter="transporter"
+          @deallocated="loadTransporters()"
+      ></driver-deallocate>
 
       <driver-allocate
-        :users="users"
-        :vehicle="vehicle"
-        @allocated="loadTransporters()"
+          :availableDrivers="availableDrivers"
+          :transporter="transporter"
+          :users="users"
+          :vehicle="vehicle"
+          @allocated="loadTransporters()"
       ></driver-allocate>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import Transporter from '@/libs/app/transporters/Transporter'
+import User from "@/libs/app/users/User";
+import Vehicle from "@/libs/app/vehicles/Vehicle";
 
 export default {
   props: [
@@ -35,19 +38,22 @@ export default {
     'driver-deallocate': () => import('./drivers/Deallocate.vue'),
   },
 
-  data () {
+  data() {
     return {
       driver: null,
       transporter: null,
+      availableDrivers: null,
       transporterObj: new Transporter(),
+      vehicleObj: new Vehicle(),
+      usersObj: new User(),
     }
   },
 
   watch: {
-    transporters ({ data }) {
+    transporters({data}) {
       const transporter = data[0]
       if (transporter) {
-        this.transporterObj.show(transporter.id).then(({ data }) => {
+        this.transporterObj.show(transporter.id).then(({data}) => {
           this.transporter = data
         })
       } else {
@@ -62,7 +68,7 @@ export default {
       transporters: 'getTransporters'
     }),
 
-    initialised () {
+    initialised() {
       return this.users.data && this.transporters.data
     },
   },
@@ -73,7 +79,7 @@ export default {
       'setTransporters',
     ]),
 
-    loadUsers () {
+    loadUsers() {
       this.setUsers({
         routes: {
           partner: (auth.retrieve('partner')).id
@@ -83,8 +89,17 @@ export default {
         }
       })
     },
+    loadUnassignedDrivers() {
+      this.transporterObj.showAll().then(result => {
+        const transporterIds = result.data.map(transporter => transporter.driver_details.id);
+        const missingDriverIds = this.users.data.filter(driver => !transporterIds.includes(driver.id));
 
-    loadTransporters () {
+        this.availableDrivers = missingDriverIds
+
+      })
+
+    },
+    loadTransporters(callback) {
       this.setTransporters({
         routes: {
           partner: (auth.retrieve('partner')).id
@@ -94,16 +109,20 @@ export default {
           vehicle_id: this.vehicle.id,
         }
       })
+      setTimeout(() => {
+        callback();
+      }, 1000);
+
     },
   },
 
-  mounted () {
+  mounted() {
     this.$emit('meta', {
       title: 'Driver Allocation',
     })
-
     this.loadUsers()
-    this.loadTransporters()
+    this.loadTransporters(this.loadUnassignedDrivers)
+
   }
 }
 </script>

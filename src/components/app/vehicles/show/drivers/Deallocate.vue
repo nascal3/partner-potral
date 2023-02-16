@@ -1,17 +1,17 @@
 <template>
   <div class="pb-10">
-    <v-card-title class="body-1 font-weight-bold px-0 pb-0 pt-0 mt-n2">
+    <v-card-title class="body-1 font-weight-bold black--text px-0 pb-0 pt-0 mt-n2">
       {{ $t('vehicles.current_driver') }}
     </v-card-title>
 
     <v-list-item
-      class="px-0"
-      @click="dialog = true"
+        class="px-0"
+        @click="dialog = true"
     >
       <v-list-item-avatar
-        color="primary"
-        size="40"
-        class="body-1 white--text font-weight-bold"
+          class="body-1 white--text font-weight-bold"
+          color="primary"
+          size="40"
       >
         {{ transporter.driver.name.charAt(0) }}
       </v-list-item-avatar>
@@ -25,17 +25,15 @@
       </v-list-item-content>
 
       <v-list-item-action>
-        <v-btn icon>
-          <v-icon color="error">
-            mdi-trash-can
-          </v-icon>
+        <v-btn class="white--text ml-6 text-capitalize" color="error" small>
+          Remove Driver
         </v-btn>
       </v-list-item-action>
     </v-list-item>
 
     <v-dialog
-      v-model="dialog"
-      width="500"
+        v-model="dialog"
+        width="500"
     >
       <v-card>
         <v-card-title>
@@ -44,12 +42,12 @@
           </h2>
           <v-spacer></v-spacer>
           <v-btn
-            icon
-            small
-            color="red"
-            @click="dialog = false"
+              color="red"
+              icon
+              small
+              @click="dialog = false"
           >
-            <v-icon small color="red">mdi-close</v-icon>
+            <v-icon color="red" small>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
 
@@ -59,7 +57,7 @@
           <p>
             {{
               $t('vehicles.deallocate_driver_message', {
-                name:transporter.driver.name,
+                name: transporter.driver.name,
                 registration_number: transporter.vehicle.registration_number
               })
             }}
@@ -69,14 +67,14 @@
 
         <v-card-actions class="pb-5 px-5">
           <v-btn
-            block
-            large
-            color="error"
-            class="caption font-weight-bold"
-            :dark="!loading"
-            :loading="loading"
-            :disabled="loading"
-            @click="deallocate()"
+              :dark="!loading"
+              :disabled="loading"
+              :loading="loading"
+              block
+              class="caption font-weight-bold"
+              color="error"
+              large
+              @click="deallocate()"
           >
             {{ $t('vehicles.deallocate_driver_button') }}
           </v-btn>
@@ -92,12 +90,11 @@ import Transporter from "@/libs/app/transporters/Transporter"
 
 export default {
   mixins: [segmentMixin],
-
   props: [
     'transporter'
   ],
 
-  data () {
+  data() {
     return {
       dialog: false,
       loading: false,
@@ -106,19 +103,19 @@ export default {
   },
 
   methods: {
-    deallocate () {
+    deallocate() {
       if (!this.loading) {
         this.loading = true
         this.setSegmentEvent('Deallocate driver a vehicle')
         this.transporterObj.destroy(this.transporter.id)
-          .then(response => {
-            flash(response)
-            this.$emit('deallocated')
-            this.dialog = false
-          })
-          .finally(() => {
-            this.loading = false
-          })
+            .then(response => {
+              flash(response)
+              this.$emit('deallocated')
+              this.dialog = false
+            })
+            .finally(() => {
+              this.loading = false
+            })
       }
     }
   }
