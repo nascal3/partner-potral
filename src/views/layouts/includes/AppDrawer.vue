@@ -1,19 +1,19 @@
 <template>
   <v-navigation-drawer
-      app
-      fixed
-      width="250"
-      color="#fff"
-      :value="showDrawer"
-      @input="input"
+    app
+    fixed
+    width="250"
+    color="#fff"
+    :value="showDrawer"
+    @input="input"
   >
     <template v-slot:prepend>
       <v-toolbar-title>
         <router-link to="/">
           <v-img
-              max-width="120"
-              class="ml-3 mt-2"
-              src="https://assets.website-files.com/5be92ce6e4a547dcc61b976c/60253f92874eabf1a8ecf88f_Logo_SendyMain_Colored_Normal_SVG.svg"
+            max-width="120"
+            class="ml-3 mt-2"
+            src="https://assets.website-files.com/5be92ce6e4a547dcc61b976c/60253f92874eabf1a8ecf88f_Logo_SendyMain_Colored_Normal_SVG.svg"
           ></v-img>
         </router-link>
       </v-toolbar-title>
@@ -21,24 +21,23 @@
 
     <v-list dense class="pl-2">
       <template
-          v-for="(group, name) in sidebar"
+        v-for="(group, name) in sidebar"
       >
         <v-subheader
-            class="caption font-weight-bold"
-            :key="name"
-            v-text="translateText(name)"
-            :class="name !== 'ANALYTICS' ? 'mt-5' : ''"
+          class="caption font-weight-bold"
+          :key="name"
+          v-text="translateText(name)"
+          :class="name !== 'ANALYTICS' ? 'mt-5' : ''"
         ></v-subheader>
 
         <template
-            v-for="(item) in group"
+          v-for="(item) in group"
         >
           <v-list-item
-              v-if="!item.children && permitted(item)"
-              :key="item.name"
-              :to="item.to"
-              @click="showCashAdvance(item.to)"
-              active-class="active-route"
+            v-if="!item.children && permitted(item)"
+            :key="item.name"
+            :to="item.to"
+            active-class="active-route"
           >
             <v-list-item-icon>
               <v-icon small>
@@ -52,17 +51,17 @@
           </v-list-item>
 
           <v-menu
-              offset-x
-              max-width="200"
-              :key="item.name"
-              v-if="item.children"
+            offset-x
+            max-width="200"
+            :key="item.name"
+            v-if="item.children"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-list-item
-                  v-bind="attrs"
-                  v-on="on"
-                  active-class="active-route"
-                  class="pr-0"
+                v-bind="attrs"
+                v-on="on"
+                active-class="active-route"
+                class="pr-0"
               >
                 <v-list-item-icon>
                   <v-icon small>
@@ -97,35 +96,6 @@
         </template>
       </template>
     </v-list>
-
-    <!--    TODO: remove after the cash advancement feature is implemented-->
-    <v-dialog
-        v-model="dialogLaunch"
-        width="400"
-    >
-      <v-card width="400">
-        <v-card-text class="d-flex justify-center flex-column pt-3">
-          <v-icon>mdi-cash</v-icon>
-          <div class="title mb-3">{{ $t('navigation.cash_advancements') }}</div>
-          <div class="message">
-            <p>{{ name }},</p>
-            <p>{{ $t('navigation.cash_advancements_message') }}</p>
-            {{ $t('navigation.cash_advancements_instruction') }}
-          </div>
-        </v-card-text>
-
-        <v-card-actions class="d-flex justify-center pb-6">
-          <v-btn
-              large
-              color="primary"
-              class="caption font-weight-bold px-6"
-              @click="navigateAway"
-          >
-            {{ $t('navigation.cash_advancements_btn') }}
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-navigation-drawer>
 </template>
 
@@ -155,8 +125,6 @@ export default {
           { name: this.$t('finance.payments'), icon: 'cash-multiple', to: '/payments', permission: 'payments.index' },
           { name: this.$t('finance.accounts'), icon: 'bank', to: '/accounts', permission: 'payments.index' },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
-          { name: this.$t('navigation.cash_advancements'), icon: 'currency-usd', to: '/payments/#', permission: 'payments.index' },
-          { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           {
             name: this.$t('navigation.legal_documents'),
             icon: 'file-document-multiple-outline',
@@ -178,16 +146,8 @@ export default {
         // //   { name: 'Product Groups', icon: 'apps', to: '/product-groups', permission: 'product-groups.index' },
         //   { name: 'Settings', icon: 'cogs', to: 'settings', },
         // ],
-      },
-      dialogLaunch: false
+      }
     }
-  },
-
-  computed: {
-    name() {
-      const { name } = auth.retrieve("user");
-      return name
-    },
   },
 
   methods: {
@@ -206,14 +166,6 @@ export default {
 
     permitted (link) {
       return auth.can(link.permission)
-    },
-
-    navigateAway() {
-      window.open("https://docs.google.com/forms/d/e/1FAIpQLSe9iGZacrC5RbBb71_kyW1mPNRBC90c7WE6nJh0wjeBVd4jsg/viewform", "_blank")
-    },
-
-    showCashAdvance (itemName) {
-      if (itemName === '/payments/#') this.dialogLaunch = true
     }
   },
 }
@@ -223,27 +175,4 @@ export default {
 .app-toolbar {
   margin-top: 48px;
 }
-</style>
-<style lang="scss" scoped>
-.v-dialog {
-  overflow-x: hidden !important;
-}
- .v-card {
-   &__text {
-    .title {
-      font-size: 20px !important;
-      font-weight: 700;
-      text-align: center;
-    }
-    .v-icon {
-      color: #324BAB;
-      font-size: 80px;
-    }
-   }
-   &__actions {
-     button {
-       text-transform: none;
-     }
-   }
- }
 </style>

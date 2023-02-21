@@ -22,7 +22,11 @@
               @change="setSegmentEvent('Searched an order phrase')"></v-text-field>
         </div>
       </v-card-title>
-      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length > 0" :key="index"
+
+      <v-divider></v-divider>
+
+      <!--      ##### Required/expired documents message #####-->
+      <v-dialog v-for="(document,index) in notificationDocuments" v-if="document.length" :key="index"
                 max-width="600" transition="dialog-top-transition">
         <template v-slot:activator="{ on, attrs }">
           <v-card
@@ -48,14 +52,14 @@
             <div class="d-flex align-center">
               <v-icon class="pr-4" color="error" x-large>mdi-alert-circle</v-icon>
               <v-card-title class="text-h6 pa-0 font-weight-bold">{{
-                  index === "expired" ? "Expiring Document" : "New Documents Required"
+                  index === "expired" ? $t('orders.expiring_document') : $t('orders.new_document_required')
                 }}
               </v-card-title>
             </div>
             <v-card-text>
               <p class="body-1 black--text pt-4">{{ partnerName }}</p>
               <p v-if="index === 'expired'" class="body-1 black--text">
-                The following documents will be expiring soon:
+                {{ $t('orders.expire_message') }}
               </p>
               <div v-else>
                 <p class="body-1 font-weight-medium black--text">
@@ -74,9 +78,8 @@
                 </div>
               </div>
               <p class="body-1 black--text">
-                Please {{ index === "expired" ? "renew them and" : "" }} submit before
-                {{ index === "expired" ? topExpiryDate : topPendingDate }} otherwise you
-                will not be able to service Sendy orders.
+                {{ $t('orders.please') }} {{ index === "expired" ? $t('orders.renew_them') : "" }} {{ $t('orders.submit_before') }}
+                {{ index === "expired" ? topExpiryDate : topPendingDate }} {{ $t('orders.otherwise') }}
               </p>
             </v-card-text>
             <div v-if="index !== 'expired'">
@@ -94,23 +97,21 @@
                   class="body-2 px-14 py-5 my-4 text-capitalize"
                   text
                   @click="dialog.value = false"
-              >Remind me later
-              </v-btn
               >
+                {{ $t('orders.remind_me_later') }}
+              </v-btn>
               <v-btn
                   class="body-2 px-14 py-5 text-capitalize"
                   color="primary"
                   large
                   @click="redirectToUpload"
-              >Upload Document
-              </v-btn
               >
+                {{ $t('orders.upload_document') }}
+              </v-btn>
             </v-card-actions>
           </v-card>
         </template>
       </v-dialog>
-
-      <v-divider></v-divider>
 
       <v-row class="mt-5 mb-1">
         <v-col cols="12" md="6">
@@ -328,7 +329,6 @@ export default {
 
   methods: {
     ...mapActions(["setErrands"]),
-
     redirectToUpload() {
       this.$router.push('/legal-documents')
     },
@@ -356,6 +356,7 @@ export default {
         })
       })
     },
+
     setDateRange({dateFrom, dateTo}) {
       this.setSegmentEvent("Filter Order/Errand Date");
       this.dateFrom = dateFrom;
@@ -501,8 +502,8 @@ export default {
     },
 
     loadErrands() {
-      this.loadingErrands = true;
-      const {id} = auth.retrieve("partner");
+      this.loadingErrands = true
+      const {id} = auth.retrieve("partner")
       this.getDriverIds()
           .then((driverIds) => {
             this.setErrands({
@@ -515,11 +516,7 @@ export default {
                 drivers: driverIds,
               },
             })
-                .then(() => {
-                  this.loadingErrands = false;
-                })
                 .catch((error) => {
-                  this.loadingErrands = false;
                   flash({
                     message: error.response.data.message,
                     color: "#e74c3c",
@@ -533,7 +530,9 @@ export default {
               color: "#e74c3c",
             });
             throw error;
-          });
+          }).finally(() => {
+              this.loadingErrands = false
+          })
     },
   },
 
@@ -650,6 +649,10 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+.required-documents {
+  border: solid 1px #FF6160;
+}
+
 .v-tabs {
   //margin-top: 20px;
 }
