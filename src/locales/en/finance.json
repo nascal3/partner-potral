@@ -103,6 +103,5 @@
   "here": "here",
   "add_extra_account": "+ Add an account",
   "process_failed": "An error occurred. Please try again",
-  "otp_sent": "OTP send to email:",
-  "no_banks_available": "Sorry, No partner banks available currently in your region!"
+  "otp_sent": "OTP send to email:"
 }
