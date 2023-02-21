@@ -14,5 +14,9 @@
   "submitted_documents": "Documents soumis",
   "users": "Utilisateurs ",
   "vehicles": "Véhicules ",
-  "partner_contract": "Contrat partenaire"
+  "partner_contract": "Contrat partenaire",
+  "cash_advancements": "Avance de trésorerie et de carburant.",
+  "cash_advancements_message": "Au fur et à mesure que nous développons cette fonctionnalité, nous souhaitons que vous continuiez à accéder au financement. Nous avons donc créé un formulaire rapide à remplir pour obtenir le financement requis et continuer à traiter les commandes.",
+  "cash_advancements_instruction": "Veuillez le remplir ci-dessous.",
+  "cash_advancements_btn": "Ouvrir le formulaire"
 }
