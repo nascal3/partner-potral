@@ -50,7 +50,6 @@
           v-if="proceed"
           :account-details="newAccountValues"
           @proceed="proceedToOTP"
-          @navigateBack="navigateBack"
           @closeDialog="closeDialog"
       />
     </v-card>
