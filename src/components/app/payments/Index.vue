@@ -19,12 +19,12 @@
       <v-divider></v-divider>
 
       <v-alert
-        v-if="pendingUnsignedContracts"
-        text
-        prominent
-        type="warning"
-        class="mt-5"
-        border="left"
+          v-if="pendingUnsignedContracts"
+          text
+          prominent
+          type="warning"
+          class="mt-5"
+          border="left"
       >
         <v-row align="center">
           <v-col class="grow">
@@ -69,8 +69,8 @@
         >
           <v-tab>{{ $t('finance.tab_transactions') }}</v-tab>
           <v-tab>{{ $t('finance.tab_withdrawals') }}</v-tab>
-<!--          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>-->
-<!--          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>-->
+          <!--          <v-tab>{{ $t('finance.tab_savings') }}</v-tab>-->
+          <!--          <v-tab>{{ $t('finance.tab_repayments') }}</v-tab>-->
           <v-tab>{{ $t('finance.tab_uncleared_earnings') }}</v-tab>
 
           <div class="account-balance">
@@ -107,18 +107,18 @@
           </v-tab-item>
 
           <!--      #####savings tab####-->
-<!--          <v-tab-item>-->
-<!--            <v-container fluid>-->
-<!--              <withdrawal-table/>-->
-<!--            </v-container>-->
-<!--          </v-tab-item>-->
+          <!--          <v-tab-item>-->
+          <!--            <v-container fluid>-->
+          <!--              <withdrawal-table/>-->
+          <!--            </v-container>-->
+          <!--          </v-tab-item>-->
 
           <!--      #####repayments summary tab#####-->
-<!--          <v-tab-item>-->
-<!--            <v-container fluid>-->
-<!--              <withdrawal-table/>-->
-<!--            </v-container>-->
-<!--          </v-tab-item>-->
+          <!--          <v-tab-item>-->
+          <!--            <v-container fluid>-->
+          <!--              <withdrawal-table/>-->
+          <!--            </v-container>-->
+          <!--          </v-tab-item>-->
 
           <!--      #####uncleared earnings summary tab#####-->
           <v-tab-item>

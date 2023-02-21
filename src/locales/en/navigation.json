@@ -12,5 +12,9 @@
   "orders": "Orders",
   "legal_documents": "Legal documents",
   "notifications": "Notifications",
-  "partner_contract": "Partner contract"
+  "partner_contract": "Partner contract",
+  "cash_advancements": "Cash & Fuel Advance",
+  "cash_advancements_message": "As we build out the feature fully, we want you to keep accessing financing, so we have created a quick form for you to fill out to get the required financing and keep servicing orders.",
+  "cash_advancements_instruction": "Please fill it out below.",
+  "cash_advancements_btn": "Open the form"
 }

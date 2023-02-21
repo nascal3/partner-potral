@@ -531,8 +531,8 @@ export default {
             });
             throw error;
           }).finally(() => {
-              this.loadingErrands = false
-          })
+        this.loadingErrands = false
+      })
     },
   },
 
