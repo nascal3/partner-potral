@@ -17,7 +17,6 @@
       </v-card-title>
 
       <v-divider></v-divider>
-
         <v-alert
           v-if="pendingUnsignedContracts"
           text
