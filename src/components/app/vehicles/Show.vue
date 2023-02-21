@@ -29,11 +29,6 @@
             </v-alert>
           </v-col>
         </v-row>
-        <v-row v-else>
-          <p v-show="!vehicle.is_valid" class="body-1 pt-2">Verify this vehicles' documents to assign a driver</p>
-          <p v-show="vehicle.driver === null && vehicle.is_valid" class="body-1 black--text pt-9">This vehicle is not
-            assigned to a driver.</p>
-        </v-row>
 
         <v-row>
           <v-col

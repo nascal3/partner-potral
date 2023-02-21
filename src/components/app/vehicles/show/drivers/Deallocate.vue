@@ -13,14 +13,14 @@
           color="primary"
           size="40"
       >
-        {{ transporter.driver.name.charAt(0) }}
+        {{ transporter.driver_details.name.charAt(0) }}
       </v-list-item-avatar>
       <v-list-item-content>
         <v-list-item-title class="subtitle-1">
-          {{ transporter.driver.name }}
+          {{ transporter.driver_details.name }}
         </v-list-item-title>
         <v-list-item-subtitle class="primary--text body-2">
-          {{ transporter.driver.email }}
+          {{ transporter.driver_details.email }}
         </v-list-item-subtitle>
       </v-list-item-content>
 
@@ -57,7 +57,7 @@
           <p>
             {{
               $t('vehicles.deallocate_driver_message', {
-                name: transporter.driver.name,
+                name: transporter.driver_details.name,
                 registration_number: transporter.vehicle.registration_number
               })
             }}

@@ -3,7 +3,7 @@
   "allocate": "Allocate",
   "allocate_driver": "Manage driver",
   "detach_driver": "Detach driver",
-  "current_driver": "Current driver",
+  "current_driver": "Current drivers",
   "deallocate_driver": "Deallocate Driver",
   "deallocate_driver_message": "Are you sure you want to remove {name} from the vehicle {registration_number} ",
   "deallocate_driver_warning": "This action is irreversible! Please proceed with caution",
