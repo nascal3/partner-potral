@@ -198,14 +198,12 @@ export default {
           message: response.data.message,
           color: '#e74c3c'
         })
-        this.navigateBack()
       }).catch(error => {
         this.setSegmentEvent('Failed to add a payout account ')
         flash({
           message: error.data.message,
           color: '#e74c3c'
         })
-        this.navigateBack()
       }).finally(() => {
         this.loading = false
       })
@@ -229,14 +227,12 @@ export default {
           message: response.data.message,
           color: '#e74c3c'
         })
-        this.navigateBack()
       }).catch(error => {
         this.setSegmentEvent('Failed to updated a payout account ')
         flash({
           message: error.data.message,
           color: '#e74c3c'
         })
-        this.navigateBack()
       }).finally(() => {
         this.loading = false
       })

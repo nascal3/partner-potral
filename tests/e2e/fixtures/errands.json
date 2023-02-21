@@ -1,17 +1,26 @@
-[
-    {
-        "errandId": "E-UQX-32024-KFC",
-        "status": "MATCHING",
-        "date": "2022-11-21T07:43:52Z"
-    },
-    {
-        "errandId": "E-MHD-33742-YTU",
-        "status": "MATCHING",
-        "date": "2022-11-21T07:43:53Z"
-    },
-    {
-        "errandId": "E-SRB-35251-FDB",
-        "status": "MATCHING",
-        "date": "2022-11-21T07:43:55Z"
-    }
-]
+{
+    "status": true,
+    "message": "success",
+    "data": [
+        {
+            "transporter_uuid": "808da0aa-7028-4664-830c-e3a2114c175e",
+            "errands": [
+                {
+                    "errandId": "E-YFV-33095-GQL",
+                    "status": "COMPLETE",
+                    "date": "2022-12-20T11:03:44Z"
+                }
+            ]
+        },
+        {
+            "transporter_uuid": "808da0aa-7028-4664-830c-e3a2114c175e",
+            "errands": [
+                {
+                    "errandId": "E-YFV-33096-GQL",
+                    "status": "COMPLETE",
+                    "date": "2022-12-20T11:03:44Z"
+                }
+            ]
+        }
+    ]
+}

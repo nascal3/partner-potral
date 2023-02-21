@@ -154,7 +154,6 @@ export default {
           { name: this.$t('navigation.orders'), icon: 'package-variant', to: '/orders', permission: 'orders.index' },
           { name: this.$t('finance.payments'), icon: 'cash-multiple', to: '/payments', permission: 'payments.index' },
           { name: this.$t('finance.accounts'), icon: 'bank', to: '/accounts', permission: 'payments.index' },
-          { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           { name: this.$t('navigation.cash_advancements'), icon: 'currency-usd', to: '/payments/#', permission: 'payments.index' },
           { name: this.$t('navigation.vehicles'), icon: 'truck', to: '/vehicles', permission: 'vehicles.index' },
           {

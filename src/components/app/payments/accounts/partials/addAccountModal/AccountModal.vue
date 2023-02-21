@@ -23,10 +23,10 @@
         </h2>
         <v-spacer></v-spacer>
         <v-btn
-          icon
-          small
-          color="red"
-          @click="closeDialog"
+            icon
+            small
+            color="red"
+            @click="closeDialog"
         >
           <v-icon small color="red">mdi-close</v-icon>
         </v-btn>
