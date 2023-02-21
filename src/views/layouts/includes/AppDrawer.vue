@@ -185,7 +185,7 @@ export default {
   computed: {
     name() {
       const { name } = auth.retrieve("user");
-      return name
+      return name === "PARTNER NAME PLACEHOLDER" ? 'Sendy Partner' : name
     },
   },
 
