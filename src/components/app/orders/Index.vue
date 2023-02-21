@@ -316,6 +316,7 @@ export default {
 
   methods: {
     ...mapActions(["setErrands"]),
+
     redirectToUpload() {
       this.$router.push('/legal-documents')
     },
