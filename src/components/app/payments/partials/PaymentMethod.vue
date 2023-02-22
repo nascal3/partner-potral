@@ -20,7 +20,7 @@
               :key="method.operator_id"
               :value="method"
               class="rounded-lg"
-              :class="{ active: selectedPaymentMethod?.operator_id === method.operator_id }"
+              :class="{ active: selectedPaymentMethod?.id === method.id }"
               @click="setSegmentEvent(`Select ${method.operator_name} payment method`)"
           >
             <template v-slot:label>
