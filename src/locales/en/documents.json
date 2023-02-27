@@ -65,5 +65,6 @@
   "contract_title": "Partner contract",
   "download_contract": "Download contract",
   "contract_unavailable": "No contract available!",
-  "contract_signed": "Contract already signed"
+  "contract_signed": "Contract already signed",
+  "registration_number": "Registration number"
 }
