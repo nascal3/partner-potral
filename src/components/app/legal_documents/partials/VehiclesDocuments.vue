@@ -87,6 +87,7 @@ export default {
       page: 1,
       headers: [
         { text: this.$t('documents.document_active_status'), value: 'status' },
+        { text: this.$t('documents.registration_number'), value: 'vehicle.registration_number' },
         { text: this.$t('documents.document_name'), value: 'document.label' },
         { text: this.$t('documents.document_country'), value: 'document.country_id' },
         { text: this.$t('documents.document_resource'), value: 'document.resource' },
@@ -133,7 +134,8 @@ export default {
     setQueryParams () {
       const params = {
         status: this.status,
-        document_resource:  'vehicle'
+        document_resource:  'vehicle',
+        relationships:  'vehicle'
       }
       Object.keys(params).forEach((k) => params[k] == null && delete params[k]);
       this.queryParams = params
