@@ -9,7 +9,11 @@
         </div>
         <v-spacer></v-spacer>
 
-        <withdraw-modal v-if="allowWithdraw" :accountBalance="{currency, balance}" />
+        <withdraw-modal
+            v-if="allowWithdraw"
+            :accountBalance="{currency, balance}"
+            @reloadAccountBalance="reloadAccountBalance"
+        />
         <div v-else class="withdraw-text" v-animate-css.click="'rubberBand'">
           {{ $t('finance.next_withdrawal_date') }} {{ friendlyDateFormat }}
         </div>
@@ -43,7 +47,24 @@
         </v-col>
         <v-col md="6" cols="12" class="top-account-balance">
           <div class="d-flex flex-column justify-end align-end mr-4">
-            <div class="small-text">{{ $t('finance.account_balance') }}</div>
+            <div class="small-text">
+              {{ $t('finance.account_balance') }}
+              <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                      v-if="reloadAlert"
+                      v-bind="attrs"
+                      v-on="on"
+                      color="'#FBBC04'"
+                      icon
+                      x-small
+                  >
+                    <v-icon>mdi-alert-circle</v-icon>
+                  </v-btn>
+                </template>
+                <span>{{ $t('finance.account_alert') }}</span>
+              </v-tooltip>
+            </div>
 
             <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
               <span class="mr-2 mt-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
@@ -75,7 +96,24 @@
 
           <div class="account-balance">
             <div class="d-flex flex-column justify-end align-end mr-4">
-              <div class="small-text">{{ $t('finance.account_balance') }}</div>
+              <div class="small-text">
+                {{ $t('finance.account_balance') }}
+                <v-tooltip top>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                        v-if="reloadAlert"
+                        v-bind="attrs"
+                        v-on="on"
+                        color="'#FBBC04'"
+                        icon
+                        x-small
+                    >
+                      <v-icon>mdi-alert-circle</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>{{ $t('finance.account_alert') }}</span>
+                </v-tooltip>
+              </div>
 
               <div v-if="initialised" class="d-flex currency-text" v-animate-css.click="'rubberBand'">
                 <span class="mr-2">{{ currency }}</span> {{ thousandSeparator(balance) }}
@@ -154,7 +192,8 @@ export default {
 
   data() {
     return {
-      loading: true
+      loading: true,
+      reloadAlert: false
     }
   },
 
@@ -229,6 +268,11 @@ export default {
       'setAccountBalance',
       'setPendingContractDocuments',
     ]),
+
+    reloadAccountBalance(value) {
+      this.reloadAlert = value
+      if (value) this.loadAccountBalance()
+    },
 
     signContract() {
       this.setSegmentEvent('Redirected to sign partner contract')
@@ -346,6 +390,12 @@ export default {
 .small-text {
   font-weight: 700;
   font-size: 10px;
+
+  .v-icon {
+    color: #FBBC04;
+    font-size: 18px;
+    cursor: pointer;
+  }
 }
 .currency-text {
   font-weight: 700;

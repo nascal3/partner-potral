@@ -89,7 +89,7 @@ export default {
     }),
 
     initialised () {
-      return this.withdrawals.owner_withdrawals && this.withdrawals.owner_withdrawals.length
+      return this.withdrawals?.owner_withdrawals?.length > 0
     },
 
     withdrawalRecords() {
