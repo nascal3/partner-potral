@@ -107,5 +107,6 @@
   "here": "ici",
   "add_extra_account": "+ Ajouter un compte",
   "process_failed": "Une erreur s'est produite. Veuillez réessayer",
-  "otp_sent": "OTP envoyer à l'e-mail:"
+  "otp_sent": "OTP envoyer à l'e-mail:",
+  "account_alert": "Veuillez recharger la page pour afficher un solde précis!"
 }

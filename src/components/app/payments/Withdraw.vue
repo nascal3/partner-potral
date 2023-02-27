@@ -162,6 +162,7 @@ export default {
             .then(response => {
               this.setSegmentEvent(`Withdrawal Success - ${this.withdrawAmount}`, params)
               flash({...response, color: '#38c172'})
+              this.$emit('reloadAccountBalance', true)
               this.dialogLaunch = false
             })
             .catch(error => {
