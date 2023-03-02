@@ -181,7 +181,7 @@ export default {
     },
 
     goToAccounts () {
-      this.$router.push({ name: 'accounts.index' })
+      this.$router.push({ path: '/accounts?dialog=open' })
     },
 
     navigateBack () {

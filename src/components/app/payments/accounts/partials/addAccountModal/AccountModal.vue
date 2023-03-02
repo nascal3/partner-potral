@@ -60,6 +60,12 @@
 import segmentMixin from "@/mixins/segmentEvents"
 
 export default {
+  props: {
+    showDialog: {
+      type: Boolean,
+      default: false
+    },
+  },
   mixins: [segmentMixin],
   components: {
     'account-details': () => import('./AccountDetails.vue'),
@@ -75,6 +81,12 @@ export default {
       selectedPaymentMethod: null,
       newAccountValues: {},
       proceed: false
+    }
+  },
+
+  watch: {
+    showDialog(newValue) {
+      this.dialogLaunch = newValue
     }
   },
 

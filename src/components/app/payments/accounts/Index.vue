@@ -9,7 +9,7 @@
         </div>
         <v-spacer></v-spacer>
 
-        <add-account-modal/>
+        <add-account-modal :show-dialog="openAddAccountModal"/>
 
       </v-card-title>
 
@@ -67,6 +67,7 @@ export default {
   data() {
     return {
       loading: true,
+      openAddAccountModal: false,
       headers: [
         { text: this.$t('finance.tbl_account_type'), value: 'category' },
         { text: this.$t('finance.tbl_account'), value: 'operator_name' },
@@ -89,6 +90,11 @@ export default {
       "setSavedPayoutAccounts",
       "setPayoutBanks"
     ]),
+
+    showAddAccountModal (itemName) {
+      const dialog = this.$route?.query?.dialog
+      if (dialog === 'open') this.openAddAccountModal = true
+    },
 
     setChipColor (orderStatus) {
       const colorMap = {
@@ -143,6 +149,7 @@ export default {
   },
 
   mounted() {
+    this.showAddAccountModal()
     this.loadPayoutAccounts()
     this.loadPayoutBanks()
   }
