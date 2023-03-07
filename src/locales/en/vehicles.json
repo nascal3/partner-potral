@@ -33,5 +33,6 @@
   "vendor_type": "Vehicle type",
   "verified": "Verified",
   "warning": "<b>WARNING!</b> Once saved, vehicle details cannot be changed",
-  "yes": "Yes"
+  "yes": "Yes",
+  "assign_driver": "Assign Driver"
 }

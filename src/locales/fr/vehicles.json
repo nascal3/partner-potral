@@ -33,5 +33,6 @@
   "vendor_type": "Type de véhicule",
   "verified": "Vérifié ",
   "warning": "<b>ATTENTION !</b> Une fois enregistré, les détails du véhicule ne peuvent pas être modifiés",
-  "yes": "Oui "
+  "yes": "Oui ",
+  "assign_driver": "Attribuer un chauffeur"
 }

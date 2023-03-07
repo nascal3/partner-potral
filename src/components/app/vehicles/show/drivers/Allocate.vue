@@ -34,7 +34,7 @@
                 class="white--text ml-6 text-capitalize"
                 color="indigo"
                 small
-            > Assign Driver
+            > {{ $t('vehicles.assign_driver') }}
             </v-btn>
           </v-list-item-action>
         </v-list-item>
