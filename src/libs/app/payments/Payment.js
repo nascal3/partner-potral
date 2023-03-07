@@ -19,7 +19,7 @@ export default class Payment extends Base {
           'operator_id',
           'amount'
         ])
-        let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/withdraw`), data)
+        let response = await this.form.submit('post', url(`partners/${this.group.id}/finances/payout/withdraw`), data)
         this.setFields(fields)
         resolve(response)
       } catch (err) {
