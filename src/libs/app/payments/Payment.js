@@ -88,7 +88,7 @@ export default class Payment extends Base {
           'country_code'
         ])
         let response = await this.form.submit("post", url(
-            `partners/${this.group.id}/finances/payout/accounts`
+            `partners/${this.group.id}/finances/payout/account`
         ), data)
         resolve(response)
       } catch (err) {
@@ -106,7 +106,7 @@ export default class Payment extends Base {
           'operator_name'
         ])
         let response = await this.form.submit("put", url(
-            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+            `partners/${this.group.id}/finances/payout/account/${account_id}`
         ), data)
         resolve(response)
       } catch (err) {
@@ -119,7 +119,7 @@ export default class Payment extends Base {
     return new Promise(async (resolve, reject) => {
       try {
         let response = await this.form.submit("delete", url(
-            `partners/${this.group.id}/finances/payout/accounts/${account_id}`
+            `partners/${this.group.id}/finances/payout/account/${account_id}`
         ))
         resolve(response)
       } catch (err) {
